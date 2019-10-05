@@ -169,7 +169,7 @@ namespace WebApps.CommonFunction
                 _content = "<div style='padding:1px;font-family:Roboto, sans-serif; font-size:14px;color:#5a5a5a'>" +
                                "<div style = 'overflow: hidden;'>" +
                                    "<div style = 'width:100%; text-align: right; overflow: hidden;'>" +
-                                                      "<img class='responsive' style='width:auto;height: 110px;'src='https://pathlaw.net/Content/News/images/logo_ipace.png'/>" +
+                                                      "<img class='responsive' style='width:auto;height: 110px;'src='https://pathlaw.net/Content/News/images/logo_ipace.webp'/>" +
                                                         "<div style='padding: 7px 15px 7px 0 ;'>ACCESS.IP SOLUTION</div>" +
                                    "</div>" +
                                    "<div style = 'width:100%;'>" +

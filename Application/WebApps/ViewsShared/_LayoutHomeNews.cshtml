@@ -23,14 +23,14 @@
     Sys_Pages_Info _pageInfo_watching = objBL.Sys_Pages_GetBy_Code("iWatching");
 
 
-    string _content_home_1 =  _pageInfo!= null ?_pageInfo.Content:"";
+    string _content_home_1 = _pageInfo != null ? _pageInfo.Content : "";
     string _content_home_2 = _pageInfo_2 != null ? _pageInfo_2.Content : "";
     string _content_home_3 = _pageInfo_3 != null ? _pageInfo_3.Content : "";
 
-    string iSearching = _pageInfo_search != null ? _pageInfo_search.Content : ""; 
-    string iFilling = _pageInfo_filling != null ? _pageInfo_filling.Content : ""; 
-    string iWatching = _pageInfo_watching != null ? _pageInfo_watching.Content : "";  
-    
+    string iSearching = _pageInfo_search != null ? _pageInfo_search.Content : "";
+    string iFilling = _pageInfo_filling != null ? _pageInfo_filling.Content : "";
+    string iWatching = _pageInfo_watching != null ? _pageInfo_watching.Content : "";
+
 
     if (_LanguageCode != "VI_VN")
     {
@@ -52,7 +52,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>Following the Rule of Law</title>
-    <link href="~/Content/News/Css/register.css" rel="stylesheet" />
+    @*<link href="~/Content/News/Css/register.css" rel="stylesheet" />*@
     <link href=@($"/Content/News/Css/main.css?v={CommonVariables.AssemblyVersion}") rel="stylesheet" />
 
     <link href="~/Content/News/Css/bootstrap.css" rel="stylesheet" />
@@ -61,16 +61,19 @@
     <link href="~/Content/News/Css/learndash_template_style.css" rel="stylesheet" />
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/jquery-ui-1.10.2.min.js"></script>
-    <script src="~/Scripts/messagebox/JsFormPopup.js"></script>
-    <script src="~/Scripts/messagebox/popup.js"></script>
+
+    @*<script src="~/Scripts/messagebox/JsFormPopup.js"></script>
+        <script src="~/Scripts/messagebox/popup.js"></script>*@
+
     <link href="~/Content/News/Css/css.css" rel="stylesheet" />
-    <script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
-    <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
-    <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
-    <script src="~/Scripts/nvs.jquery.alert.js"></script>
+    @*<script src="~/Scripts/AlertPopup/NVSAlerts.js"></script>
+        <link href="~/Scripts/AlertPopup/NVSAlertCss.css" rel="stylesheet" />
+        <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
+        <script src="~/Scripts/nvs.jquery.alert.js"></script>*@
 
     <link rel="icon" href="~/Content/News/images/favicon.ico">
 </head>
+
 <body>
     <div class="c-transitions js-transitions">
         <div class="c-transitions_mask"></div>
@@ -87,10 +90,10 @@
         <!--[bg ngoai]-->
         <div class="o-barba_frame" data-module="Frame">
             <div class="o-barba_frame-paralax js-parallax" style="transform: translate3d(0px, 0px, 0px);">
-                <div class="o-background" style="background-image:url(/Content/News/images/frame-blue.png)"></div>
+                <div class="o-background" style="background-image:url(/Content/News/images/frame-blue.webp)"></div>
             </div>
             <div class="o-barba_frame-paralax js-parallax" style="transform: translate3d(0px, 0px, 0px);">
-                <div class="o-background" style="background-image:url(/Content/News/images/frame-red.png)"></div>
+                <div class="o-background" style="background-image:url(/Content/News/images/frame-red.webp)"></div>
             </div>
         </div>
         <!--[end bg ngoai]-->
@@ -101,8 +104,8 @@
                 <div class="c-header-mobile_logo">
                     <a class="c-header-mobile_logo-link" href="javascript:;" aria-label="tên công ty" onclick="return  funcHome();">
                         <figure class="c-header-mobile_logo_img" aria-hidden="true">
-                            <img class="c-header-mobile_logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
-                            <img class="c-header-mobile_logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
+                            <img class="c-header-mobile_logo_svg-color" src="/Content/News/images/logo_ipace-1.webp">
+                            <img class="c-header-mobile_logo_svg-white" src="/Content/News/images/logo_ipace-1.webp">
                         </figure>
                     </a>
                 </div>
@@ -117,14 +120,14 @@
                     <div class="c-header_nav-logo">
                         <a class="c-header_nav-logo-link" href="javascript:;" aria-label="tên công ty" data-transition="full" onclick="funcHome()">
                             <figure class="c-header_nav-logo_img" aria-hidden="true">
-                                <img class="c-header_nav-logo_svg-color" src="/Content/News/images/logo_ipace-1.png">
-                                <img class="c-header_nav-logo_svg-white" src="/Content/News/images/logo_ipace-1.png">
+                                <img class="c-header_nav-logo_svg-color" src="/Content/News/images/logo_ipace-1.webp">
+                                <img class="c-header_nav-logo_svg-white" src="/Content/News/images/logo_ipace-1.webp">
                             </figure>
                         </a>
                     </div>
                     <!--[Menutop + mobi]-->
                     <ul id="menu-main-menu" class="c-header_nav-list u-list-reset">
-                         
+
                         @Html.Partial("~/ViewsShared/_PartialSinginSignupDestop.cshtml")
 
 
@@ -205,7 +208,7 @@
                                                 <div class="c-navleft_logo">
                                                     <a class="c-navleft_logo-link" href="javscript:;" onclick="return funcHome();" data-transition="full">
                                                         <figure class="c-navleft_logo-figure">
-                                                            <img src="/Content/News/images/logo_ipace.png" alt="" aria-hidden="true">
+                                                            <img src="/Content/News/images/logo_ipace.webp" alt="" aria-hidden="true">
                                                         </figure>
                                                     </a>
                                                 </div>
@@ -251,18 +254,12 @@
                                                         <div class="c-carousel_circle-shape -red js-circle1" style="transform: translate3d(16.7475px, 13.9599px, 0px);"></div>
                                                     </div>
                                                     <div class="c-carousel_circle">
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/001.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
+                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/001.webp); transform: translate3d(-5.58249px, -4.65331px, 0px);">
                                                         </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-leave" style="background-image: url(/Content/News/images/002.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
+                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-leave" style="background-image: url(/Content/News/images/002.webp); transform: translate3d(-5.58249px, -4.65331px, 0px);">
                                                         </div>
-                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-enter" style="background-image: url(/Content/News/images/006.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
+                                                        <div class="c-carousel_circle-shape -content o-background js-circle2 js-image is-enter" style="background-image: url(/Content/News/images/006.webp); transform: translate3d(-5.58249px, -4.65331px, 0px);">
                                                         </div>
-                                                        @*<div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/004.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                            </div>
-                                                            <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/005.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                            </div>
-                                                            <div class="c-carousel_circle-shape -content o-background js-circle2 js-image" style="background-image: url(/Content/News/images/006.png); transform: translate3d(-5.58249px, -4.65331px, 0px);">
-                                                            </div>*@
                                                     </div>
                                                 </div>
 
@@ -331,13 +328,13 @@
                                             <div class="c-accordion-block_header js-dropdown-toggle">
                                                 <h2 class="c-accordion-block_title">i-Searching:</h2>
                                                 <figure class="c-accordion-block_icon">
-                                                    <i class="fa fa-plus-square-o" aria-hidden="true" style=" color #666;font-size 16px;"></i>
+                                                    <i class="fa fa-plus-square-o" aria-hidden="true" style=" color:#666;font-size:16px;"></i>
                                                 </figure>
                                             </div>
                                             <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
                                                 @Html.Raw(iSearching)
                                                 <p>&nbsp;</p>
-                                                <p style="text-align: center;"><img class="aligncenter" src="/Content/News/images/1.png" alt=""></p>
+                                                <p style="text-align: center;"><img class="aligncenter" src="/Content/News/images/1.webp" alt=""></p>
                                                 <p>&nbsp;</p>
                                             </div>
                                         </div>
@@ -348,13 +345,13 @@
                                             <div class="c-accordion-block_header js-dropdown-toggle">
                                                 <h2 class="c-accordion-block_title">i-Filing</h2>
                                                 <figure class="c-accordion-block_icon">
-                                                    <i class="fa fa-plus-square-o" aria-hidden="true" style=" color #666;font-size 16px;"></i>
+                                                    <i class="fa fa-plus-square-o" aria-hidden="true" style=" color:#666;font-size:16px;"></i>
                                                 </figure>
                                             </div>
                                             <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
                                                 @Html.Raw(iFilling)
                                                 <p>&nbsp;</p>
-                                                <p style="text-align: center;"><img class="aligncenter" src="/Content/News/images/2.png" alt=""></p>
+                                                <p style="text-align: center;"><img class="aligncenter" src="/Content/News/images/2.webp" alt=""></p>
                                                 <p>&nbsp;</p>
                                             </div>
                                         </div>
@@ -371,7 +368,7 @@
                                             <div class="c-accordion-block_content s-wysiwyg js-dropdown-content">
                                                 @Html.Raw(iWatching)
                                                 <p>&nbsp;</p>
-                                                <p style="text-align: center;"><img class="alignnone" src="/Content/News/images/3.png" alt=""></p>
+                                                <p style="text-align: center;"><img class="alignnone" src="/Content/News/images/3.webp" alt=""></p>
                                                 <p>&nbsp;</p>
                                             </div>
                                         </div>
@@ -379,68 +376,6 @@
 
 
                                 </div>
-
-                                <div class="join-us" style="margin-top:50px;display:none">
-                                    <div class="container">
-                                        <div class="container-fluid">
-                                            <div class="title" style="padding-top: 15px;float: left;">
-                                                <span style="text-transform: unset;">
-                                                    <p>
-                                                        @WebApps.Resources.Resource.lblDangKy
-                                                    </p>
-                                                </span>
-                                            </div>
-                                            @*<form method="POST"  >*@
-                                            <div class="row join-us-form form-row">
-                                                <div class="col-md-10">
-                                                    <div class="row">
-                                                        <div class="col-md-2">
-                                                            <span class="firt-name">
-                                                                <input type="text" name="FNAME" id="txtFNAME" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.First_Name" required="required" maxlength="30">
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <span class="last-name">
-                                                                <input type="text" name="LNAME" id="txtLNAME" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.Last_Name" required="required" maxlength="30">
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <span class="your-company">
-                                                                <input type="text" name="PHONE" id="txtPHONE" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.Phone" required="required" maxlength="50">
-                                                            </span>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <span class="your-email">
-                                                                <input type="email" name="EMAIL" id="txtEmail" value="" size="40" class="required join-us-input" aria-invalid="false" placeholder="Email" required="required" maxlength="50">
-                                                            </span>
-                                                        </div>
-
-                                                        <div class="col-md-2">
-                                                            <span class="your-company">
-                                                                <input type="text" name="COMPANY" id="txtCOMPANY" value="" size="40" class="required join-us-input" aria-required="true" aria-invalid="false" placeholder="@WebApps.Resources.Resource.Company" maxlength="50">
-                                                            </span>
-                                                        </div>
-
-                                                        <p></p>
-                                                    </div>
-                                                    <p></p>
-                                                </div>
-                                                <div class="col-md-2">
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <input type="submit" id="btnSignUp" onclick="return funcRegister();" value="@WebApps.Resources.Resource.lblSignup" class="join-us-button join-us-button-text button">
-                                                            <span class="ajax-loader"></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="msg-success sent-ok"></div>
-                                            @*</form>*@
-                                        </div>
-                                    </div>
-                                </div>
-
-
 
                                 <footer id="main-footer" class="c-footer js-animate">
                                     <div class="c-footer_wrap-head o-layout -middle">
