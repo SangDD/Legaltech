@@ -1,9 +1,12 @@
-﻿@using ObjectInfos
-@using ObjectInfos.ModuleTrademark
-@using Common.Extensions;
-@using Common.CommonData;
+﻿@using Common.CommonData
+@using WebApps.CommonFunction;
+@using BussinessFacade.ModuleMemoryData
 @using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@using ObjectInfos
+@using ObjectInfos.ModuleTrademark
 @{
+    string language = AppsCommon.GetCurrentLang();
     ViewBag.Title = Resource.TM2B_TitleEdit;
     Layout = "~/ViewsShared/_Layout.cshtml";
     List<App_Class_Info> _list = new List<App_Class_Info>();
@@ -43,12 +46,7 @@
         _01_rdnghidinh_thoa_uoc_madrid = "checked='checked'";
     }
 
-    string urlMauNhanHieu = "/Content/icons/logo.jpg";
-    if (!string.IsNullOrEmpty(objAppHeaderInfo.LOGOURL))
-    {
-
-        urlMauNhanHieu = objAppHeaderInfo.LOGOURL.Replace("~", "");
-    }
+  
 
     string _01_rad_DonDK = "";
     string _01_rad_GiayDK = "";
@@ -71,7 +69,7 @@
     {
         dic_appDoc[item.Document_Id] = item;
     }
-    ViewBag.Isdisable = 1;
+ 
 
     B_Todos_Info _todo = new B_Todos_Info();
     if (ViewBag.B_Todos_Info != null)
@@ -82,8 +80,33 @@
     {
         _todo = null;
     }
-}
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
 
+        if (language == Language.LangVI)
+        {
+            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
+    string urlMauNhanHieu = "/Content/images/Noimg.jpg";
+    if (!string.IsNullOrEmpty(objAppHeaderInfo.LOGOURL))
+    {
+        urlMauNhanHieu = objAppHeaderInfo.LOGOURL.Replace("~", "");
+    }
+}
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
 <script>
@@ -116,13 +139,19 @@
             margin: 9px 5px 0px 7px;
         }
 </style>
-<script src="~/Scripts/ScriptsLoadClassInfo.js"></script>
-@*<div class="d-nav-container">
-        <ul class="ul-nav">
-            <li><a href="javascript:;">TradeMark</a></li>
-            <li><a href="javascript:;"> @Resource.TM2B_Formname</a></li>
-        </ul>
-    </div>*@
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
 
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -143,7 +172,7 @@
 <div class="d-popup-container" id="pop-sua-doi_dk"></div>
 
 <input type="hidden" id="txtAppCode" value='@TradeMarkAppCode.AppCodeDangKyQuocTeNH' />
-
+<input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
@@ -182,24 +211,29 @@
 
         <div class="class_full_div_input">
             <div class="class_left_40">
-                <div class="class_block_title" style="padding-top:5px; "><label>@Resource.TM2B_MauNhanHieu:</label> </div>
-                <div class="class_block_title_control" style="display:flex">
-                    <div style="width:180px ;height:180px" id="divLogo">
+                <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
+                    <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo" class="divLogoAnh">
                         <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                        <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                     </div>
-                    <div class="container" style="display:none">
-                        <div class="file-upload btn btn-primary" style="margin-top:86px">
-                            <span>@Resource.TM2B_taifile</span>
+                    <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
+                        <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
+                        <div class="file-upload btn btn-primary" style="margin-top:95px">
+                            <span>@WebApps.Resources.Resource.lblTaiFile</span>
                             <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                         </div>
                     </div>
                 </div>
+                <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
+                <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+                   data-title="@Resource.TooltipSizeofImage"></a>
             </div>
+
             <div class="class_right_60">
                 <div class="div-search-ad">
                     <div class="div-search-content">
                         <div class="div-radio" style="width:400px">
-                            <input @_01_rad_DonDK type="radio" name="_01_rad_DonDkOrGiayDK" value="DONDK" id="_01_rad_DonDK" placeholder=" rad_DonDK" />
+                            <input @_01_rad_DonDK type="radio" name="_01_rad_DonDkOrGiayDK" value="DONDK" id="_01_rad_DonDK" placeholder="rad_DonDK" />
                             <label>@Resource.TM2B_dondangkynhanhieucs</label>
                         </div>
                     </div>
@@ -214,52 +248,68 @@
 
                 <div class="div-search-ad">
                     <div class="div-search-title">
-                        <div>@Resource.TM2B_sodon</div>
+                        <div>Tìm kiếm số đơn</div>
                     </div>
                     <div class="div-search-content">
                         <div>
-                            @*<input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" maxlength="100" />*@
-                            @*<select id="cbo_04nh_data" onchange="chooseApp2a($(this).val())">
-                                    @foreach (var item in _List04nhdetail)
+                            <select id="cbo_04nh_data" onchange="chooseApp2a($(this).val())">
+                                @foreach (var item in _List04nhdetail)
+                                {
+                                    if (item.Appno == objAppHeaderInfo.REF_APPNO)
                                     {
-                                        if (item.App_Header_Id.ToString() == objAppHeaderInfo.REF_APPNO)
-                                        {
-                                            <option selected="selected" value="@item.App_Header_Id">
-                                                @item.Appno
-                                            </option>
-                                        }
-                                        else
-                                        {
-                                            <option value="@item.App_Header_Id">
-                                                @item.Appno
-                                            </option>
-                                        }
-
+                                        <option selected value="@item.App_Header_Id">
+                                            @item.Appno
+                                        </option>
                                     }
-                                </select>*@
-                            <input type="text" id="cbo_04nh_data" placeholder="cbo_04nh_data" readonly value="@objAppHeaderInfo.REF_APPNO" style="display:none" />
-                            <input type="text" id="cbo_04nh_data_text" placeholder="cbo_04nh_data" readonly value="@objAppHeaderInfo.REF_APPNO_TEXT" />
+                                    else
+                                    {
+                                        <option value="@item.App_Header_Id">
+                                            @item.Appno
+                                        </option>
+                                    }
 
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="div-search-title">
+                        <div style="width:200px">Số đơn/Số GCN</div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" class="" id="_1_txtSoDonGCN" maxlength="100" value="@objAppHeaderInfo.REF_APPNO" />
                         </div>
                     </div>
 
+                </div>
+                <div class="div-search-ad">
                     <div class="div-search-title">
                         <div style="width:200px">@Resource.TM2B_Ngaynopdon</div>
                     </div>
                     <div class="div-search-content">
                         <div>
-                            <input value="@objAppHeaderInfo.Send_Date.ToString("dd/MM/yyyy")" type="text" class="datepicker" id="_1_txtNgayNopDon" placeholder="@Resource.TM2B_Ngaynopdon" maxlength="10" readonly />
+                            <input class="datetimepicker" type="text" id="_1_txtNgayNopDon" maxlength="10"
+                                   value="@(objAppHeaderInfo.NGAYNOPDON == DateTime.MinValue ? "" : objAppHeaderInfo.NGAYNOPDON.ToString("dd/MM/yyyy"))" />
                         </div>
                     </div>
                 </div>
             </div>
-
+          
         </div>
 
 
 
 
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTMAddAppClass.cshtml")
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@Resource.TM3C_MaDaiDien:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtMADDSHCN" value="@objAppHeaderInfo.Customer_Code" />
+                </div>
+            </div>
+        </div>
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -268,10 +318,15 @@
             </div>
         </div>
 
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
+        <div id="div_PartialThongTinChuDon">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
+        </div>
 
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "_2")
 
+        <div id="div_appclass_Tm06">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+        </div>
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -282,25 +337,6 @@
 
 
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialDanhSachQuocGiaDKQTNH.cshtml", "_4")
-
-        @*<div class="divCover cls_form_title" style="display:none">
-                <img src="~/Content/icons/category.png" />
-                <div class="cls_form_header">
-                    5.PHÍ, LỆ PHÍ
-                </div>
-            </div>*@
-
-
-        <div class="div-search-ad" style="display:none">
-            <div class="div-search-title">
-                <div style="width:450px">@Resource.TM2B_PhiDichVu </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="_5_txtLePhiDangKy" maxlength="20" id="_5_txtLePhiDangKy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@objAppHeaderInfo.LEPHI.ToNumberString()" />
-                </div>
-            </div>
-        </div>
 
 
 
@@ -554,250 +590,345 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
         }
 
-        <div style="display:none">
-
-
-            <div class="divCover cls_form_title">
-                <img src="~/Content/icons/category.png" />
-                <div class="cls_form_header">
-                    @Resource.DanhChoLuatSu
-                </div>
-            </div>
-
-            @{
-                try
-                {
-                    _checked = "";
-                    _disabled = "";
-                    _doc_id = "C06DKQT_D_01";
-                    _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
-                    _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-                    _model = _id + ";" + _value;
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
-
-                }
-                catch (Exception)
-                {
-
-                    _checked = "";
-                    _disabled = "";
-                    _doc_id = "C06DKQT_D_01";
-                    _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
-                    _value = "0|||";
-                    _model = _id + ";" + _value;
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
-
-                }
-            }
-
-            @* 2. mẫu đăng ký của văn phòng quốc tế *@
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div>
-                        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTaiLieuTrongDonFileInput.cshtml", "_6_rdoToKhai")
-                    </div>
-                </div>
-            </div>
-            @{
-
-                _doc_id = "C06DKQT_D_02";
-                _id = _doc_id + "|6_MauDKVPQuocTe|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
-                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-                _model = _id + ";" + _value;
+        @{
+            try
+            {
                 _checked = "";
                 _disabled = "";
-                if (dic_appDoc[_doc_id].Isuse.ToString().Trim() == "1")
-                {
-                    _checked = "checked='checked'";
-                }
-                else
-                {
-                    _disabled = "disabled";
-                }
+                _doc_id = "C06DKQT_D_01";
+                _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
+
             }
+            catch (Exception)
+            {
+
+                _checked = "";
+                _disabled = "";
+                _doc_id = "C06DKQT_D_01";
+                _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
+                _value = "0|||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
+
+            }
+        }
+
+        @* 2. mẫu đăng ký của văn phòng quốc tế *@
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div>
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTaiLieuTrongDonFileInput.cshtml", "_6_rdoToKhai")
+                </div>
+            </div>
+        </div>
+        @{
+
+            _doc_id = "C06DKQT_D_02";
+            _id = _doc_id + "|6_MauDKVPQuocTe|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+            _model = _id + ";" + _value;
+            _checked = "";
+            _disabled = "";
+            if (dic_appDoc[_doc_id].Isuse.ToString().Trim() == "1")
+            {
+                _checked = "checked='checked'";
+            }
+            else
+            {
+                _disabled = "disabled";
+            }
+        }
 
 
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox" style="width:300px">
-                        <input @_checked type="checkbox" id="ckb_6_MauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id, 'txt_6_MauDKVPQuocTe');" />
-                        @Resource.TM2B_MauDKVPQT
-                    </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-checkbox" style="width:300px">
+                    <input @_checked type="checkbox" id="ckb_6_MauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id, 'txt_6_MauDKVPQuocTe');" />
+                    @Resource.TM2B_MauDKVPQT
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_6_MauDKVPQuocTe" maxlength="50" placeholder="txt_6_MauDKVPQuocTe" @_disabled value="@dic_appDoc[_doc_id].CHAR01" />
-                    </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txt_6_MauDKVPQuocTe" maxlength="50" placeholder="txt_6_MauDKVPQuocTe" @_disabled value="@dic_appDoc[_doc_id].CHAR01" />
                 </div>
-                <div class="div-search-title">
-                    <div>@Resource.TM2B_LamBangTieng </div>
+            </div>
+            <div class="div-search-title">
+                <div>@Resource.TM2B_LamBangTieng </div>
+            </div>
+            <div class="div-search-content">
+                <div style="width:150px">
+                    <input type="text" id="txt_6_MauDKVPQuocTe_1" placeholder="txt_6_MauDKVPQuocTe_1" maxlength="50" @_disabled value="@dic_appDoc[_doc_id].CHAR02" />
                 </div>
-                <div class="div-search-content">
-                    <div style="width:150px">
-                        <input type="text" id="txt_6_MauDKVPQuocTe_1" placeholder="txt_6_MauDKVPQuocTe_1" maxlength="50" @_disabled value="@dic_appDoc[_doc_id].CHAR02" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@Resource.TM2B_SoTrang:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_2" maxlength=" 50" placeholder="txt_6_MauDKVPQuocTe_2" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR03" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@Resource.TM2B_SoBan:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_3" maxlength="50" placeholder="txt_6_MauDKVPQuocTe_3" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR04" />
-                    </div>
-                </div>
-
             </div>
 
-
-
-            @{
-                try
-                {
-                    //  3 mẫu đăng ký nhãn hiệu
-                    _doc_id = "C06DKQT_D_03";
-                    _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
-                    _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-                    _model = _id + ";" + _value;
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
-                }
-                catch (Exception)
-                {
-                    //  3 mẫu đăng ký nhãn hiệu
-                    _doc_id = "C06DKQT_D_03";
-                    _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
-                    _value = "0||";
-                    _model = _id + ";" + _value;
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
-                }
-
-            }
-
-            @{
-                try
-                {
-                    // 8 giay quy quyen bang tieng
-                    _doc_id = "C06DKQT_D_08";
-                    _id = _doc_id + "|6_Doc_BanDichTiengViet|1|Bản dịch tiếng Việt|số trang|0";
-                    _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-                    _model = _id + ";" + _value;
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
-                }
-                catch (Exception)
-                {
-
-                    // 8 giay quy quyen bang tieng
-                    _doc_id = "C06DKQT_D_08";
-                    _id = _doc_id + "|6_Doc_BanDichTiengViet|1|" + Resource.TM2B_BanDichTiengViet + "|" + Resource.TM2B_BanDichSoTrang + "|0";
-                    _value = "0|||";
-                    _model = _id + ";" + _value;
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
-                }
-
-            }
-
-
-            <div class="div-search-ad" style="display:none">
-                <div class="div-search-content">
-                    <div style="width:300px">
-                        @Resource.TM2B_SoTrangBoSung
-                    </div>
+            <div class="div-search-title">
+                <div>@Resource.TM2B_SoTrang:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_2" maxlength=" 50" placeholder="txt_6_MauDKVPQuocTe_2" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR03" />
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" placeholder="_8_txtPageRemain" maxlength="20" id="_8_txtPageRemain" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@objAppHeaderInfo.PAGE_REMAIN" />
-                    </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>@Resource.TM2B_SoBan:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_3" maxlength="50" placeholder="txt_6_MauDKVPQuocTe_3" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR04" />
                 </div>
             </div>
 
         </div>
 
+
+
+        @{
+            try
+            {
+                //  3 mẫu đăng ký nhãn hiệu
+                _doc_id = "C06DKQT_D_03";
+                _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                //  3 mẫu đăng ký nhãn hiệu
+                _doc_id = "C06DKQT_D_03";
+                _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
+            }
+
+        }
+
+        @{
+            try
+            {
+                // 8 giay quy quyen bang tieng
+                _doc_id = "C06DKQT_D_08";
+                _id = _doc_id + "|6_Doc_BanDichTiengViet|1|Bản dịch tiếng Việt|số trang|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
+            }
+            catch (Exception)
+            {
+
+                // 8 giay quy quyen bang tieng
+                _doc_id = "C06DKQT_D_08";
+                _id = _doc_id + "|6_Doc_BanDichTiengViet|1|" + Resource.TM2B_BanDichTiengViet + "|" + Resource.TM2B_BanDichSoTrang + "|0";
+                _value = "0|||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
+            }
+
+        }
+
+
+        <div class="div-search-ad" style="display:none">
+            <div class="div-search-content">
+                <div style="width:300px">
+                    @Resource.TM2B_SoTrangBoSung
+                </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="_8_txtPageRemain" maxlength="20" id="_8_txtPageRemain" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@objAppHeaderInfo.PAGE_REMAIN" />
+                </div>
+            </div>
+        </div>
+
+
+
         <div class="class_save">
-            @*<div class="classGuiDon">
-                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn" />
-                </div>
-
-                @if (objAppHeaderInfo.Status == 1)
+            <div class="classGuiDon">
+                @if (objAppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
                 {
-                    <div class="classLuuTam">
-                        <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn" />
-                    </div>
-                }*@
-
-            @if (objAppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
-            {
-                <div class="classGuiDon">
-                    <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" style="width:70px" id="btnGuiDon" class="btn class_37" />
-                </div>
-                <div class="classLuuTam">
-                    <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" style="width:70px" id="btnLuuTam" class="btn class_37" />
-                </div>
-            }
-            else
-            {
-                <input type="button" value="@WebApps.Resources.Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
-
-                if (_todo != null)
-                {
-                    <input type="button" value="@Resource.Send" id="btnSend" class="btn" style="margin-left:5px" />
+                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+                    <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
                 }
-            }
-
+                else
+                {
+                    <input type="button" value="@Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn" />
+                    if (_todo != null)
+                    {
+                        <input type="button" value="@Resource.Send" id="btnSend" class="btn" />
+                    }
+                }
+            </div>
         </div>
     </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialPreview.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
     </div>
 </div>
 
 
 
 <script>
-    $(document).ready(function () {
-        $('#NVSCBO001_AppClassSearch').multipleSelect({
-            filter: true,
-            single: true,
-            isdatastring: false,
-            maxHeight: 150,
-            placeholder: "-- @Resource.SearchAppClass --"
-        });
+    function funcRemoveTradeMarkImg(ptag) {
+        $("#" + ptag).attr('src', '');
+        $("#txtLogoOld").val("");
 
-        //$('#cbo_04nh_data').multipleSelect({
-        //    filter: true,
-        //    noMatchesFound: "Không tìm thấy dữ liệu",
-        //    single: true,
-        //    isdatastring: false,
-        //    width:200,
-        //    placeholder: 'Tìm kiếm số đơn'
-        //});
-
-    });
-
+    }
+    var _checkanh = 0;
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-        filePreview(this, 'imgMauNhanHieu');
+        _checkanh = 0;
+        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+
+        //kiểm tra ảnh có đúng kích cỡ hay không?
+        if (this.files[0].type.indexOf("image") != -1) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                var img = $("#imgMauNhanHieuTeplace");
+                var iheight = 500; var iwidth = 500;
+
+                iheight = img[0].height;
+                console.log('lan 1: ' + iheight);
+                iheight = img[0].height;
+                iwidth = img[0].width;
+                console.log(iheight);
+                //2x2 75x75 px
+                if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
+                    _checkanh = 1;
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
+                        return true;
+                    }, function () {
+                        //Callback
+                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                    });
+
+                } else {
+                    return true;
+                }
+            }
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
+            _checkanh = 2;
+        }
     };
 
     function funcUpLoadMauNhanHieu(pFile) {
         try {
             var file = document.getElementsByName(pFile);
             if (file != undefined) {
-                formData.append("pInfo.pfiles", file[0].files[0]);
+                formdata.append("pInfo.pfiles", file[0].files[0]);
             }
         } catch (e) {
         }
     }
+    // lấy thông tin đơn 2a fill vào các trường
+    function chooseApp2a(_id) 
+    {
+        try {
+            var imgMauNhanHieu = $("#imgMauNhanHieu");
+            var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            var div_chudon2a = $("#div_chudon2a");
+            //var div_daidienchudon2a = $("#div_daidienchudon2a");
+            var div_appclass_2a = $("#div_appclass_2a");
+            var _txtSoDonGCN =  $("#_1_txtSoDonGCN");
+            if(_id.trim() != "")
+            {
+
+                _txtSoDonGCN.val($("#cbo_04nh_data option:selected" ).text().trim());
+            }
+            $.ajax({
+                //string p_idthongtinchudong, string p_iddaidienchudon, string p_idappclass)
+
+                url: '/trade-mark-share-data/get-tm04nh-info',
+                type: 'POST',
+                data: { pAppHeaderId: _id, p_idchudon: "_1", p_iddaidienchudon: "_2", p_idappclass: "" },
+                // processData: false, contentType: false, traditional: true, dataType: "json",
+                //  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.success >= 0) {
+                        imgMauNhanHieu.attr("src", data.LogoURL);
+                        _1_txtNgayNopDon.val(data.NgayNopDon);
+                        div_chudon2a.html(data.ViewChuDon);
+                        //div_daidienchudon2a.html(data.ViewDaiDienChuDon);
+                        div_appclass_2a.html(data.ViewAppClass);
+                        FuncLoadAppClass();
+
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+    
+    function FuncLoadAppClass()
+    {
+        try {
+            var availableTags = [];
+            var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+            for (var i = 0; i < array.length; i++) {
+                availableTags[i] = array[i];
+            }
+            $("#txtTenHangHoa").autocomplete({
+                minLength: 3,
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                    response(results.slice(0, 100));
+                },
+                select: function (event, ui) {
+                    $("#txtClass").val(ui.item.value);
+                    //return false;
+                    var textinput = $("#txtTenHangHoa").val();
+                    event.preventDefault();
+                    funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                    $("#txtTenHangHoa").val("");
+
+                },
+                focus: function (event, ui) {
+                    var arrResult = $(".ui-menu-item");
+                    for (var i = 0; i < arrResult.length; i++) {
+                        var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                        if (label == ui.item.name) {
+                            $(".clsLiActive").removeClass("clsLiActive")
+                            $(arrResult[i]).addClass("clsLiActive");
+                            break;
+                        }
+                    }
+                    event.preventDefault();
+                }
+            });
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+    $(function ()
+    {
+        try {
+            FuncLoadAppClass();
+        } catch (e) {
+        }
+    });
+
 
 
     function ShowHidenUpLoad(pID, pClass, pTxt) {
@@ -828,693 +959,265 @@
             alert(e);
         }
     }
-
-    $("#btnSuaDon").click(function () {
+    function funGetData  (p_Status, _UpdateToDo)
+    {
         try {
-            nvsConfirm(null, "@WebApps.Resources.Resource.ConfirmLuu", function () {
-                var formData = new FormData();
-                formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-                formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
-                formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
-                var v_AppCode = $("#txtAppCode").val();
-                var cbo_04nh_data = $("#cbo_04nh_data");
-                var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
-                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-                var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-                var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-                var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
-                //Thông tin chủ đơn
+            var _showerror = 0;
+            if (p_Status == 2) {
+                _showerror = 1;
+            }
+            var formData = new FormData();
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
 
-                if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
-                    showError('@Resource.TM2B_ChonThanhVien');
-                    $("#_01_rdnghidinh_madrid").focus();
-                    return false;
-                }
-
-                //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-                // //      formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-                //} else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
-                //    showError('Mẫu nhãn hiệu không được để trống');
-                //    $("#pfile_6_rdoMauNhanHieu").focus();
-                //    return false;
-                //}
+            var reponse = funcThongTinCaseName(formData, "-1");
+            if (reponse == false) {
+                return false;
+            }
 
 
-                if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
-                    showError('@Resource.TM2B_ChonGiayDK');
-                    $("#_01_rad_DonDK").focus();
-                    return false;
-                }
+            var cbo_04nh_data = $("#cbo_04nh_data");
 
-                if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) {
-                    showError('@Resource.TM2B_ChonSoDon');
-                    $("#cbo_04nh_data").multipleSelect("focus");
-                    return false;
-                }
-                var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-                if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") {
-                    showError('@Resource.TM2B_ChonNgayNopDon');
-                    _1_txtNgayNopDon.focus();
-                    return false;
-                }
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if ((v_RepMasterType == "" || v_RepMasterType == undefined) && _showerror == 1 ) {
+                showError('@Resource.TM2B_ChonDaiDienChuDon');
+                $("#_2_rdoNguoiDaiDienPL").focus();
+                return false;
+            }
 
-                //if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
-                //    showError('Chưa chọn nhóm hàng hóa dịch vụ!');
-                //    $("#Nvs001txt_search_app_code").focus();
-                //    return false;
-                //}
-                if (_ArrGroupAppClass.length == 0) {
-                    showError('@Resource.TM2B_ChonHangHoaDV');
-                    $("#txtTenHangHoa").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_1", Edit) != true) {
-                    return false;
-                }
-                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                if (v_RepMasterType == "" || v_RepMasterType == undefined) {
-                    showError('@Resource.TM2B_ChonDaiDienChuDon');
-                    $("#_2_rdoNguoiDaiDienPL").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
+            //Lấy thông tin detail
+            var reponse = funcGetAppDetail(formData, _showerror);
+            if (reponse == false) {
+                return false;
+            }
+            var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+            formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());
+            //trang thai
+            formData.append("pInfo.Status", p_Status);
+            // thông tin chủ đơn
 
-                formData.append("pInfo.Appcode", v_AppCode);
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
+            //Lấy thông tin file có trong đơn
+            reponse = funGetThongTinFile(formData);
+            if (reponse == false) {
+                return false;
+            }
 
-                // danh sach quoc gia
-                var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
-                    + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
-                _listNational = _listNational.replace(/null/g, '');
-                if (_listNational.replace(/,/g, '') == "") {
-                    showError('@Resource.TM2B_ChonNuocDKNH');
-                    $("#_4_cboNational01").multipleSelect("focus");
-                    return false;
-                }
-                var _arrayNational = _listNational.split(",");
-                _arrayNational = RepushArray(_arrayNational);
-                if (CheckArrDuplicate(_arrayNational) == true) {
-                    showError('@Resource.TM2B_TrungMaNuoc');
-                    $("#_4_cboNational01").focus();
-                    return false;
-                }
-                var _5_txtLePhiDangKy = $("#_5_txtLePhiDangKy");
-                if (_5_txtLePhiDangKy.val().trim() == "") {
-                    showError('@Resource.TM2B_LePhiDangKy');
-                    _5_txtLePhiDangKy.focus();
-                    return false;
-                }
-                formData.append("pFeeFixInfo[0].Fee_Id", '5');
-                formData.append("pFeeFixInfo[0].Isuse", "1");
-                formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
-                formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
+            reponse =  funcCheckDataClassInfo(_showerror);
+            if (reponse == false) {
+                return false;
+            }
+            reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
 
-                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-                formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());
-                //trang thai
-
-                //Lấy thông tin detail
-                var reponse = funcGetAppDetail(formData);
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin chủ đơn
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_1")
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin người đại diện
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_2")
-                if (reponse == false) {
-                    return false;
-                }
-                //Lấy thông tin file có trong đơn
-                reponse = funGetThongTinFile(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetDataClassInfo(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetCamKetChuDon(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-
-                $.ajax({
-                    url: '/trade-mark-01/sua-don-dang-ky',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert(@Html.Raw(Resource.SuaDonThanhCong), ThongBao, function () {
-                            });
-                        } else {
-                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
+            $.ajax({
+                url: '/trade-mark-01/sua-don-dang-ky',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        jAlert("@Resource.SuaDonThanhCong", ThongBao, function () {
+                        });
+                    } else {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                        });
                     }
-                });
-
+                },
+                error: function (e) {
+                    console.log(e);
+                }
             });
         } catch (e) {
-            alert(e.toString());
+
+        }
+
+    }
+    $("#btnGuiDon").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+                var url = "/conversion-international-trademark/edit";
+                funGetData(2, 0);
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+
+    $("#btnLuuTam").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
+                funGetData(1, 0);
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e);
         }
     });
 
     $("#btnSend").click(function () {
         try {
-            nvsConfirm(null,"@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
-                var formData = new FormData();
-                formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-                formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
-                formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
-                formData.append("pInfo.UpdateToDo", 1);
-
-                var v_AppCode = $("#txtAppCode").val();
-                var cbo_04nh_data = $("#cbo_04nh_data");
-                var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
-                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-                var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-                var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-                var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
                 //Thông tin chủ đơn
-
-                if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
-                    showError('@Resource.TM2B_ChonThanhVien');
-                    $("#_01_rdnghidinh_madrid").focus();
-                    return false;
-                }
-
-                //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-                //   //   formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-                //} else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
-                //    showError('Mẫu nhãn hiệu không được để trống');
-                //    $("#pfile_6_rdoMauNhanHieu").focus();
-                //    return false;
-                //}
-
-                if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
-                    showError('@Html.Raw(Resource.TM2B_ChonGiayDK)');
-                    $("#_01_rad_DonDK").focus();
-                    return false;
-                }
-
-                if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) {
-                    showError('@Html.Raw(Resource.TM2B_ChonSoDon)');
-                    $("#cbo_04nh_data").multipleSelect("focus");
-                    return false;
-                }
-                var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-                if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") {
-                    showError('@Resource.TM2B_ChonNgayNopDon');
-                    _1_txtNgayNopDon.focus();
-                    return false;
-                }
-
-                //if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
-                //    showError('Chưa chọn nhóm hàng hóa dịch vụ!');
-                //    $("#Nvs001txt_search_app_code").focus();
-                //    return false;
-                //}
-                if (_ArrGroupAppClass.length == 0) {
-                    showError('@Resource.TM2B_ChonHangHoaDV');
-                    $("#txtTenHangHoa").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
-                    return false;
-                }
-                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                if (v_RepMasterType == "" || v_RepMasterType == undefined) {
-                    showError('@Resource.TM2B_ChonDaiDienChuDon');
-                    $("#_2_rdoNguoiDaiDienPL").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
-
-                formData.append("pInfo.Appcode", v_AppCode);
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
-
-                // danh sach quoc gia
-                var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
-                    + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
-                _listNational = _listNational.replace(/null/g, '');
-                if (_listNational.replace(/,/g, '') == "") {
-                    showError('@Resource.TM2B_ChonNuocDKNH');
-                    $("#_4_cboNational01").multipleSelect("focus");
-                    return false;
-                }
-                var _arrayNational = _listNational.split(",");
-                _arrayNational = RepushArray(_arrayNational);
-                if (CheckArrDuplicate(_arrayNational) == true) {
-                    showError('@Resource.TM2B_TrungMaNuoc');
-                    $("#_4_cboNational01").focus();
-                    return false;
-                }
-                var _5_txtLePhiDangKy = $("#_5_txtLePhiDangKy");
-                if (_5_txtLePhiDangKy.val().trim() == "") {
-                    showError('@Resource.TM2B_LePhiDangKy');
-                    _5_txtLePhiDangKy.focus();
-                    return false;
-                }
-                formData.append("pFeeFixInfo[0].Fee_Id", '5');
-                formData.append("pFeeFixInfo[0].Isuse", "1");
-                formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
-                formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
-
-                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-                formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());
-                //trang thai
-
-                //Lấy thông tin detail
-                var reponse = funcGetAppDetail(formData);
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin chủ đơn
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_1")
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin người đại diện
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_2")
-                if (reponse == false) {
-                    return false;
-                }
-                //Lấy thông tin file có trong đơn
-                reponse = funGetThongTinFile(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetDataClassInfo(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetCamKetChuDon(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-
-                $.ajax({
-                    url: '/trade-mark-01/sua-don-dang-ky',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
-                                location.href = "/vi-vn/trade-mark-mana/quan-ly-don";
-                            });
-                        } else {
-                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
+                var _update_todo = 1;
+                funGetData(@objAppHeaderInfo.Status, _update_todo);
             });
         } catch (e) {
-            alert(e.toString());
+            console.log(e);
         }
     });
 
-
-    $("#btnGuiDon").click(function () {
+    $("#btnSuaDon").click(function () {
         try {
-            nvsConfirm(null,"@WebApps.Resources.Resource.ConfirmGui", function () {
-                var formData = new FormData();
-                formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-                formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
-                formData.append("pInfo.Status", "2");
-                var v_AppCode = $("#txtAppCode").val();
-                var cbo_04nh_data = $("#cbo_04nh_data");
-                var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
-                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-                var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-                var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-                var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
-                //Thông tin chủ đơn
-
-                if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
-                    showError('@Resource.TM2B_ChonThanhVien');
-                    $("#_01_rdnghidinh_madrid").focus();
-                    return false;
-                }
-
-                //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-                //   //   formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-                //} else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
-                //    showError('Mẫu nhãn hiệu không được để trống');
-                //    $("#pfile_6_rdoMauNhanHieu").focus();
-                //    return false;
-                //}
-
-                if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
-                    showError('@Resource.TM2B_ChonGiayDK');
-                    $("#_01_rad_DonDK").focus();
-                    return false;
-                }
-
-                if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) {
-                    showError('@Resource.TM2B_ChonSoDon');
-                    $("#cbo_04nh_data").multipleSelect("focus");
-                    return false;
-                }
-                var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-                if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") {
-                    showError('@Resource.TM2B_ChonNgayNopDon');
-                    _1_txtNgayNopDon.focus();
-                    return false;
-                }
-
-                //if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
-                //    showError('Chưa chọn nhóm hàng hóa dịch vụ!');
-                //    $("#Nvs001txt_search_app_code").focus();
-                //    return false;
-                //}
-                if (_ArrGroupAppClass.length == 0) {
-                    showError('@Resource.TM2B_ChonHangHoaDV');
-                    $("#txtTenHangHoa").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
-                    return false;
-                }
-                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                if (v_RepMasterType == "" || v_RepMasterType == undefined) {
-                    showError('@Resource.TM2B_ChonDaiDienChuDon');
-                    $("#_2_rdoNguoiDaiDienPL").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
-
-                formData.append("pInfo.Appcode", v_AppCode);
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
-
-                // danh sach quoc gia
-                var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
-                    + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
-                _listNational = _listNational.replace(/null/g, '');
-                if (_listNational.replace(/,/g, '') == "") {
-                    showError('@Resource.TM2B_ChonNuocDKNH');
-                    $("#_4_cboNational01").multipleSelect("focus");
-                    return false;
-                }
-                var _arrayNational = _listNational.split(",");
-                _arrayNational = RepushArray(_arrayNational);
-                if (CheckArrDuplicate(_arrayNational) == true) {
-                    showError('@Resource.TM2B_TrungMaNuoc');
-                    $("#_4_cboNational01").focus();
-                    return false;
-                }
-                var _5_txtLePhiDangKy = $("#_5_txtLePhiDangKy");
-                if (_5_txtLePhiDangKy.val().trim() == "") {
-                    showError('@Resource.TM2B_LePhiDangKy');
-                    _5_txtLePhiDangKy.focus();
-                    return false;
-                }
-                formData.append("pFeeFixInfo[0].Fee_Id", '5');
-                formData.append("pFeeFixInfo[0].Isuse", "1");
-                formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
-                formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
-
-                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-                formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());
-                //trang thai
-
-                //Lấy thông tin detail
-                var reponse = funcGetAppDetail(formData);
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin chủ đơn
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_1")
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin người đại diện
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_2")
-                if (reponse == false) {
-                    return false;
-                }
-                //Lấy thông tin file có trong đơn
-                reponse = funGetThongTinFile(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetDataClassInfo(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetCamKetChuDon(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-
-                $.ajax({
-                    url: '/trade-mark-01/sua-don-dang-ky',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert('@Html.Raw(Resource.GuiDonThanhCong)', ThongBao, function () {
-                                location.href = "/vi-vn/trade-mark-mana/quan-ly-don";
-                            });
-                        } else {
-                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuu)", function () {
+                funGetData(@objAppHeaderInfo.Status, 0);
             });
         } catch (e) {
-            alert(e.toString());
+            console.log(e);
         }
     });
-
-    $("#btnLuuTam").click(function () {
+    function funcCheckDataClassInfo(_showerror) {
         try {
-            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
-                var formData = new FormData();
-                formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-                formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
-                formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
-                var v_AppCode = $("#txtAppCode").val();
-                var cbo_04nh_data = $("#cbo_04nh_data");
-                var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
-                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-                var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-                var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-                var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
-                //Thông tin chủ đơn
-
-                if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
-                    showError('@Resource.TM2B_ChonThanhVien');
-                    $("#_01_rdnghidinh_madrid").focus();
-                    return false;
-                }
-
-                if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
-                    showError('@Resource.TM2B_ChonGiayDK');
-                    $("#_01_rad_DonDK").focus();
-                    return false;
-                }
-
-                if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) {
-                    showError('@Resource.TM2B_ChonSoDon');
-                    $("#cbo_04nh_data").multipleSelect("focus");
-                    return false;
-                }
-                var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-                if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") {
-                    showError('@Resource.TM2B_ChonNgayNopDon');
-                    _1_txtNgayNopDon.focus();
-                    return false;
-                }
-
-                //if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
-                //    showError('Chưa chọn nhóm hàng hóa dịch vụ!');
-                //    $("#Nvs001txt_search_app_code").focus();
-                //    return false;
-                //}
-                if (_ArrGroupAppClass.length == 0) {
-                    showError('@Resource.TM2B_ChonHangHoaDV');
-                    $("#txtTenHangHoa").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
-                    return false;
-                }
-                var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                if (v_RepMasterType == "" || v_RepMasterType == undefined) {
-                    showError('@Resource.TM2B_ChonDaiDienChuDon');
-                    $("#_2_rdoNguoiDaiDienPL").focus();
-                    return false;
-                }
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
-
-                formData.append("pInfo.Appcode", v_AppCode);
-                if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                    return false;
-                }
-
-                // danh sach quoc gia
-                var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
-                    + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
-                _listNational = _listNational.replace(/null/g, '');
-                if (_listNational.replace(/,/g, '') == "") {
-                    showError('@Resource.TM2B_ChonNuocDKNH');
-                    $("#_4_cboNational01").multipleSelect("focus");
-                    return false;
-                }
-                var _arrayNational = _listNational.split(",");
-                _arrayNational = RepushArray(_arrayNational);
-                if (CheckArrDuplicate(_arrayNational) == true) {
-                    showError('@Resource.TM2B_TrungMaNuoc');
-                    $("#_4_cboNational01").focus();
-                    return false;
-                }
-                var _5_txtLePhiDangKy = $("#_5_txtLePhiDangKy");
-                if (_5_txtLePhiDangKy.val().trim() == "") {
-                    showError('@Resource.TM2B_LePhiDangKy');
-                    _5_txtLePhiDangKy.focus();
-                    return false;
-                }
-                formData.append("pFeeFixInfo[0].Fee_Id", '5');
-                formData.append("pFeeFixInfo[0].Isuse", "1");
-                formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
-                formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
-
-                formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-                formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());
-                //trang thai
-
-                //Lấy thông tin detail
-                var reponse = funcGetAppDetail(formData);
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin chủ đơn
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_1")
-                if (reponse == false) {
-                    return false;
-                }
-                // thông tin người đại diện
-                reponse = funcThongTinChuDonNguoiDaiDien(formData, "_2")
-                if (reponse == false) {
-                    return false;
-                }
-                //Lấy thông tin file có trong đơn
-                reponse = funGetThongTinFile(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetDataClassInfo(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                reponse = funcGetCamKetChuDon(formData);
-                if (reponse == false) {
-                    return false;
-                }
-
-                $.ajax({
-                    url: '/trade-mark-01/sua-don-dang-ky',
-                    type: 'POST',
-                    data: formData,
-                    processData: false, contentType: false, traditional: true, dataType: "json",
-                    enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.status >= 0) {
-                            jAlert('@Html.Raw(Resource.LuuTamThanhCong)', ThongBao, function () {
-                                location.href = "/vi-vn/trade-mark-mana/quan-ly-don";
-                            });
-                        } else {
-                            jError("@Html.Raw(WebApps.Resources.Resource.LoiXuLyDuLieu)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                            });
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
+            var item = 0;
+            $("#tblClassInfo").find("tbody").find(".DataAdd").each(function () {
+                item++;
             });
-        } catch (e) {
-            alert(e.toString());
+            if(item == 0 && _showerror == 1)
+            {
+                showError('Chưa phân loại hàng hóa/dịch vụ');
+                $("#txtTenHangHoa").focus();
+                return false;
+            }
+            else if(item > 0 && _showerror == 1 && (
+                $("#txtTongSoNhom").val() == "0"  || $("#txtTongSoNhom").val() == ""))
+            {
+                showError('Chưa phân loại hàng hóa/dịch vụ');
+                $("#txtTenHangHoa").focus();
+                return false;
+            }
+            return true;
         }
-    });
+        catch (e) {
+            console.log(e);
+            return false;
+        }
+    }
+    
+  
 
     // lấy thông tin chi tiết đơn
     function funcGetAppDetail(formData)
     {
         try {
+            var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            var cbo_04nh_data = $("#cbo_04nh_data");
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             formData.append("pDetail.THANHVIEN_ND_TC", $("input[name='rad_thanhviennghidinhthu']:checked").val());
-            //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-            //      formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-            //} else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
-            //    showError('Mẫu nhãn hiệu không được để trống');
-            //    $("#pfile_6_rdoMauNhanHieu").focus();
-            //    return false;
-            //}
 
-            @*formData.append("pDetail.LOGOURL", "@objAppHeaderInfo.LOGOURL");*@
-            formData.append("pDetail.LOGOURL", $("#imgMauNhanHieu").attr("src"));
+            var _1_txtSoDonGCN  = $("#_1_txtSoDonGCN");
+
+            var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            var logORG = $("#txtLogoOld").val();
+            var _Newlogourl = imgMauNhanHieu.attr("src").trim();
+            if(_Newlogourl  != "")
+            {
+                formData.append("pDetail.LOGOURL", _Newlogourl);
+            }
+            else
+            {
+                formData.append("pDetail.LOGOURL", logORG);
+            }
+
+            if (fileLogo != undefined && fileLogo != null && fileLogo[0].files.length > 0) {
+                formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+            }
+            else if(logORG == "" && p_ShowError == 1 && (_Newlogourl == "" || _Newlogourl == '@urlMauNhanHieu')) {
+                showError('Chưa upload ảnh nhãn hiệu');
+                $("#pfile_6_rdoMauNhanHieu").focus();
+                return false;
+            }
+            var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
+            //Thông tin chủ đơn
+
+            if ((v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) && p_ShowError == 1) {
+                showError('@Resource.TM2B_ChonThanhVien');
+                $("#_01_rdnghidinh_madrid").focus();
+                return false;
+            }
+
+
+            if ((_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) && p_ShowError == 1) {
+                showError('@Resource.TM2B_ChonGiayDK');
+                $("#_01_rad_DonDK").focus();
+                return false;
+            }
+
+            if ((cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) && p_ShowError == 1) {
+                showError('@Resource.TM2B_ChonSoDon');
+                $("#cbo_04nh_data").multipleSelect("focus");
+                return false;
+            }
+
+            if (_1_txtSoDonGCN.val() == "" && p_ShowError == 1) {
+                showError('@Resource.TM2B_ChonSoDon');
+                _1_txtSoDonGCN.focus();
+                return false;
+            }
+
+
+            if ((_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") && p_ShowError == 1) {
+                showError('@Resource.TM2B_ChonNgayNopDon');
+                _1_txtNgayNopDon.focus();
+                return false;
+            }
+
+            formData.append("pInfo.Appcode", '@objAppHeaderInfo.Appcode');
+
+            // danh sach quoc gia
+            var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
+                + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
+            _listNational = _listNational.replace(/null/g, '');
+            if (_listNational.replace(/,/g, '') == "" && p_ShowError == 1) {
+                showError('@Resource.TM2B_ChonNuocDKNH');
+                $("#_4_cboNational01").multipleSelect("focus");
+                return false;
+            }
+            var _arrayNational = _listNational.split(",");
+            _arrayNational = RepushArray(_arrayNational);
+            if (CheckArrDuplicate(_arrayNational) == true && p_ShowError == 1) {
+                showError('@Resource.TM2B_TrungMaNuoc');
+                $("#_4_cboNational01").focus();
+                return false;
+            }
+
             var v_don_giaydknhcs = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-            formData.append("pDetail.Id", v_don_giaydknhcs);
             formData.append("pDetail.DON_GIAY_DKNHCS", v_don_giaydknhcs);
-            formData.append("pDetail.REF_APPNO", $("#cbo_04nh_data").val());
-            formData.append("pDetail.REF_APPNO_TEXT", $('#cbo_04nh_data_text').val());
-            formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
-            formData.append("pDetail.COUNTRY_ID01",  $("#_4_cboNational01").val() == null || $("#_4_cboNational01").val() == "-1" ? "": $("#_4_cboNational01").val());
-            formData.append("pDetail.COUNTRY_ID02", $("#_4_cboNational02").val() == null || $("#_4_cboNational02").val() == "-1" ? "": $("#_4_cboNational02").val());
-            formData.append("pDetail.COUNTRY_ID03", $("#_4_cboNational03").val() == null || $("#_4_cboNational03").val() == "-1" ? "": $("#_4_cboNational03").val());
-            formData.append("pDetail.COUNTRY_ID04", $("#_4_cboNational04").val() == null || $("#_4_cboNational04").val() == "-1" ? "": $("#_4_cboNational04").val());
-            formData.append("pDetail.COUNTRY_ID05", $("#_4_cboNational05").val() == null || $("#_4_cboNational05").val() == "-1" ? "": $("#_4_cboNational05").val());
-            formData.append("pDetail.COUNTRY_ID06", $("#_4_cboNational06").val() == null || $("#_4_cboNational06").val() == "-1" ? "": $("#_4_cboNational06").val());
-            formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val() == null || $("#_4_cboNational07").val() == "-1" ? "": $("#_4_cboNational07").val());
-            formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val() == null || $("#_4_cboNational08").val() == "-1" ? "": $("#_4_cboNational08").val());
+            formData.append("pDetail.REF_APPNO", _1_txtSoDonGCN.val());
+            var REF_APPNO_TEXT = "";
+            if($('#cbo_04nh_data').val() != "" && $('#cbo_04nh_data').val() !=null)
+            {
+                REF_APPNO_TEXT = $('#cbo_04nh_data option:selected').text();
+            }
 
+            formData.append("pDetail.REF_APPNO_TEXT", REF_APPNO_TEXT);
+            formData.append("pDetail.NGAYNOPDON", $("#_1_txtNgayNopDon").val());
+
+            formData.append("pDetail.COUNTRY_ID01", $("#_4_cboNational01").val() == null || $("#_4_cboNational01").val() == "-1" ? "" : $("#_4_cboNational01").val());
+            formData.append("pDetail.COUNTRY_ID02", $("#_4_cboNational02").val() == null || $("#_4_cboNational02").val() == "-1" ? "" : $("#_4_cboNational02").val());
+            formData.append("pDetail.COUNTRY_ID03", $("#_4_cboNational03").val() == null || $("#_4_cboNational03").val() == "-1" ? "" : $("#_4_cboNational03").val());
+            formData.append("pDetail.COUNTRY_ID04", $("#_4_cboNational04").val() == null || $("#_4_cboNational04").val() == "-1" ? "" : $("#_4_cboNational04").val());
+            formData.append("pDetail.COUNTRY_ID05", $("#_4_cboNational05").val() == null || $("#_4_cboNational05").val() == "-1" ? "" : $("#_4_cboNational05").val());
+            formData.append("pDetail.COUNTRY_ID06", $("#_4_cboNational06").val() == null || $("#_4_cboNational06").val() == "-1" ? "" : $("#_4_cboNational06").val());
+            formData.append("pDetail.COUNTRY_ID07", $("#_4_cboNational07").val() == null || $("#_4_cboNational07").val() == "-1" ? "" : $("#_4_cboNational07").val());
+            formData.append("pDetail.COUNTRY_ID08", $("#_4_cboNational08").val() == null || $("#_4_cboNational08").val() == "-1" ? "" : $("#_4_cboNational08").val());
 
             formData.append("pDetail.COUNTRY_ID01_TEXT", $('#_4_cboNational01 option:selected').text());
             formData.append("pDetail.COUNTRY_ID02_TEXT", $('#_4_cboNational02 option:selected').text());
@@ -1525,68 +1228,24 @@
             formData.append("pDetail.COUNTRY_ID07_TEXT", $('#_4_cboNational07 option:selected').text());
             formData.append("pDetail.COUNTRY_ID08_TEXT", $('#_4_cboNational08 option:selected').text());
 
-          //  alert($("#_5_txtLePhiDangKy").val());
-            formData.append("pDetail.LEPHI", $("#_5_txtLePhiDangKy").val());
 
-            formData.append("pDetail.PAGE_REMAIN", $("#_8_txtPageRemain").val());
-            // lấy thông tin chủ đơn
+            //formData.append("pDetail.PAGE_REMAIN", $("#_8_txtPageRemain").val());
+
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (p_ShowError == 1 && v_RepMasterType == "DDPL" && txtMADDSHCN == "") {
+                showError('@Resource.TM3C_MaDaiDienKhongDuocTrong');
+                $("#txtMADDSHCN").focus()
+                return false;
+            }
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
 
         } catch (e) {
             alert(e.toString());
         }
     }
 
-    //Lấy thông tin chủ đơn add vào formData
-    function funcThongTinChuDonNguoiDaiDien(formData, PreID) {
-        try {
-            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            //if (txtTenDayDu === "") {
-            //    $("#" + PreID + "_txtTenDayDu").focus().val('');
-            //    showError('Tên không được để trống!');
-            //    return false;
-            //}
-            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            //if (txtDiaChi === "") {
-            //    $("#" + PreID + "_txtDiaChi").focus().val('');
-            //    showError('Địa chỉ không được để trống!');
-            //    return false;
-            //}
-            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
-            var txtFax = $("#" + PreID + "_txtFax").val();
-            var txtEmail = $("#" + PreID + "_txtEmail").val();
-            if (txtEmail != "") {
-                if (!IsvalidEmail(txtEmail)) {
-                    $("#" + PreID + "_txtEmail").focus();
-                    showError('Email không đúng định dạng!');
-                    return false;
-                }
-            }
-            //Chủ đơn
-            if (PreID == "_1") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
-            } else if (PreID == "_2") { //Người đại diện
-                formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
-                formData.append("pInfo.Rep_Master_Address", txtDiaChi);
-                formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
-                formData.append("pInfo.Rep_Master_Fax", txtFax);
-                formData.append("pInfo.Rep_Master_Email", txtEmail);
-                //Detail
-            } else if (PreID == "_9") {
-                formData.append("pDetail.Cdk_Name_1", txtTenDayDu);
-                formData.append("pDetail.Cdk_Address_1", txtDiaChi);
-                formData.append("pDetail.Cdk_Phone_1", txtDienThoai);
-                formData.append("pDetail.Cdk_Fax_1", txtFax);
-                formData.append("pDetail.Cdk_Email_1", txtEmail);
-            }
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
+
 
     function funGetThongTinFile(formData) {
         try {
@@ -1667,27 +1326,6 @@
 
     }
 
-    //kiểm tra xem trong mảng có thằng nào trùng nhau không
-    function CheckArrDuplicate(values) {
-        var valueArr = values.map(function (item) { return item });
-        var isDuplicate = valueArr.some(function (item, idx) {
-            return valueArr.indexOf(item) != idx
-        });
-        return isDuplicate;
-    }
-
-    /// xóa những bản ghi trống
-    function RepushArray(_array)
-    {
-       var index = _array.length - 1;
-        while (index >= 0) {
-            if (_array[index] === '') {
-                _array.splice(index, 1);
-            }
-            index -= 1;
-        }
-        return _array;
-    }
 
     //Lay thong tin trong bang
     function funcGetDataClassInfo(formData) {
@@ -1708,241 +1346,39 @@
     }
 
 
-    function funcGetCamKetChuDon(formData) {
+    // lấy thông tin đơn 2a fill vào các trường
+    function chooseApp2a(_id)
+    {
         try {
-            var address = $("#txtKhaiTai").val();
-            formData.append("pInfo.Address", address);
-            var dateno = $("#cboNgayKhai").val();
-            formData.append("pInfo.DateNo", dateno);
-            var months = $("#cboThangKhai").val();
-            formData.append("pInfo.Months", months);
-            var years = $("#cboNamKhai").val();
-            formData.append("pInfo.Years", years);
+            var imgMauNhanHieu = $("#imgMauNhanHieu");
+            var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
+            var div_chudon2a = $("#div_chudon2a");
+            var div_daidienchudon2a = $("#div_daidienchudon2a");
+            var div_appclass_2a = $("#div_appclass_2a");
+            $.ajax({
+                //string p_idthongtinchudong, string p_iddaidienchudon, string p_idappclass)
+
+                url: '/trade-mark-share-data/get-tm04nh-info',
+                type: 'POST',
+                data: { pAppHeaderId: _id, p_idchudon: "_1", p_iddaidienchudon: "_2", p_idappclass: "" },
+                // processData: false, contentType: false, traditional: true, dataType: "json",
+                //  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.success >= 0) {
+                        imgMauNhanHieu.attr("src", data.LogoURL);
+                        _1_txtNgayNopDon.val(data.NgayNopDon);
+                        div_chudon2a.html(data.ViewChuDon);
+                        div_daidienchudon2a.html(data.ViewDaiDienChuDon);
+                        div_appclass_2a.html(data.ViewAppClass);
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
         } catch (e) {
-            console.log(e);
+            alert(e.toString());
         }
     }
-
-    function funGetDataTM06DKQTPreview(ptype, url) {
-             try {
-                 var formData = new FormData();
-                 formData.append("pInfo.Id", '@objAppHeaderInfo.Id');
-                 formData.append("pInfo.Status", '@objAppHeaderInfo.Status');
-                 formData.append("pInfo.Case_Code", '@objAppHeaderInfo.Case_Code');
-                 formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
-                 var v_AppCode = $("#txtAppCode").val();
-                 var cbo_04nh_data = $("#cbo_04nh_data");
-                 var v_thanhviennghidinh = $("input[name='rad_thanhviennghidinhthu']:checked").val();
-                 var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
-                 var _01_rad_DonDkOrGiayDK = $("input[name='_01_rad_DonDkOrGiayDK']:checked").val();
-                 var NVSCBO001_AppClassSearch = $("#NVSCBO001_AppClassSearch");
-                 var Nvs001txt_search_app_code = $("#Nvs001txt_search_app_code");
-                 //Thông tin chủ đơn
-
-                 if (v_thanhviennghidinh === "" || v_thanhviennghidinh == undefined) {
-                     showError('@Resource.TM2B_ChonThanhVien');
-                     $("#_01_rdnghidinh_madrid").focus();
-                     return false;
-                 }
-
-                 //if (fileLogo != undefined && fileLogo != null && fileLogo[0].files[0] != undefined ) {
-                 //    //  formData.append("pDetail.pfileLogo", fileLogo[0].files[0]);
-                 //} else if($("#imgMauNhanHieu").attr("src") == "" ||  $("#imgMauNhanHieu").attr("src") == undefined) {
-                 //    showError('Mẫu nhãn hiệu không được để trống');
-                 //    $("#pfile_6_rdoMauNhanHieu").focus();
-                 //    return false;
-                 //}
-
-                 if (_01_rad_DonDkOrGiayDK === "" || _01_rad_DonDkOrGiayDK == undefined) {
-                     showError('@Resource.TM2B_ChonGiayDK');
-                     $("#_01_rad_DonDK").focus();
-                     return false;
-                 }
-
-                 if (cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) {
-                     showError('@Resource.TM2B_ChonSoDon');
-                     $("#cbo_04nh_data").multipleSelect("focus");
-                     return false;
-                 }
-                 var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-                 if (_1_txtNgayNopDon.val() == "" || _1_txtNgayNopDon.val() == "__/__/____") {
-                     showError('@Resource.TM2B_ChonNgayNopDon');
-                     _1_txtNgayNopDon.focus();
-                     return false;
-                 }
-
-                 //if (NVSCBO001_AppClassSearch.val() == "" || NVSCBO001_AppClassSearch.val() == undefined) {
-                 //    showError('Chưa chọn nhóm hàng hóa dịch vụ!');
-                 //    $("#Nvs001txt_search_app_code").focus();
-                 //    return false;
-                 //}
-                 if (_ArrGroupAppClass.length == 0) {
-                     showError('@Resource.TM2B_ChonHangHoaDV');
-                     $("#txtTenHangHoa").focus();
-                     return false;
-                 }
-                 if (funcThongTinChuDonNguoiDaiDien(formData, "_1") != true) {
-                     return false;
-                 }
-                 var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-                 if (v_RepMasterType == "" || v_RepMasterType == undefined) {
-                     showError('@Resource.TM2B_ChonDaiDienChuDon');
-                     $("#_2_rdoNguoiDaiDienPL").focus();
-                     return false;
-                 }
-                 if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                     return false;
-                 }
-
-                 formData.append("pInfo.Appcode", v_AppCode);
-                 if (funcThongTinChuDonNguoiDaiDien(formData, "_2") != true) {
-                     return false;
-                 }
-
-                 // danh sach quoc gia
-                 var _listNational = $("#_4_cboNational01").val() + "," + $("#_4_cboNational02").val() + "," + $("#_4_cboNational03").val() + "," + $("#_4_cboNational04").val()
-                     + "," + $("#_4_cboNational05").val() + "," + $("#_4_cboNational06").val() + "," + $("#_4_cboNational07").val() + "," + $("#_4_cboNational08").val();
-                 _listNational = _listNational.replace(/null/g, '');
-                 if (_listNational.replace(/,/g, '') == "") {
-                     showError('@Resource.TM2B_ChonNuocDKNH');
-                     $("#_4_cboNational01").multipleSelect("focus");
-                     return false;
-                 }
-                 var _arrayNational = _listNational.split(",");
-                 _arrayNational = RepushArray(_arrayNational);
-                 if (CheckArrDuplicate(_arrayNational) == true) {
-                     showError('@Resource.TM2B_TrungMaNuoc');
-                     $("#_4_cboNational01").focus();
-                     return false;
-                 }
-                 var _5_txtLePhiDangKy = $("#_5_txtLePhiDangKy");
-                 if (_5_txtLePhiDangKy.val().trim() == "") {
-                     showError('@Resource.TM2B_LePhiDangKy');
-                     _5_txtLePhiDangKy.focus();
-                     return false;
-                 }
-                 formData.append("pFeeFixInfo[0].Fee_Id", '5');
-                 formData.append("pFeeFixInfo[0].Isuse", "1");
-                 formData.append("pFeeFixInfo[0].Number_Of_Patent", 0);
-                 formData.append("pFeeFixInfo[0].Amount", _5_txtLePhiDangKy.val());
-
-                 formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-                 formData.append("pInfo.Send_Date", _1_txtNgayNopDon.val());
-                 //trang thai
-
-                 //Lấy thông tin detail
-                 var reponse = funcGetAppDetail(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-                 // thông tin chủ đơn
-                 reponse = funcThongTinChuDonNguoiDaiDien(formData, "_1")
-                 if (reponse == false) {
-                     return false;
-                 }
-                 // thông tin người đại diện
-                 reponse = funcThongTinChuDonNguoiDaiDien(formData, "_2")
-                 if (reponse == false) {
-                     return false;
-                 }
-                 //Lấy thông tin file có trong đơn
-                 reponse = funGetThongTinFile(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-
-                 reponse = funcGetDataClassInfo(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-
-                 reponse = funcGetCamKetChuDon(formData);
-                 if (reponse == false) {
-                     return false;
-                 }
-
-
-                 $.ajax({
-                     url: url,
-                     type: 'POST',
-                     data: formData,
-                     processData: false, contentType: false, traditional: true, dataType: "json",
-                     enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                     success: function (data) {
-                         if (data != null && data.status >= 0) {
-
-                             return true;
-                         } else {
-
-                             return false;
-                         }
-                     },
-                     error: function (e) {
-                         console.log(e);
-                     }
-                 });
-
-                return true;
-            } catch (e) {
-
-            }
-
-        }
-
-         function funcPreViewApplication() {
-             var preturn = funGetDataTM06DKQTPreview(3, "/trade-mark-01/ket_xuat_file");
-             if (preturn == true || preturn == undefined) {
-                 OpenPreview("/trade-mark-01/Pre-View");
-             }
-         }
-
-
-        function OpenPreview(url) {
-            try {
-                w = 1100; //độ rộng form popup
-                h = 600;//chiều cao
-                var left = (screen.width - w) / 2;
-                var top = (screen.height - h) / 4;  // for 25% - devide by 4  |  for 33% - devide by 3
-                var targetWin = window.open(url, 'Xem thông tin đơn', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
-
-            } catch (e) {
-            }
-        }
-
-
-        // lấy thông tin đơn 2a fill vào các trường
-        function chooseApp2a(_id)
-        {
-            try {
-                var imgMauNhanHieu = $("#imgMauNhanHieu");
-                var _1_txtNgayNopDon = $("#_1_txtNgayNopDon");
-                var div_chudon2a = $("#div_chudon2a");
-                var div_daidienchudon2a = $("#div_daidienchudon2a");
-                var div_appclass_2a = $("#div_appclass_2a");
-                $.ajax({
-                    //string p_idthongtinchudong, string p_iddaidienchudon, string p_idappclass)
-
-                    url: '/trade-mark-share-data/get-tm04nh-info',
-                    type: 'POST',
-                    data: { pAppHeaderId: _id, p_idchudon: "_1", p_iddaidienchudon: "_2", p_idappclass: "" },
-                    // processData: false, contentType: false, traditional: true, dataType: "json",
-                    //  enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
-                    success: function (data) {
-                        if (data != null && data.success >= 0) {
-                            imgMauNhanHieu.attr("src", data.LogoURL);
-                            _1_txtNgayNopDon.val(data.NgayNopDon);
-                            div_chudon2a.html(data.ViewChuDon);
-                            div_daidienchudon2a.html(data.ViewDaiDienChuDon);
-                            div_appclass_2a.html(data.ViewAppClass);
-                        }
-                    },
-                    error: function (e) {
-                        console.log(e);
-                    }
-                });
-
-            } catch (e) {
-                alert(e.toString());
-            }
-        }
 </script>
