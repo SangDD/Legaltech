@@ -56,7 +56,7 @@
         }
     }
 
-    function funGetData_Preview_C01(url, pView_Translate) {
+    function funGetData_Preview_C02(url, pView_Translate) {
         try {
             $.ajax({
                 url: url,
@@ -91,9 +91,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_C01("/trade-mark-c01/ket_xuat_file", 0);
+        var preturn = funGetData_Preview_C02("/trade-mark-c02/ket_xuat_file", 0);
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/trade-mark-c01/Pre-View");
+            OpenPreview("/trade-mark-c02/Pre-View");
         }
 
         //Accept();
@@ -101,9 +101,9 @@
 
     function funcPreViewTranslate() {
 
-        var preturn = funGetData_Preview_C01("/trade-mark-c01/ket_xuat_file", 1);
+        var preturn = funGetData_Preview_C02("/trade-mark-c01/ket_xuat_file", 1);
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/trade-mark-c01/Pre-View");
+            OpenPreview("/trade-mark-c02/Pre-View");
         }
     }
 
@@ -112,7 +112,7 @@
         var formData = new FormData();
         formData.append("pInfo.Appcode", '@_AppHeaderInfo.Appcode');
         formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
-        formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+        formData.append("pInfo.Id", '@_AppHeaderInfo.Id');
 
         $.ajax({
             url: "/trade-mark-c02/getFeeView",
