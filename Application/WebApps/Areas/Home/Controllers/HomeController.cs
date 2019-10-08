@@ -224,6 +224,8 @@
             {
                 _sortype = "ALL";
             }
+            string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
+
             string htmlPaging = "";
             try
             {
@@ -233,7 +235,7 @@
                     // đơn
                     Application_Header_BL _obj_bl = new Application_Header_BL();
                     List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, keysSearch, ref _total_record, p_from, p_to, _sortype, 1);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, language.Contains("VN") ? "Đơn" : "Application", _reconpage);
 
                     ViewBag.Paging = htmlPaging;
                     ViewBag.Obj = _lst;
@@ -247,7 +249,7 @@
                     var lstUsers = new List<UserInfo>();
                     keysSearch = "|" + keysSearch + "|" + Convert.ToInt16(CommonEnums.UserType.Lawer) + "|";
                     lstUsers = userBL.HomeFindUser(ref _total_record, keysSearch, options);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Luật sư", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, language.Contains("VN") ? "luật sư" : "lawer", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;
 
@@ -260,7 +262,7 @@
                     var lstUsers = new List<UserInfo>();
                     keysSearch = "|" + keysSearch + "|" + Convert.ToInt16(CommonEnums.UserType.Customer) + "|";
                     lstUsers = userBL.HomeFindUser(ref _total_record, keysSearch, options);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Khách hàng", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, language.Contains("VN") ? "khách hàng" : "customer", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;
 
@@ -273,7 +275,7 @@
                     keysSearch = CommonWiki.Stt_daduyet.ToString() + "||" + keysSearch;
                     var _WikiDoc_BL = new WikiDoc_BL();
                     lstOjects = _WikiDoc_BL.WikiDoc_DashboardSearch(ref _total_record, keysSearch, options);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<WikiDoc_Info>((int)_total_record, p_CurrentPage, "Bài viết", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<WikiDoc_Info>((int)_total_record, p_CurrentPage, language.Contains("VN") ? "bài viết" : "wiki", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;
 
@@ -306,10 +308,11 @@
             string htmlPaging = "";
             try
             {
+                string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
                 B_Todos_BL _obj_bl = new B_Todos_BL();
                 keysSearch = B_Todo.TypeProcess + "|" + SessionData.CurrentUser.Username;
                 List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
-                htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, language.Contains("VN") ? "nội dung" : "content", _reconpage, "TodojsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
@@ -366,10 +369,11 @@
             string htmlPaging = "";
             try
             {
+                string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
                 B_Todos_BL _obj_bl = new B_Todos_BL();
                 keysSearch = B_Todo.TypeRequest + "|" + SessionData.CurrentUser.Username;
                 List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
-                htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "OrderjsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, language.Contains("VN") ? "nội dung" : "content", _reconpage, "OrderjsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
@@ -404,10 +408,11 @@
             string htmlPaging = "";
             try
             {
+                string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
                 B_Todos_BL _obj_bl = new B_Todos_BL();
                 keysSearch = SessionData.CurrentUser.Username;
                 List<B_Remind_Info> _lst = _obj_bl.B_Remind_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
-                htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "RemindjsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, language.Contains("VN") ? "nội dung" : "content", _reconpage, "RemindjsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
@@ -444,7 +449,7 @@
                 //string pLanguage, string pTitle, DateTime pNgayCongBo, int pStart, int pEnd, ref decimal pTotalRecord)
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
-                htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "BulletinjsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "BulletinjsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
@@ -477,7 +482,7 @@
                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|ALL";
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
-                htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "HotnewsjsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "HotnewsjsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
@@ -511,7 +516,7 @@
                 keysSearch = "7|" + "ALL|" + SessionData.CurrentUser.Language + "|TIN_TUC";
 
                 List<NewsInfo> _lst = _obj_bl.ArticleHomeSearch(keysSearch, ref _total_record, p_from, p_to, _sortype);
-                htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "UpdatenewsjsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Tin", _reconpage, "UpdatenewsjsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;
@@ -543,7 +548,7 @@
                 keysSearch = "3|" + "ALL|ALL|" + SessionData.CurrentUser.Language;
                 List<WikiDoc_Info> _lst = _WikiDoc_BL.HomeWikiDoc_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
                 ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
-                htmlPaging = CommonFuc.Get_HtmlPaging<WikiDoc_Info>((int)_total_record, p_CurrentPage, "Bài viết", _reconpage, "WikihomejsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<WikiDoc_Info>((int)_total_record, p_CurrentPage, "Bài viết", _reconpage, "WikihomejsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;

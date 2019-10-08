@@ -76,7 +76,7 @@ namespace WebApps.Areas.Contact.Controllers
 
                 var contact_bl = new Contact_BL();
                 List<ContactInfo> _lst = contact_bl.Contact_Search(p_keysearch, p_language, p_status, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Contact_BL>((int)_total_record, p_CurrentPage, "Luật sư");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Contact_BL>((int)_total_record, p_CurrentPage, "Luật sư");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

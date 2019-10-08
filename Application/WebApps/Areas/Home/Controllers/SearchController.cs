@@ -67,7 +67,7 @@ namespace WebApps.Areas.Home.Controllers
                     // đơn
                     Application_Header_BL _obj_bl = new Application_Header_BL();
                     List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, keysSearch, ref _total_record, p_from, p_to, _sortype, 1);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn", _reconpage);
 
                     ViewBag.Paging = htmlPaging;
                     ViewBag.Obj = _lst;
@@ -81,7 +81,7 @@ namespace WebApps.Areas.Home.Controllers
                     var lstUsers = new List<UserInfo>();
                     keysSearch = "|" + keysSearch + "|" + Convert.ToInt16(CommonEnums.UserType.Lawer) + "|";
                     lstUsers = userBL.HomeFindUser(ref _total_record, keysSearch, options);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Luật sư", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Luật sư", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;
 
@@ -94,7 +94,7 @@ namespace WebApps.Areas.Home.Controllers
                     var lstUsers = new List<UserInfo>();
                     keysSearch = "|" + keysSearch + "|" + Convert.ToInt16(CommonEnums.UserType.Customer) + "|";
                     lstUsers = userBL.FindCustomer(ref _total_record, keysSearch, options);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Khách hàng", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Khách hàng", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;
 
@@ -107,7 +107,7 @@ namespace WebApps.Areas.Home.Controllers
                     keysSearch = CommonWiki.Stt_daduyet.ToString() + "||" + keysSearch;
                     var _WikiDoc_BL = new WikiDoc_BL();
                     lstOjects = _WikiDoc_BL.WikiDoc_DashboardSearch(ref _total_record, keysSearch, options);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<WikiDoc_Info>((int)_total_record, p_CurrentPage, "Bài viết", _reconpage);
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<WikiDoc_Info>((int)_total_record, p_CurrentPage, "Bài viết", _reconpage);
                     ViewBag.Paging = htmlPaging;
                     ViewBag.SumRecord = _total_record;
 

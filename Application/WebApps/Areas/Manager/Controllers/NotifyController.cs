@@ -48,13 +48,13 @@ namespace WebApps.Areas.Manager.Controllers
                 if (_type == "REMIND")
                 {
                     List<B_Remind_Info> _lst = _obj_bl.Notify_R_Search(keysSearch, SessionData.CurrentUser.Username, ref _total_record);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, 1, "Nội dung");
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Remind_Info>((int)_total_record, 1, "Nội dung");
                     ViewBag.Obj = _lst;
                 }
                 else
                 {
                     List<B_Todos_Info> _lst = _obj_bl.Notify_Search(keysSearch, SessionData.CurrentUser.Username, ref _total_record);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, 1, "Nội dung");
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Todos_Info>((int)_total_record, 1, "Nội dung");
                     ViewBag.Obj = _lst;
                 }
 
@@ -87,12 +87,12 @@ namespace WebApps.Areas.Manager.Controllers
                 {
                     List<B_Remind_Info> _lst1 = _obj_bl.Notify_R_Search(p_keysearch, SessionData.CurrentUser.Username, ref _total_record, p_from, p_to);
                     ViewBag.Obj = _lst1;
-                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Nội dung");
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Remind_Info>((int)_total_record, p_CurrentPage, "Nội dung");
                 }
                 else
                 {
                     List<B_Todos_Info> _lst = _obj_bl.Notify_Search(p_keysearch, SessionData.CurrentUser.Username, ref _total_record, p_from, p_to);
-                    htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung");
+                    htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung");
                     ViewBag.Obj = _lst;
                 }
 
@@ -141,7 +141,7 @@ namespace WebApps.Areas.Manager.Controllers
                 B_Todos_BL _obj_bl = new B_Todos_BL();
                 keysSearch = B_Todo.TypeProcess + "|" + SessionData.CurrentUser.Username;
                 List<B_Todos_Info> _lst = _obj_bl.B_Todos_Search(keysSearch, ref _total_record, p_from, p_to, _sortype);
-                htmlPaging = CommonFuc.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
+                htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<B_Todos_Info>((int)_total_record, p_CurrentPage, "Nội dung", _reconpage, "TodojsPaging");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;

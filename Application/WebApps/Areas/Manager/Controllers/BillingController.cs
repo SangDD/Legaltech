@@ -35,7 +35,7 @@ namespace WebApps.Areas.Manager.Controllers
                 Billing_BL _obj_bl = new Billing_BL();
                 string _keySearch = "ALL" + "|" + "ALL" + "|" + "ALL" + "|" + "ALL" + "|" + "ALL";
                 List<Billing_Header_Info> _lst = _obj_bl.Billing_Search(SessionData.CurrentUser.Username, _keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Billing_Header_Info>((int)_total_record, 1, "Billing");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Billing_Header_Info>((int)_total_record, 1, "Billing");
 
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
@@ -61,7 +61,7 @@ namespace WebApps.Areas.Manager.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
                 Billing_BL _obj_bl = new Billing_BL();
                 List<Billing_Header_Info> _lst = _obj_bl.Billing_Search(SessionData.CurrentUser.Username, p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Billing_Header_Info>((int)_total_record, 1, "Billing");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Billing_Header_Info>((int)_total_record, 1, "Billing");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

@@ -35,7 +35,7 @@
                 //không lấy luật sư và khách hàng
                 decimal _total_record = 0;
                 lstUsers = userBL.User_Search_Admin("" , ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, 1, "Người dùng");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<UserInfo>((int)_total_record, 1, "Người dùng");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = lstUsers;
@@ -63,7 +63,7 @@
                 var userBL = new UserBL();
                 List<UserInfo> _lst = userBL.User_Search_Admin(p_keysearch, ref _total_record, p_from, p_to);
                 _lst = _lst.FindAll(m => m.Type != 2 || m.Type != 3).ToList();
-                string htmlPaging = CommonFuc.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Người dùng");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<UserInfo>((int)_total_record, p_CurrentPage, "Người dùng");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
@@ -225,7 +225,7 @@
                 var userBL = new UserBL();
                 lstUsers = userBL.RegisterGetAll("ALL|ALL|ALL|ALL",0,20,ref totalRecord);
                 ViewBag.lstUsers = lstUsers;
-                string htmlPaging = CommonFuc.Get_HtmlPaging<RegisterInfo>((int)totalRecord, 1, "bản ghi",10, "jsPageKH");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<RegisterInfo>((int)totalRecord, 1, "bản ghi",10, "jsPageKH");
                 ViewBag.Paging = htmlPaging;
                 return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/DanhSachKHDangKy.cshtml"  );
             }
@@ -251,7 +251,7 @@
                 int p_from = CommonFuc.GetFromToPage(pNumPage, ref p_to);
                 lstUsers = userBL.RegisterGetAll(pKeySearch, p_from, p_to, ref totalRecord);
                 ViewBag.lstUsers = lstUsers;
-                string htmlPaging = CommonFuc.Get_HtmlPaging<RegisterInfo>((int)totalRecord, 1, "bản ghi", 10, "jsPageKH");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<RegisterInfo>((int)totalRecord, 1, "bản ghi", 10, "jsPageKH");
                 ViewBag.Paging = htmlPaging;
                 return PartialView("~/Areas/ModuleUsersAndRoles/Views/User/_PartialTableListRegistor.cshtml");
             }

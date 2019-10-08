@@ -31,7 +31,7 @@ namespace WebApps.Areas.Sys_Pages.Controllers
                 Sys_Pages_BL objBL = new Sys_Pages_BL();
                 string _keySearch = "ALL";
                 List<Sys_Pages_Info> _lst = objBL.Sys_Pages_Search(_keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Sys_Pages_Info>((int)_total_record, 1, "bản ghi");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Sys_Pages_Info>((int)_total_record, 1, "bản ghi");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
@@ -57,7 +57,7 @@ namespace WebApps.Areas.Sys_Pages.Controllers
                 Sys_Pages_BL objBL = new Sys_Pages_BL();
                 string language = AppsCommon.GetCurrentLang();
                 List<Sys_Pages_Info> _lst = objBL.Sys_Pages_Search(p_keySearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;

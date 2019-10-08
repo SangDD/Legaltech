@@ -32,7 +32,7 @@ namespace WebApps.Areas.Manager.Controllers
                 Docking_BL _obj_bl = new Docking_BL();
                 string _keySearch = "ALL" + "|" + "ALL" + "|" + "ALL" + "|" + "ALL" + "|" + "ALL";
                 List<Docking_Info> _lst = _obj_bl.Docking_Search(_keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Docking_Info>((int)_total_record, 1, "Tài liệu");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Docking_Info>((int)_total_record, 1, "Tài liệu");
 
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
@@ -58,7 +58,7 @@ namespace WebApps.Areas.Manager.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
                 Docking_BL _obj_bl = new Docking_BL();
                 List<Docking_Info> _lst = _obj_bl.Docking_Search(p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Docking_Info>((int)_total_record, 1, "Tài liệu");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Docking_Info>((int)_total_record, 1, "Tài liệu");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

@@ -42,7 +42,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 string _keySearch = _status + "|ALL|" + language + "|ALL";
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Status = pStatus;
@@ -80,7 +80,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + pTitile;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
-                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
@@ -371,7 +371,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + pTitile;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
-                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
@@ -398,7 +398,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 string _keySearch = pStatus.ToString() + "|ALL|" + language + "|ALL";
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, "1", "10");
-                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
@@ -425,7 +425,7 @@ namespace WebApps.Areas.Articles.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 string _keySearch = Status.XuatBan.ToString() + "|ALL|" + language + "|" + pCategory + "|" + "";
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
-                string htmlPaging = CommonFuc.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
