@@ -29,7 +29,7 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
                 decimal _total_record = 0;
                 AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
                 List<AppDDSHCNInfo> _lst = _obj_bl.AppDDSHCNGetAll("","",0,0,ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<AppDDSHCNInfo>((int)_total_record, 1, "Record");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<AppDDSHCNInfo>((int)_total_record, 1, "Record");
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
@@ -62,7 +62,7 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
                 AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
                 List<AppDDSHCNInfo> _lst = _obj_bl.AppDDSHCNGetAll(pTenDaidien, pPhone, 0, 0, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Record");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Record");
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;
                 ViewBag.SumRecord = _total_record;

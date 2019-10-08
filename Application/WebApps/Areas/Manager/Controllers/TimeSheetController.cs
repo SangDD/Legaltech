@@ -41,7 +41,7 @@ namespace WebApps.Areas.Manager.Controllers
 
 
                 List<Timesheet_Info> _lst = _obj_bl.Timesheet_Search(SessionData.CurrentUser.Username, _keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Timesheet");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Timesheet");
 
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
@@ -69,7 +69,7 @@ namespace WebApps.Areas.Manager.Controllers
 
                 TimeSheet_BL _obj_bl = new TimeSheet_BL();
                 List<Timesheet_Info> _lst = _obj_bl.Timesheet_Search(SessionData.CurrentUser.Username, p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Timesheet");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Timesheet_Info>((int)_total_record, 1, "Timesheet");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

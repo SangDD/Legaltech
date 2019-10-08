@@ -46,7 +46,7 @@ namespace WebApps.Areas.Manager.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
                 AppFeeFixBL _obj_bl = new AppFeeFixBL();
                 List<AppFeeFixInfo> _lst = _obj_bl.AppFee_Search(p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<AppFeeFixInfo>((int)_total_record, 1, "bản ghi");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<AppFeeFixInfo>((int)_total_record, 1, "bản ghi");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

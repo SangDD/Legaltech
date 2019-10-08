@@ -39,7 +39,7 @@ namespace WebApps.Areas.Manager.Controllers
                 Sys_Search_Fix_BL _obj_bl = new Sys_Search_Fix_BL();
                 string _keySearch = "ALL" + "|" + "ALL" + "|" + "ALL";
                 List<Sys_Search_Fix_Info> _lst = _obj_bl.Sys_Search_Fix_Search(_keySearch, ref _total_record);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Sys_Search_Fix_Info>((int)_total_record, 1, "phí");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Sys_Search_Fix_Info>((int)_total_record, 1, "phí");
 
                 ViewBag.Obj = _lst;
                 ViewBag.Paging = htmlPaging;
@@ -65,7 +65,7 @@ namespace WebApps.Areas.Manager.Controllers
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
                 Sys_Search_Fix_BL _obj_bl = new Sys_Search_Fix_BL();
                 List<Sys_Search_Fix_Info> _lst = _obj_bl.Sys_Search_Fix_Search(p_keysearch, ref _total_record, p_from, p_to);
-                string htmlPaging = CommonFuc.Get_HtmlPaging<Sys_Search_Fix_Info>((int)_total_record, 1, "phí");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Sys_Search_Fix_Info>((int)_total_record, 1, "phí");
 
                 ViewBag.Paging = htmlPaging;
                 ViewBag.Obj = _lst;

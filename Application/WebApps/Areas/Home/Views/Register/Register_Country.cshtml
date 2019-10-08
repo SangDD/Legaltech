@@ -23,6 +23,8 @@
     var groupsFunc = functionInfos.GroupBy(item => item.App_Type);
 
     string _url = "/application/register/" + _Country;
+
+    string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
 }
 <style>
     #list2 {
@@ -106,12 +108,14 @@
     .item_list:last-child {
         border-bottom: none;
     }
-    .item_list a{
+
+    .item_list a {
         color: #484848;
     }
-     .item_list a:hover{
-        color: #094cc4;
-    }
+
+        .item_list a:hover {
+            color: #094cc4;
+        }
 </style>
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -146,12 +150,26 @@
     {
         <div class="div_form grid-item">
             <div class="hederlist">
-                <div class="header-type">Mẫu đơn loại @item.Key</div>
+                @if (language.Contains("VN"))
+                {
+                    <div class="header-type">Mẫu đơn loại @item.Key</div>
+                }
+                else
+                {
+                    <div class="header-type">Appication type @item.Key</div>
+                }
                 @foreach (var func in functionInfos)
                 {
                     if (func.App_Type == item.Key)
                     {
-                        <div class="item_list"><a href="@func.HrefGet"><span style="padding-right:5px;">&#8226;</span>@func.DisplayName</a></div>
+                        if (language.Contains("VN"))
+                        {
+                            <div class="item_list"><a href="@func.HrefGet"><span style="padding-right:5px;">&#8226;</span>@func.DisplayName</a></div>
+                        }
+                        else
+                        {
+                            <div class="item_list"><a href="@func.HrefGet"><span style="padding-right:5px;">&#8226;</span>@func.DisplayName_Eng</a></div>
+                        }
                     }
                 }
             </div>

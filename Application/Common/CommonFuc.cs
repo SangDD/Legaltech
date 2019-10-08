@@ -605,172 +605,178 @@ namespace Common
             }
         }
 
-        public static string Get_HtmlPaging<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi", int p_reconpage = 0, string pfuncjs = "")
-        {
-            try
-            {
-                string _defaulFuncjs = "jsPaging";
-                if(!string.IsNullOrEmpty(pfuncjs))
-                {
-                    _defaulFuncjs = pfuncjs;
-                }
-                if (p_reconpage == 0)
-                {
-                    return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, _defaulFuncjs, pLoaiBanghi);
-                }
-                else
-                {
-                    return Paging(PCurrentPage, p_reconpage, p_total_record, _defaulFuncjs, pLoaiBanghi);
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return "";
-            }
-        }
+        //public static string Get_HtmlPaging<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi", int p_reconpage = 0, string pfuncjs = "")
+        //{
+        //    try
+        //    {
+        //        string _defaulFuncjs = "jsPaging";
+        //        if(!string.IsNullOrEmpty(pfuncjs))
+        //        {
+        //            _defaulFuncjs = pfuncjs;
+        //        }
+        //        if (p_reconpage == 0)
+        //        {
+        //            return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, _defaulFuncjs, pLoaiBanghi);
+        //        }
+        //        else
+        //        {
+        //            return Paging(PCurrentPage, p_reconpage, p_total_record, _defaulFuncjs, pLoaiBanghi);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //        return "";
+        //    }
+        //}
 
-        public static string Get_HtmlPaging_2<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi")
-        {
-            try
-            {
-                return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, "jsPaging_2", pLoaiBanghi);
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return "";
-            }
-        }
+        //public static string Get_HtmlPaging_2<T>(int p_total_record, int PCurrentPage, string pLoaiBanghi = "Bản ghi")
+        //{
+        //    try
+        //    {
+        //        return Paging(PCurrentPage, Common.RecordOnpage, p_total_record, "jsPaging_2", pLoaiBanghi);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //        return "";
+        //    }
+        //}
 
-        public static string Paging(int pCurPage, int pRecordOnPage, int pTotalRecord, string p_js_function = "", string _str_loai_ban_ghi = "")
-        {
-            try
-            {
-                if (_str_loai_ban_ghi == "")
-                {
-                    _str_loai_ban_ghi = "Bản ghi";
-                }
-                if (p_js_function == "")
-                {
-                    p_js_function = "page";
-                }
-                string pStrPaging = "";
-                double _dobTotalRec = Convert.ToDouble(pTotalRecord);
-                int _TotalPage = CommonFuc.RoundUp(_dobTotalRec / pRecordOnPage);
-                pStrPaging = WritePaging(_TotalPage, pCurPage, pTotalRecord, pRecordOnPage, _str_loai_ban_ghi, p_js_function);
-                return pStrPaging;
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return "";
-            }
-        }
+        //public static string Paging(int pCurPage, int pRecordOnPage, int pTotalRecord, string p_js_function = "", string _str_loai_ban_ghi = "")
+        //{
+        //    try
+        //    {
+        //        if (_str_loai_ban_ghi == "")
+        //        {
+        //            _str_loai_ban_ghi = "Bản ghi";
+        //        }
+        //        if (p_js_function == "")
+        //        {
+        //            p_js_function = "page";
+        //        }
+        //        string pStrPaging = "";
+        //        double _dobTotalRec = Convert.ToDouble(pTotalRecord);
+        //        int _TotalPage = CommonFuc.RoundUp(_dobTotalRec / pRecordOnPage);
+        //        pStrPaging = WritePaging(_TotalPage, pCurPage, pTotalRecord, pRecordOnPage, _str_loai_ban_ghi, p_js_function);
+        //        return pStrPaging;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //        return "";
+        //    }
+        //}
 
-        public static string WritePaging(int iPageCount, int iCurrentPage, int iTotalRecords, int iPageSize, string pLoaiBanGhi, string p_jsfuncion = "")
-        {
-            try
-            {
-                if (p_jsfuncion == "")
-                {
-                    p_jsfuncion = "page";
-                }
-                string strPage = "";
-                strPage += "<div id='d_page'>";
-                // strPage += "<div id='d_total_rec'>" + "Có tổng " + iTotalRecords + " " + pLoaiBanGhi + "</div>";
-                strPage += "<div id='d_total_rec'>" + "Có tổng " + iTotalRecords + " " + pLoaiBanGhi + " </div>";
-                strPage += "<div id='d_number_of_page'>";
-                if (iPageCount <= 1) return strPage;
-                if (iCurrentPage > 1)
-                {
-                    //sangdd moi them dong 1 trở về trang đầu
-                    strPage += "<li onclick=\"" + p_jsfuncion + "(1)\"><span id=\"first\"  href=\"\"><<</span></li>";
+        //public static string WritePaging(int iPageCount, int iCurrentPage, int iTotalRecords, int iPageSize, string pLoaiBanGhi, string p_jsfuncion = "")
+        //{
+        //    try
+        //    {
+        //        if (p_jsfuncion == "")
+        //        {
+        //            p_jsfuncion = "page";
+        //        }
+        //        string strPage = "";
+        //        strPage += "<div id='d_page'>";
+        //        // strPage += "<div id='d_total_rec'>" + "Có tổng " + iTotalRecords + " " + pLoaiBanGhi + "</div>";
+        //        string language = AppsCommon.GetCurrentLang();
 
-                    strPage += "<li onclick=\"" + p_jsfuncion + "('" + (iCurrentPage - 1) + "')\"><span id=\"back\"  href=\"\"><</span></li>";
-                }
-                if (iPageCount <= 5)
-                {
-                    for (int j = 0; j < iPageCount; j++)
-                    {
-                        if (iCurrentPage == (j + 1))
-                        {
-                            //HungTD rem doan nay
-                            strPage += "<li style=\"background-color: #CDCDCD;\" onclick=\"" + p_jsfuncion + "(" + (j + 1) + ")\"><span class=\"a-active\" id=" + (j + 1) + "  href=\"\">" + (j + 1) + "</span></li>";
-                        }
-                        else
-                        {
-                            strPage += "<li onclick=\"" + p_jsfuncion + "(" + (j + 1) + ")\"><span id=" + (j + 1) + "  href=\"\">" + (j + 1) + "</span></li>";
-                        }
-                    }
-                }
-                else
-                {
-                    string cl = "";
-                    int t;
-                    int pagePreview = 0; //nếu đang ở trang 2 thì vẽ đc có 1 trang trước nó nên sẽ vẽ thêm 3 trang phía sau 
-                    //default là vẽ 2 trang trc 2 trang sau 
-                    int soTrangVeLui = 2;
-                    if ((iPageCount - iCurrentPage) == 1)
-                    {
-                        soTrangVeLui = soTrangVeLui + 1;
-                    }
-                    else if ((iPageCount - iCurrentPage) == 0)
-                    {
-                        soTrangVeLui = soTrangVeLui + 2;
-                    }
-                    for (t = iCurrentPage - soTrangVeLui; t <= iCurrentPage; t++) //ve truoc 2 trang 
-                    {
-                        if (t < 1) continue;
-                        cl = t == iCurrentPage ? "a-active" : "";
-                        strPage += t == iCurrentPage ? "<li onclick=\"" + p_jsfuncion + "(" + (t) + ")\" style=\"background-color: #CDCDCD;\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>"
-                                    : "<li   onclick=\"" + p_jsfuncion + "(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
-                        //strPage += "<li onclick=\"page(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
-                        pagePreview++;
-                    }
-                    t = 0;
-                    cl = "";
-                    if (iCurrentPage == 1) //truong hop trang dau tien thi ve du 5 trang 
-                    {
-                        for (t = iCurrentPage + 1; t < iCurrentPage + 5; t++)
-                        {
-                            if (t >= t + 5 || t > iPageCount) continue;
-                            cl = t == iCurrentPage ? "a-active" : "";
-                            strPage += t == iCurrentPage ? "<li onclick=\"" + p_jsfuncion + "(" + (t) + ")\" style=\"background-color: #CDCDCD;\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>"
-                                     : "<li   onclick=\"" + p_jsfuncion + "(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
-                            //strPage += "<li  onclick=\"page(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
-                        }
-                    }
-                    else if (iCurrentPage > 1)  //truogn hop ma la trang lon hon 1 thi se ve 4 trang ke tiep + 1 trang truoc 
-                    {
-                        int incr = 5 - (pagePreview - 1);
-                        for (t = iCurrentPage + 1; t < iCurrentPage + incr; t++)
-                        {
-                            if (t >= t + incr || t > iPageCount) continue;
-                            cl = t == iCurrentPage ? "a-active" : "";
-                            strPage += t == iCurrentPage ? "<li onclick=\"" + p_jsfuncion + "(" + (t) + ")\" style=\"background-color: #CDCDCD;\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>"
-                                     : "<li   onclick=\"" + p_jsfuncion + "(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
-                            //strPage += "<li onclick=\"page(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
-                        }
-                    }
+        //        if (true)
+        //        {
 
-                }
-                if (iCurrentPage < iPageCount)
-                {
-                    strPage += "<li onclick=\"" + p_jsfuncion + "('" + (iCurrentPage + 1) + "')\"><span id=\"next\"  href=\"\">></span></li>";
-                    //sangdd moi them dong 1 trở về trang cuối
-                    strPage += "<li onclick=\"" + p_jsfuncion + "(" + iPageCount + ")\"><span id=\"end\"  href=\"\">>></span></li>";
-                }
-                strPage += "</div>";
-                strPage += "</div>";
-                return strPage;
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return string.Empty;
-            }
-        }
+        //        }
+        //        strPage += "<div id='d_total_rec'>" + "Có tổng " + iTotalRecords + " " + pLoaiBanGhi + " </div>";
+        //        strPage += "<div id='d_number_of_page'>";
+        //        if (iPageCount <= 1) return strPage;
+        //        if (iCurrentPage > 1)
+        //        {
+        //            //sangdd moi them dong 1 trở về trang đầu
+        //            strPage += "<li onclick=\"" + p_jsfuncion + "(1)\"><span id=\"first\"  href=\"\"><<</span></li>";
+
+        //            strPage += "<li onclick=\"" + p_jsfuncion + "('" + (iCurrentPage - 1) + "')\"><span id=\"back\"  href=\"\"><</span></li>";
+        //        }
+        //        if (iPageCount <= 5)
+        //        {
+        //            for (int j = 0; j < iPageCount; j++)
+        //            {
+        //                if (iCurrentPage == (j + 1))
+        //                {
+        //                    //HungTD rem doan nay
+        //                    strPage += "<li style=\"background-color: #CDCDCD;\" onclick=\"" + p_jsfuncion + "(" + (j + 1) + ")\"><span class=\"a-active\" id=" + (j + 1) + "  href=\"\">" + (j + 1) + "</span></li>";
+        //                }
+        //                else
+        //                {
+        //                    strPage += "<li onclick=\"" + p_jsfuncion + "(" + (j + 1) + ")\"><span id=" + (j + 1) + "  href=\"\">" + (j + 1) + "</span></li>";
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            string cl = "";
+        //            int t;
+        //            int pagePreview = 0; //nếu đang ở trang 2 thì vẽ đc có 1 trang trước nó nên sẽ vẽ thêm 3 trang phía sau 
+        //            //default là vẽ 2 trang trc 2 trang sau 
+        //            int soTrangVeLui = 2;
+        //            if ((iPageCount - iCurrentPage) == 1)
+        //            {
+        //                soTrangVeLui = soTrangVeLui + 1;
+        //            }
+        //            else if ((iPageCount - iCurrentPage) == 0)
+        //            {
+        //                soTrangVeLui = soTrangVeLui + 2;
+        //            }
+        //            for (t = iCurrentPage - soTrangVeLui; t <= iCurrentPage; t++) //ve truoc 2 trang 
+        //            {
+        //                if (t < 1) continue;
+        //                cl = t == iCurrentPage ? "a-active" : "";
+        //                strPage += t == iCurrentPage ? "<li onclick=\"" + p_jsfuncion + "(" + (t) + ")\" style=\"background-color: #CDCDCD;\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>"
+        //                            : "<li   onclick=\"" + p_jsfuncion + "(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
+        //                //strPage += "<li onclick=\"page(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
+        //                pagePreview++;
+        //            }
+        //            t = 0;
+        //            cl = "";
+        //            if (iCurrentPage == 1) //truong hop trang dau tien thi ve du 5 trang 
+        //            {
+        //                for (t = iCurrentPage + 1; t < iCurrentPage + 5; t++)
+        //                {
+        //                    if (t >= t + 5 || t > iPageCount) continue;
+        //                    cl = t == iCurrentPage ? "a-active" : "";
+        //                    strPage += t == iCurrentPage ? "<li onclick=\"" + p_jsfuncion + "(" + (t) + ")\" style=\"background-color: #CDCDCD;\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>"
+        //                             : "<li   onclick=\"" + p_jsfuncion + "(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
+        //                    //strPage += "<li  onclick=\"page(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
+        //                }
+        //            }
+        //            else if (iCurrentPage > 1)  //truogn hop ma la trang lon hon 1 thi se ve 4 trang ke tiep + 1 trang truoc 
+        //            {
+        //                int incr = 5 - (pagePreview - 1);
+        //                for (t = iCurrentPage + 1; t < iCurrentPage + incr; t++)
+        //                {
+        //                    if (t >= t + incr || t > iPageCount) continue;
+        //                    cl = t == iCurrentPage ? "a-active" : "";
+        //                    strPage += t == iCurrentPage ? "<li onclick=\"" + p_jsfuncion + "(" + (t) + ")\" style=\"background-color: #CDCDCD;\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>"
+        //                             : "<li   onclick=\"" + p_jsfuncion + "(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
+        //                    //strPage += "<li onclick=\"page(" + (t) + ")\"><span class=" + cl + " id=" + (t) + "  href=\"\">" + (t) + "</span></li>";
+        //                }
+        //            }
+
+        //        }
+        //        if (iCurrentPage < iPageCount)
+        //        {
+        //            strPage += "<li onclick=\"" + p_jsfuncion + "('" + (iCurrentPage + 1) + "')\"><span id=\"next\"  href=\"\">></span></li>";
+        //            //sangdd moi them dong 1 trở về trang cuối
+        //            strPage += "<li onclick=\"" + p_jsfuncion + "(" + iPageCount + ")\"><span id=\"end\"  href=\"\">>></span></li>";
+        //        }
+        //        strPage += "</div>";
+        //        strPage += "</div>";
+        //        return strPage;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Logger.LogException(ex);
+        //        return string.Empty;
+        //    }
+        //}
 
         public static string Get_File_name(ref string p_file_Path)
         {
