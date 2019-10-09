@@ -108,7 +108,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="@b03_info.App_Detail_Number" type="text" maxlength="200" id="txtApp_Detail_Number" onblur="viewfillTT();"/>
+                        <input value="@b03_info.App_Detail_Number" type="text" maxlength="200" id="txtApp_Detail_Number" onblur="viewfillTT();" />
                     </div>
                 </div>
             </div>
@@ -550,7 +550,7 @@
             if (pType == 2) {
                 if (v_RepMasterType = "DDPL") {
                     if (_txtMADDSHCN == "") {
-                        jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
+                        jError("@Html.Raw(Resource.TM3C_MaDaiDienKhongDuocTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                             $("#txtMADDSHCN").focus()
                         });
                         return false;
@@ -563,15 +563,16 @@
             if (pType == 2) {
                 if (v_app_detail_number === "") {
                     $('#txtApp_Detail_Number').focus().val('');
-                    showError('Số đơn không được để trống');
-                    return false;
+                    jError("@Html.Raw(WebApps.Resources.Resource.SoDon + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        return false;
+                    });
                 }
             }
             var v_tendaydu = $("#txtTenDayDu").val();
             if (pType == 2) {
                 if (v_tendaydu === "") {
                     $('#txtTenDayDu').focus().val('');
-                    showError('@Resource.TM2B_TenKhongDuocDeTrong');
+                    showError("@Html.Raw(Resource.TM2B_TenKhongDuocDeTrong)");
                     return false;
                 }
             }
@@ -579,33 +580,19 @@
             if (pType == 2) {
                 if (v_diachi === "") {
                     $('#txtDiaChi').focus().val('');
-                    showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
+                    showError("@Html.Raw(Resource.TM2B_DiaChiKhongDuocDeTrong)");
                     return false;
                 }
             }
             var v_dienthoai = $("#txtDienThoai").val();
-            //if (v_dienthoai === "") {
-            //    $('#txtDienThoai').focus().val('');
-            //    showError('Điện thoại không được để trống');
-            //    return false;
-            //}
             var v_fax = $("#txtFax").val();
-            //if (v_fax === "") {
-            //    $('#txtFax').focus().val('');
-            //    showError('Số fax không được để trống');
-            //    return false;
-            //}
             var v_email = $("#txtEmail").val();
-            //if (v_email === "") {
-            //    $('#txtEmail').focus().val('');
-            //    showError('Email không được để trống');
-            //    return false;
-            //}
+
             if (pType == 2) {
                 if (v_email != "") {
                     if (!IsvalidEmail(v_email)) {
                         $("#txtEmail").focus();
-                        showError('@Resource.lblThongBaoLoiEmail');
+                        showError("@Html.Raw(Resource.lblThongBaoLoiEmail)");
                         return false;
                     }
                 }
@@ -622,7 +609,7 @@
             var _txtPoint = $("#txtPoint").val();
             if (pType == 2) {
                 if (_txtPoint == "") {
-                    jError("Số điểm yêu cầu bảo hộ độc lập không được để trống", "@Resource.TM3B_Loi", function () {
+                    jError("@Html.Raw(WebApps.Resources.Resource.SoDiemYeuCauBaoHoDocLap + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#txtPoint").focus()
                     });
                     return false;
@@ -644,14 +631,14 @@
             formData.append("pDetail.Phone_Evaluator", v_dienthoai);
             formData.append("pDetail.Fax_Evaluator", v_fax);
             formData.append("pDetail.Email_Evaluator", v_email);
-
         } catch (ex) {
             console.log(ex);
         }
     }
+
     function viewfillTT() {
         try {
-            
+
             $.ajax({
                 url: '/lg-patentB03/fillTT_Header',
                 type: 'POST',
@@ -663,7 +650,7 @@
                     $("#form_DDCD").html(data);
                 },
                 error: function (e) {
-                   
+
                     console.log(e);
                 }
             });

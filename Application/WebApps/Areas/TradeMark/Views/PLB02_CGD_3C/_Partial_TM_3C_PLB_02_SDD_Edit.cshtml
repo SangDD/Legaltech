@@ -658,7 +658,7 @@
             formData.append("pDetail.Transfer_Appno", _4_txt_SoDon);
         } catch (e) {
             console.log(e);
-            showError('@Resource.TM3B_InternetError');
+            showError("@Html.Raw(Resource.TM3B_InternetError)");
             return false;
         }
     }

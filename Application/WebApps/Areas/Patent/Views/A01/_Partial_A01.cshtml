@@ -1344,7 +1344,7 @@
             var _txt_Patent_Name = $("#txt_Patent_Name").val();
             if (pType == 2) {
                 if (_txt_Patent_Name == "") {
-                    jError("Tên bằng sáng chế không được để trống", "@Resource.TM3B_Loi", function () {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TenSangChe + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#txt_Patent_Name").focus()
                     });
                     return false;
@@ -1366,7 +1366,7 @@
             var _txtPoint = $("#txtPoint").val();
             if (pType == 2) {
                 if (_txtPoint == "") {
-                    jError("Số điểm yêu cầu bảo hộ độc lập không được để trống", "@Resource.TM3B_Loi", function () {
+                    jError("@Html.Raw(WebApps.Resources.Resource.SoDiemYeuCauBaoHoDocLap + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#txtPoint").focus()
                     });
                     return false;
@@ -1403,7 +1403,7 @@
                     var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
                     if (pType == 2) {
                         if (_Request_To_Type === "" || _Request_To_Type == undefined) {
-                            jError("@Resource.TM3B_ChonNoiDungYCSuaDoi", "@Resource.TM3B_Loi", function () {
+                            jError("@Html.Raw(Resource.TM3B_ChonNoiDungYCSuaDoi)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                                 $("#4_rdTenChuDon").focus()
                             });
                             return false;
@@ -1533,19 +1533,19 @@
 
                         if (pType == 2) {
                             if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
-                                showError('Số đơn ưu tiên không được để trống');
+                                showError("@Html.Raw(WebApps.Resources.Resource.SoDonUuTien + Resource.KhongDuocDeTrong)");
                                 $("#" + _id + "_UT_txtSoDon").focus();
                                 return false;
                             }
 
                             if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
-                                showError('Ngày nộp đơn ưu tiên không được để trống');
+                                showError("@Html.Raw(WebApps.Resources.Resource.NgayNopDonUuTien + Resource.KhongDuocDeTrong)");
                                 $("#" + _id + "_UT_txtNgayNopDon").focus();
                                 return false;
                             }
 
                             if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
-                                showError('Nước nộp đơn ưu tiên không được để trống');
+                                showError("@Html.Raw(WebApps.Resources.Resource.NuocNopQuyenUuTien + Resource.KhongDuocDeTrong)");
                                 $("#" + _id + "_UT_txtQuocGia").focus();
                                 return false;
                             }
@@ -1562,7 +1562,7 @@
                         var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
                         if (pType == 2) {
                             if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
-                                showError('Yêu cầu hưởng quyền ưu tiên phải chọn ít nhất 1 giá trị');
+                                showError("@Html.Raw(WebApps.Resources.Resource.YeuCauChonQuyenUuTien)");
                                 return false;
                             }
                         }

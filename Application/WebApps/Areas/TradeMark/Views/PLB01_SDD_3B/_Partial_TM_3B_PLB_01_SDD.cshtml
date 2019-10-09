@@ -658,7 +658,7 @@
         try {
             var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
             if ((_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) && pType == 2) {
-                jError("@Resource.TM3B_GiaTriDonYCSuaDoi", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM3B_GiaTriDonYCSuaDoi)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#3_rdDonSangChe").focus()
                 });
                 return false;
@@ -674,14 +674,14 @@
                 if (_soHinh == "" || _soTrang == "") {
 
                     if (_soHinh == "" && pType == 2) {
-                        jError("@Resource.TM3B_SoHinhKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                        jError("@Html.Raw(Resource.TM3B_SoHinhKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                             $("#txt_SoHinh").focus()
                         });
                         return false;
                     }
 
                     if (_soTrang == "" && pType == 2) {
-                        jError("@Resource.TM3B_SoTrangKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                        jError("@Html.Raw(Resource.TM3B_SoTrangKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                             $("#txt_SoTrang").focus()
                         });
                         return false;
@@ -694,7 +694,7 @@
             // số đơn
             var _3_SoDon = $("#3_SoDon").val();
             if ((_3_SoDon === "" || _3_SoDon == undefined)&& pType == 2) {
-                jError("@Resource.TM3B_SoDonKhongDuocDeTrong", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM3B_SoDonKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#3_SoDon").focus()
                 });
                 return false;
@@ -704,7 +704,7 @@
             // Nội dung yêu cầu sửa đổi
             var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
             if ((_Request_To_Type === "" || _Request_To_Type == undefined) && pType == 2) {
-                jError("@Resource.TM3B_ChonNoiDungYCSuaDoi", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM3B_ChonNoiDungYCSuaDoi)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#4_rdTenChuDon").focus()
                 });
                 return false;
@@ -714,7 +714,7 @@
             // đề nghị sửa thành
             var _4_DeNghiSuaThanh = $("#4_DeNghiSuaThanh").val();
             if ((_4_DeNghiSuaThanh === "" || _4_DeNghiSuaThanh == undefined) && pType == 2) {
-                jError("@Resource.TM3B_DeNghiSuaThanhTrong", "@Resource.TM3B_Loi", function () {
+                jError("@Html.Raw(Resource.TM3B_DeNghiSuaThanhTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#4_DeNghiSuaThanh").focus()
                 });
                 return false;
@@ -722,7 +722,7 @@
             formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
         } catch (e) {
             console.log(e);
-            showError('@Resource.TM3B_InternetError');
+            showError("@Html.Raw(Resource.TM3B_InternetError)");
             return false;
         }
     }

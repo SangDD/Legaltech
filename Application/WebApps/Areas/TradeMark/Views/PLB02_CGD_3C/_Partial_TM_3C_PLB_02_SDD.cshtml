@@ -550,7 +550,7 @@
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
             if (v_RepMasterType = "DDPL" && p_Status == 2) {
                 if (txtMADDSHCN == "") {
-                    jError("@Html.Raw(Resource.TM3C_MaDaiDienKhongDuocTrong)", "@Resource.TM3B_Loi)", function () {
+                    jError("@Html.Raw(Resource.TM3C_MaDaiDienKhongDuocTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#txtMADDSHCN").focus()
                     });
                     return false;
@@ -560,7 +560,7 @@
 
             var _DonDuocChuyenNhuong = $("input[name='4_rdoDonDuocChuyenNhuong']:checked").val();
             if ((_DonDuocChuyenNhuong === "" || _DonDuocChuyenNhuong == undefined) && p_Status == 2 ) {
-                jError("@Html.Raw(Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong)", "@Resource.TM3B_Loi)", function () {
+                jError("@Html.Raw(Resource.TM3C_ChonGiaTriYeuCauChuyenNhuong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#4_rdDK_SC").focus()
                 });
                 return false;
@@ -570,7 +570,7 @@
             // số đơn
             var _4_txt_SoDon = $("#4_txt_SoDon").val();
             if ((_4_txt_SoDon === "" || _4_txt_SoDon == undefined) && p_Status == 2 ) {
-                jError("@Html.Raw(Resource.TM3B_SoDonKhongDuocDeTrong)", "@Resource.TM3B_Loi)", function () {
+                jError("@Html.Raw(Resource.TM3B_SoDonKhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                     $("#4_txt_SoDon").focus()
                 });
                 return false;
@@ -578,7 +578,7 @@
             formData.append("pDetail.Transfer_Appno", _4_txt_SoDon);
         } catch (e) {
             console.log(e);
-            showError('@Resource.TM3B_InternetError');
+            showError("@Html.Raw(Resource.TM3B_InternetError)");
             return false;
         }
     }
