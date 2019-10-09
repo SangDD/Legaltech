@@ -176,8 +176,12 @@
                 p_type: 1
             },
             headers: { "cache-control": "no-cache" },
-            async: false,
+            async: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
             success: function (data) {
+                CreateRollingWaitingIcon(false);
                 if (data.success == "-2") {
                     jError("@Html.Raw(WebApps.Resources.Resource.TrangThaiDonKhongHopLe)");
                 }
