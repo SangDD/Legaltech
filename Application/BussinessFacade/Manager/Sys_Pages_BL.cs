@@ -51,9 +51,9 @@ namespace BussinessFacade
                 //Sys_Pages_DA objDA = new Sys_Pages_DA();
                 //DataSet ResultData = objDA.Sys_Pages_GetBy_Code(p_code);
                 //return CBO<Sys_Pages_Info>.FillObjectFromDataSet(ResultData);
-                if (ModuleMemoryData.MemoryData.c_dic_Sys_Pages.ContainsKey(p_code))
+                if (ModuleMemoryData.MemoryData.c_dic_Sys_Pages.ContainsKey(p_code.ToUpper()))
                 {
-                    return ModuleMemoryData.MemoryData.c_dic_Sys_Pages[p_code];
+                    return ModuleMemoryData.MemoryData.c_dic_Sys_Pages[p_code.ToUpper()];
                 }
                 else
                 {

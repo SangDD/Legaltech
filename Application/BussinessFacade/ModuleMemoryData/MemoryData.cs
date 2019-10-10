@@ -167,7 +167,7 @@
                 List<Sys_Pages_Info> _lst = _bl.Sys_Pages_GetAll();
                 foreach (Sys_Pages_Info item in _lst)
                 {
-                    c_dic_Sys_Pages[item.Code] = item;
+                    c_dic_Sys_Pages[item.Code.ToUpper()] = item;
                 }
             }
             catch (Exception ex)
