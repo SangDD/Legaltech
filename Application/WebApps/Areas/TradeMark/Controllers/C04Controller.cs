@@ -35,7 +35,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/TradeMark/Views/C02/_Partial_C04_Register.cshtml");
+            return PartialView("~/Areas/TradeMark/Views/C04/_Partial_C04_Register.cshtml");
 
         }
     }

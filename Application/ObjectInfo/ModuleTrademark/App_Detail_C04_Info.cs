@@ -48,10 +48,11 @@ namespace ObjectInfos
 
             this.App_Change_Type = p_app_detail.App_Change_Type;
             this.App_No_Change = p_app_detail.App_No_Change;
+            this.TheEnd_Vbbh = p_app_detail.TheEnd_Vbbh;
+            this.Cancel_Vbbh = p_app_detail.Cancel_Vbbh;
+            this.Reason = p_app_detail.Reason;
 
-            this.App_Change_Detail = p_app_detail.App_Change_Detail;
-            this.Number_Point = p_app_detail.Number_Point;
-            this.Number_Year = p_app_detail.Number_Year;
+
 
             this.STT = p_app_header.STT;
             this.Appcode = p_app_header.Appcode;
@@ -86,9 +87,10 @@ namespace ObjectInfos
         public string Language_Code { get; set; }
         public decimal App_Change_Type { get; set; }
         public string App_No_Change { get; set; }
-        public string App_Change_Detail { get; set; }
-        public int Number_Point { get; set; }
-        public int Number_Year { get; set; }
+        
+        public decimal TheEnd_Vbbh { get; set; }
+        public decimal Cancel_Vbbh { get; set; }
+        public string Reason { get; set; }
 
         public int Number_Count_Detail { get; set; }
         public int Number_Count_App_No_Change { get; set; }
@@ -166,10 +168,10 @@ namespace ObjectInfos
 
         public string Doc_Id_9 { get; set; }
         public decimal Doc_Id_9_Check { get; set; }
+
+        public string Doc_Id_10 { get; set; }
         public decimal Doc_Id_10_Check { get; set; }
 
-        public string Doc_Id_11 { get; set; }
-        public decimal Doc_Id_11_Check { get; set; }
 
     }
 }
