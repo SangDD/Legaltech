@@ -1298,7 +1298,7 @@
     $(document).ready(function () {
 
 
-         GetThongTinDaiDien('@objAppHeaderInfo.Rep_Master_Type');
+         //GetThongTinDaiDien('@objAppHeaderInfo.Rep_Master_Type');
 
         if ($("#6_rdoGiayChuyenNhungUT").is(':checked')) {
             ShowHidenUpLoad("6_rdoGiayChuyenNhungUT", "6_rdoGiayChuyenNhungUT");
@@ -2049,9 +2049,10 @@
             formdata.append("pDetail.Description", v_MoTa_0);
 
             //Sửa
-            var vTaiLieuKhacRemove = $("#ListIDAttach_R").val();
-            formdata.append("pDetail.ListFileAttachOtherDel", vTaiLieuKhacRemove);
+            //var vTaiLieuKhacRemove = $("#ListIDAttach_R").val();
+            //formdata.append("pDetail.ListFileAttachOtherDel", vTaiLieuKhacRemove);
             //Vào so sánh vs cái mới xem có sửa hay ko ko sửa thì thôi ko save
+
             var logORG = $("#txtLogoOld").val();
             formdata.append("pDetail.LogourlOrg", logORG);
 

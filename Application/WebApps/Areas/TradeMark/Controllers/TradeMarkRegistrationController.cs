@@ -460,16 +460,16 @@
                         }
                     }
 
-                    //Xóa các tài liệu đi khi sửa bản ghi 
-                    if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
-                    {
-                        var arrIdFileAttack = pDetail.ListFileAttachOtherDel.Split(',');
-                        foreach (var item in arrIdFileAttack)
-                        {
-                            decimal pID = CommonFuc.ConvertToDecimal(item);
-                            pReturn = objDoc.AppDocOther_Del_ByID(pID, language);
-                        }
-                    }
+                    ////Xóa các tài liệu đi khi sửa bản ghi 
+                    //if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
+                    //{
+                    //    var arrIdFileAttack = pDetail.ListFileAttachOtherDel.Split(',');
+                    //    foreach (var item in arrIdFileAttack)
+                    //    {
+                    //        decimal pID = CommonFuc.ConvertToDecimal(item);
+                    //        pReturn = objDoc.AppDocOther_Del_ByID(pID, language);
+                    //    }
+                    //}
 
                     //end
                     if (pReturn < 0)
