@@ -257,9 +257,12 @@
                 {
                     //
                     pInfo.Languague_Code = language;
-                    pInfo.Created_By = CreatedBy;
-                    pInfo.Created_Date = CreatedDate;
+                    pInfo.Modify_By = SessionData.CurrentUser.Username;
+                    pInfo.Modify_Date = SessionData.CurrentUser.CurrentDate;
                     pInfo.Send_Date = DateTime.Now;
+                    pInfo.DDSHCN = "";
+                    pInfo.MADDSHCN = "";
+                    pInfo.Master_Type = "";
                     if (pDetail.pfileLogo != null)
                     {
                         pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
@@ -280,7 +283,7 @@
 
                     // xóa đi
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
-                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
+                    _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
 
                     // insert lại fee
 

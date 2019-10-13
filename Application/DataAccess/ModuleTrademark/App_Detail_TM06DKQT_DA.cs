@@ -34,6 +34,7 @@ namespace DataAccess
                 new OracleParameter("P_COUNTRY_ID08", OracleDbType.Varchar2, pInfo.COUNTRY_ID08, ParameterDirection.Input),
                 new OracleParameter("P_LEPHI", OracleDbType.Decimal, pInfo.LEPHI, ParameterDirection.Input),
                 new OracleParameter("P_PAGE_REMAIN", OracleDbType.Decimal, pInfo.PAGE_REMAIN, ParameterDirection.Input),
+                new OracleParameter("P_NGAYNOPDON", OracleDbType.Date, pInfo.NGAYNOPDON, ParameterDirection.Input),
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -70,6 +71,7 @@ namespace DataAccess
                 new OracleParameter("P_COUNTRY_ID08", OracleDbType.Varchar2, pInfo.COUNTRY_ID08, ParameterDirection.Input),
                 new OracleParameter("P_LEPHI", OracleDbType.Decimal, pInfo.LEPHI, ParameterDirection.Input),
                 new OracleParameter("P_PAGE_REMAIN", OracleDbType.Decimal, pInfo.PAGE_REMAIN, ParameterDirection.Input),
+                new OracleParameter("P_NGAYNOPDON", OracleDbType.Date, pInfo.NGAYNOPDON, ParameterDirection.Input),
                 paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

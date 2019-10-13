@@ -20,7 +20,7 @@
     }
 
     string _appcode = ViewBag.AppCode;
-    ViewBag.Isdisable = 1;
+   
     var clstAppClassShortSuggest = new List<SuggestInfo>();
     foreach (var item in MemoryData.clstAppClassSuggest)
     {
@@ -125,7 +125,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
 
         @* Case name *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "-1")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info_2.png" />
@@ -253,11 +253,11 @@
                 </div>
             </div>
 
-            <div id="div_chudon2a">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "_1")
+            <div id="div_PartialThongTinChuDon">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
             </div>
 
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "_2")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
 
             <div id="div_appclass_2a">
                 @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
@@ -648,7 +648,7 @@
                 return false;
             }
 
-            var reponse = funcThongTinCaseName(formData, "-1");
+            var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {
                 return false;
             }
@@ -690,8 +690,17 @@
                 return false;
             }
 
-         
+            if (funcThongTinChuDon(formData, "1") != true) {
+                return false;
+            }
 
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
             $.ajax({
                 url: '/trade-mark-01/dang_ky_nhan_hieu',
                 type: 'POST',
@@ -780,11 +789,6 @@
                 return false;
             }
 
-            if ((cbo_04nh_data.val() == "" || cbo_04nh_data.val() == null) && p_ShowError == 1) {
-                showError('@Resource.TM2B_ChonSoDon');
-                $("#cbo_04nh_data").multipleSelect("focus");
-                return false;
-            }
 
             if (_1_txtSoDonGCN.val() == "" && p_ShowError == 1) {
                 showError('@Resource.TM2B_ChonSoDon');
