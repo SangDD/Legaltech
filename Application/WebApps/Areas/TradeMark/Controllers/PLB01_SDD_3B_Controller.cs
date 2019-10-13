@@ -588,7 +588,7 @@
                         AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
                     }
 
-                    oRpt.Database.Tables["Table1"].SetDataSource(_ds_all.Tables[0]);
+                    oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
                     //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
