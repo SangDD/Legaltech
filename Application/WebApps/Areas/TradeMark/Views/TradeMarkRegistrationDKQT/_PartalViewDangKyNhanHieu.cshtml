@@ -71,12 +71,7 @@
     {
         dic_appDoc[item.Document_Id] = item;
     }
-    string _checked = "";
-    string _disabled = "";
-    string _doc_id = "";
-    string _id = "";
-    string _value = "";
-    string _model = "";
+    
 }
 
 
@@ -243,20 +238,6 @@
             </div>
         </div>
 
-
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div style="width:450px"> Phí dịch vụ làm thủ tục đăng ký quốc tế nhãn hiệu đã nộp kèm theo: </div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" placeholder="" maxlength="20" id="_5_txtLePhiDangKy" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@objAppHeaderInfo.LEPHI.ToNumberString()" disabled />
-                </div>
-            </div>
-        </div>
-
-
-
         <div class="divCover cls_form_title" style="">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
@@ -266,22 +247,56 @@
 
         @* 1. Tờ khai *@
         @{
-            _checked = "";
-            _disabled = "";
-            _doc_id = "C06DKQT_D_01";
-            _id = _doc_id + "|6_Doc_ToKhai|0|Tờ khai, gồm|Số trang|Số bản|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            string _checked = "";
+            string _disabled = "";
+            string _doc_id = "";
+            string _id = "";
+            string _value = "";
+            string _model = "";
         }
+
+        @{
+            try
+            {
+                _checked = "";
+                _disabled = "";
+                _doc_id = "C06DKQT_D_01";
+                _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+
+            }
+            catch (Exception)
+            {
+
+                _checked = "";
+                _disabled = "";
+                _doc_id = "C06DKQT_D_01";
+                _id = _doc_id + "|6_Doc_ToKhai|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
+                _value = "0|||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+
+            }
+        }
+
+        @* 2. mẫu đăng ký của văn phòng quốc tế *@
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div>
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTaiLieuTrongDonFileInput.cshtml", "_6_rdoToKhai")
+                </div>
+            </div>
+        </div>
         @{
 
             _doc_id = "C06DKQT_D_02";
-            _id = _doc_id + "|6_MauDKVPQuocTe|0|Tờ khai, gồm|Số trang|0";
+            _id = _doc_id + "|6_MauDKVPQuocTe|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|" + Resource.TM2B_SoBan + "|0";
             _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
             _model = _id + ";" + _value;
             _checked = "";
-            _disabled = "";
+            _disabled = "disabled";
             if (dic_appDoc[_doc_id].Isuse.ToString().Trim() == "1")
             {
                 _checked = "checked='checked'";
@@ -292,154 +307,323 @@
             }
         }
 
+
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-checkbox" style="width:300px">
-                    <input @_checked type="checkbox" id="ckb_6_MauDKVPQuocTe" value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id, 'txt_6_MauDKVPQuocTe');" disabled />
-                    Mẫu đăng ký của Văn phòng quốc tế, form số:
+                    <input @_checked type="checkbox" id="ckb_6_MauDKVPQuocTe"  @_disabled value="C06DKQT_D_02" onchange="return ShowHidenUpLoad(this.id, this.id, 'txt_6_MauDKVPQuocTe');" />
+                    @Resource.TM2B_MauDKVPQT
                 </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txt_6_MauDKVPQuocTe" maxlength="50" placeholder="txt_6_MauDKVPQuocTe" disabledvalue="@dic_appDoc[_doc_id].CHAR01" />
+                    <input type="text" id="txt_6_MauDKVPQuocTe" maxlength="50" placeholder="txt_6_MauDKVPQuocTe" @_disabled value="@dic_appDoc[_doc_id].CHAR01" />
                 </div>
             </div>
             <div class="div-search-title">
-                <div>làm bằng tiếng </div>
+                <div>@Resource.TM2B_LamBangTieng </div>
             </div>
             <div class="div-search-content">
                 <div style="width:150px">
-                    <input type="text" id="txt_6_MauDKVPQuocTe_1" placeholder="txt_6_MauDKVPQuocTe_1" maxlength="50" disabled value="@dic_appDoc[_doc_id].CHAR02" />
+                    <input type="text" id="txt_6_MauDKVPQuocTe_1" placeholder="txt_6_MauDKVPQuocTe_1" maxlength="50" @_disabled value="@dic_appDoc[_doc_id].CHAR02" />
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>số trang:</div>
+                <div>@Resource.TM2B_SoTrang:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_2" maxlength=" 50" placeholder="txt_6_MauDKVPQuocTe_2" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR03" disabled />
+                    <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_2" maxlength="50" placeholder="txt_6_MauDKVPQuocTe_2" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR03" />
                 </div>
             </div>
 
             <div class="div-search-title">
-                <div>số bản:</div>
+                <div>@Resource.TM2B_SoBan:</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_3" maxlength="50" placeholder="txt_6_MauDKVPQuocTe_3" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR04" disabled />
+                    <input @_disabled type="text" id="txt_6_MauDKVPQuocTe_3" maxlength="50" placeholder="txt_6_MauDKVPQuocTe_3" onkeypress="return isNumberKey(event);" onkeyup="jsFormatNumber(this.value, this.id)" value="@dic_appDoc[_doc_id].CHAR04" />
                 </div>
             </div>
 
         </div>
 
+
+
         @{
-            //  3 mẫu đăng ký nhãn hiệu
-            _doc_id = "C06DKQT_D_03";
-            _id = _doc_id + "|6_Doc_MauNhanHieu|0|Mẫu nhãn hiệu|Số mẫu|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //  3 mẫu đăng ký nhãn hiệu
+                _doc_id = "C06DKQT_D_03";
+                _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                //  3 mẫu đăng ký nhãn hiệu
+                _doc_id = "C06DKQT_D_03";
+                _id = _doc_id + "|6_Doc_MauNhanHieu|0|" + Resource.TM2B_MauNhanHieu + "|" + Resource.TM2B_SoMau + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
+
         @{
-            //4 bản sao tờ khai
-            _doc_id = "C06DKQT_D_04";
-            _id = _doc_id + "|6_Doc_BanSaoToKhai|0|Bản sao Tờ khai yêu cầu cấp GCN đăng ký nhãn hiệu cơ sở|1";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //4 bản sao tờ khai
+                _doc_id = "C06DKQT_D_04";
+                _id = _doc_id + "|6_Doc_BanSaoToKhai|0|" + Resource.TM2B_BanSaoToKhai + "|1";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                //4 bản sao tờ khai
+                _doc_id = "C06DKQT_D_04";
+                _id = _doc_id + "|6_Doc_BanSaoToKhai|0|" + Resource.TM2B_BanSaoToKhai + "|1";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+
+            }
+
         }
 
 
         @{
-            //5 bản sao giay chung nhan dk nhan hieu co so
-            _doc_id = "C06DKQT_D_05";
-            _id = _doc_id + "|6_Doc_BanSaoGiayDKNHCS|0| Bản sao Giấy chứng nhận đăng ký nhãn hiệu cơ sở|1";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //5 bản sao giay chung nhan dk nhan hieu co so
+                _doc_id = "C06DKQT_D_05";
+                _id = _doc_id + "|6_Doc_BanSaoGiayDKNHCS|0|" + Resource.TM2B_BanSaoGiayCNDK + "|1";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+
+                //5 bản sao giay chung nhan dk nhan hieu co so
+                _doc_id = "C06DKQT_D_05";
+                _id = _doc_id + "|6_Doc_BanSaoGiayDKNHCS|0|" + Resource.TM2B_BanSaoGiayCNDK + "|1";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
         @{
-            // 6 bản cam kết sẽ sử dụng NH
-            _doc_id = "C06DKQT_D_06";
-            _id = _doc_id + "|6_Doc_CamKetSuDungNH|0|Bản cam kết sẽ sử dụng NH tại nước yêu cầu đăng ký bảo hộ (nếu chỉ định vào các quốc gia Ireland, Singapore, Vương quốc Anh và Hoa Kỳ|1";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                // 6 bản cam kết sẽ sử dụng NH
+                _doc_id = "C06DKQT_D_06";
+                _id = _doc_id + "|6_Doc_CamKetSuDungNH|0|" + Resource.TM2B_BanCamKetSeSD + "|1";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+
+                // 6 bản cam kết sẽ sử dụng NH
+                _doc_id = "C06DKQT_D_06";
+                _id = _doc_id + "|6_Doc_CamKetSuDungNH|0|" + Resource.TM2B_BanCamKetSeSD + "|1";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
         @{
-            // 7 giay quy quyen bang tieng
-            _doc_id = "C06DKQT_D_07";
-            _id = _doc_id + "|6_Doc_GiayUyQuyenBangTieng|0|Giấy ủy quyền|Bằng tiếng|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
-        }
-        @{
-            // 8 giay quy quyen bang tieng
-            _doc_id = "C06DKQT_D_08";
-            _id = _doc_id + "|6_Doc_BanDichTiengViet|1|Bản dịch tiếng Việt|số trang|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                // 7 giay quy quyen bang tieng
+                _doc_id = "C06DKQT_D_07";
+                _id = _doc_id + "|6_Doc_GiayUyQuyenBangTieng|0|" + Resource.TM2B_GiayUyQuyen + "|" + Resource.TM2B_BangTieng + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+
+                // 7 giay quy quyen bang tieng
+                _doc_id = "C06DKQT_D_07";
+                _id = _doc_id + "|6_Doc_GiayUyQuyenBangTieng|0|" + Resource.TM2B_GiayUyQuyen + "|" + Resource.TM2B_BangTieng + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
 
         @{
-            // 9 bản gốc
-            _doc_id = "C06DKQT_D_09";
-            _id = _doc_id + "|6_DocBanGoc|1|Bản gốc|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                // 8 giay quy quyen bang tieng
+                _doc_id = "C06DKQT_D_08";
+                _id = _doc_id + "|6_Doc_BanDichTiengViet|1|" + Resource.TM2B_BanDichTiengViet + "|" + Resource.TM2B_BanDichSoTrang + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+
+                // 8 giay quy quyen bang tieng
+                _doc_id = "C06DKQT_D_08";
+                _id = _doc_id + "|6_Doc_BanDichTiengViet|1|" + Resource.TM2B_BanDichTiengViet + "|" + Resource.TM2B_BanDichSoTrang + "|0";
+                _value = "0|||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
+        }
+
+
+        @{
+            try
+            {
+                // 9 bản gốc
+                _doc_id = "C06DKQT_D_09";
+                _id = _doc_id + "|6_DocBanGoc|1|" + Resource.TM2B_BanGoc + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                // 9 bản gốc
+                _doc_id = "C06DKQT_D_09";
+                _id = _doc_id + "|6_DocBanGoc|1|" + Resource.TM2B_BanGoc + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
         @{
-            //10 bản sao
-            _doc_id = "C06DKQT_D_010";
-            _id = _doc_id + "|6_Doc_Sao|1|Bản sao|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //10 bản sao
+                _doc_id = "C06DKQT_D_010";
+                _id = _doc_id + "|6_Doc_Sao|1|" + Resource.TM2B_BanSao + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                _doc_id = "C06DKQT_D_010";
+                _id = _doc_id + "|6_Doc_Sao|1|" + Resource.TM2B_BanSao + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
         @{
-            //*11 bản sao nộp sau
-            _doc_id = "C06DKQT_D_011";
-            _id = _doc_id + "|6_Doc_BanGocSeNopSau|2|Bản gốc sẽ nộp sau|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //*11 bản sao nộp sau
+                _doc_id = "C06DKQT_D_011";
+                _id = _doc_id + "|6_Doc_BanGocSeNopSau|2|" + Resource.TM2B_BanGocSeNopSau + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                //*11 bản sao nộp sau
+                _doc_id = "C06DKQT_D_011";
+                _id = _doc_id + "|6_Doc_BanGocSeNopSau|2|" + Resource.TM2B_BanGocSeNopSau + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
         @{
-            //12 bản gốc đã nộp theo số
-            _doc_id = "C06DKQT_D_012";
-            _id = _doc_id + "|6_Doc_BanGocDaNopTheoDonSo|2|Bản gốc đã nộp theo đơn|Số đơn|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //12 bản gốc đã nộp theo số
+                _doc_id = "C06DKQT_D_012";
+                _id = _doc_id + "|6_Doc_BanGocDaNopTheoDonSo|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                //12 bản gốc đã nộp theo số
+                _doc_id = "C06DKQT_D_012";
+                _id = _doc_id + "|6_Doc_BanGocDaNopTheoDonSo|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
         @{
-            //13 chứng từ lệ phí
-            _doc_id = "C06DKQT_D_013";
-            _id = _doc_id + "|6_Doc_ChungTuLePhi|0|chứng từ lệ phí|1";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //13 chứng từ lệ phí
+                _doc_id = "C06DKQT_D_013";
+                _id = _doc_id + "|6_Doc_ChungTuLePhi|0|" + Resource.TM2B_ChungTuLePhi + "|1";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                //13 chứng từ lệ phí
+                _doc_id = "C06DKQT_D_013";
+                _id = _doc_id + "|6_Doc_ChungTuLePhi|0|" + Resource.TM2B_ChungTuLePhi + "|1";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
 
         @{
-            //14 tài liệu bổ sung
-            _doc_id = "C06DKQT_D_014";
-            _id = _doc_id + "|6_Doc_TaiLieuBoSung|0|Tài liệu bổ sung|Nhập tài liệu|0";
-            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
-            _model = _id + ";" + _value;
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            try
+            {
+                //14 tài liệu bổ sung
+                _doc_id = "C06DKQT_D_014";
+                _id = _doc_id + "|6_Doc_TaiLieuBoSung|0|" + Resource.TM2B_TaiLieuBoSung + "|" + Resource.TM2B_NhapTaiLieu + "|0";
+                _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+            catch (Exception)
+            {
+                //14 tài liệu bổ sung
+                _doc_id = "C06DKQT_D_014";
+                _id = _doc_id + "|6_Doc_TaiLieuBoSung|0|" + Resource.TM2B_TaiLieuBoSung + "|" + Resource.TM2B_NhapTaiLieu + "|0";
+                _value = "0||";
+                _model = _id + ";" + _value;
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
+            }
+
         }
+        
+
+        
       
      
 

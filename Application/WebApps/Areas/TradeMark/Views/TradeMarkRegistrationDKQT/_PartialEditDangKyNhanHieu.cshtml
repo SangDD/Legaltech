@@ -580,7 +580,7 @@
             {
                 // 8 giay quy quyen bang tieng
                 _doc_id = "C06DKQT_D_08";
-                _id = _doc_id + "|6_Doc_BanDichTiengViet|1|Bản dịch tiếng Việt|số trang|0";
+                _id = _doc_id + "|6_Doc_BanDichTiengViet|1|"+ Resource.TM2B_BanDichTiengViet + "|"+ Resource.TM2B_BanDichSoTrang + "|0";
                 _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].CHAR02 + "|" + dic_appDoc[_doc_id].Url_Hardcopy;
                 _model = _id + ";" + _value;
                 @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonEdit.cshtml", _model)
@@ -753,11 +753,9 @@
             </div>
         </div>
 
-
-
         <div class="class_save">
             <div class="classGuiDon">
-                @if (objAppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
                 {
                     <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
                     <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
