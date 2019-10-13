@@ -752,7 +752,8 @@ namespace WebApps.Areas.Patent.Controllers
                         AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
                     }
 
-                    oRpt.SetDataSource(_ds_all);
+                    oRpt.Database.Tables["Table1"].SetDataSource(_ds_all.Tables[0]);
+                    //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
 
@@ -826,7 +827,8 @@ namespace WebApps.Areas.Patent.Controllers
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table1";
-                    oRpt.SetDataSource(_ds_all);
+                    oRpt.Database.Tables["Table1"].SetDataSource(_ds_all.Tables[0]);
+                    //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
 

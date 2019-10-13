@@ -246,21 +246,28 @@
         @* 2. Tài liệu xác nhận *@
         @{
             string _doc_id2 = "01_SDD_02";
-            string _model2 = _doc_id2 + "|6_Doc_TLXacNhan|0|" + Resource.TM3B_TaiLieuXacNhanThayDoi + "|" + Resource.TM3B_Tieng + "|1";
+            string _model2 = _doc_id2 + "|6_Doc_TLXacNhan|0|" + Resource.TM3B_TaiLieuXacNhanThayDoi + "|" + Resource.TM3B_Tieng + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
         }
 
         @* 3. Bản dịch tiếng Việt *@
         @{
             string _doc_id3 = "01_SDD_03";
-            string _model3 = _doc_id3 + "|6_Doc_BDichTv|0|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+            string _model3 = _doc_id3 + "|6_Doc_BDichTv|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+        }
+
+        @* 3.1. Tài liệu chứng minh sự thay đổi chủ đơn do thừa kế, kế thừa  *@
+        @{
+            string _doc_id12 = "01_SDD_12";
+            string _model12 = _doc_id12 + "|6_Doc_ThuaKe|0|" + Resource.TaiLieuThuaKe + "||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model12)
         }
 
         @* 4. Giấy uỷ quyền bằng tiếng *@
         @{
             string _doc_id4 = "01_SDD_04";
-            string _model4 = _doc_id4 + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|1";
+            string _model4 = _doc_id4 + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
         }
 
@@ -770,6 +777,9 @@
             // 6.Tài liệu khác, cụ thể:
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Other", "10");
             formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_6_Doc_Other").val());
+
+            // 12 Tài liệu chứng minh sự thay đổi chủ đơn do thừa kế, kế thừa 
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ThuaKe", "11");
         } catch (e) {
             console.log(e);
         }

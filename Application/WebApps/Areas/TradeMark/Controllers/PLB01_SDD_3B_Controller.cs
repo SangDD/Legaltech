@@ -536,6 +536,8 @@
                 List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
+                //_ds_all.WriteXml(@"C:\inetpub\B01.xml", XmlWriteMode.WriteSchema);
+
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
@@ -586,7 +588,8 @@
                         AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
                     }
 
-                    oRpt.SetDataSource(_ds_all);
+                    oRpt.Database.Tables["Table1"].SetDataSource(_ds_all.Tables[0]);
+                    //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
 
@@ -627,6 +630,8 @@
                 List<App_Detail_PLB01_SDD_Info> _lst = new List<App_Detail_PLB01_SDD_Info>();
                 _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_PLB01_SDD_Info>(_lst, false);
+                //_ds_all.Tables[0].TableName = "Table";
+                //_ds_all.WriteXml(@"C:\inetpub\B01.xml", XmlWriteMode.WriteSchema);
 
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
                 string _tempfile = "TM_PLB01SDD.rpt";
@@ -649,7 +654,9 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
-                    oRpt.SetDataSource(_ds_all);
+
+                    oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
+                    //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
 

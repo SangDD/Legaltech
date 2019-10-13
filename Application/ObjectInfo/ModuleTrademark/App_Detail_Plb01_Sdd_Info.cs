@@ -33,6 +33,7 @@ namespace ObjectInfos
             p_appDetail.DateNo = pAppInfo.DateNo;
             p_appDetail.Months = pAppInfo.Months;
             p_appDetail.Years = pAppInfo.Years;
+            p_appDetail.Customer_Code = pAppInfo.Customer_Code;
         }
 
         public App_Detail_PLB01_SDD_Info()
@@ -136,5 +137,14 @@ namespace ObjectInfos
 
         public string Doc_Id_11 { get; set; }
         public decimal Doc_Id_11_Check { get; set; }
+
+        public string Doc_Id_12 { get; set; }
+        public decimal Doc_Id_12_Check { get; set; }
+
+        public string Extend_01 { get; set; }
+        public string Extend_02 { get; set; }
+        public string Extend_03 { get; set; }
+        public string Extend_04 { get; set; }
+        public string Extend_05 { get; set; }
     }
 }

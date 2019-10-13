@@ -5497,6 +5497,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tài liệu chứng minh sự thay đổi chủ đơn do thừa kế, kế thừa.
+        /// </summary>
+        public static string TaiLieuThuaKe {
+            get {
+                return ResourceManager.GetString("TaiLieuThuaKe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tài liệu tối thiểu.
         /// </summary>
         public static string TaiLieuToiThieu {

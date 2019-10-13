@@ -1090,6 +1090,12 @@ namespace WebApps.CommonFunction
                             pDetail.Doc_Id_11 = item.CHAR01;
                             pDetail.Doc_Id_11_Check = item.Isuse;
                         }
+
+                        else if (item.Document_Id == "01_SDD_12")
+                        {
+                            pDetail.Doc_Id_12 = item.CHAR01;
+                            pDetail.Doc_Id_12_Check = item.Isuse;
+                        }
                     }
                 }
 
