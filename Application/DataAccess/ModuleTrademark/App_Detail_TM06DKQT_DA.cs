@@ -94,7 +94,8 @@ namespace DataAccess
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, pStatus, ParameterDirection.Input),
                     new OracleParameter("P_CURSOR", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_C_DOC", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("P_C_CLASS_DETAIL", OracleDbType.RefCursor, ParameterDirection.Output)
+                    new OracleParameter("P_C_CLASS_DETAIL", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("P_CURSOR_OTHER_DOC", OracleDbType.RefCursor, ParameterDirection.Output)
                     );
                 return _ds;
             }

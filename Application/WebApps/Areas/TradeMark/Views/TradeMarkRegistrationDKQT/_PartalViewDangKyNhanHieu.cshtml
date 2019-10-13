@@ -440,12 +440,8 @@
             _model = _id + ";" + _value;
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDonView.cshtml", _model)
         }
-
       
-  
-
-        
-
+     
 
             <div class="div-search-ad" style="display:none">
                 <div class="div-search-content">
@@ -459,6 +455,9 @@
                     </div>
                 </div>
             </div>
+
+        @*TÀI LIỆU KHÁC*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
         @* Cam kết của chủ đơn *@
         @{
             string _camket = objAppHeaderInfo.Address + "|" + objAppHeaderInfo.DateNo + "|" + objAppHeaderInfo.Months + "|" + objAppHeaderInfo.Years;
@@ -484,4 +483,22 @@
     <div class="divPopup" id="divPopUpFee">
     </div>
 </div>
- 
+ <script>
+     $(document).ready(function () {
+         funcShowOtherdocument();
+     });
+     $("#ckb_6_Doc_TaiLieuBoSung").change(function () {
+         funcShowOtherdocument();
+     });
+     function funcShowOtherdocument() {
+         try {
+             if ($("#ckb_6_Doc_TaiLieuBoSung").is(":checked") == true) {
+                 $("#divContainerDocOther").css('display', 'block')
+             } else {
+                 $("#divContainerDocOther").css('display', 'none');
+             }
+         } catch (e) {
+             console.log(e);
+         }
+     }
+ </script>

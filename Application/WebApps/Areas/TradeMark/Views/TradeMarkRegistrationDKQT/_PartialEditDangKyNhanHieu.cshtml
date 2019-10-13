@@ -730,7 +730,8 @@
 
         }
 
-       
+        @*TÀI LIỆU KHÁC*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
 
 
         @* Cam kết của chủ đơn *@
@@ -798,7 +799,24 @@
             validateOnBlur: false,
             scrollInput: false
         });
+
+        funcShowOtherdocument();
     });
+    $("#ckb_6_Doc_TaiLieuBoSung").change(function () {
+        funcShowOtherdocument();
+    });
+    function funcShowOtherdocument()
+    {
+        try {
+            if ($("#ckb_6_Doc_TaiLieuBoSung").is(":checked") == true) {
+                $("#divContainerDocOther").css('display', 'block')
+            } else {
+                $("#divContainerDocOther").css('display', 'none');
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
     function funcRemoveTradeMarkImg(ptag) {
         $("#" + ptag).attr('src', '');
         $("#txtLogoOld").val("");
@@ -852,6 +870,53 @@
                 formdata.append("pInfo.pfiles", file[0].files[0]);
             }
         } catch (e) {
+        }
+    }
+    
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            if ($("#ckb_6_Doc_TaiLieuBoSung").is(":checked") == true) {
+                $(".clssListUpload").each(function () {
+                    formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                    formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                    item++;
+                });
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    
+    function funGetDocumentFile(formData) {
+        try {
+            var item = 0;
+            var Isuse = 0, Note = "", reponse = false;
+            var _txtid01 = "";
+            var _txtid02 = "";
+            $(".checkbox_appdocument").each(function () {
+                Isuse = 0;
+                Note = "";
+                reponse = false;
+                var _checkboxname = $(this).attr("id");
+                var _txtIndexID  = item.toString();
+                if(item <= 9)
+                {
+                    _txtIndexID = "0" + _txtIndexID;
+                }
+                var _txtid01 = "txt_DOC_" + _txtIndexID;
+                var _txtid02 = "txt_DOC_" + _txtIndexID + "_2";
+                reponse = funcGetCheckValueAndText(formData, _checkboxname, item);
+                formData.append("pAppDocumentInfo["+item+"].CHAR01", FuncGetValDocById(_txtid01));
+                formData.append("pAppDocumentInfo["+item+"].CHAR02",FuncGetValDocById(_txtid02));
+                item++;
+            });
+            return true;
+        }
+        catch (e) {
+            console.log(e);
+            return false;
         }
     }
     // lấy thông tin đơn 2a fill vào các trường
@@ -1037,11 +1102,22 @@
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+         
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
                 return false;
             }
-
+ 
             $.ajax({
                 url: '/trade-mark-01/sua-don-dang-ky',
                 type: 'POST',

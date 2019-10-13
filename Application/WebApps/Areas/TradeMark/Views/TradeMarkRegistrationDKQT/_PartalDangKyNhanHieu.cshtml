@@ -446,7 +446,10 @@
             string _model14 = _doc_id14 + "|6_Doc_TaiLieuBoSung|0|" + Resource.TM2B_TaiLieuBoSung + "|" + Resource.TM2B_NhapTaiLieu + "|0";
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartialTaiLieuTrongDon.cshtml", _model14)
         }
-         
+        
+        @*TÀI LIỆU KHÁC*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml") 
+
         @* Cam kết của chủ đơn *@
 
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
@@ -485,6 +488,16 @@
             scrollInput: false
         });
     });
+
+    $("#ckb_6_Doc_TaiLieuBoSung").change(function () {
+        if ($("#ckb_6_Doc_TaiLieuBoSung").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
+
     var _checkanh = 0;
     document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
         _checkanh = 0;
@@ -677,6 +690,22 @@
                 return false;
             }
             reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //Lấy thông tin tài liệu có trong đơn
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                formData.append("pInfo.USE_DOC_OTHERS", 1);
+            } else {
+                formData.append("pInfo.USE_DOC_OTHERS", 0);
+            }
+
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
                 return false;
             }
@@ -1092,7 +1121,7 @@
     function funcGetTenTaiLieuKhac(formData) {
         try {
             var item = 0;
-            if ($("#ckb_DOC_10").is(":checked") == true) {
+            if ($("#ckb_6_Doc_TaiLieuBoSung").is(":checked") == true) {
                 $(".clssListUpload").each(function () {
                     formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                     formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());

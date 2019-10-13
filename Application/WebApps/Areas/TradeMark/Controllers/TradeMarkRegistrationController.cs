@@ -1380,11 +1380,12 @@
                 var objBL = new AppDetail06DKQT_BL();
                 string language = AppsCommon.GetCurrentLang();
                 var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
-                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
+                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 4)
                 {
                     ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
                     ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
+                    ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[3]);  
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
             }
@@ -1739,11 +1740,12 @@
                 var objBL = new AppDetail06DKQT_BL();
 
                 var ds06Dkqt = objBL.AppTM06DKQTGetByID(pAppHeaderId, language, pStatus);
-                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 3)
+                if (ds06Dkqt != null && ds06Dkqt.Tables.Count == 4)
                 {
                     ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
                     ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
+                    ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[3]);
                 }
                 if (ds06Dkqt.Tables[0] == null || ds06Dkqt.Tables[0].Rows.Count == 0)
                 {

@@ -192,23 +192,38 @@
                     }
 
                     //tai lieu khac 
-                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null && pAppDocOtherInfo.Count > 0)
                     {
-                        if (pAppDocOtherInfo.Count > 0)
+                        #region Tài liệu khác
+                        int check = 0;
+                        foreach (var info in pAppDocOtherInfo)
                         {
-                            foreach (var info in pAppDocOtherInfo)
+                            string _keyfileupload = "";
+                            if (info.keyFileUpload != null)
                             {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                                {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                }
-                                info.App_Header_Id = pAppHeaderID;
-                                info.Language_Code = language;
+                                _keyfileupload = info.keyFileUpload;
                             }
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(_keyfileupload))
+                            {
+                                var _updateitem = SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                if (_updateitem.GetType() == typeof(string))
+                                {
+                                    string _url = (string)_updateitem;
+                                    info.Filename = _url;
+                                    check = 1;
+                                }
+
+
+                            }
+                            info.App_Header_Id = pAppHeaderID;
+                            info.Language_Code = language;
+                        }
+                        if (check == 1)
+                        {
                             pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
                         }
+                        #endregion
                     }
                     //end
                     if (pReturn < 0)
@@ -233,7 +248,7 @@
         [HttpPost]
         [Route("sua-don-dang-ky")]
         public ActionResult Edit_TM06DKQT(ApplicationHeaderInfo pInfo, App_Detail_TM06DKQT_Info pDetail,
-            List<AppDocumentInfo> pAppDocumentInfo,   List<AppClassDetailInfo> pAppClassInfo)
+            List<AppDocumentInfo> pAppDocumentInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,   List<AppClassDetailInfo> pAppClassInfo)
         {
             try
             {
@@ -292,6 +307,46 @@
                     {
                         Transaction.Current.Rollback();
                         return Json(new { status = -1 });
+                    }
+                    #endregion
+
+                    //tai lieu khac 
+                    #region Tài liệu khác
+                    objDoc = new AppDocumentBL();
+                    List<AppDocumentOthersInfo> Lst_Doc_Others = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
+                    List<AppDocumentOthersInfo> Lst_Doc_Others_Old = Lst_Doc_Others.FindAll(m => m.FILETYPE == 1).ToList();
+                    Dictionary<decimal, AppDocumentOthersInfo> _dic_doc_others = new Dictionary<decimal, AppDocumentOthersInfo>();
+                    foreach (AppDocumentOthersInfo item in Lst_Doc_Others_Old)
+                    {
+                        _dic_doc_others[item.Id] = item;
+                    }
+
+                    // xóa đi trước insert lại sau
+                    objDoc.AppDocumentOtherDeletedByApp_Type(pInfo.Id, language, 1);
+
+                    if (pReturn >= 0 && pAppDocOtherInfo != null && pAppDocOtherInfo.Count > 0)
+                    {
+                        int check = 0;
+                        foreach (var info in pAppDocOtherInfo)
+                        {
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                            {
+                                string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                info.Filename = _url;
+                                check = 1;
+                            }
+                            else if (_dic_doc_others.ContainsKey(info.Id))
+                            {
+                                info.Filename = _dic_doc_others[info.Id].Filename;
+                                check = 1;
+                            }
+                            info.App_Header_Id = pInfo.Id;
+                            info.Language_Code = language;
+                        }
+                        if (check == 1)
+                        {
+                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                        }
                     }
                     #endregion
 
