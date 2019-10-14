@@ -1385,7 +1385,7 @@
                     ViewBag.objAppHeaderInfo = CBO<App_Detail_TM06DKQT_Info>.FillObjectFromDataTable(ds06Dkqt.Tables[0]);
                     ViewBag.Lst_AppDoc = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[1]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[2]);
-                    ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[3]);  
+                    ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds06Dkqt.Tables[3]);
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistrationDKQT/_PartalViewDangKyNhanHieu.cshtml");
             }
@@ -1615,8 +1615,7 @@
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
-
-                return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_View.cshtml");
+                return PartialView("~/Areas/TradeMark/Views/C04/_Partial_C04_View.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_C08)
             {
@@ -1988,6 +1987,23 @@
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
 
                 return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_Edit.cshtml");
+            }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C04)
+            {
+                App_Detail_C04_BL objBL = new App_Detail_C04_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+
+                App_Detail_C04_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+                return PartialView("~/Areas/TradeMark/Views/C04/_Partial_C04_Edit.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_E01)
             {
