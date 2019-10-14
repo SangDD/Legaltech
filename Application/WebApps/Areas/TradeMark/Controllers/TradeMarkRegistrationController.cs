@@ -1600,6 +1600,24 @@
 
                 return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_View.cshtml");
             }
+            else if (pAppCode == TradeMarkAppCode.AppCode_C04)
+            {
+                App_Detail_C04_BL objBL = new App_Detail_C04_BL();
+                string language = AppsCommon.GetCurrentLang();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+
+                App_Detail_C04_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref appFeeFixInfos, ref _LstDocumentOthersInfo);
+                ViewBag.App_Detail = app_Detail;
+                ViewBag.Lst_AppDoc = appDocumentInfos;
+                ViewBag.Lst_AppFee = appFeeFixInfos;
+                ViewBag.objAppHeaderInfo = applicationHeaderInfo;
+                ViewBag.lstDocOther = _LstDocumentOthersInfo;
+
+                return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_View.cshtml");
+            }
             else if (pAppCode == TradeMarkAppCode.AppCode_C08)
             {
                 string language = AppsCommon.GetCurrentLang();
