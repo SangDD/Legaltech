@@ -1985,7 +1985,7 @@
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
-
+            
                 return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_Edit.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_C04)
