@@ -2003,6 +2003,7 @@
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
+
                 return PartialView("~/Areas/TradeMark/Views/C04/_Partial_C04_Edit.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_E01)

@@ -188,6 +188,202 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
+        [Route("do-edit")]
+        public ActionResult Edit_C04(ApplicationHeaderInfo pInfo, App_Detail_C04_Info pDetail,
+          List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
+          List<AppDocumentOthersInfo> pAppDocOtherInfo)
+        {
+            try
+            {
+                Application_Header_BL objBL = new Application_Header_BL();
+                AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
+                App_Detail_C04_BL objDetail = new App_Detail_C04_BL();
+                AppDocumentBL objDoc = new AppDocumentBL();
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
+                string language = AppsCommon.GetCurrentLang();
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                decimal pReturn = ErrorCode.Success;
+                bool _IsOk = false;
+                using (var scope = new TransactionScope())
+                {
+                    //
+                    pInfo.Languague_Code = language;
+                    pInfo.Modify_By = CreatedBy;
+                    pInfo.Modify_Date = CreatedDate;
+                    pInfo.Send_Date = DateTime.Now;
+                    pInfo.DDSHCN = "";
+                    pInfo.MADDSHCN = "";
+                    //TRA RA ID CUA BANG KHI INSERT
+                    pReturn = objBL.AppHeaderUpdate(pInfo);
+                    if (pReturn < 0)
+                        goto Commit_Transaction;
+
+                    // detail
+                    if (pReturn >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.Language_Code = language;
+                        pDetail.App_Header_Id = pInfo.Id;
+                        pDetail.Case_Code = pInfo.Case_Code;
+                        pReturn = objDetail.Update(pDetail);
+                        if (pReturn <= 0)
+                            goto Commit_Transaction;
+                    }
+
+                    #region Phí cố định
+
+                    // xóa đi
+                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    _AppFeeFixBL.AppFeeFixDelete(pDetail.Case_Code, language);
+
+                    // insert lại fee
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_C04(pDetail);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
+
+                    #endregion
+
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    {
+                        List<AppDocumentOthersInfo> Lst_Doc_Others_Old = objDoc.DocumentOthers_GetByAppHeader(pInfo.Id, language);
+                        Dictionary<decimal, AppDocumentOthersInfo> _dic_doc_others = new Dictionary<decimal, AppDocumentOthersInfo>();
+                        foreach (AppDocumentOthersInfo item in Lst_Doc_Others_Old)
+                        {
+                            _dic_doc_others[item.Id] = item;
+                        }
+
+                        // xóa đi trước insert lại sau
+                        objDoc.AppDocumentOtherDeletedByApp(pInfo.Id, language);
+
+                        if (pAppDocOtherInfo.Count > 0)
+                        {
+                            int check = 0;
+                            foreach (var info in pAppDocOtherInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    info.Filename = _url;
+                                    check = 1;
+                                }
+                                else if (_dic_doc_others.ContainsKey(info.Id))
+                                {
+                                    info.Filename = _dic_doc_others[info.Id].Filename;
+                                    check = 1;
+                                }
+
+                                info.App_Header_Id = pInfo.Id;
+                                info.Language_Code = language;
+                            }
+                            if (check == 1)
+                            {
+                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                            }
+                        }
+                    }
+
+                    #region Tai lieu dinh kem 
+                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    {
+                        if (pAppDocumentInfo.Count > 0)
+                        {
+                            // Get ra để map sau đó xóa đi để insert vào sau
+                            AppDocumentBL _AppDocumentBL = new AppDocumentBL();
+                            List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pDetail.App_Header_Id, language);
+                            Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+                            foreach (AppDocumentInfo item in Lst_AppDoc)
+                            {
+                                dic_appDoc[item.Document_Id] = item;
+                            }
+
+                            // xóa đi trước
+                            _AppDocumentBL.AppDocumentDelByApp(pDetail.App_Header_Id, language);
+
+                            foreach (var info in pAppDocumentInfo)
+                            {
+                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                {
+                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                    string[] _arr = _url.Split('/');
+                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                    if (_arr.Length > 0)
+                                    {
+                                        _filename = _arr[_arr.Length - 1];
+                                    }
+
+                                    info.Filename = _filename;
+                                    info.Url_Hardcopy = _url;
+                                    info.Status = 0;
+                                }
+                                else
+                                {
+                                    if (dic_appDoc.ContainsKey(info.Document_Id))
+                                    {
+                                        info.Filename = dic_appDoc[info.Document_Id].Filename;
+                                        info.Url_Hardcopy = dic_appDoc[info.Document_Id].Url_Hardcopy;
+                                        info.Status = dic_appDoc[info.Document_Id].Status;
+                                    }
+                                }
+
+                                info.App_Header_Id = pInfo.Id;
+                                info.Document_Filing_Date = CommonFuc.CurrentDate();
+                                info.Language_Code = language;
+                            }
+                            pReturn = _AppDocumentBL.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
+
+                        }
+                    }
+                    #endregion
+
+                    //end
+                    Commit_Transaction:
+                    if (pReturn < 0)
+                    {
+                        Transaction.Current.Rollback();
+                        return Json(new { status = pReturn });
+                    }
+                    else
+                    {
+                        scope.Complete();
+                        _IsOk = true;
+                    }
+                }
+
+                //// tự động update todo
+                //if (pInfo.UpdateToDo == 1 && _IsOk == true)
+                //{
+                //    if (pInfo.Status == (int)CommonEnums.App_Status.ChoKHConfirm)
+                //    {
+                //        Application_Header_BL _obj_bl = new Application_Header_BL();
+                //        decimal _status = (decimal)CommonEnums.App_Status.KhacHangDaConfirm;
+
+                //        string _note = "Xác nhận nộp đơn";
+                //        if (AppsCommon.GetCurrentLang() != "VI_VN")
+                //        {
+                //            _note = "confirmation for filing";
+                //        }
+                //        int _ck = _obj_bl.AppHeader_Update_Status(pInfo.Case_Code, _status, _note,
+                //            SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                //    }
+                //}
+
+
+                return Json(new { status = pInfo.Id });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
+
+        [HttpPost]
         [Route("getFeeView")]
         public ActionResult GetFee_View(ApplicationHeaderInfo pInfo)
         {

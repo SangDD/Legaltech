@@ -179,7 +179,7 @@
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    @if (_App_Detail.App_Change_Type == 3)
+                    @if (_App_Detail.App_Change_Type == 4)
                     {
                         <input type="radio" name="3_rdoYeuCauSuaDoi" id="app_change_type_4" value="4" checked="checked">
                     }
@@ -350,8 +350,7 @@
         </div>
     </fieldset>
 </div>
-
-@Html.Partial("~/Areas/Patent/Views/C04/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/C04/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -472,38 +471,7 @@
         }
     });
 
-    function onChange_NoidungSuaDoi() {
-        try {
-            if ($("#4_rdGrant_VBBH").prop('checked') == true) {
-                // disable txt_Renew_Vbbh_Cn_Solan
-                // disable txt_Renew_Phoban_Vbbh_Cn_Sopb
-                // disable txt_Renew_Phoban_Vbbh_Cn_Solan
-            }
-
-            if ($("#4_rd_Renew_VBBH_CN").prop('checked') == true) {
-                $("#txt_Renew_Vbbh_Cn_Solan").removeAttr("disabled");
-
-            } else {
-                $("#txt_Renew_Vbbh_Cn_Solan").prop('disabled', true);
-                $("#txt_Renew_Vbbh_Cn_Solan").val('');
-            }
-
-            if ($("#4_rd_Renew_PhoBan_VBBH_CN").prop('checked') == true) {
-                $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").removeAttr("disabled");
-                $("#txt_Renew_Phoban_Vbbh_Cn_Solan").removeAttr("disabled");
-            } else {
-                $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").val('');
-                $("#txt_Renew_Phoban_Vbbh_Cn_Solan").val('');
-
-                $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").prop('disabled', true);
-                $("#txt_Renew_Phoban_Vbbh_Cn_Solan").prop('disabled', true);
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-
+    
     function funGetData(ptype, _UpdateToDo) {
         try {
             //Thông tin chủ đơn
@@ -582,7 +550,7 @@
             }
 
             $.ajax({
-                url: '/patent-c03/do-edit',
+                url: '/trade-mark-c04/do-edit',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -628,11 +596,11 @@
             var _YeuCauSuaDoi = $("input[name='3_rdoYeuCauSuaDoi']:checked").val();
             if ((_YeuCauSuaDoi === "" || _YeuCauSuaDoi == undefined) && pType == 2) {
                 jError("@Resource.TM3B_GiaTriDonYCSuaDoi", "@Resource.TM3B_Loi", function () {
-                    $("#3_rdDonSangChe").focus()
+                    $("#app_change_type_1").focus()
                 });
                 return false;
             }
-            formData.append("pDetail.Request_Change_Type", parseInt(_YeuCauSuaDoi));
+            formData.append("pDetail.App_Change_Type", parseInt(_YeuCauSuaDoi));
 
             // số đơn
             var _3_SoDon = $("#txt_app_no_change").val();
@@ -645,45 +613,23 @@
             formData.append("pDetail.App_No_Change", _3_SoDon);
 
             // Nội dung yêu cầu sửa đổi
-            if ($("#4_rdGrant_VBBH").prop('checked') == true) {
-                formData.append("pDetail.Grant_Vbbh", "1");
+            if ($("#theend_vbbh").prop('checked') == true) {
+                formData.append("pDetail.TheEnd_Vbbh", "1");
             } else {
-                formData.append("pDetail.Grant_Vbbh", "0");
+                formData.append("pDetail.TheEnd_Vbbh", "0");
             }
 
-            if ($("#4_rd_Renew_VBBH_CN").prop('checked') == true) {
-                formData.append("pDetail.Renew_VBBH_CN", "1");
-                formData.append("pDetail.Renew_Vbbh_Cn_Solan", $("#txt_Renew_Vbbh_Cn_Solan").val());
+            if ($("#cancel_vbbh").prop('checked') == true) {
+                formData.append("pDetail.Cancel_Vbbh", "1");
+              
             } else {
-                formData.append("pDetail.Renew_VBBH_CN", "0");
-                formData.append("pDetail.Renew_Vbbh_Cn_Solan", 0);
+                formData.append("pDetail.Cancel_Vbbh", "0");
+      
             }
 
-            if ($("#4_rd_Renew_PhoBan_VBBH_CN").prop('checked') == true) {
-                formData.append("pDetail.Renew_PhoBan_VBBH_CN", "1");
-                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Sopb", $("#txt_Renew_Phoban_Vbbh_Cn_Sopb").val());
-                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Solan", $("#txt_Renew_Phoban_Vbbh_Cn_Solan").val());
-            } else {
-                formData.append("pDetail.Renew_PhoBan_VBBH_CN", "0");
-                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Sopb", "");
-                formData.append("pDetail.Renew_Phoban_Vbbh_Cn_Solan", 0);
-            }
+            var reason = $("#reason").val();
+            formData.append("pDetail.Reason", reason);
 
-            if ($("#5_rd_lost").prop('checked') == true) {
-                formData.append("pDetail.Reason_Lost", "1");
-            } else {
-                formData.append("pDetail.Reason_Lost", "0");
-            }
-            if ($("#5_rd_broken").prop('checked') == true) {
-                formData.append("pDetail.Reason_Broken", "1");
-            } else {
-                formData.append("pDetail.Reason_Broken", "0");
-            }
-            if ($("#5_rd_others").prop('checked') == true) {
-                formData.append("pDetail.Reason_Others", "1");
-            } else {
-                formData.append("pDetail.Reason_Others", "0");
-            }
         } catch (e) {
             console.log(e);
             showError('@Resource.TM3B_InternetError');
@@ -705,48 +651,33 @@
 
             // 3
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_03", "2");
-
+            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_DOC_03").val());
             // 4
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_04", "3");
-            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_DOC_04").val());
-
             // 5
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_05", "4");
-            formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_DOC_05").val());
 
             // 6
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_06", "5");
-            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_DOC_06").val());
 
             // 7
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_07", "6");
-            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_DOC_07").val());
 
             // 8
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_08", "7");
-
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_DOC_8").val());
             // 9
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_09", "8");
 
-            // 10 quyền ưu tiên
+        
             reponse = funcGetCheckValueAndText(formData, "ckb_DOC_10", "9");
-
-            // 11
-            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_11", "10");
-            formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_DOC_11").val());
-
-            // 12
-            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_12", "11");
-
-            // 13
-            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_13", "12");
         } catch (e) {
             console.log(e);
         }
     }
 
-    $("#ckb_DOC_13").change(function () {
-        if ($("#ckb_DOC_13").is(":checked") == true) {
+    $("#ckb_DOC_10").change(function () {
+        if ($("#ckb_DOC_10").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
         } else {
             $("#divContainerDocOther").css('display', 'none');
