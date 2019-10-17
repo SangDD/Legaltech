@@ -43,7 +43,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="@WebApps.Resources.Resource.SoDon" id="txt_App_No" disabled value="@_AppHeaderInfo.App_No"/>
+                <input type="text" maxlength="100" placeholder="@WebApps.Resources.Resource.SoDon" id="txt_App_No" value="@_AppHeaderInfo.App_No"/>
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" disabled="disabled" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" />
+                <input type="text" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" />
             </div>
         </div>
 
@@ -63,7 +63,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" disabled="disabled" value="@_AppHeaderInfo.Expected_Accept_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" value="@_AppHeaderInfo.Expected_Accept_Date.ToString("dd/MM/yyyy")" />
             </div>
         </div>
     </div>
@@ -107,7 +107,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_copy_filing"> @WebApps.Resources.Resource.FileCopy advice filing </a>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.Url_copy_filing">  @(_AppHeaderInfo.Url_copy_filing == null ? "" : WebApps.Resources.Resource.FileDich + " advice filing")  </a>
             </div>
         </div>
     </div>
@@ -118,7 +118,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> @WebApps.Resources.Resource.FileDich </a>
+                <a style="height: 20px !important;" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> @(_AppHeaderInfo.URL_TRANSLATE_FILING == null ? "" : WebApps.Resources.Resource.FileDich) </a>
             </div>
         </div>
     </div>
