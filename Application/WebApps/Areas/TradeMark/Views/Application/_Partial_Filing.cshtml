@@ -54,7 +54,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" />
+                <input type="text" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" id="txt_filing_date" maxlength="100" class="datepicker"/>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@_AppHeaderInfo.Expected_Accept_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" value="@_AppHeaderInfo.Expected_Accept_Date.ToString("dd/MM/yyyy")" id="txt_expected_accept_date" maxlength="100" class="datepicker" />
             </div>
         </div>
     </div>
@@ -234,8 +234,8 @@
 
                 //formdata.append("pInfo.File_Copy_Filing", _file);
                 //formdata.append("pInfo.File_Translate_Filing", _file_t);
-                //formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
-                //formdata.append("pInfo.Expected_Accept_Date", $('#txt_expected_accept_date').val());
+                formdata.append("pInfo.Filing_Date", $('#txt_filing_date').val());
+                formdata.append("pInfo.Expected_Accept_Date", $('#txt_expected_accept_date').val());
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/do-filing',
@@ -368,7 +368,15 @@
     }
 
     function validateAction() {
-        @*// check validate ngày
+        var _App_No = $("#txt_App_No").val();
+        if (_App_No == null || _App_No == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.SoDon)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txt_App_No").focus();
+            });
+            return false;
+        }
+
+        // check validate ngày
         var _filing_date = $("#txt_filing_date").val();
         if (checkDate("Ngày nộp đơn", "#txt_filing_date", _filing_date) == false) {
             return false;
@@ -377,14 +385,6 @@
         // check validate ngày
         var _txt_expected_accept_date = $("#txt_expected_accept_date").val();
         if (checkDate("@Html.Raw(WebApps.Resources.Resource.NgayTraKetQua)", "#txt_expected_accept_date", _txt_expected_accept_date) == false) {
-            return false;
-        }*@
-
-        var _App_No = $("#txt_App_No").val();
-        if (_App_No == null || _App_No == "") {
-            jError("@Html.Raw(WebApps.Resources.Resource.SoDon)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                $("#txt_App_No").focus();
-            });
             return false;
         }
 
