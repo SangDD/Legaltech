@@ -62,14 +62,14 @@
 
                         <td class="tdcenteralign">
                             <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="javascript:;" onclick="doDeleteBilling(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
 
                             @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
                             {
-                                <a href="javascript:;" onclick="doDeleteBilling(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
                                 <a href="javascript:;" onclick="getView2Edit(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-edit" data-title="Sửa"></a>
                             }
 
-                            @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve) 
+                            @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve)
                                 && (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin))
                             {
                                 <a href="javascript:;" onclick="getView2Approve(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-confirm-circle" data-title="Approve"></a>

@@ -70,22 +70,22 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.FileDich<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.FileDich</div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" download="@_AppHeaderInfo.URL_TRANSLATE_FILING" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> @WebApps.Resources.Resource.FileDich </a>
+                <a style="height: 20px !important;" download="@_AppHeaderInfo.URL_TRANSLATE_FILING" href="@_AppHeaderInfo.URL_TRANSLATE_FILING"> @(_AppHeaderInfo.URL_TRANSLATE_FILING == null ? "" : WebApps.Resources.Resource.FileDich) </a>
             </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.Billing<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.Billing</div>
         </div>
         <div class="div-search-content">
             <div>
-                <a style="height: 20px !important;" download="@_AppHeaderInfo.Url_Billing" href="@_AppHeaderInfo.Url_Billing"> @WebApps.Resources.Resource.FileBilling </a>
+                <a style="height: 20px !important;" download="@_AppHeaderInfo.Url_Billing" href="@_AppHeaderInfo.Url_Billing"> @(_AppHeaderInfo.Url_Billing == null ? "" : WebApps.Resources.Resource.FileBilling) </a>
             </div>
         </div>
     </div>

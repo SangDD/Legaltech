@@ -283,6 +283,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     decimal _ck = _obj_bl.Employee_Update_Status(pInfo.Case_Code, _status, pInfo.App_No, url_File_Copy_Filing, url_File_Translate_Filing, pInfo.Note,
                         pInfo.Filing_Date, pInfo.Expected_Accept_Date,
                         SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+
                     if (_ck >= 0)
                     {
                         AppsCommon.Insert_Docketing(pInfo.Case_Code, "File Copy Filing", url_File_Copy_Filing);
@@ -337,8 +338,15 @@ namespace WebApps.Areas.TradeMark.Controllers
                     string _emailTo = _ApplicationHeaderInfo.Email_Customer;
                     string _emailCC = "";
                     List<string> _LstAttachment = new List<string>();
-                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_copy_filing));
-                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.URL_TRANSLATE_FILING));
+                    if (_ApplicationHeaderInfo.Url_copy_filing != null && _ApplicationHeaderInfo.Url_copy_filing != "")
+                    {
+                        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.Url_copy_filing));
+                    }
+
+                    if (_ApplicationHeaderInfo.URL_TRANSLATE_FILING != null && _ApplicationHeaderInfo.URL_TRANSLATE_FILING != "")
+                    {
+                        _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_ApplicationHeaderInfo.URL_TRANSLATE_FILING));
+                    }
 
                     if (_ApplicationHeaderInfo.Billing_Id_Advise > 0)
                     {
