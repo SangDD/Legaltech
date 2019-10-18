@@ -106,5 +106,35 @@
                 return s_allCodeCollectionInMemory.Where(o => string.Equals(o.CdType, cdType, StringComparison.OrdinalIgnoreCase)).ToList();
             }
         }
+
+        public decimal Send_Email_Insert(Email_Info info)
+        {
+            try
+            {
+                AllCodeDA _AllCodeDA = new AllCodeDA();
+                return _AllCodeDA.Send_Email_Insert(info.EmailFrom, info.EmailTo, info.EmailCC, info.Display_Name, info.Subject, info.Content, info.LstAttachment, info.Status, info.Send_Time);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
+
+        public List<Send_Email_Info> Email_Search(string p_user_name, string p_key_search, ref decimal p_total_record,
+           string p_from = "1", string p_to = "10", string p_sort_type = "ALL")
+        {
+            try
+            {
+                AllCodeDA _AllCodeDA = new AllCodeDA();
+                DataSet _ds = _AllCodeDA.Email_Search(p_user_name, p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
+                return CBO<Send_Email_Info>.FillCollectionFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new List<Send_Email_Info>();
+            }
+        }
     }
 }

@@ -354,11 +354,18 @@
                     Email_Info _Email_Info = WebApps.CommonFunction.AppsCommon.Dequeue_SendEmail();
                     if (_Email_Info != null)
                     {
+                        _Email_Info.Send_Time = DateTime.Now;
                         bool _ck = EmailHelper.SendMail(_Email_Info.EmailFrom, _Email_Info.Pass, _Email_Info.Display_Name, _Email_Info.EmailTo, _Email_Info.EmailCC, _Email_Info.Subject, _Email_Info.Content, _Email_Info.LstAttachment);
                         if (_ck == false)
                         {
                             WebApps.CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+                            _Email_Info.Status = "E";
                         }
+                        else
+                            _Email_Info.Status = "S";
+
+                        AllCodeBL codeBL = new AllCodeBL();
+                        codeBL.Send_Email_Insert(_Email_Info);
                     }
                     Thread.Sleep(1000);
                 }

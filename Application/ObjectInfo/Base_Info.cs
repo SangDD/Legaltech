@@ -32,5 +32,21 @@ namespace ObjectInfos
         public string Subject { get; set; }
         public string Content { get; set; }
         public List<string> LstAttachment { get; set; }
+        public string Status { get; set; }
+        public DateTime Send_Time { get; set; }
+    }
+
+    public class Send_Email_Info
+    {
+        public decimal Id { get; set; }
+        public string Email_From { get; set; }
+        public string Email_To { get; set; }
+        public string Email_Cc { get; set; }
+        public string Display_Name { get; set; }
+        public string Subject { get; set; }
+        public string Content { get; set; }
+        public string Lst_Attachment { get; set; }
+        public string Status { get; set; }
+        public DateTime Send_Time { get; set; }
     }
 }
