@@ -364,13 +364,16 @@ namespace WebApps.Areas.TradeMark.Controllers
                         }
                     }
 
-                    string _content = "";
-                    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
-                    _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
-                    if (_lstStatus.Count > 1)
-                    {
-                        _content = _lstStatus[0].Content + _ApplicationHeaderInfo.Comment_Filling.Replace("\n", "<br>") + _lstStatus[1].Content;
-                    }
+                    //string _content = "";
+                    //List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
+                    //_lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
+                    //if (_lstStatus.Count > 1)
+                    //{
+                    //    _content = _lstStatus[0].Content + _ApplicationHeaderInfo.Comment_Filling.Replace("\n", "<br>") + _lstStatus[1].Content;
+                    //}
+
+                    string _content = _ApplicationHeaderInfo.Comment_Filling;// Replace("\n", "<br>");
+                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: _ApplicationHeaderInfo.Case_Name, outref: p_case_code, dearname: _ApplicationHeaderInfo.Customer_Name);
 
                     Email_Info _Email_Info = new Email_Info
                     {
@@ -793,13 +796,16 @@ namespace WebApps.Areas.TradeMark.Controllers
                             }
                         }
 
-                        string _content = "";
-                        List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
-                        _lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
-                        if (_lstStatus.Count > 1)
-                        {
-                            _content = _lstStatus[0].Content + _App_Notice_Info.Advise_Replies.Replace("\n", "<br>") + _lstStatus[1].Content;
-                        }
+                        //string _content = "";
+                        //List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "CONTENT");
+                        //_lstStatus = _lstStatus.OrderBy(x => x.CdVal).ToList();
+                        //if (_lstStatus.Count > 1)
+                        //{
+                        //    _content = _lstStatus[0].Content + _App_Notice_Info.Advise_Replies.Replace("\n", "<br>") + _lstStatus[1].Content;
+                        //}
+
+                        string _content = _App_Notice_Info.Advise_Replies;//.Replace("\n", "<br>");
+                        _content = AppsCommon.SetContentMailTemplate(_content, yourref: _App_Notice_Info.Case_Name, outref: p_case_code, dearname: _App_Notice_Info.Customer_Name);
 
                         Email_Info _Email_Info = new Email_Info
                         {

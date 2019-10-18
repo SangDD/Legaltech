@@ -331,14 +331,18 @@ namespace WebApps.CommonFunction
             string _address2 = Common.Configuration.address2;
             try
             {
-                if (yourref != "" && yourref != null)
-                {
-                    _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref + " </div>";
-                }
-                if (outref != "" && outref != null)
-                {
-                    _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref + " </div>";
-                }
+                //if (yourref != "" && yourref != null)
+                //{
+                //    _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref + " </div>";
+                //}
+                //if (outref != "" && outref != null)
+                //{
+                //    _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref + " </div>";
+                //}
+
+                _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref + " </div>";
+                _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref + " </div>";
+
                 if (dearname != "" && dearname != null)
                 {
                     _dear = "<div style = 'font-weight: bold;padding-top: 40px; color:#5a5a5a' ><span> Dear </span>" + dearname + "<span>,</span></div>";

@@ -68,5 +68,11 @@ namespace ObjectInfos
         public string Customer { get; set; }
         public string Email_Customer { get; set; }
         public decimal Country_Customer { get; set; }
+
+        public string Customer_Name { get; set; }
+        public string Customer_Country_Name { get; set; }
+
+        public string Client_Reference { get; set; }
+        public string Case_Name { get; set; }
     }
 }
