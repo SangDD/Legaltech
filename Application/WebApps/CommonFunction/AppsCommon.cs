@@ -2660,55 +2660,55 @@ namespace WebApps.CommonFunction
                 {
                     foreach (AppDocumentInfo item in pAppDocumentInfo)
                     {
-                        if (item.Document_Id == "C01_01")
+                        if (item.Document_Id == "C04_01")
                         {
                             pDetail.Doc_Id_1 = item.CHAR01;
                             pDetail.Doc_Id_12 = item.CHAR02;
                             pDetail.Doc_Id_1_Check = item.Isuse;
                         }
-                        else if (item.Document_Id == "C01_02")
+                        else if (item.Document_Id == "C04_02")
                         {
                             pDetail.Doc_Id_2 = item.CHAR01;
                             pDetail.Doc_Id_2_Check = item.Isuse;
                         }
-                        else if (item.Document_Id == "C01_03")
+                        else if (item.Document_Id == "C04_03")
                         {
                             pDetail.Doc_Id_3_Check = item.Isuse;
                             pDetail.Doc_Id_3 = item.CHAR01;
                         }
-                        else if (item.Document_Id == "C01_04")
+                        else if (item.Document_Id == "C04_04")
                         {
                             pDetail.Doc_Id_4 = item.CHAR01;
                             pDetail.Doc_Id_4_Check = item.Isuse;
                         }
-                        else if (item.Document_Id == "C01_05")
+                        else if (item.Document_Id == "C04_05")
                         {
                             pDetail.Doc_Id_5_Check = item.Isuse;
                             pDetail.Doc_Id_5 = item.CHAR01;
                         }
 
-                        else if (item.Document_Id == "C01_06")
+                        else if (item.Document_Id == "C04_06")
                         {
                             pDetail.Doc_Id_6 = item.CHAR01;
                             pDetail.Doc_Id_6_Check = item.Isuse;
                         }
-                        else if (item.Document_Id == "C01_07")
+                        else if (item.Document_Id == "C04_07")
                         {
                             pDetail.Doc_Id_7 = item.CHAR01;
                             pDetail.Doc_Id_7_Check = item.Isuse;
                         }
-                        else if (item.Document_Id == "C01_08")
+                        else if (item.Document_Id == "C04_08")
                         {
                             pDetail.Doc_Id_8 = item.CHAR01;
                             pDetail.Doc_Id_8_Check = item.Isuse;
                         }
 
-                        else if (item.Document_Id == "C01_09")
+                        else if (item.Document_Id == "C04_09")
                         {
                             pDetail.Doc_Id_9 = item.CHAR01;
                             pDetail.Doc_Id_9_Check = item.Isuse;
                         }
-                        else if (item.Document_Id == "C01_10")
+                        else if (item.Document_Id == "C04_10")
                         {
                             pDetail.Doc_Id_10_Check = item.Isuse;
                         }
