@@ -156,7 +156,7 @@ namespace WebApps.Areas.TradeMark.Controllers
 
 
                 // sau advise filing
-                if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.Customer_Review)
+                if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.AdminGuiKetQuaNopDon && _ApplicationHeaderInfo.Status != (decimal)CommonEnums.App_Status.AdminTuChoiKetQuaNopDon)
                 {
                     // LẤY THÔNG TIN CỦA THẰNG NOTICE APP
                     App_Notice_Info_BL _notice_BL = new App_Notice_Info_BL();
@@ -224,7 +224,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 ViewBag.ListRemind = _ListRemind;
 
                 // sau advise filing
-                if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.Customer_Review)
+                if (_ApplicationHeaderInfo.Status >= (decimal)CommonEnums.App_Status.AdminGuiKetQuaNopDon && _ApplicationHeaderInfo.Status != (decimal)CommonEnums.App_Status.AdminTuChoiKetQuaNopDon)
                 {
                     // LẤY THÔNG TIN CỦA THẰNG NOTICE APP
                     App_Notice_Info_BL _notice_BL = new App_Notice_Info_BL();

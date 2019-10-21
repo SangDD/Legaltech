@@ -460,7 +460,10 @@
                 else if (_currstatus == (int)CommonEnums.App_Status.AdminGuiKetQuaNopDon)
                 {
                     // khách hàng review
-                    @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Customer_Review_Result.cshtml")
+                    //@Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Customer_Review_Result.cshtml")
+
+                    // luật sư cập nhật thông tin kết quả hình thức
+                    @Html.Partial("~/Areas/TradeMark/Views/Application/After_Filing/_Partial_Update_Form_Result.cshtml")
                 }
             }
         </div>

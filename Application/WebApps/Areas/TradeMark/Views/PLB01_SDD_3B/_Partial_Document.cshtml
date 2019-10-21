@@ -52,7 +52,7 @@
             {
                 @Html.Raw("&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;")
             }
-            <input type="checkbox" class="checkbox_appdocument" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" onchange="return ShowHidenUpLoad(this.id,this.id, '@Id_textbox', '@Lable3')">
+            <input type="checkbox" class="checkbox_appdocument" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" onchange="return ShowHidenUpLoad_Doc(this.id,this.id, '@Id_textbox', '@Lable3')">
 
             @if (Id == "6_Doc_BanGocPOA_ByApp")
             {
@@ -115,7 +115,7 @@
     });
 
 
-    function ShowHidenUpLoad(pID, pClass, pTxt, pLable3) {
+    function ShowHidenUpLoad_Doc(pID, pClass, pTxt, pLable3) {
         try {
             if ($("#" + pID).is(':checked')) {
                 $("#div_up_" + pClass).removeClass("clssDisplaynone");

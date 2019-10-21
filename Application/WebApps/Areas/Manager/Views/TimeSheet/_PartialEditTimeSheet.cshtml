@@ -269,13 +269,13 @@
             return false;
         }
 
-        if (txtHours_Adjust == "0") {
+        @*if (txtHours_Adjust == "0") {
             jError("@Html.Raw(WebApps.Resources.Resource.GioDieuChinhLonHon0)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtHours_Adjust").val('');
                 $("#txtHours_Adjust").focus();
             });
             return false;
-        }
+        }*@
 
         var txtNotes = $("#txtNotes").val();
         if (txtNotes == null || txtNotes == "") {

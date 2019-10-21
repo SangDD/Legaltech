@@ -209,30 +209,3 @@
         <hr class="progress_hr" />
     }
 </div>
-
-@*@if (_Listtodo.Count > 0)
-{
-    <div style="width:100%;float:left; margin-top:0px">
-        @{
-            _count = 0;
-        }
-        @foreach (var item in _lstStatus)
-        {
-            if (Convert.ToDecimal(item.CdVal) < (decimal)Common.CommonData.CommonEnums.App_Status.Customer_Review)
-            {
-                continue;
-            }
-
-            _count++;
-            if (item.CdVal == _currstatus.ToString())
-            {
-                <div class="@("user_progress_active progress_div_user" +  _count)"> @_FirstTodo.REQUEST_BY_NAME - @_FirstTodo.REQUEST_DATE.ToString("dd/MM/yyyy")</div>
-            }
-            else
-            {
-                <div class="@("user_hidden progress_div_user" +  _count)">@_FirstTodo.REQUEST_BY_NAME - @_FirstTodo.REQUEST_DATE.ToString("dd/MM/yyyy")</div>
-            }
-        }
-    </div>
-}*@
-

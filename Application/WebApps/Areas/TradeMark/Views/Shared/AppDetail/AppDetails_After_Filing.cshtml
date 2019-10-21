@@ -185,7 +185,8 @@
             }
             else
             {
-                if (_currstatus == (int)CommonEnums.App_Status.Customer_Review)
+                // old Customer_Review
+                if (_currstatus == (int)CommonEnums.App_Status.AdminGuiKetQuaNopDon)
                 {
                     // luật sư cập nhật thông tin kết quả hình thức
                     @Html.Partial("~/Areas/TradeMark/Views/Application/After_Filing/_Partial_Update_Form_Result.cshtml")

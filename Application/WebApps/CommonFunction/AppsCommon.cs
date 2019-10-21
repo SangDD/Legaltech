@@ -788,7 +788,7 @@ namespace WebApps.CommonFunction
                 p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.App;
                 p_Billing_Header_Info.Insert_Type = p_insert_type;
 
-                p_Billing_Header_Info.Notes = "Billing for case code " + p_app_Case_Code + " - " + p_note;
+                p_Billing_Header_Info.Notes = "Billing for case code " + p_app_Case_Code; // + " - " + p_note;
 
                 p_Billing_Header_Info.Case_Code = _Billing_BL.Billing_GenCaseCode();
                 p_Billing_Header_Info.App_Case_Code = p_app_Case_Code;

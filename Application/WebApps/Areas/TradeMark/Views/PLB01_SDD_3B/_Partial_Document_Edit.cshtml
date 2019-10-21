@@ -80,11 +80,11 @@
 
             @if (Isuse == "1")
             {
-                <input type="checkbox" class="checkbox_appdocument" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" checked="checked" onchange="return ShowHidenUpLoad(this.id,this.id, '@Id_textbox')">
+                <input type="checkbox" class="checkbox_appdocument" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" checked="checked" onchange="return ShowHidenUpLoad_Doc(this.id,this.id, '@Id_textbox')">
             }
             else
             {
-                <input type="checkbox" class="checkbox_appdocument" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" onchange="return ShowHidenUpLoad(this.id,this.id, '@Id_textbox')">
+                <input type="checkbox" class="checkbox_appdocument" name="@Id_Checkbox" id="@Id_Checkbox" value="@Document_Id" onchange="return ShowHidenUpLoad_Doc(this.id,this.id, '@Id_textbox')">
             }
             <label>@Lable</label>
         </div>
@@ -169,7 +169,7 @@
             $("#div_ImgDownload_" + p_Id).addClass("clssDisplaynone");
             $("#div_ImgRemove_" + p_Id).addClass("clssDisplaynone");
 
-            ShowHidenUpLoad("ckb_" + p_Id, "ckb_" + p_Id, '@Id_textbox');
+            ShowHidenUpLoad_Doc("ckb_" + p_Id, "ckb_" + p_Id, '@Id_textbox');
 
             $("#div_ImgRevert_" + p_Id).removeClass("clssDisplaynone");
         } catch (e) {
@@ -227,7 +227,7 @@
     //    }
     //}
     //20190921 Hungtd thêm đoạn   có disable enable cho textbox 2
-    function ShowHidenUpLoad(pID, pClass, pTxt, pLable3) {
+    function ShowHidenUpLoad_Doc(pID, pClass, pTxt, pLable3) {
         try {
             if ($("#" + pID).is(':checked')) {
                 $("#div_up_" + pClass).removeClass("clssDisplaynone");

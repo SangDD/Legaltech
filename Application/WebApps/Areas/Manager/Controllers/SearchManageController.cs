@@ -723,7 +723,7 @@ namespace WebApps.Areas.Manager.Controllers
                     }
 
                     string _content = _QuestionInfo.RESULT; //.Replace("\n", "<br>");
-                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: _QuestionInfo.CASE_NAME, outref: p_case_code, dearname:userInfo.Username);
+                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: _QuestionInfo.CASE_NAME, outref: p_case_code, dearname: userInfo.Username);
 
                     Email_Info _Email_Info = new Email_Info
                     {
@@ -794,7 +794,7 @@ namespace WebApps.Areas.Manager.Controllers
                     p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                     p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                     p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
-                    p_Billing_Header_Info.Notes = "Billing for case code " + p_SearchObject_Header_Info.CASE_CODE + " - " + p_SearchObject_Header_Info.NOTE;
+                    p_Billing_Header_Info.Notes = "Billing for case code " + p_SearchObject_Header_Info.CASE_CODE; // + " - " + p_SearchObject_Header_Info.NOTE;
 
                     p_Billing_Header_Info.Case_Code = _obj_bl.Billing_GenCaseCode();
                     p_Billing_Header_Info.App_Case_Code = p_SearchObject_Header_Info.CASE_CODE;

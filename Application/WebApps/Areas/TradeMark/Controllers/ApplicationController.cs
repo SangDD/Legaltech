@@ -329,7 +329,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                 {
                     // lấy thông tin đơn
                     Application_Header_BL _Application_Header_BL = new Application_Header_BL();
-                    ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(p_app_id, AppsCommon.GetCurrentLang()); 
+                    ApplicationHeaderInfo _ApplicationHeaderInfo = _Application_Header_BL.GetApplicationHeader_ById(p_app_id, AppsCommon.GetCurrentLang());
 
                     //// lấy thông tin người dùng
                     //UserBL _UserBL = new UserBL();
@@ -464,7 +464,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     p_Billing_Header_Info.Language_Code = AppsCommon.GetCurrentLang();
                     p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                     p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.App;
-                    p_Billing_Header_Info.Notes = "Billing for case code " + pInfo.Case_Code + " - " + pInfo.Note;
+                    p_Billing_Header_Info.Notes = "Billing for case code " + pInfo.Case_Code; // + " - " + pInfo.Note;
 
                     p_Billing_Header_Info.Case_Code = _Billing_BL.Billing_GenCaseCode();
                     p_Billing_Header_Info.App_Case_Code = pInfo.Case_Code;

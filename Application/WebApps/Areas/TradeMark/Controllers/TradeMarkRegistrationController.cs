@@ -125,7 +125,7 @@
         [HttpPost]
         [Route("dang_ky_nhan_hieu")]
         public ActionResult AppDonDangKyInsert(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
+            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<UTienInfo> pUTienInfo)
         {
             try
             {
@@ -142,6 +142,23 @@
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
                 string p_case_code = "";
+
+                if (pUTienInfo != null && pUTienInfo.Count > 0)
+                {
+                    pDetail.Sodon_Ut = pUTienInfo[0].UT_SoDon;
+                    pDetail.Ngaynopdon_Ut = pUTienInfo[0].UT_NgayNopDon;
+                    pDetail.Nuocnopdon_Ut = pUTienInfo[0].UT_QuocGia.ToString();
+                    pDetail.ThoaThuanKhac = pUTienInfo[0].UT_ThoaThuanKhac;
+                    pDetail.Huongquyenuutien = pUTienInfo[0].UT_Type;
+
+                    if (pUTienInfo.Count > 1)
+                    {
+                        pDetail.Sodon_Ut2 = pUTienInfo[1].UT_SoDon;
+                        pDetail.Ngaynopdon_Ut2 = pUTienInfo[1].UT_NgayNopDon;
+                        pDetail.Nuocnopdon_Ut2 = pUTienInfo[1].UT_QuocGia.ToString();
+                        pDetail.Huongquyenuutien = pUTienInfo[1].UT_Type;
+                    }
+                }
 
                 using (var scope = new TransactionScope())
                 {
@@ -185,8 +202,24 @@
                     }
                     else
                     {
-                        return Json(new { status = pAppHeaderID });
+                        pReturn = pAppHeaderID;
+                        goto Commit_Transaction;
                     }
+
+                    if (pUTienInfo != null && pUTienInfo.Count > 0)
+                    {
+                        foreach (var item in pUTienInfo)
+                        {
+                            item.Case_Code = p_case_code;
+                            item.App_Header_Id = pAppHeaderID;
+                        }
+
+                        Uu_Tien_BL _Uu_Tien_BL = new Uu_Tien_BL();
+                        decimal _re = _Uu_Tien_BL.Insert(pUTienInfo);
+                        if (_re <= 0)
+                            goto Commit_Transaction;
+                    }
+
                     //Tai lieu dinh kem 
                     if (pReturn >= 0 && pAppDocumentInfo != null)
                     {
@@ -250,6 +283,7 @@
                     }
 
                     //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -274,7 +308,7 @@
         [HttpPost]
         [Route("edit-dang-ky-nhan-hieu")]
         public ActionResult AppDonDangKyEdit(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-           List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo, string listIDDocRemove)
+           List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo, List<UTienInfo> pUTienInfo, string listIDDocRemove)
         {
             try
             {
@@ -291,6 +325,24 @@
                 int pReturn = ErrorCode.Success;
                 int pAppHeaderID = 0;
                 bool _IsOk = false;
+
+                if (pUTienInfo != null && pUTienInfo.Count > 0)
+                {
+                    pDetail.Sodon_Ut = pUTienInfo[0].UT_SoDon;
+                    pDetail.Ngaynopdon_Ut = pUTienInfo[0].UT_NgayNopDon;
+                    pDetail.Nuocnopdon_Ut = pUTienInfo[0].UT_QuocGia.ToString();
+                    pDetail.ThoaThuanKhac = pUTienInfo[0].UT_ThoaThuanKhac;
+                    pDetail.Huongquyenuutien = pUTienInfo[0].UT_Type;
+
+                    if (pUTienInfo.Count > 1)
+                    {
+                        pDetail.Sodon_Ut2 = pUTienInfo[1].UT_SoDon;
+                        pDetail.Ngaynopdon_Ut2 = pUTienInfo[1].UT_NgayNopDon;
+                        pDetail.Nuocnopdon_Ut2 = pUTienInfo[1].UT_QuocGia.ToString();
+                        pDetail.Huongquyenuutien = pUTienInfo[1].UT_Type;
+                    }
+                }
+
                 using (var scope = new TransactionScope())
                 {
                     //
@@ -329,27 +381,38 @@
                         //Thêm thông tin class
                         if (pReturn >= 0 && pAppClassInfo != null)
                         {
-
                             //Xoa cac class cu di 
                             pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
-
                             pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pInfo.Id, language);
                         }
 
                         if (pReturn >= 0 && pAppClassInfo != null)
                         {
-                            //pReturn = _AppFeeFixBL.AppFeeFixInsertBath(pFeeFixInfo, pInfo.Id);
-
-                            //if (pReturn >= 0 && pAppClassInfo != null)
-                            //{
                             var listfeeCaculator = new List<AppFeeFixInfo>();
                             pReturn = Call_Fee.CaculatorFee_A04(pAppClassInfo, pDetail.Sodon_Ut, pInfo.Case_Code, ref listfeeCaculator);
-                            //}
                         }
                     }
                     else
                     {
-                        return Json(new { status = pAppHeaderID });
+                        pReturn = pAppHeaderID;
+                        goto Commit_Transaction;
+                    }
+
+                    // xóa đi trước insert lại sau
+                    Uu_Tien_BL _Uu_Tien_BL = new Uu_Tien_BL();
+                    _Uu_Tien_BL.Deleted(pInfo.Case_Code, language);
+
+                    if (pUTienInfo != null && pUTienInfo.Count > 0)
+                    {
+                        foreach (var item in pUTienInfo)
+                        {
+                            item.Case_Code = pInfo.Case_Code;
+                            item.App_Header_Id = pInfo.Id;
+                        }
+
+                        decimal _re = _Uu_Tien_BL.Insert(pUTienInfo);
+                        if (_re <= 0)
+                            goto Commit_Transaction;
                     }
 
                     //tài liệu đính kèm
@@ -400,16 +463,6 @@
                         }
                     }
 
-                    if (!string.IsNullOrEmpty(listIDDocRemove))
-                    {
-                        string[] arrayIDDoc = listIDDocRemove.Split('|');
-                        for (int i = 0; i < arrayIDDoc.Length; i++)
-                        {
-                            decimal idDOc = CommonFuc.ConvertToDecimal(arrayIDDoc[i]);
-                            pReturn = objDoc.AppDocumentDelByID(idDOc, language, pInfo.Id);
-                        }
-                    }
-
                     //tai lieu khac 
                     if (pReturn >= 0 && pAppDocOtherInfo != null)
                     {
@@ -428,16 +481,6 @@
                             int check = 0;
                             foreach (var info in pAppDocOtherInfo)
                             {
-                                //if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
-                                //{
-                                //    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                //    info.Filename = pfiles.FileName;
-                                //    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                //    check = 1;
-                                //}
-                                //info.App_Header_Id = pInfo.Id;
-                                //info.Language_Code = language;
-
                                 if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                                 {
                                     string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
@@ -460,18 +503,8 @@
                         }
                     }
 
-                    ////Xóa các tài liệu đi khi sửa bản ghi 
-                    //if (pReturn >= 0 && !string.IsNullOrEmpty(pDetail.ListFileAttachOtherDel))
-                    //{
-                    //    var arrIdFileAttack = pDetail.ListFileAttachOtherDel.Split(',');
-                    //    foreach (var item in arrIdFileAttack)
-                    //    {
-                    //        decimal pID = CommonFuc.ConvertToDecimal(item);
-                    //        pReturn = objDoc.AppDocOther_Del_ByID(pID, language);
-                    //    }
-                    //}
-
                     //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
 
@@ -1002,25 +1035,28 @@
                             appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
                             appInfo.TM_04NH_D_13_CHAR02 = item.CHAR02;
                         }
-                        else if (item.Document_Id == "04NH_D_14")
+
+                        // quyền ưu tiên
+                        else if (item.Document_Id == "04NH_D_14" || item.Document_Id == "1_TLCMQUT")
                         {
                             appInfo.TM_04NH_D_13_ISU = item.Isuse;
                             appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
                         }
-                        else if (item.Document_Id == "04NH_D_15")
+                        else if (item.Document_Id == "04NH_D_15" || item.Document_Id == "1_BanSaoDauTien")
                         {
                             appInfo.TM_04NH_D_13_ISU = item.Isuse;
                             appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
                         }
-                        else if (item.Document_Id == "04NH_D_16")
+                        else if (item.Document_Id == "04NH_D_16" || item.Document_Id == "1_BanDich")
                         {
                             appInfo.TM_04NH_D_13_ISU = item.Isuse;
                             appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
                         }
-                        else if (item.Document_Id == "04NH_D_17")
+                        else if (item.Document_Id == "04NH_D_17" || item.Document_Id == "1_GiayChuyenNhuong")
                         {
                             appInfo.TM_04NH_D_13_ISU = item.Isuse;
                         }
+                        // end quyền ưu tiên
 
                         else if (item.Document_Id == "04NH_D_18")
                         {
@@ -1038,7 +1074,6 @@
                         else if (item.Document_Id == "04NH_D_22")
                         {
                             appInfo.TM_04NH_D_22_ISU = item.Isuse;
-
                         }
                     }
                 }

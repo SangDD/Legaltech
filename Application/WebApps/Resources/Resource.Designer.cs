@@ -1753,7 +1753,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Có tài liệu bổ trợ khai tại trang bổ sung.
+        ///   Looks up a localized string similar to Có tài liệu khác.
         /// </summary>
         public static string CoTaiLieuKhac {
             get {
