@@ -723,7 +723,7 @@ namespace WebApps.Areas.Manager.Controllers
                     }
 
                     string _content = _QuestionInfo.RESULT; //.Replace("\n", "<br>");
-                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: _QuestionInfo.CASE_NAME, outref: p_case_code, dearname: userInfo.Username);
+                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: _QuestionInfo.CLIENT_REFERENCE, outref: p_case_code, dearname: userInfo.Username);
 
                     Email_Info _Email_Info = new Email_Info
                     {

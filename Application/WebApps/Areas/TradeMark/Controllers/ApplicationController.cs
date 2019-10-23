@@ -373,7 +373,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                     //}
 
                     string _content = _ApplicationHeaderInfo.Comment_Filling;// Replace("\n", "<br>");
-                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: _ApplicationHeaderInfo.Case_Name, outref: p_case_code, dearname: _ApplicationHeaderInfo.Customer_Name);
+                    _content = AppsCommon.SetContentMailTemplate(_content, yourref: _ApplicationHeaderInfo.Client_Reference, outref: p_case_code, dearname: _ApplicationHeaderInfo.Customer_Name);
 
                     Email_Info _Email_Info = new Email_Info
                     {
@@ -805,7 +805,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         //}
 
                         string _content = _App_Notice_Info.Advise_Replies;//.Replace("\n", "<br>");
-                        _content = AppsCommon.SetContentMailTemplate(_content, yourref: _App_Notice_Info.Case_Name, outref: p_case_code, dearname: _App_Notice_Info.Customer_Name);
+                        _content = AppsCommon.SetContentMailTemplate(_content, yourref: _App_Notice_Info.Client_Reference, outref: p_case_code, dearname: _App_Notice_Info.Customer_Name);
 
                         Email_Info _Email_Info = new Email_Info
                         {

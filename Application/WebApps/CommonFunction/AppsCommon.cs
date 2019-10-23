@@ -340,8 +340,8 @@ namespace WebApps.CommonFunction
                 //    _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref + " </div>";
                 //}
 
-                _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref + " </div>";
-                _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref + " </div>";
+                _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref == null ? "" : yourref + " </div>";
+                _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref == null ? "" : outref + " </div>";
 
                 if (dearname != "" && dearname != null)
                 {
