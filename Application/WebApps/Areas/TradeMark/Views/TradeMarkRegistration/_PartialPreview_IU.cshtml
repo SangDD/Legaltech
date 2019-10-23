@@ -86,7 +86,13 @@
              if (reponse == false) {
                 return false;
              }
-            //Lấy thông tin file có trong đơn
+
+             var reponse = Get_DonUuTien(formData, 1, ptype);
+             if (reponse == false) {
+                 return false;
+             }
+
+             //Lấy thông tin file có trong đơn
              reponse = funGetThongTinFile(formData);
              if (reponse == false) {
                 return false;

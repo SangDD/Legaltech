@@ -174,7 +174,7 @@
                     {
                         <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdNew" value="0" onchange="return ShowHiden_NguonGocDon()">
                     }
-                        <label> @Resource.DonMoi</label>
+                    <label> @Resource.DonMoi</label>
                 </div>
             </div>
         </div>
@@ -891,6 +891,12 @@
                     }
                     @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien_Edit.cshtml", Lst_UTienInfo[i])
                 }
+            </div>
+        }
+        else
+        {
+            <div id="div_ThongTinDonUuTien" class="clssDisplaynone">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
             </div>
         }
 

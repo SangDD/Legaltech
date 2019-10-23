@@ -156,7 +156,7 @@
                         pDetail.Sodon_Ut2 = pUTienInfo[1].UT_SoDon;
                         pDetail.Ngaynopdon_Ut2 = pUTienInfo[1].UT_NgayNopDon;
                         pDetail.Nuocnopdon_Ut2 = pUTienInfo[1].UT_QuocGia.ToString();
-                        pDetail.Huongquyenuutien = pUTienInfo[1].UT_Type;
+                        //pDetail.Huongquyenuutien = pUTienInfo[1].UT_Type;
                     }
                 }
 
@@ -221,57 +221,55 @@
                     }
 
                     //Tai lieu dinh kem 
-                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    if (pReturn >= 0 && pAppDocumentInfo != null && pAppDocumentInfo.Count > 0)
                     {
-                        if (pAppDocumentInfo.Count > 0)
+                        foreach (var info in pAppDocumentInfo)
                         {
-                            foreach (var info in pAppDocumentInfo)
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                             {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                                string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                string[] _arr = _url.Split('/');
+                                string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                if (_arr.Length > 0)
                                 {
-                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    string[] _arr = _url.Split('/');
-                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
-                                    if (_arr.Length > 0)
-                                    {
-                                        _filename = _arr[_arr.Length - 1];
-                                    }
-
-                                    info.Filename = _filename;
-                                    info.Url_Hardcopy = _url;
+                                    _filename = _arr[_arr.Length - 1];
                                 }
-                                info.Status = 0;
-                                info.App_Header_Id = pAppHeaderID;
-                                info.Language_Code = language;
-                                info.Document_Filing_Date = CommonFuc.CurrentDate();
+
+                                info.Filename = _filename;
+                                info.Url_Hardcopy = _url;
                             }
-                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
+                            info.Status = 0;
+                            info.App_Header_Id = pAppHeaderID;
+                            info.Language_Code = language;
+                            info.Document_Filing_Date = CommonFuc.CurrentDate();
                         }
+                        pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
                     }
 
                     //tai lieu khac 
-                    if (pReturn >= 0 && pAppDocOtherInfo != null)
+                    if (pReturn >= 0 && pAppDocOtherInfo != null && pAppDocOtherInfo.Count > 0)
                     {
-                        if (pAppDocOtherInfo.Count > 0)
+                        int check = 0;
+                        foreach (var info in pAppDocOtherInfo)
                         {
-                            int check = 0;
-                            foreach (var info in pAppDocOtherInfo)
+                            //if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
                             {
-                                if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
-                                {
-                                    HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
-                                    info.Filename = pfiles.FileName;
-                                    info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
-                                    check = 1;
+                                //HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                //info.Filename = pfiles.FileName;
+                                //info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                //check = 1;
 
-                                }
-                                info.App_Header_Id = pAppHeaderID;
-                                info.Language_Code = language;
+                                string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                info.Filename = _url;
+                                check = 1;
                             }
-                            if (check == 1)
-                            {
-                                pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
-                            }
+                            info.App_Header_Id = pAppHeaderID;
+                            info.Language_Code = language;
+                        }
+                        if (check == 1)
+                        {
+                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
                         }
                     }
 
@@ -339,7 +337,7 @@
                         pDetail.Sodon_Ut2 = pUTienInfo[1].UT_SoDon;
                         pDetail.Ngaynopdon_Ut2 = pUTienInfo[1].UT_NgayNopDon;
                         pDetail.Nuocnopdon_Ut2 = pUTienInfo[1].UT_QuocGia.ToString();
-                        pDetail.Huongquyenuutien = pUTienInfo[1].UT_Type;
+                        //pDetail.Huongquyenuutien = pUTienInfo[1].UT_Type;
                     }
                 }
 
@@ -416,51 +414,49 @@
                     }
 
                     //tài liệu đính kèm
-                    if (pReturn >= 0 && pAppDocumentInfo != null)
+                    if (pReturn >= 0 && pAppDocumentInfo != null && pAppDocumentInfo.Count > 0)
                     {
-                        if (pAppDocumentInfo.Count > 0)
+                        // Get ra để map sau đó xóa đi để insert vào sau
+                        AppDocumentBL _AppDocumentBL = new AppDocumentBL();
+                        List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pInfo.Id, language);
+                        Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+                        foreach (AppDocumentInfo item in Lst_AppDoc)
                         {
-                            // Get ra để map sau đó xóa đi để insert vào sau
-                            AppDocumentBL _AppDocumentBL = new AppDocumentBL();
-                            List<AppDocumentInfo> Lst_AppDoc = _AppDocumentBL.AppDocument_Getby_AppHeader(pInfo.Id, language);
-                            Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
-                            foreach (AppDocumentInfo item in Lst_AppDoc)
-                            {
-                                dic_appDoc[item.Document_Id] = item;
-                            }
-                            // xóa đi trước
-                            _AppDocumentBL.AppDocumentDelByApp(pInfo.Id, language);
-                            foreach (var info in pAppDocumentInfo)
-                            {
-                                if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
-                                {
-                                    string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
-                                    string[] _arr = _url.Split('/');
-                                    string _filename = WebApps.Resources.Resource.FileDinhKem;
-                                    if (_arr.Length > 0)
-                                    {
-                                        _filename = _arr[_arr.Length - 1];
-                                    }
-
-                                    info.Filename = _filename;
-                                    info.Url_Hardcopy = _url;
-                                    info.Status = 0;
-                                }
-                                else
-                                {
-                                    if (dic_appDoc.ContainsKey(info.Document_Id))
-                                    {
-                                        info.Filename = dic_appDoc[info.Document_Id].Filename;
-                                        info.Url_Hardcopy = dic_appDoc[info.Document_Id].Url_Hardcopy;
-                                        info.Status = dic_appDoc[info.Document_Id].Status;
-                                    }
-                                }
-                                info.App_Header_Id = pInfo.Id;
-                                info.Document_Filing_Date = CommonFuc.CurrentDate();
-                                info.Language_Code = language;
-                            }
-                            pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
+                            dic_appDoc[item.Document_Id] = item;
                         }
+                        // xóa đi trước
+                        _AppDocumentBL.AppDocumentDelByApp(pInfo.Id, language);
+
+                        foreach (var info in pAppDocumentInfo)
+                        {
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                            {
+                                string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                string[] _arr = _url.Split('/');
+                                string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                if (_arr.Length > 0)
+                                {
+                                    _filename = _arr[_arr.Length - 1];
+                                }
+
+                                info.Filename = _filename;
+                                info.Url_Hardcopy = _url;
+                                info.Status = 0;
+                            }
+                            else
+                            {
+                                if (dic_appDoc.ContainsKey(info.Document_Id))
+                                {
+                                    info.Filename = dic_appDoc[info.Document_Id].Filename;
+                                    info.Url_Hardcopy = dic_appDoc[info.Document_Id].Url_Hardcopy;
+                                    info.Status = dic_appDoc[info.Document_Id].Status;
+                                }
+                            }
+                            info.App_Header_Id = pInfo.Id;
+                            info.Document_Filing_Date = CommonFuc.CurrentDate();
+                            info.Language_Code = language;
+                        }
+                        pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pInfo.Id);
                     }
 
                     //tai lieu khac 
@@ -695,7 +691,7 @@
         [HttpPost]
         [Route("ket_xuat_file")]
         public ActionResult ExportData(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
-         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo)
+         List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<UTienInfo> pUTienInfo)
         {
             try
             {
@@ -725,7 +721,7 @@
                     {
                         var objBL = new AppDetail04NHBL();
                         var ds04NH = objBL.AppTM04NHGetByID(pInfo.Id, language, (int)pInfo.Status);
-                        if (ds04NH != null && ds04NH.Tables.Count == 5)
+                        if (ds04NH != null && ds04NH.Tables.Count == 6)
                         {
                             pDetail = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
                             pDetail.ChuLogo = pDetail.Logourl;
@@ -735,9 +731,28 @@
                             pAppClassInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
 
                             ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
+                            pUTienInfo = CBO<UTienInfo>.FillCollectionFromDataTable(ds04NH.Tables[5]);
                         }
 
                         language = pInfo.Languague_Code;
+                    }
+                }
+                
+                if (pUTienInfo != null && pUTienInfo.Count > 0)
+                {
+                    pDetail.Sodon_Ut = pUTienInfo[0].UT_SoDon;
+                    pDetail.Ngaynopdon_Ut = pUTienInfo[0].UT_NgayNopDon;
+                    pDetail.Nuocnopdon_Ut = pUTienInfo[0].UT_QuocGia.ToString();
+                    pDetail.ThoaThuanKhac = pUTienInfo[0].UT_ThoaThuanKhac;
+                    pDetail.Huongquyenuutien = pUTienInfo[0].UT_Type;
+                    pDetail.Nuocnopdon_Ut_Display = pUTienInfo[0].UT_QuocGia_Display;
+
+                    if (pUTienInfo.Count > 1)
+                    {
+                        pDetail.Sodon_Ut2 = pUTienInfo[1].UT_SoDon;
+                        pDetail.Ngaynopdon_Ut2 = pUTienInfo[1].UT_NgayNopDon;
+                        pDetail.Nuocnopdon_Ut2 = pUTienInfo[1].UT_QuocGia.ToString();
+                        //pDetail.Huongquyenuutien = pUTienInfo[1].UT_Type;
                     }
                 }
 
@@ -1339,13 +1354,14 @@
                 var objBL = new AppDetail04NHBL();
                 string language = AppsCommon.GetCurrentLang();
                 var ds04NH = objBL.AppTM04NHGetByID(pAppHeaderId, language, pStatus);
-                if (ds04NH != null && ds04NH.Tables.Count == 5)
+                if (ds04NH != null && ds04NH.Tables.Count == 6)
                 {
                     ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
                     ViewBag.lstDocumentInfo = CBO<AppDocumentInfo>.FillCollectionFromDataTable(ds04NH.Tables[1]);
                     ViewBag.lstDocOther = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(ds04NH.Tables[2]);
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
                     ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
+                    ViewBag.Lst_UTienInfo = CBO<UTienInfo>.FillCollectionFromDataTable(ds04NH.Tables[5]);
                 }
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialDangKyNhanHieu.cshtml");
             }
@@ -1727,7 +1743,7 @@
                 ViewBag.keyData = keyData;
                 SessionData.SetDataSession(keyData, "");
 
-                if (ds04NH != null && ds04NH.Tables.Count == 5)
+                if (ds04NH != null && ds04NH.Tables.Count == 6)
                 {
                     ViewBag.objAppHeaderInfo = CBO<AppDetail04NHInfo>.FillObjectFromDataTable(ds04NH.Tables[0]);
                     SessionData.SetDataSession(keyData, ViewBag.objAppHeaderInfo);
@@ -1736,6 +1752,7 @@
                     lstDocOther = ViewBag.lstDocOther;
                     ViewBag.lstClassDetailInfo = CBO<AppClassDetailInfo>.FillCollectionFromDataTable(ds04NH.Tables[3]);
                     ViewBag.lstFeeInfo = CBO<AppFeeFixInfo>.FillCollectionFromDataTable(ds04NH.Tables[4]);
+                    ViewBag.Lst_UTienInfo = CBO<UTienInfo>.FillCollectionFromDataTable(ds04NH.Tables[5]);
                 }
 
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
@@ -2020,7 +2037,7 @@
                 ViewBag.Lst_AppFee = appFeeFixInfos;
                 ViewBag.objAppHeaderInfo = applicationHeaderInfo;
                 ViewBag.lstDocOther = _LstDocumentOthersInfo;
-            
+
                 return PartialView("~/Areas/Patent/Views/C03/_Partial_C03_Edit.cshtml");
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_C04)

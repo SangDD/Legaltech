@@ -20,6 +20,18 @@
     {
         lstDocumentInfo = (List<AppDocumentInfo>)ViewBag.lstDocumentInfo;
     }
+    Dictionary<string, AppDocumentInfo> dic_appDoc = new Dictionary<string, AppDocumentInfo>();
+    foreach (AppDocumentInfo item in lstDocumentInfo)
+    {
+        dic_appDoc[item.Document_Id] = item;
+    }
+
+    List<UTienInfo> Lst_UTienInfo = new List<UTienInfo>();
+    if (ViewBag.Lst_UTienInfo != null)
+    {
+        Lst_UTienInfo = (List<UTienInfo>)ViewBag.Lst_UTienInfo;
+    }
+
     if (ViewBag.lstDocOther != null)
     {
         lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
@@ -45,8 +57,6 @@
         styleSuDungDonUT = "checked='checked'";
         styleNoneDisplay = "display:block";
     }
-
-    //
 
     string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "display: none";
     if (objAppHeaderInfo.LoaiNhanHieu == "NHTT")
@@ -96,47 +106,6 @@
 
         urlMauNhanHieu = objAppHeaderInfo.Logourl.Replace("~", "");
     }
-    AppDocumentInfo ObjInfo04NH_D_14 = new AppDocumentInfo();
-    AppDocumentInfo ObjInfo04NH_D_15 = new AppDocumentInfo();
-    AppDocumentInfo ObjInfo04NH_D_16 = new AppDocumentInfo();
-    AppDocumentInfo ObjInfo04NH_D_17 = new AppDocumentInfo();
-
-    foreach (var item in lstDocumentInfo)
-    {
-        if (item.Document_Id == "04NH_D_14" && item.Isuse == 1)
-        {
-            ObjInfo04NH_D_14 = item;
-            ObjInfo04NH_D_14.styleCheck = "checked= 'checked'";
-
-        }
-        else if (item.Document_Id == "04NH_D_15" && item.Isuse == 1)
-        {
-            ObjInfo04NH_D_15 = item;
-            ObjInfo04NH_D_15.styleCheck = "checked= 'checked'";
-            ObjInfo04NH_D_15.divUpLoadFile = "6_rdoBSDDT";
-        }
-
-        //04NH_D_16
-        else if (item.Document_Id == "04NH_D_16" && item.Isuse == 1)
-        {
-            ObjInfo04NH_D_16 = item;
-            ObjInfo04NH_D_16.styleCheck = "checked= 'checked'";
-            ObjInfo04NH_D_16.divUpLoadFile = "6_rdoBDTVGom";
-        }
-
-        //04NH_D_17
-        else if (item.Document_Id == "04NH_D_17" && item.Isuse == 1)
-        {
-            ObjInfo04NH_D_17 = item;
-            ObjInfo04NH_D_17.styleCheck = "checked= 'checked'";
-            ObjInfo04NH_D_17.divUpLoadFile = "6_rdoGiayChuyenNhungUT";
-        }
-    }
-    string styleDonUtSo2 = "hidden='hidden'";
-    if (!string.IsNullOrEmpty(objAppHeaderInfo.Sodon_Ut2))
-    {
-        styleDonUtSo2 = "";
-    }
 
     string styleChuDonKhac = "hidden='hidden'";
     if (!string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_2) || !string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_3) || !string.IsNullOrEmpty(objAppHeaderInfo.Cdk_Name_4))
@@ -144,15 +113,12 @@
         styleChuDonKhac = "";
     }
 
-
     //disable khi view
     string disableView = @"disabled=disabled";
     ViewBag.disableView = disableView;
 
     List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
-
 }
-
 
 <style>
     /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
@@ -161,12 +127,6 @@
     }
 </style>
 
-@*<div class="d-nav-container">
-        <ul class="ul-nav">
-            <li><a href="javascript:;">TradeMark</a></li>
-            <li><a href="javascript:;"> Request for amendment of application)</a></li>
-        </ul>
-    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
@@ -193,6 +153,7 @@
 
 <input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
 <input type="hidden" id="ActionView" value="V" />
+
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
         <legend>@WebApps.Resources.Resource.lblDangKyNhanHieu.ToUpper()</legend>
@@ -270,14 +231,6 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
             <div class="class_full_div_input">
 
-                @*<div class="class_left_40">
-                    <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblMauNhanHieu:</label> </div>
-                    <div class="class_block_title_control" style="display:flex">
-                        <div style="width:165px ;height:165px" id="divLogo">
-                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
-                        </div>
-                    </div>
-                </div>*@
 
                 <div class="class_left_40">
 
@@ -424,6 +377,7 @@
                 </div>
             </div>
         </div>
+
         <div style="@styleShowHidenNHCN">
             <div class="div_full_100_area" id="divNhanHieuChungNhan">
                 @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblHeaderDanhMucVaPhanLoaiHangHoa)
@@ -500,8 +454,7 @@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_View.cshtml")
 
         @* 3  A14*@
-        <div class="div_full_100_area">
-            @* @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "YÊU CẦU HƯỞNG QUYỀN ƯU TIÊN")*@
+        @*<div class="div_full_100_area">
             <div class="divCover cls_form_title">
                 <img src="/Content/icons/category.png">
                 <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
@@ -590,12 +543,10 @@
                             <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
                         </div>
                     </div>
-                    @* Moithem *@
                     <div class="div-search-content">
                         <input type="text" id="txtThoathuanKhac" disabled="disabled" value="@objAppHeaderInfo.ThoaThuanKhac" maxlength="150" />
                     </div>
                 </div>
-                @* TÀI LIEU ƯU TIEN *@
                 <div class="div-search-ad" style="display:inline-flex;">
                     <div class="div-search-content">
                         <div class="div-checkbox" style="width:422px">
@@ -626,7 +577,6 @@
                 </div>
                 <div style="margin-left:40px">
 
-                    @* File dinh kem lay tu db khi sua*@
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15)
 
                 </div>
@@ -645,7 +595,6 @@
                     </div>
                 </div>
                 <div style="margin-left:40px">
-                    @* File dinh kem lay tu db khi sua*@
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16)
                 </div>
                 <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
@@ -656,20 +605,194 @@
                         </div>
                     </div>
                 </div> <div style="margin-left:40px">
-                    @* File dinh kem lay tu db khi sua*@
                     @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17)
-                    @* end file dinh kem *@
                 </div>
             </div>
         </div>
-        @* div Don số 2 default fixed có 2 đơn *@
         <div id="divDonUuTienSo2" @styleDonUtSo2>
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHDonUTSo2.cshtml")
-        </div>
+        </div>*@
 
         @* Tài liệu có trong đơn *@
-        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTLTrongDon.cshtml")
-        @* End tai lieu dinh kem  *@
+        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTLTrongDon.cshtml")*@
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()
+            </div>
+
+            <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
+                @if (objAppHeaderInfo.Used_Special == 1)
+                {
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" disabled checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" disabled />
+                }
+                <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
+            </div>
+            <div style="display: inline-block;">
+                @if (objAppHeaderInfo.Used_Special == 0)
+                {
+                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" disabled checked="checked" />
+                }
+                else
+                {
+                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" disabled />
+                }
+                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
+            </div>
+        </div>
+
+        @if (Lst_UTienInfo.Count > 0)
+        {
+            <div id="div_ThongTinDonUuTien">
+                @for (int i = 0; i < Lst_UTienInfo.Count; i++)
+                {
+                    Lst_UTienInfo[i].Model_Id = i;
+                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien_View.cshtml", Lst_UTienInfo[i])
+                }
+            </div>
+        }
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_TaiLieuCoTrongDon
+            </div>
+        </div>
+        @{
+            string _doc_id = "";
+            string _model = "";
+            string _value = "";
+            string _id = "";
+        }
+
+        @* 4. Giấy uỷ quyền bằng tiếng *@
+        @{
+            _doc_id = "04NH_D_04";
+            _id = _doc_id + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @* 4.1 Bản gốc *@
+        @{
+            _doc_id = "04NH_D_05";
+            _id = _doc_id + "|Doc_05|1|" + Resource.TM2B_BanGoc + "||1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @* 4.2 Bản sao *@
+        @{
+            _doc_id = "04NH_D_06";
+            _id = _doc_id + "|Doc_06|1|" + Resource.TM2B_BanSao + "||0";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @* 4.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
+        @{
+            _doc_id = "04NH_D_07";
+            _id = _doc_id + "|Doc_07|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @* 4.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
+        @{
+            _doc_id = "04NH_D_08";
+            _id = _doc_id + "|Doc_08|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @* 4.1  Bản dịch tiếng Việt, gồm *@
+        @{
+            _doc_id = "04NH_D_09";
+            _id = _doc_id + "|Doc_09|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_10";
+            _id = _doc_id + "|Doc_10|0|" + Resource.lblTaiLieuXacNhanDuoc + "|" + Resource.TM2B_SoTrang + "|1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_11";
+            _id = _doc_id + "|Doc_11|0|" + Resource.lblTaiLieuXacNhanQuyenDKNH + "||1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_12";
+            _id = _doc_id + "|Doc_12|0|" + Resource.lblTaiLieuDKXacNhanThuHuong + "||1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_13";
+            _id = _doc_id + "|Doc_13|0|" + Resource.lblQuyCheSuDungNH + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_18";
+            _id = _doc_id + "|Doc_18|0|" + Resource.lblBanDoKhuVucDiaLy + "||1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_19";
+            _id = _doc_id + "|Doc_19|0|" + Resource.lblVanBanUBNDTinh + "||1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_20";
+            _id = _doc_id + "|Doc_20|0|" + Resource.lblCoTaiLieuBoTro + "||1";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
+
+        @{
+            _doc_id = "04NH_D_22";
+            _id = _doc_id + "|Doc_22|0|" + Resource.CoTaiLieuKhac + "||0";
+            _value = dic_appDoc[_doc_id].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id].CHAR01 + "|" + dic_appDoc[_doc_id].Url_Hardcopy + "|" + dic_appDoc[_doc_id].CHAR02;
+            _model = _id + ";" + _value;
+
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
+        }
 
         @*TÀI LIỆU KHÁC*@
         @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTaiLieuKhac.cshtml", "12")*@
@@ -744,7 +867,6 @@
     });
 
 
-
     function funcRemoveTradeMarkImg(ptag) {
         $("#" + ptag).attr('src', '');
         $("#txtLogoOld").val("");
@@ -779,10 +901,7 @@
         }
     });
 
-    //document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
-    //    filePreview(this, 'imgMauNhanHieu');
-    //};
-
+   
     function funcUpLoadMauNhanHieu(pFile) {
         try {
             var file = document.getElementsByName(pFile);
@@ -808,21 +927,18 @@
 
     $(document).ready(function () {
 
-
-        //ham 1
-        if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
-            funcEnableDisable('classDacTinhUT', true);
-            $("#6_txtNuocNopDon").multipleSelect("enable")
+        if ($("#ckb_Doc_22").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
         }
-        //Chạy 1 ham trên trước
-        funcAddRemoveDisabled('6_rdoTLCMQUT', '6_txtTLCMQUT');
-        funcAddRemoveDisabled('6_rdoBSDDT', '6_txtBSDDT');
-        funcAddRemoveDisabled('6_rdoBDTVGom', '6_txtBDTVGom');
+
+        var _divCheckbox = document.getElementById('divCheckbox_04NH_D_10');
+        _divCheckbox.style.width = '650px';
 
         if ($("#0_ckbDacTinhHangHoa").is(':checked')) {
             funcEnableDisable('classDacTinhHangHoa', true);
         }
-
 
         var SoDonTach = document.getElementById("0_txtDonSo").value;
         if (SoDonTach != "" && SoDonTach != undefined) {
@@ -832,7 +948,6 @@
         } else {
             $("#divHrefDetail").css('display', 'none');
         }
-
     });
 
     function ShowHidenUpLoad(pID, pClass) {
@@ -845,16 +960,6 @@
         } catch (e) {
         }
     }
-
-    $("#btnGuiDon").click(function () {
-
-        funcSaveType(2);
-    });
-
-    $("#btnLuuTam").click(function () {
-        funcSaveType(1);
-
-    });
 
 
     function funcGetCheckValueAndText(formData, pID, pItem) {
@@ -871,9 +976,7 @@
         } catch (e) {
             return false;
         }
-
     }
-
 
     function funcGetTenTaiLieuKhac(formData) {
         try {
@@ -907,6 +1010,24 @@
         }
     }
 
+    function funcChoiseDonUT(pID) {
+        try {
+            if (pID == "0_ckbCoSuDungDonUuTien") {
+                $('#0_ckbCoSuDungDonUuTien').prop('checked', true);
+                $('#KOUT').prop('checked', false);
+
+                $("#div_ThongTinDonUuTien").removeClass("clssDisplaynone");
+
+            } else {
+                $('#KOUT').prop('checked', true);
+                $('#0_ckbCoSuDungDonUuTien').prop('checked', false);
+
+                $("#div_ThongTinDonUuTien").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
 </script>
 
 <style>

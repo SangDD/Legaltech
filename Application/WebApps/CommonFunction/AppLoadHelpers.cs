@@ -35,7 +35,7 @@ namespace WebApps
                 string _filename = pFiles.FileName;
                 _filename = convertToUnSign2(_filename);
                 _filename = System.Text.RegularExpressions.Regex.Replace(_filename, "[^0-9A-Za-z.]+", "_");
-                _filename = _filename + DateTime.Now.Ticks.ToString();
+                _filename = DateTime.Now.Ticks.ToString()+ "_" + _filename;
                 //_filename = Rename_file(pFiles.FileName);
 
                 var f_part = HttpContext.Current.Server.MapPath(path) + _filename;

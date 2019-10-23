@@ -18,24 +18,27 @@
     }
 </style>
 
-<div class="div_full_100_area" id="divContainerDocOther_Img" style="margin-top: 5px">
-    <div class="divCover cls_form_title">
-        <div class="cls_form_header" style="margin: 0 !important;">
-            @Resource.lblCacTaiLieuKhac.ToUpper()
+@if (lstDocOther.Count > 0)
+{
+    <div class="div_full_100_area" id="divContainerDocOther_Img" style="margin-top: 5px">
+        <div class="divCover cls_form_title">
+            <div class="cls_form_header" style="margin: 0 !important;">
+                @Resource.lblCacTaiLieuKhac.ToUpper()
+            </div>
+        </div>
+
+        <div id="divDocumentOtherImg">
+            @for (int i = 0; i < lstDocOther.Count; i++)
+            {
+                lstDocOther[i].Model_Id = (i + 1);
+                lstDocOther[i].Is_View = 1;
+                @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Child_Edit.cshtml", lstDocOther[i])
+            }
+
         </div>
     </div>
+}
 
-    <div id="divDocumentOtherImg">
-        @for (int i = 0; i < lstDocOther.Count; i++)
-        {
-            lstDocOther[i].Model_Id = (i + 1);
-            lstDocOther[i].Is_View = 1;
-            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Child_Edit.cshtml", lstDocOther[i])
-        }
-
-    </div>
-</div>
 
 @* danh dau so tt sinh id  *@
 <input type="hidden" id="increNo_Doc" value="@_max_Model_Id" />
- 

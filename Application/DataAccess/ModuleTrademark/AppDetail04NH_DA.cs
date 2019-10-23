@@ -208,7 +208,7 @@ namespace DataAccess.ModuleTrademark
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_total_record", OracleDbType.Decimal, ParameterDirection.Output);
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_GET_DATA.PROC_APP_TM04NH_GET_BY_ID",
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_GET_DATA.PROC_APP_TM04NH_GET_BY_ID_New",
                     new OracleParameter("P_APP_HEADER_ID", OracleDbType.Decimal, pAppHeaderId, ParameterDirection.Input),
                     new OracleParameter("P_LANGUAGE", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
                     new OracleParameter("P_STATUS", OracleDbType.Decimal, pStatus, ParameterDirection.Input),
@@ -216,7 +216,8 @@ namespace DataAccess.ModuleTrademark
                     new OracleParameter("P_C_DOC", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_C_OTHER", OracleDbType.RefCursor, ParameterDirection.Output),
                     new OracleParameter("P_C_CLASS_DETAIL", OracleDbType.RefCursor, ParameterDirection.Output),
-                    new OracleParameter("P_C_FEE", OracleDbType.RefCursor, ParameterDirection.Output)
+                    new OracleParameter("P_C_FEE", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_uu_tien", OracleDbType.RefCursor, ParameterDirection.Output)
                     );
                 return _ds;
             }
