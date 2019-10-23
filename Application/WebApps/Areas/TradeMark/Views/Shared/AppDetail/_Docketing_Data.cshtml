@@ -27,17 +27,20 @@
             {
                 foreach (var item in _list_data)
                 {
-                    <tr>
-                        @*<td class="tdcenteralign">@item.STT</td>*@
-                        <td class="tdleftalign">@item.Docking_Type_Name</td>
-                        @*<td class="tdleftalign">@item.Document_Name</td>*@
-                        <td class="tdleftalign">
-                            <a href="@item.Url" download="@item.Url">@item.Document_Name</a>
-                        </td>
-                        <td class="tdleftalign">@item.Document_Type_Name</td>
-                        <td class="tdleftalign">@item.Status_Name</td>
-                        <td class="tdcenteralign">@(item.Deadline == DateTime.MinValue ? "" : item.Deadline.ToString("dd/MM/yyyy"))</td>
-                    </tr>
+                    if (item.Url != null && item.Url != "")
+                    {
+                        <tr>
+                            @*<td class="tdcenteralign">@item.STT</td>*@
+                            <td class="tdleftalign">@item.Docking_Type_Name</td>
+                            @*<td class="tdleftalign">@item.Document_Name</td>*@
+                            <td class="tdleftalign">
+                                <a href="@item.Url" download="@item.Url">@item.Document_Name</a>
+                            </td>
+                            <td class="tdleftalign">@item.Document_Type_Name</td>
+                            <td class="tdleftalign">@item.Status_Name</td>
+                            <td class="tdcenteralign">@(item.Deadline == DateTime.MinValue ? "" : item.Deadline.ToString("dd/MM/yyyy"))</td>
+                        </tr>
+                    }
                 }
             }
             else

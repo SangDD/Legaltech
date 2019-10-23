@@ -37,7 +37,7 @@
                         <td class="tdleftalign">@item.Document_Name</td>
                         <td class="tdleftalign">@item.Document_Type_Name</td>
                         <td class="tdleftalign">@item.Status_Name</td>
-                        <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign">@(item.Deadline.Date == DateTime.MinValue.Date ? "" : item.Deadline.ToString("dd/MM/yyyy")) </td>
 
                         <td class="tdcenteralign">
                             <a href="javascript:getViewDocking(@item.Docking_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
