@@ -4,7 +4,7 @@
 @using WebApps.Resources;
 @using ObjectInfos.ModuleTrademark
 @{
-    string _id = Model.Model_Id.ToString();
+    string _id = (Model.Model_Id + 1).ToString();
 
     string txtSoDon = _id + "_UT_txtSoDon";
     string txtNgayNopDon = _id + "_UT_txtNgayNopDon";
@@ -37,24 +37,57 @@
         dic_appDoc[item.Document_Id] = item;
     }
 
-    string _doc_id1 = "A01_01";
+    string _doc_id1 = TLCMQUT;
     string _id1 = _doc_id1 + "|" + TLCMQUT + "|0|" + Resource.lblTaiLieuChungMinhQuyenUuTien + "|" + Resource.lblSoBan + "|0";
-    string _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+    string _value1 = "";
+    if (dic_appDoc.ContainsKey(_doc_id1))
+    {
+        _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy;
+    }
+    else
+    {
+        _value1 = "0" + "|" + "" + "|" + "";
+    }
+
     string _model1 = _id1 + ";" + _value1;
 
-    string _doc_id2 = "A01_02";
+    string _doc_id2 = BanSaoDauTien;
     string _id2 = _doc_id2 + "|" + BanSaoDauTien + "|0|" + Resource.lblbanSaoDauTienGom + "|" + Resource.lblSoBan + "|1";
-    string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+    string _value2 = "";
+    if (dic_appDoc.ContainsKey(_doc_id2))
+    {
+        _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy;
+    }
+    else
+    {
+        _value2 = "0" + "|" + "" + "|" + "";
+    }
     string _model2 = _id1 + ";" + _value2;
 
-    string _doc_id3 = "A01_03";
+    string _doc_id3 = BanDich;
     string _id3 = _doc_id3 + "|" + BanDich + "|0|" + WebApps.Resources.Resource.TM3B_BanDichTiengVietGom + "|" + Resource.lblSoBan + "|1";
-    string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+    string _value3 = "";
+    if (dic_appDoc.ContainsKey(_doc_id3))
+    {
+        _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
+    }
+    else
+    {
+        _value3 = "0" + "|" + "" + "|" + "";
+    }
     string _model3 = _id3 + ";" + _value3;
 
-    string _doc_id4 = "A01_04";
-    string _id4 = _doc_id4 + "|" + GiayChuyenNhuong  + "|0|" + Resource.lblGiayChuyenNhuongQuyenUT + "||1";
-    string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+    string _doc_id4 = GiayChuyenNhuong;
+    string _id4 = _doc_id4 + "|" + GiayChuyenNhuong + "|0|" + Resource.lblGiayChuyenNhuongQuyenUT + "||1";
+    string _value4 = "";
+    if (dic_appDoc.ContainsKey(_doc_id4))
+    {
+        _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy;
+    }
+    else
+    {
+        _value4 = "0" + "|" + "" + "|" + "";
+    }
     string _model4 = _id4 + ";" + _value4;
 }
 

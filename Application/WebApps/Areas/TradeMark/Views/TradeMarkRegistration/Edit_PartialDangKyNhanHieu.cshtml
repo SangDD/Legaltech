@@ -2220,6 +2220,8 @@
             var Isuse = 0, Note = "", reponse = false;
 
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_POA", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_POA").val());
+
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "1");
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "2");
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "3");
