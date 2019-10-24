@@ -1185,5 +1185,101 @@ namespace WebApps.Areas.TradeMark.Controllers
 
 
         #endregion
+
+        [HttpPost]
+        [Route("quan-ly-don/change-date-form")]
+        public ActionResult ChangeDate_Form(string p_date)
+        {
+            try
+            {
+                DateTime _dt = ConvertData.ConvertString2Date(p_date);
+                return Json(new { success = _dt.AddMonths(2).ToString("dd/MM/yyyy") });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/change-date-cong-bo-don")]
+        public ActionResult ChangeDate_CongBoDon(string p_date, string p_appcode)
+        {
+            try
+            {
+                DateTime _dt = ConvertData.ConvertString2Date(p_date);
+                int _month_add = 1;
+                if (p_appcode == TradeMarkAppCode.AppCode_A01 || p_appcode == TradeMarkAppCode.AppCode_A02_DangKyThietKeMachTichHop)
+                {
+                    _month_add = 18;
+                }
+                else if (p_appcode == TradeMarkAppCode.AppCode_A03_IndustryDesign)
+                {
+                    _month_add = 7;
+                }
+                else if (p_appcode == TradeMarkAppCode.AppCodeDangKynhanHieu)
+                {
+                    _month_add = 9;
+                }
+
+                return Json(new { success = _dt.AddMonths(_month_add).ToString("dd/MM/yyyy") });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/change-date-content")]
+        public ActionResult ChangeDate_Content(string p_date)
+        {
+            try
+            {
+                DateTime _dt = ConvertData.ConvertString2Date(p_date);
+                //9 tháng kể từ ngày công bố hoặc 02 tháng kể từ ngày trả lời Thông báo từ chối nội dung
+                int _month_add = 9;
+                return Json(new { success = _dt.AddMonths(_month_add).ToString("dd/MM/yyyy") });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/change-date-thong-bao-cap-bang")]
+        public ActionResult ChangeDate_TbaoCapBang(string p_date)
+        {
+            try
+            {
+                DateTime _dt = ConvertData.ConvertString2Date(p_date);
+                return Json(new { success = _dt.AddMonths(2).ToString("dd/MM/yyyy") });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/change-date-cong-bo-bang")]
+        public ActionResult ChangeDate_CongBobang(string p_date)
+        {
+            try
+            {
+                DateTime _dt = ConvertData.ConvertString2Date(p_date);
+                return Json(new { success = _dt.ToString("dd/MM/yyyy") });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
+            }
+        }
     }
 }

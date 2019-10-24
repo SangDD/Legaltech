@@ -54,7 +54,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txt_notice_date" maxlength="100" class="datepicker" onblur="onChangeNotice_Date()" />
+                <input type="text" id="txt_notice_date" maxlength="100" class="datepicker" onblur="onChangeNotice_Date('@_AppHeaderInfo.Appcode')" />
             </div>
         </div>
     </div>
@@ -135,7 +135,7 @@
 
     });
 
-    function onChangeNotice_Date() {
+    function onChangeNotice_Date(_appCode) {
         try {
 
             var txt_notice_date = $("#txt_notice_date").val();
@@ -145,9 +145,10 @@
 
             $.ajax({
                 type: 'POST',
-                url: '/quan-ly-billing/danh-sach-billing/change-date',
+                url: '/trade-mark-mana/quan-ly-don/change-date-cong-bo-don',
                 data: {
                     p_date: txt_notice_date,
+                    p_appcode: _appCode
                 },
                 async: true, cache: false, traditional: true,
                 success: function (data) {
