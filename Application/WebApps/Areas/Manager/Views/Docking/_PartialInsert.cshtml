@@ -148,7 +148,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Deadline <i class="redspan">(*)</i></div>
+                <div>Deadline </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -263,10 +263,10 @@
             return false;
         }
 
-        var txtDeadline = $("#txtDeadline").val();
-        if (checkDate("Deadline", "#txtDeadline", txtDeadline) == false) {
-            return false;
-        }
+        //var txtDeadline = $("#txtDeadline").val();
+        //if (checkDate("Deadline", "#txtDeadline", txtDeadline) == false) {
+        //    return false;
+        //}
 
         var txtIn_Out_Date = $("#txtIn_Out_Date").val();
         if (checkDate("Ngày khai In/Out book", "#txtIn_Out_Date", txtIn_Out_Date) == false) {
@@ -290,14 +290,14 @@
             var _file = pfile[0].files[0];
             var _size = _file.size / 1024 / 1024;
 
-            var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile.name);
-            if (_check_kyTu != "") {
-                _CheckFile = false;
-                jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
-                    $(pfile).focus();
-                });
-                return false;
-            }
+            //var _check_kyTu = CheckKyTuDacBietShoKyTu(pfile.name);
+            //if (_check_kyTu != "") {
+            //    _CheckFile = false;
+            //    jAlert("Cảnh báo", "Không tải file có tên file chứa các ký tự | , } { @@ + & = ! ? ; / # \ \" $ % ^ * ( ) < > ` ~ [ ] \\ ", function () {
+            //        $(pfile).focus();
+            //    });
+            //    return false;
+            //}
 
             @*if (validateFileName(_file.name) == false) {
                 _CheckFile = false;
