@@ -7,8 +7,99 @@
     }
 }
 <style>
-   
-   
+    @@media only screen and (max-width: 600px) {
+        .box_title {
+            /*background-color: lightblue;
+    color: red*/
+        }
+
+        .main-menu {
+            display: none;
+        }
+
+        .section-body {
+            min-width: 0 !important;
+            width: 100%;
+        }
+
+        .clssbox_search {
+            width: 100% !important;
+        }
+
+        .clssbox_button, clssbox_button_icon {
+            display: none;
+        }
+
+        .clssbox_buttonHide {
+        }
+
+        .clssbox_search > input[type="text"] {
+            width: calc(100% - 150px) !important;
+        }
+
+        .clssbox_search {
+            border: 1px solid #CBCCCE !important;
+        }
+
+        .clssbox_buttonHide {
+            display: contents;
+        }
+
+            .clssbox_buttonHide input {
+                padding: 0 !important;
+                margin-top: 10px !important;
+            }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: auto !important;
+            width: 100% !important;
+            height: 200px !important;
+        }
+
+        .div_showchoosetab {
+            display: none;
+        }
+
+        .notify_cover .grid-item {
+            padding-right: 28px !important;
+            height: 50px;
+        }
+
+        .border4Request {
+            margin-left: 0px !important;
+        }
+
+        .border4Remind {
+            margin-left: 0px !important;
+        }
+
+        .border4Remind {
+            width: 100%;
+        }
+
+        .legalWikihome_div, .legalHotnews_div {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+        }
+       
+        .grid-item-1 > ._choose {
+            border-right: 1px solid #00ff21;
+            border-top: 1px solid #00ff21;
+            border-bottom: 1px solid #00ff21;
+        }
+        .grid-item-2 > ._choose {
+            border-right: 1px solid #4800ff;
+            border-top: 1px solid #4800ff;
+            border-bottom: 1px solid #4800ff;
+        }
+             .grid-item-3 > ._choose {
+            border-right: 1px solid #ff0000;
+            border-top: 1px solid #ff0000;
+            border-bottom: 1px solid #ff0000;
+        }
+    }
 </style>
 
 @*tìm kiếm*@
@@ -33,6 +124,12 @@
 
 @*@Html.Partial("~/Areas/Home/Views/Shared/HomeUpdateNews.cshtml")*@
 <script>
+
+    $(".grid-item").click(function () {
+        $(".grid-item").find('div').removeClass('_choose');
+        $(this).find('div').addClass('_choose');
+    });
+
     $(function () {
         TodofindObjects(1, 1);
         OrderfindObjects(1, 1);
@@ -41,4 +138,5 @@
         HotnewsfindObjects(1, 1);
         //UpdatenewsfindObjects(1, 1);
     });
+
 </script>
