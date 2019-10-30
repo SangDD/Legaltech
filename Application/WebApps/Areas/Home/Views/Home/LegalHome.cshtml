@@ -14,7 +14,13 @@
         }
 
         .main-menu {
-            display: none;
+            /*display: none;*/
+            position: absolute;
+            left: -261px;
+            border-right: 1px solid #0055a8;
+            border-bottom: 1px solid #0055a8;
+            padding-bottom: 30px;
+            z-index: 1;
         }
 
         .section-body {
@@ -83,30 +89,94 @@
             margin: 0;
             padding: 0;
         }
-       
+
         .grid-item-1 > ._choose {
             border-right: 1px solid #00ff21;
             border-top: 1px solid #00ff21;
             border-bottom: 1px solid #00ff21;
         }
+
         .grid-item-2 > ._choose {
             border-right: 1px solid #4800ff;
             border-top: 1px solid #4800ff;
             border-bottom: 1px solid #4800ff;
         }
-             .grid-item-3 > ._choose {
+
+        .grid-item-3 > ._choose {
             border-right: 1px solid #ff0000;
             border-top: 1px solid #ff0000;
             border-bottom: 1px solid #ff0000;
         }
-             .Footer-container{
-                 overflow: hidden !important;
-                 /*height: auto !important*/
-             }
-              .grid-container_footer{
-                  grid-template-columns: 100% !important;
 
-              }
+        .Footer-container {
+            overflow: hidden !important;
+            /*height: auto !important*/
+        }
+
+        .grid-container_footer {
+            grid-template-columns: 100% !important;
+        }
+
+        .Footer-container {
+            height: 232px !important;
+        }
+
+        .section-bottom {
+            bottom: -110px !important;
+        }
+
+        .hidemobile {
+            display: none;
+        }
+
+        .m20 {
+            width: 20% !important;
+        }
+
+        .m30 {
+            width: 30% !important;
+        }
+
+        .m40 {
+            width: 40% !important;
+        }
+
+        .section-body {
+            position: relative;
+        }
+
+        .group-menu {
+            width: calc(100% - 2px);
+            border-left: 2px solid #324e6d;
+        }
+
+        .box_title {
+            position: relative;
+            height: 27px;
+            z-index: 0;
+        }
+
+        ._db_mobile {
+            width: 30px;
+            display: block !important;
+            cursor: pointer;
+        }
+
+        ._search {
+            position: absolute;
+            top: 17px;
+            left: 35px;
+        }
+
+       ._db_menu_hide{
+            position: absolute;
+            top: 20px;
+            right: 10px;
+
+       }
+       .grid-item_head div{
+           
+       }
     }
 </style>
 
@@ -137,6 +207,13 @@
         $(".grid-item").find('div').removeClass('_choose');
         $(this).find('div').addClass('_choose');
     });
+
+    function showmemu() {
+        $(".main-menu").animate({ left: '0px' }, "slow")
+    }
+    function hidemenu() {
+        $(".main-menu").animate({ left: '-261px' }, "slow")
+    }
 
     $(function () {
         TodofindObjects(1, 1);

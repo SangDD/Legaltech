@@ -25,12 +25,12 @@
             <tr>
                 <th class="class30">STT</th>
                 @*<th class="class50">@WebApps.Resources.Resource.Remind</th>*@
-                <th class="tdleftalign" style="width:20%" id="CASE_CODE" onclick="TodoSortByCol('CASE_CODE')">Case code</th>
-                <th class="tdleftalign" style="width:25%">@WebApps.Resources.Resource.Noidung</th>
-                <th class="tdleftalign" style="width:15%" id='REQUEST_BY_NAME' onclick="TodoSortByCol('REQUEST_BY_NAME')">@WebApps.Resources.Resource.Nguoigui</th>
-                <th style="width:10%" id='REQUEST_DATE' onclick="TodoSortByCol('REQUEST_DATE')">@WebApps.Resources.Resource.Thoigiangui</th>
-                <th class="tdleftalign" style="width:15%" id='PROCESSOR_BY_NAME' onclick="TodoSortByCol('PROCESSOR_BY_NAME')">@WebApps.Resources.Resource.Processor</th>
-                <th style="width:10%" id='PROCESSOR_DATE' onclick="TodoSortByCol('REQUEST_DATE')">@WebApps.Resources.Resource.Thoigiancho</th>
+                <th class="tdleftalign m30" style="width:20%" id="CASE_CODE" onclick="TodoSortByCol('CASE_CODE')">Case code</th>
+                <th class="tdleftalign m40" style="width:25%">@WebApps.Resources.Resource.Noidung</th>
+                <th class="tdleftalign hidemobile" style="width:15%" id='REQUEST_BY_NAME' onclick="TodoSortByCol('REQUEST_BY_NAME')">@WebApps.Resources.Resource.Nguoigui</th>
+                <th class="hidemobile" style="width:10%" id='REQUEST_DATE' onclick="TodoSortByCol('REQUEST_DATE')">@WebApps.Resources.Resource.Thoigiangui</th>
+                <th class="tdleftalign hidemobile" style="width:15%" id='PROCESSOR_BY_NAME' onclick="TodoSortByCol('PROCESSOR_BY_NAME')">@WebApps.Resources.Resource.Processor</th>
+                <th class="m20" style="width:10%" id='PROCESSOR_DATE' onclick="TodoSortByCol('REQUEST_DATE')">@WebApps.Resources.Resource.Thoigiancho</th>
             </tr>
         </thead>
         <tbody>
@@ -101,11 +101,11 @@
                         <td class="tdleftalign">@item.CONTENT</td>
 
 
-                        <td class="tdleftalign">@item.REQUEST_BY_NAME</td>
-                        <td class="tdcenteralign">
+                        <td class="tdleftalign hidemobile">@item.REQUEST_BY_NAME</td>
+                        <td class="tdcenteralign hidemobile">
                             @item.REQUEST_DATE.ToDateStringN0()
                         </td>
-                        <td class="tdleftalign">@item.PROCESSOR_BY_NAME</td>
+                        <td class="tdleftalign hidemobile">@item.PROCESSOR_BY_NAME</td>
                         <td class="tdcenteralign">
                             @{
                                 TimeSpan TS = DateTime.Now - item.REQUEST_DATE;

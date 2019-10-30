@@ -9,7 +9,6 @@
     }
 }
 <style>
-
     .clssbox_search {
         width: calc(85%);
         height: 35px;
@@ -76,7 +75,10 @@
 </style>
 
 <div class="divCover" id="legalsearch_div" style="">
-    <div class="box_title"><label style=""> @WebApps.Resources.Resource.TimKiem </label></div>
+    <div class="box_title">
+        <img class="_db_mobile clssDisplaynone" src="~/Content/icons/dashboard.png" onclick="showmemu()"/>
+        <label class="_search" style=""> @WebApps.Resources.Resource.TimKiem </label>
+    </div>
     <div class="clssbox_search">
         <select id="cbo_searchtype" onchange="FunChooseSearchtype()">
             <option value="1">
