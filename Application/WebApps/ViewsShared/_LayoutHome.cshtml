@@ -26,7 +26,8 @@
     var _currentlanguage = '@_LanguageCode';
     </script>
     @* https://css-tricks.com/probably-use-initial-scale1/ *@
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    @*<meta name="viewport" content="width=device-width, initial-scale=1" />*@
+    <meta name="viewport" content="width=device-width, user-scalable=no">
     <meta charset="utf-8" />
     <meta name="__RequestVerificationToken" content="@Html.AntiForgeryTokenValue()" />
     <title>@ViewBag.Title</title>
@@ -59,6 +60,7 @@
     <script src="~/Scripts/AlertPopup/ASSAlert.js"></script>
 
 </head>
+
 <body>
 
     <div class="hidden">
@@ -84,7 +86,13 @@
                                 <a href="/Language?culture=en-GB&returnUrl=Home" class="lang-en"></a>
                             }
 
-                            <img class="_db_mobile _db_menu_hide clssDisplaynone" src="~/Content/icons/dashboard.png" onclick="hidemenu()"/>
+                            @*<img class="_db_mobile _db_menu_hide clssDisplaynone" src="~/Content/icons/dashboard.png" onclick="hidemenu()"/>*@
+
+
+                            <div class="_db_mobile _db_menu_hide clssDisplaynone c-header_nav-burger1" data-module="BurgerMenu" onclick="hidemenu()">
+
+                            </div>
+
                         </div>
 
                     </div>

@@ -223,7 +223,7 @@
             background-color: burlywood;
         }
     </style>
-    <div style="width:100%;float:left;">
+    <div class="mb_disnone" style="width:100%;float:left;">
         @{
             _count = 0;
         }
@@ -234,7 +234,7 @@
             <div class="@("progress_div_text" +  _count)"> @item.Content</div>
         }
     </div>
-    <div style="width:100%;float:left;margin-top:7px">
+    <div class="mb_disnone" style="width:100%;float:left;margin-top:7px">
         <hr class="progress_hr" />
         @{
             _count = 0;
@@ -254,7 +254,7 @@
     </div>
     @if (_Listtodo.Count > 0)
     {
-        <div style="width:100%;float:left; margin-top:7px">
+        <div class="mb_disnone" style="width:100%;float:left; margin-top:7px">
             @{
                 _count = 0;
             }
@@ -276,7 +276,7 @@
 
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update) && _is_update == 1)
     {
-        <div style="margin-top:20px;float:left;width:100%">
+        <div class="mb-top0" style="margin-top:20px;float:left;width:100%">
             @if (_currstatus == CommonSearch.Stt_PhanChoLuatSu)
             {
                 @Html.Partial("~/Areas/Manager/Views/SearchManage/_PartialPhanLoai.cshtml")
