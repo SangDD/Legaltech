@@ -206,6 +206,7 @@
     <Compile Include="Areas\Manager\Controllers\BillingController.cs" />
     <Compile Include="Areas\Manager\Controllers\Billing_SearchController.cs" />
     <Compile Include="Areas\Manager\Controllers\DockingController.cs" />
+    <Compile Include="Areas\Manager\Controllers\EmailController.cs" />
     <Compile Include="Areas\Manager\Controllers\NotifyController.cs" />
     <Compile Include="Areas\Manager\Controllers\SearchManageController.cs" />
     <Compile Include="Areas\Manager\Controllers\Search_FeeController.cs" />
@@ -2081,6 +2082,7 @@
     <Content Include="Areas\TradeMark\Views\C04\_PartialPreview_IU.cshtml" />
     <Content Include="Areas\TradeMark\Views\C04\_Partial_C04_View.cshtml" />
     <Content Include="Areas\TradeMark\Views\C04\_Partial_C04_Edit.cshtml" />
+    <Content Include="Areas\Manager\Views\Email\Send_Email.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace ObjectInfos
 {
@@ -34,6 +35,12 @@ namespace ObjectInfos
         public List<string> LstAttachment { get; set; }
         public string Status { get; set; }
         public DateTime Send_Time { get; set; }
+
+        public HttpPostedFileBase File_Attach_1 { get; set; }
+
+        public HttpPostedFileBase File_Attach_2 { get; set; }
+        public string Customer_Name { get; set; }
+
     }
 
     public class Send_Email_Info

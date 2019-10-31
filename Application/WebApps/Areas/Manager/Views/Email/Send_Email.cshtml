@@ -1,0 +1,411 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Gửi Email";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/quan-ly-email/gui-email">Gửi email</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> GỬI EMAIL </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Chủ để<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtSubject" maxlength="500" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Tên người nhận<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtName" maxlength="100" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Người gửi<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="txtFrom">
+                    <option value="support@pathlaw.net">support@pathlaw.net</option>
+                    <option value="tuyen.le@pathlaw.net">tuyen.le@pathlaw.net</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Email người nhận<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTo" maxlength="1000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>CC</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtCC" maxlength="1000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title" style="height:200px">
+            <div>Nội dung<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <input type="button" id="btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File()" style="margin-left:4px;height:29px;" />
+            <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
+
+            <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
+                <img onclick="RemoveFile()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div id="div_filename" style="width: 168px;">@WebApps.Resources.Resource.FileDinhKem</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtMaxFile" readonly="readonly" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <input type="button" id="btnChooseFile_Dich" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File_Dich()" style="margin-left:4px;height:29px;" />
+            <input type="file" id="file_attach_Dich" style="display:none" onchange="FuncChooseResultFile_Dich()" />
+
+            <div class="div-checkbox clssDisplaynone" id="div_RemoveImg_Dich">
+                <img onclick="RemoveFile_Dich()" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div id="div_filename_Dich" style="width: 168px;">@WebApps.Resources.Resource.FileDinhKem </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtMaxFile_Dich" readonly="readonly" />
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="class_save">
+    <div class="classGuiDon">
+        <input type="button" value="Send" id="btnGuiDon" class="btn" onclick="return do_SendEmail()" />
+    </div>
+</div>
+
+<script>
+
+    function do_SendEmail() {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn gửi email này hay không? ", function () {
+
+                var formdata = new FormData();
+                var pfile = $("#file_attach");//lay du lieu file
+                if (pfile.val() != "") {
+                    var _file = pfile[0].files[0];
+                    formdata.append("pInfo.File_Attach_1", _file);
+                }
+
+                var pfile_t = $("#file_attach_Dich");//lay du lieu file
+                if (pfile_t.val() != "") {
+                    var _file_t = pfile_t[0].files[0];
+                    formdata.append("pInfo.File_Attach_2", _file_t);
+                }
+
+                formdata.append("pInfo.Subject", $('#txtSubject').val());
+                formdata.append("pInfo.EmailTo", $('#txtTo').val());
+                formdata.append("pInfo.EmailFrom", $('#txtFrom').val());
+                formdata.append("pInfo.EmailCC", $('#txtCC').val());
+                formdata.append("pInfo.Content", $('#txtBody').val());
+                formdata.append("pInfo.Customer_Name", $('#txtName').val());
+
+
+                $.ajax({
+                    url: '/quan-ly-email/do-send-email',
+                    type: 'POST',
+                    data: formdata,
+                    enctype: 'multipart/form-data',
+                    async: true, cache: false, traditional: true, contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                        else {
+                            jAlert("Gửi email thành công", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateAction() {
+        try {
+            var _txtSubject = $("#txtSubject").val();
+            if (_txtSubject == null || _txtSubject == "") {
+                jError("Tiêu đề thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtSubject").focus();
+                });
+                return false;
+            }
+
+            var _Name = $("#txtName").val();
+            if (_Name == null || _Name == "") {
+                jError("Tên người nhận thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtName").focus();
+                });
+                return false;
+            }
+
+            var _From = $("#txtFrom").val();
+            if (_From == null || _From == "") {
+                jError("Người nhận thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtFrom").focus();
+                });
+                return false;
+            }
+
+            var _To = $("#txtTo").val();
+            if (_To == null || _To == "") {
+                jError("Người gửi thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtTo").focus();
+                });
+                return false;
+            }
+
+            if (!IsvalidEmail(_To)) {
+                jError("@Html.Raw(WebApps.Resources.Resource.EmailFormat)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $('#txtTo').focus();
+                });
+                return false;
+            }
+
+            var _cc = $("#txtCC").val();
+            if (_cc != null || _cc != "") {
+                if (!IsvalidEmail(_cc)) {
+                    jError("@Html.Raw(WebApps.Resources.Resource.EmailFormat)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                        $('#txtCC').focus();
+                    });
+                    return false;
+                }
+            }
+
+            var _Body = $('#txtBody').val();
+            if (_Body == null || _Body == "") {
+                jError("Nội dung thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtBody").focus();
+                });
+                return false;
+            }
+
+            var pfile = $("#file_attach");//lay du lieu file
+            if (pfile.val() != "") {
+                var _CheckFile = true;
+                var _Len = pfile[0].files[0].name.toString()
+                if (_Len.length > 200) {
+                    _CheckFile = false;
+                    jError("@Html.Raw(WebApps.Resources.Resource.File200KyTu)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                        $(pfile).focus();
+
+                    });
+                    return false;
+                }
+
+                var _file = pfile[0].files[0];
+                var _size = _file.size / 1024 / 1024;
+
+                if (_CheckFile == false) {
+                    return false;
+                }
+            }
+
+            var pfile_Dich = $("#file_attach_Dich");//lay du lieu file
+            if (pfile_Dich.val() != "") {
+                var _CheckFile = true;
+                var _Len = pfile_Dich[0].files[0].name.toString()
+                if (_Len.length > 200) {
+                    _CheckFile = false;
+                    jError("@Html.Raw(WebApps.Resources.Resource.File200KyTu)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                        $(pfile_Dich).focus();
+                    });
+                    return false;
+                }
+
+                var _file = pfile_Dich[0].files[0];
+                var _size = _file.size / 1024 / 1024;
+
+                if (_CheckFile == false) {
+                    return false;
+                }
+            }
+
+            return true;
+        } catch (e) {
+            console.log(e);
+            return fa;
+
+        }
+    }
+
+    function Click_Upload_File(p_AfterID) {
+        var _idfile = "file_attach";
+        document.getElementById(_idfile).click();
+    }
+
+    function Click_Upload_File_Dich(p_AfterID) {
+        var _idfile = "file_attach_Dich";
+        document.getElementById(_idfile).click();
+    }
+
+    function FuncChooseResultFile() {
+        try {
+
+            var _textFile = $("#txtMaxFile");
+            var _txt = document.getElementById("txtMaxFile");
+            var div_filename = document.getElementById("div_filename");
+
+            // lay du lieu file
+            var pfile = $("#file_attach");
+
+            if (pfile.val() == "") {
+                _textFile.val("");
+
+                $("#div_RemoveImg").addClass("clssDisplaynone");
+                div_filename.width = "168px";
+                //_txt.style.width = "561px";
+            }
+            else {
+                var _Filename = pfile[0].files[0].name.toString();
+                _textFile.val(_Filename);
+
+                $("#div_RemoveImg").removeClass("clssDisplaynone");
+                div_filename.width = "143px";
+                //_txt.style.width = "536px";
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function FuncChooseResultFile_Dich() {
+        try {
+
+            var _textFile = $("#txtMaxFile_Dich");
+            var _txt = document.getElementById("txtMaxFile_Dich");
+            var div_filename = document.getElementById("div_filename_Dich");
+
+            // lay du lieu file
+            var pfile = $("#file_attach_Dich");
+
+            if (pfile.val() == "") {
+                _textFile.val("");
+
+                $("#div_RemoveImg_Dich").addClass("clssDisplaynone");
+                div_filename.width = "168px";
+                //_txt.style.width = "561px";
+            }
+            else {
+                var _Filename = pfile[0].files[0].name.toString();
+                _textFile.val(_Filename);
+
+                $("#div_RemoveImg_Dich").removeClass("clssDisplaynone");
+                div_filename.width = "143px";
+                //_txt.style.width = "536px";
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function RemoveFile(p_AfterID) {
+        try {
+
+            $("#file_attach").val('');
+            $("#div_RemoveImg").addClass("clssDisplaynone");
+            var _textFile = $("#txtMaxFile");
+            _textFile.val("");
+
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+    function RemoveFile_Dich(p_AfterID) {
+        try {
+
+            $("#file_attach_Dich").val('');
+            $("#div_RemoveImg_Dich").addClass("clssDisplaynone");
+            var _textFile = $("#txtMaxFile_Dich");
+            _textFile.val("");
+        } catch (e) {
+            alert(e.toString());
+        }
+    }
+
+</script>
