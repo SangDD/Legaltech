@@ -32,13 +32,13 @@ namespace WebApps.Areas.Manager.Controllers
                 if (pInfo.File_Attach_1 != null)
                 {
                     var _url_File_Attach_1 = AppLoadHelpers.PushFileToServer(pInfo.File_Attach_1, AppUpload.App);
-                    _LstAttachment.Add(_url_File_Attach_1);
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_url_File_Attach_1));
                 }
 
                 if (pInfo.File_Attach_2 != null)
                 {
                     var _url_File_Attach_2 = AppLoadHelpers.PushFileToServer(pInfo.File_Attach_2, AppUpload.App);
-                    _LstAttachment.Add(_url_File_Attach_2);
+                    _LstAttachment.Add(System.Web.HttpContext.Current.Server.MapPath(_url_File_Attach_2));
                 }
 
                 pInfo.LstAttachment = _LstAttachment;
