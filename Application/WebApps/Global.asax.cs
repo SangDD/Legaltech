@@ -239,6 +239,7 @@
             try
             {
                 Response.Headers.Remove("Server");
+                Response.Headers.Remove("X-AspNet-Version"); //Remove X-AspNet-Version Header
             }
             catch (Exception ex)
             {
