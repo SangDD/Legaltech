@@ -208,7 +208,10 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
                 var objNewInfo = objNewsBL.ArticlesGetByCaseCode(_casecode, language);
-                ViewBag.Status = objNewInfo.Status;
+                if (objNewInfo != null)
+                {
+                    ViewBag.Status = objNewInfo.Status;
+                }
 
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml", objNewInfo);
             }

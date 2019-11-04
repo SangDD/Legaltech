@@ -1132,6 +1132,21 @@
                             appInfo.TM_04NH_D_22_ISU = item.Isuse;
                         }
                     }
+
+                    if (appInfo.TM_04NH_D_14_CHAR01 == null)
+                    {
+                        appInfo.TM_04NH_D_14_CHAR01 = ".....";
+                    }
+
+                    if (appInfo.TM_04NH_D_15_CHAR01 == null)
+                    {
+                        appInfo.TM_04NH_D_15_CHAR01 = ".....";
+                    }
+
+                    if (appInfo.TM_04NH_D_16_CHAR01 == null)
+                    {
+                        appInfo.TM_04NH_D_16_CHAR01 = ".....";
+                    }
                 }
                 #endregion
 
