@@ -239,6 +239,16 @@ namespace WebApps.Areas.Articles.Controllers
                 var objNewInfo = objNewsBL.ArticlesGetByCaseCode(_casecode, language);
                 ViewBag.Status = objNewInfo.Status;
 
+                if (SessionData.CurrentUser != null && SessionData.CurrentUser.Type != (decimal)CommonEnums.UserType.Customer)
+                {
+                    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(_casecode, SessionData.CurrentUser.Username);
+                    if (_B_Todos_Info != null)
+                    {
+                        ViewBag.B_Todos_Info = _B_Todos_Info;
+                    }
+                }
+
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewView.cshtml", objNewInfo);
             }
             catch (Exception ex)
