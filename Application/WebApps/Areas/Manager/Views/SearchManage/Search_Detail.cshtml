@@ -237,7 +237,7 @@
     <div class="mb_disnone" style="width:100%;float:left;margin-top:7px">
         <hr class="progress_hr" />
         @{
-    _count = 0;
+            _count = 0;
         }
         @foreach (var item in _lstStatus)
         {
@@ -272,7 +272,7 @@
                 }
             }
         </div>
-                }
+    }
 
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update) && _is_update == 1)
     {
