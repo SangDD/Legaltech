@@ -1873,7 +1873,7 @@ input[type="checkbox"] {
     .main-menu {
         /*display: none;*/
         position: absolute !important;
-        left: -261px ;
+        left: -261px;
         border-right: 1px solid #0055a8 !important;
         border-bottom: 1px solid #0055a8 !important;
         padding-bottom: 30px !important;
@@ -1956,7 +1956,7 @@ input[type="checkbox"] {
     .grid-item-2 > ._choose {
         border-right: 1px solid #4800ff !important;
         border-top: 1px solid #4800ff !important;
-        border-bottom: 1px solid #4800ff  !important;
+        border-bottom: 1px solid #4800ff !important;
     }
 
     .grid-item-3 > ._choose {
@@ -1966,7 +1966,7 @@ input[type="checkbox"] {
     }
 
     .Footer-container {
-        overflow: hidden !important ;
+        overflow: hidden !important;
         /*height: auto !important*/
     }
 
@@ -2059,74 +2059,108 @@ input[type="checkbox"] {
         margin-top: 10px;
         border-bottom: 3px solid #000;
     }
-    .mw-100{
+
+    .mw-100 {
         width: 100% !important;
     }
-    .mb_disnone{
+
+    .mb_disnone {
         display: none !important;
     }
-    .mb-top0{
-        margin-top: 0!important
+
+    .mb-top0 {
+        margin-top: 0 !important;
     }
-    .smb_content{
-       
+
+    .smb_content {
     }
-    .smb_content .div-search-title{
-        width:100%;
-     
-        border: none;
-            margin-left: 0 !important
-    }
-    
-    .smb_content .div-search-content{
-         width:100%;
-    }
-      .smb_content div{
-         width:100%;
-         /*margin: 0;*/
-         padding: 0
-    }
-      .smb_content .div-search-content input{
-         width:100% !important;
-    }
-     .smb_content .div-search-title div{
-         margin-left: 0 !important
-      }
-     .smb_content .div-search-ad input[type="text"], 
-     .smb_content .div-search-ad select, 
-     .smb_content .div-search-ad input[type="number"], 
-     .smb_content .div-search-ad a, .div-search-ad textarea{
-         border: 1px solid #aaa !important;
-         width: 100% !important
-     }
+
+        .smb_content .div-search-title {
+            width: 100%;
+            border: none;
+            margin-left: 0 !important;
+        }
+
+        .smb_content .div-search-content {
+            width: 100%;
+        }
+
+        .smb_content div {
+            width: 100%;
+            /*margin: 0;*/
+            padding: 0;
+        }
+
+        .smb_content .div-search-content input {
+            width: 100% !important;
+        }
+
+        .smb_content .div-search-title div {
+            margin-left: 0 !important;
+        }
+
+        .smb_content .div-search-ad input[type="text"],
+        .smb_content .div-search-ad select,
+        .smb_content .div-search-ad input[type="number"],
+        .smb_content .div-search-ad a, .div-search-ad textarea {
+            border: 1px solid #aaa !important;
+            width: 100% !important;
+        }
+
     .cls_form_header {
         float: left;
         margin: 4px 0px 0px 7px !important;
         font-weight: bold;
         width: 50% !important;
     }
-    .smb_content .div-search-ad:first-child .div-search-title{
-        margin-top: 0 !important
-    }
-    .smb_content  br{
-        display:none;
-    }
-    .smb_content .div-search-ad{
+
+    .smb_content .div-search-ad:first-child .div-search-title {
         margin-top: 0 !important;
     }
-    .notify_cover_mobile div{
+
+    .smb_content br {
+        display: none;
+    }
+
+    .smb_content .div-search-ad {
+        margin-top: 0 !important;
+    }
+
+    .notify_cover_mobile div {
         width: 100% !important;
         margin-bottom: 10px;
-       
     }
-    .notify_cover_mobile{
-         overflow:hidden;
+
+    .notify_cover_mobile {
+        overflow: hidden;
     }
-    .section-bottom{
-        min-width: 0px !important
+
+    .section-bottom {
+        min-width: 0px !important;
     }
+
     .div-search-btn {
-        width:100% !important;
-        max-width: 100% !important
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .mg_0 {
+        margin: 0 !important;
+    }
+
+    .div-search-content .div-radio input[type="radio"] {
+        width: 25px !important;
+    }
+
+    .div-radio {
+        height: 45px !important;
+    }
+
+        .div-radio label {
+            width: 100% !important;
+        }
+
+    .div-radio {
+        border: none !important;
     }
 }

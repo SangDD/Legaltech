@@ -397,7 +397,7 @@
 
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update) && _Listtodo.Count > 0)
     {
-        <div style="margin-top:20px;float:left;width:100%">
+        <div class="mb-top0" style="margin-top:20px;float:left;width:100%">
             @* Nếu có sự thay đổi về quyền của luật sư*@
             @if (_reGrant == 1)
             {
@@ -470,7 +470,7 @@
         </div>
     }
 
-    <div style="margin-top:20px;float:left;width:100%" class="smb_content">
+    <div style="margin-top:20px;float:left;width:100%" class="smb_content mb-top0">
         @Html.Partial(_AppdetailPatch)
     </div>
 
