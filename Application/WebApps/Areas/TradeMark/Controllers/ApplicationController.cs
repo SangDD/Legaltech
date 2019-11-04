@@ -19,6 +19,7 @@ using System.Linq;
 
 namespace WebApps.Areas.TradeMark.Controllers
 {
+    //[ValidateAntiForgeryToken]
     [ValidateAntiForgeryTokenOnAllPosts]
     [RouteArea("Application", AreaPrefix = "trade-mark-mana")]
     [Route("{action}")]
