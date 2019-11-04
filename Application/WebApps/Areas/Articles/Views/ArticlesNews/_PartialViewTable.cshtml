@@ -13,12 +13,11 @@
         <table class="table-lst-data" id="tableListObject">
             <thead>
                 <tr>
-                    <th style="width: 4%">@WebApps.Resources.Resource.lblSTT</th>
-                    <th style="width: 35%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblTieuDe</th>
-                    <th style="width: 10%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblNguoiTao</th>
-                    <th style="width: 10%" data-sort id="STATUS">@WebApps.Resources.Resource.TrangThai</th>
-                    @*<th style="width: 10%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.lblCapNhatLuc</th>*@
-                    <th style="width: 100px;">@WebApps.Resources.Resource.lblChucNang</th>
+                    <th class="class30">@WebApps.Resources.Resource.lblSTT</th>
+                    <th class="class200 mb30" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblTieuDe</th>
+                    <th style="width: 10%" class="hidemobile" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblNguoiTao</th>
+                    <th class="mb30" data-sort id="STATUS">@WebApps.Resources.Resource.TrangThai</th>
+                    <th class="mb20">@WebApps.Resources.Resource.lblChucNang</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,7 +27,7 @@
                         <tr>
                             <td class="tdcenteralign">@item.STT</td>
                             <td class="tdleftalign">@item.Title</td>
-                            <td class="tdleftalign">@item.Createdby</td>
+                            <td class="tdleftalign hidemobile">@item.Createdby</td>
 
                             @if (item.Status == Common.Status.XuatBan)
                             {
