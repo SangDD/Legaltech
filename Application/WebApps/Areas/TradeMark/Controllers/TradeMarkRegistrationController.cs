@@ -1007,6 +1007,10 @@
                         {
                             appInfo.TM_04NH_D_04_ISU = item.Isuse;
                             appInfo.TM_04NH_D_04_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+                            if (appInfo.TM_04NH_D_04_CHAR01 == "" || appInfo.TM_04NH_D_04_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_04_CHAR01 = "...............";
+                            }
                         }
                         else if (item.Document_Id == "04NH_D_05")
                         {
@@ -1025,16 +1029,28 @@
                         {
                             appInfo.TM_04NH_D_08_ISU = item.Isuse;
                             appInfo.TM_04NH_D_08_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+                            if (appInfo.TM_04NH_D_08_CHAR01 == "" || appInfo.TM_04NH_D_08_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_08_CHAR01 = ".........................";
+                            }
                         }
                         else if (item.Document_Id == "04NH_D_09")
                         {
                             appInfo.TM_04NH_D_09_ISU = item.Isuse;
                             appInfo.TM_04NH_D_09_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+                            if (appInfo.TM_04NH_D_09_CHAR01 == "" || appInfo.TM_04NH_D_09_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_08_CHAR01 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "04NH_D_10")
                         {
                             appInfo.TM_04NH_D_10_ISU = item.Isuse;
                             appInfo.TM_04NH_D_10_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+                            if (appInfo.TM_04NH_D_09_CHAR01 == "" || appInfo.TM_04NH_D_09_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_09_CHAR01 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "04NH_D_11")
                         {
@@ -1049,23 +1065,48 @@
                             appInfo.TM_04NH_D_13_ISU = item.Isuse;
                             appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
                             appInfo.TM_04NH_D_13_CHAR02 = item.CHAR02;
+
+                            if (appInfo.TM_04NH_D_13_CHAR01 == "" || appInfo.TM_04NH_D_13_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_13_CHAR01 = ".....";
+                            }
+
+                            if (appInfo.TM_04NH_D_13_CHAR02 == "" || appInfo.TM_04NH_D_13_CHAR02.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_13_CHAR02 = ".....";
+                            }
                         }
 
                         // quyền ưu tiên
                         else if (item.Document_Id == "04NH_D_14" || item.Document_Id == "1_TLCMQUT")
                         {
-                            appInfo.TM_04NH_D_13_ISU = item.Isuse;
-                            appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+                            appInfo.TM_04NH_D_14_ISU = item.Isuse;
+                            appInfo.TM_04NH_D_14_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+
+                            if (appInfo.TM_04NH_D_14_CHAR01 == "" || appInfo.TM_04NH_D_14_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_14_CHAR01 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "04NH_D_15" || item.Document_Id == "1_BanSaoDauTien")
                         {
-                            appInfo.TM_04NH_D_13_ISU = item.Isuse;
-                            appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+                            appInfo.TM_04NH_D_15_ISU = item.Isuse;
+                            appInfo.TM_04NH_D_15_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+
+                            if (appInfo.TM_04NH_D_15_CHAR01 == "" || appInfo.TM_04NH_D_15_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_15_CHAR01 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "04NH_D_16" || item.Document_Id == "1_BanDich")
                         {
-                            appInfo.TM_04NH_D_13_ISU = item.Isuse;
-                            appInfo.TM_04NH_D_13_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+                            appInfo.TM_04NH_D_16_ISU = item.Isuse;
+                            appInfo.TM_04NH_D_16_CHAR01 = CommonFuc.ConvertToString(item.CHAR01);
+
+                            if (appInfo.TM_04NH_D_16_CHAR01 == "" || appInfo.TM_04NH_D_16_CHAR01.Length == 0)
+                            {
+                                appInfo.TM_04NH_D_16_CHAR01 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "04NH_D_17" || item.Document_Id == "1_GiayChuyenNhuong")
                         {
@@ -1090,6 +1131,21 @@
                         {
                             appInfo.TM_04NH_D_22_ISU = item.Isuse;
                         }
+                    }
+
+                    if (appInfo.TM_04NH_D_14_CHAR01 == null)
+                    {
+                        appInfo.TM_04NH_D_14_CHAR01 = ".....";
+                    }
+
+                    if (appInfo.TM_04NH_D_15_CHAR01 == null)
+                    {
+                        appInfo.TM_04NH_D_15_CHAR01 = ".....";
+                    }
+
+                    if (appInfo.TM_04NH_D_16_CHAR01 == null)
+                    {
+                        appInfo.TM_04NH_D_16_CHAR01 = ".....";
                     }
                 }
                 #endregion

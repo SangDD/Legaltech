@@ -208,7 +208,10 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
                 var objNewInfo = objNewsBL.ArticlesGetByCaseCode(_casecode, language);
-                ViewBag.Status = objNewInfo.Status;
+                if (objNewInfo != null)
+                {
+                    ViewBag.Status = objNewInfo.Status;
+                }
 
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml", objNewInfo);
             }
@@ -238,6 +241,16 @@ namespace WebApps.Areas.Articles.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 var objNewInfo = objNewsBL.ArticlesGetByCaseCode(_casecode, language);
                 ViewBag.Status = objNewInfo.Status;
+
+                if (SessionData.CurrentUser != null && SessionData.CurrentUser.Type != (decimal)CommonEnums.UserType.Customer)
+                {
+                    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(_casecode, SessionData.CurrentUser.Username);
+                    if (_B_Todos_Info != null)
+                    {
+                        ViewBag.B_Todos_Info = _B_Todos_Info;
+                    }
+                }
 
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewView.cshtml", objNewInfo);
             }

@@ -36,6 +36,15 @@
         }
     }
 
+    B_Todos_Info _B_Todos_Info = new B_Todos_Info();
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _B_Todos_Info = (B_Todos_Info)ViewBag.B_Todos_Info;
+    }
+    else
+    {
+        _B_Todos_Info = null;
+    }
 }
 @try
 {
@@ -208,6 +217,17 @@
         <div class="classGuiDon">
             <input type="button" value="@WebApps.Resources.Resource.lblThoat" id="btnThoat" class="btn" />
         </div>
+
+        @*@if (_B_Todos_Info != null)
+        {
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnTuChoi" style="margin-left: 5px" id="btnTuChoi" class="btn" />
+            </div>
+
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnXuatban" style="margin-left: 5px" id="btnXuatBan" class="btn" />
+            </div>
+        }*@
     </div>
 
 }
@@ -229,6 +249,111 @@ catch (Exception)
         var status = $("#txtMenuSelected").val();
         location.href = "/quan-ly-tin/danh-sach-tin/" + status;
     });
+
+    $("#btnXuatBan").click(function () {
+        SaveArticles(7);
+    });
+
+    $("#btnTuChoi").click(function () {
+        SaveArticles(5);
+    });
+
+    function SaveArticles(pStatus) {
+        try {
+            var formData = new FormData();
+
+            var tieude = $("#txtTitle").val();
+            if (tieude.trim() == "") {
+                showError('Tiêu đề bài viết không được để trống!!');
+                return false;
+            }
+            var header = $("#txtHeader").val();
+
+            var tieude_EN = $("#txtTitle_EN").val();
+            if (tieude_EN.trim() == "") {
+                showError('Tiêu đề bài viết (EN) không được để trống!!');
+                $("#txtTitle_EN").focus();
+                return false;
+            }
+            var header_EN = $("#txtHeader_EN").val();
+
+            var noidung = CKEDITOR.instances['txtNoiDung'].getData();
+            if (noidung.trim() == "" || noidung.replace(/&nbsp;/g, '').trim() == "") {
+                showError('Nội dung bài viết không được để trống!!');
+                $("#txtNoiDung").focus();
+                $("#txtNoiDung").setData('');
+                return false;
+            }
+
+            var _contentVal_En = CKEDITOR.instances['txtNoiDung_En'].getData();
+            if (_contentVal_En.trim() == "" || _contentVal_En.replace(/&nbsp;/g, '').trim() == "") {
+                showError('Nội dung bài viết tiếng anh không được để trống!!');
+                txtNoiDung_En.focus();
+                txtNoiDung_En.setData('');
+                return false;
+            }
+
+            var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+            if (fileLogo != undefined || fileLogo != null) {
+                formData.append("pNewsInfo.pfileLogo", fileLogo[0].files[0]);
+            }
+
+            var category = $("#_txtCategories").val();
+            if (category.trim() == "") {
+                showError('danh mục bài viết không được để trống!!');
+                return false;
+            }
+            var recategory = $("#_txtCategoriesRe").val();
+            formData.append("pNewsInfo.Id", $("#txtNewsId").val().trim());
+            formData.append("pNewsInfo.Title", tieude.trim());
+            formData.append("pNewsInfo.Header", header);
+
+            formData.append("pNewsInfo.Title_EN", tieude_EN.trim());
+            formData.append("pNewsInfo.Header_EN", header_EN);
+
+            formData.append("pNewsInfo.Content", noidung.trim());
+            formData.append("pNewsInfo.Content_En", _contentVal_En.trim());
+            formData.append("pNewsInfo.Categories_Id", category.trim());
+            formData.append("pNewsInfo.ReCategories_Id", recategory);
+            formData.append("pNewsInfo.Status", pStatus);
+            var v_Nuocnopdon_Ut = $("#6_txtNuocNopDon").val();
+            formData.append("pNewsInfo.Country_Id", v_Nuocnopdon_Ut);
+            $.ajax({
+                url: '/quan-ly-tin/luu-sua-bai-viet',
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        if (pStatus == 7) {
+                            nvsAlert("Xuất bản bài viết thành công!", ThongBao, function () {
+                                location.href = "/quan-ly-tin/danh-sach-tin/1";
+                            });
+                        } else if (pStatus == 6) {
+                            nvsAlert("Gỡ bài viết thành công!", ThongBao, function () {
+                                location.href = "/quan-ly-tin/danh-sach-tin/1";
+                            });
+                        }
+                        else {
+                            nvsAlert("Sửa bài viết thành công!", ThongBao, function () {
+                                location.href = "/quan-ly-tin/danh-sach-tin/";
+                            });
+                        }
+                    } else {
+                        nvsError(AddFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+        } catch (e) {
+
+        }
+    }
 </script>
 
 <style>
