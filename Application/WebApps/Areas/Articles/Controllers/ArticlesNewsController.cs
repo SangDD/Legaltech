@@ -213,7 +213,7 @@ namespace WebApps.Areas.Articles.Controllers
                     ViewBag.Status = objNewInfo.Status;
                 }
 
-                return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml", objNewInfo);
+                return View("~/Areas/Articles/Views/ArticlesNews/_Partial_Approve.cshtml", objNewInfo);
             }
             catch (Exception ex)
             {
@@ -617,6 +617,24 @@ namespace WebApps.Areas.Articles.Controllers
                 Logger.LogException(ex);
                 return View();
             }
+        }
+
+        [HttpPost]
+        [Route("do-approve-reject")]
+        public ActionResult Approve_Reject(string p_case_code, decimal p_status, string p_note)
+        {
+            decimal _result = 0;
+            var _NewsBL = new NewsBL();
+            try
+            {
+                _result = _NewsBL.Update_Status(p_case_code, p_status, p_note, SessionData.CurrentUser.Username);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return Json(new { result = _result });
         }
     }
 }

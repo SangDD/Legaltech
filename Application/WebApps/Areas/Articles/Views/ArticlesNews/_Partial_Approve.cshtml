@@ -1,0 +1,323 @@
+﻿@using WebApps.CommonFunction
+@using ObjectInfos;
+@using BussinessFacade.ModuleMemoryData
+@model NewsInfo
+@{
+    ViewBag.Title = WebApps.Resources.Resource.lblQuanLyBaiViet;
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    var objInfo = new NewsInfo();
+    if (Model != null)
+    {
+        objInfo = (NewsInfo)Model;
+    }
+
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    if (!string.IsNullOrEmpty(objInfo.Imageheader))
+    {
+        urlMauNhanHieu = objInfo.Imageheader.Replace("~", "");
+    }
+
+    B_Todos_Info _B_Todos_Info = new B_Todos_Info();
+    if (ViewBag.B_Todos_Info != null)
+    {
+        _B_Todos_Info = (B_Todos_Info)ViewBag.B_Todos_Info;
+    }
+    else
+    {
+        _B_Todos_Info = null;
+    }
+
+    string strChuyenMuc = "";
+    string strChuyenMucLienQuan = "";
+
+    if (ViewBag.lstCategory != null)
+    {
+        foreach (AllCodeInfo item in ViewBag.lstCategory)
+        {
+            if (Model.ReCategories_Id == item.CdVal)
+            {
+                strChuyenMucLienQuan = item.Content;
+            }
+
+            if (Model.Categories_Id == item.CdVal)
+            {
+                strChuyenMuc = item.Content;
+            }
+        }
+    }
+}
+
+<style>
+    .div-search-title > div {
+        width: 150px;
+    }
+
+    .select {
+        height: 200px;
+    }
+
+    .btnSave {
+        height: 30px;
+        width: 75px;
+    }
+
+    #cke_txtNoiDung {
+        margin-left: 162px;
+    }
+</style>
+<script>
+    var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+</script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" />@WebApps.Resources.Resource.lblBaiViet
+        <span class="red">></span>
+        <a href="/quan-ly-tin/danh-sach-tin">@WebApps.Resources.Resource.lblQuanLyBaiViet</a>
+        <span class="red">></span>
+        <a href="/quan-ly-tin/soan-bai-viet">@WebApps.Resources.Resource.lblSuaBaiViet</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main smb_content">
+    <div class="divCover">
+        <div class="classTitle">
+            <input type="hidden" id="txtNewsId" value="@objInfo.Id" />
+            <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+            <input type="hidden" value="DESC" id="SortType" />
+            <input type="hidden" value="" id="OptionSorting" />
+            <input type="hidden" id="txtLogoOld" value="@urlMauNhanHieu" />
+
+            <div class="div-title-content">@WebApps.Resources.Resource.lblSuaBaiViet.ToUpper()</div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblTieuDe<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTitle" value="@objInfo.Title" maxlength="200" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblTieuDe (EN)<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTitle_EN" value="@objInfo.Title_EN" maxlength="200" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblTomTat</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtHeader" value="@Html.Raw(objInfo.Header)" maxlength="250" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblTomTat (EN)</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtHeader_EN" value="@Html.Raw(objInfo.Header_EN)" maxlength="250" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblQuocGia</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @{
+                    string strQuocGia = "";
+                    foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (Model.Country_Id == item.Country_Id)
+                        {
+                            strQuocGia = item.Name;
+                        }
+                    }
+                    <input type="text" id="txtHeaderCountry" disabled value="@strQuocGia" maxlength="250" />
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="class_full_div_input">
+        <div class="class_left_40">
+            <div class="class_block_title" style="padding-top:5px; "><label>@WebApps.Resources.Resource.lblAnhDaiDien:</label> </div>
+            <div class="class_block_title_control" style="display:flex">
+                <div style="width:120px ;height:120px;margin-left: 40px;" id="divLogo">
+                    <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:120px ;height:120px">
+                    <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top:15px">
+        <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
+        <div>
+            <textarea type="text" id="txtNoiDung" name="txtNoiDung" disabled>@Html.Raw(objInfo.Content)</textarea>
+        </div>
+    </div>
+
+    <div style="margin-top:15px">
+        <div>@WebApps.Resources.Resource.lblNoiDung (EN)<i class="redspan">(*)</i></div>
+        <div style="margin-left: 162px;">
+            <textarea type="text" id="txtNoiDung_En" name="txtNoiDung_En" disabled>@Html.Raw(objInfo.Content_En)</textarea>
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.lblChuyenMucChinh<i class="redspan">(*)</i></div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" id="txtCategory" readonly="readonly" value="@strChuyenMuc" maxlength="250" />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>@WebApps.Resources.Resource.lblChuyenMucLienQuan<i class="redspan">(*)</i></div>
+    </div>
+    <div class="div-search-content">
+        <div style="margin-left: 162px;">
+            <input type="text" id="txtReCategory" readonly="readonly" value="@strChuyenMucLienQuan" maxlength="250" />
+        </div>
+    </div>
+</div>
+
+<div class="class_save" style="margin-left:163px;">
+    @if (_B_Todos_Info != null)
+    {
+        <div class="classGuiDon">
+            <input type="button" value="@WebApps.Resources.Resource.btnTuChoi" onclick="return do_Approve_Reject('@Model.Case_Code', 5)" style="margin-left: 5px" id="btnTuChoi" class="btn" />
+        </div>
+
+        <div class="classGuiDon">
+            <input type="button" value="@WebApps.Resources.Resource.btnXuatban" onclick="return do_Approve_Reject('@Model.Case_Code', 7)" style="margin-left: 5px" id="btnXuatBan" class="btn" />
+        </div>
+    }
+</div>
+
+
+<script>
+    function funcRemoveTradeMarkImg(ptag) {
+        $("#" + ptag).attr('src', '');
+        $("#txtLogoOld").val("");
+
+    }
+    $('#6_txtNuocNopDon').multipleSelect({
+        filter: true,
+        noMatchesFound: "Không tìm thấy dữ liệu",
+        single: true,
+        isdatastring: false,
+        placeholder: 'Tìm kiếm quốc gia'
+    });
+
+    $(document).ready(function () {
+        $("#txtTitle").focus();
+    });
+
+    var txtNoiDung = CKEDITOR.replace("txtNoiDung",
+        {
+            height: 500
+        });
+
+    var txtNoiDung_En = CKEDITOR.replace("txtNoiDung_En",
+        {
+            height: 500
+        });
+   
+    $("#btnXuatBan").click(function () {
+        SaveArticles(7);
+    });
+
+    $("#btnTuChoi").click(function () {
+        SaveArticles(5);
+    });
+
+    function do_Approve_Reject(_case_code, _status ) {
+        if (validateAction()) {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
+                $.ajax({
+                    url: '/quan-ly-tin/do-approve-reject',
+                    type: 'POST',
+                    data: {
+                        p_case_code: _case_code,
+                        p_status: _status,
+                        p_note: ''
+                    },
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                        else {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+</script>
+
+<style>
+    .select {
+        padding: 3px;
+    }
+
+        .select option {
+            line-height: 25px;
+            padding: 5px;
+        }
+
+    .class100 {
+        display: inline;
+    }
+
+    .classwidth200 {
+        width: 200px;
+    }
+
+    .classwidth250 {
+        width: 250px;
+    }
+</style>

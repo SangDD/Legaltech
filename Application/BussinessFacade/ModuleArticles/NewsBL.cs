@@ -131,5 +131,18 @@ namespace BussinessFacade
             }
         }
 
+        public decimal Update_Status(string p_case_code, decimal p_status, string p_note, string p_user_name)
+        {
+            try
+            {
+                NewsDA objDA = new NewsDA();
+                return objDA.Update_Status(p_case_code, p_status, p_note, p_user_name);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
     }
 }

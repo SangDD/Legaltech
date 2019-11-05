@@ -224,6 +224,24 @@ namespace DataAccess.ModuleArticles
             }
         }
 
-
+        public decimal Update_Status(string p_case_code, decimal p_status, string p_note, string p_user_name)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_news.proc_update_status",
+                    new OracleParameter("p_case_code", OracleDbType.Varchar2, p_case_code, ParameterDirection.Input),
+                    new OracleParameter("P_STATUS", OracleDbType.Varchar2, p_status, ParameterDirection.Input),
+                    new OracleParameter("P_NOTE", OracleDbType.Varchar2, p_note, ParameterDirection.Input),
+                    new OracleParameter("P_MODIFIED_BY", OracleDbType.Varchar2, p_user_name, ParameterDirection.Input),
+                    paramReturn);
+                return Convert.ToDecimal(paramReturn.Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return -1;
+            }
+        }
     }
 }
