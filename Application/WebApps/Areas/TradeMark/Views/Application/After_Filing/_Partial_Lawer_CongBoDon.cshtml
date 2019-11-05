@@ -141,9 +141,15 @@
         try {
 
             var txt_notice_date = $("#txt_notice_date").val();
-            if (checkDate("Ngày công bố", "#txt_notice_date", txt_notice_date) == false) {
-                return false;
+            if (txt_notice_date != "" && txt_notice_date != "__/__/____") {
+                if (checkDate("Ngày thông báo", "#txt_notice_date", txt_notice_date) == false) {
+                    return false;
+                }
             }
+
+            //if (checkDate("Ngày công bố", "#txt_notice_date", txt_notice_date) == false) {
+            //    return false;
+            //}
 
             $.ajax({
                 type: 'POST',

@@ -175,7 +175,7 @@
     function onChangeNotice_Date() {
         try {
             var txt_notice_date = $("#txt_notice_date").val();
-            if (txt_notice_date != "" && txt_notice_date == "__/__/____") {
+            if (txt_notice_date != "" && txt_notice_date != "__/__/____") {
                 if (checkDate("Ngày thông báo", "#txt_notice_date", txt_notice_date) == false) {
                     return false;
                 }
