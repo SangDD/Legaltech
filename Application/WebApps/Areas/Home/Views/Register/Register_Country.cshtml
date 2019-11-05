@@ -67,7 +67,7 @@
         margin-right: 10px;
     }
 
-    .grid-item {
+    .grid-item-group {
         background-color: rgba(255, 255, 255, 0.8);
         border: 1px solid rgb(187, 231, 255);
         border-radius: 4px;
@@ -116,6 +116,19 @@
         .item_list a:hover {
             color: #094cc4;
         }
+        .main-content{
+            padding:10px;
+        }
+       .div_form:nth-child(2n) {
+          margin-left: 10px !important;
+        }
+       .div_form:nth-child(2n+1) {
+          margin-left: 0px !important;
+        }
+       .group-menu:hover {
+           
+            border-left: 1px solid #7ed3f7;
+        }
 </style>
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -148,7 +161,7 @@
 
     @foreach (var item in groupsFunc)
     {
-        <div class="div_form grid-item">
+        <div class="div_form grid-item-group">
             <div class="hederlist">
                 @if (language.Contains("VN"))
                 {
