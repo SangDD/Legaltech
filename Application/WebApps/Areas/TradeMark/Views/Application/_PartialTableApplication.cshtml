@@ -17,26 +17,25 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class200" data-sort id="Appcode">@WebApps.Resources.Resource.CaseCode</th>
-                <th class="class250">@WebApps.Resources.Resource.CaseName</th>
-                <th class="class150">@WebApps.Resources.Resource.TenDoiTuong</th>
-                @*<th class="class150">@WebApps.Resources.Resource.NgonNgu</th>*@
-                <th class="class250">@WebApps.Resources.Resource.Agent</th>
-                <th class="class250">@WebApps.Resources.Resource.lblChuDon</th>
+                <th class="class200 m30" data-sort id="Appcode">@WebApps.Resources.Resource.CaseCode</th>
+                <th class="class250 m40">@WebApps.Resources.Resource.CaseName</th>
+                <th class="class150 hidemobile">@WebApps.Resources.Resource.TenDoiTuong</th> 
+                <th class="class250 hidemobile">@WebApps.Resources.Resource.Agent</th>
+                <th class="class250 hidemobile">@WebApps.Resources.Resource.lblChuDon</th>
 
                 @*<th class="class100">@WebApps.Resources.Resource.Thoigiancho (@WebApps.Resources.Resource.Ngay)</th>*@
 
-                <th class="class150">@WebApps.Resources.Resource.SoDon</th>
-                <th class="class250">@WebApps.Resources.Resource.TinhTrangDon</th>
-                <th class="class150">@WebApps.Resources.Resource.Deadline</th>
+                <th class="class150 hidemobile">@WebApps.Resources.Resource.SoDon</th>
+                <th class="class250 m30">@WebApps.Resources.Resource.TinhTrangDon</th>
+                @*<th class="class150 hidemobile">@WebApps.Resources.Resource.Deadline</th>*@
 
 
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
                     WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                 {
-                    <th class="class150">@WebApps.Resources.Resource.LastUpdate</th>
+                    <th class="class150 hidemobile">@WebApps.Resources.Resource.LastUpdate</th>
                 }
-                <th class="class150">@WebApps.Resources.Resource.ChucNang</th>
+                <th class="class150 m20">@WebApps.Resources.Resource.ChucNang</th>
             </tr>
         </thead>
         <tbody>
@@ -48,29 +47,29 @@
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdleftalign">@item.Case_Code</td>
                         <td class="tdleftalign">@item.Case_Name</td>
-                        <td class="tdleftalign">@item.App_No</td>
-                        @*<td class="tdleftalign">@item.Languague_Code</td>*@
-                        <td class="tdleftalign">@item.Rep_Master_Name</td>
-                        <td class="tdleftalign">@item.Master_Name</td>
+                        <td class="tdleftalign hidemobile">@item.App_No</td>
+                        <td class="tdleftalign hidemobile">@item.Rep_Master_Name</td>
+                        <td class="tdleftalign hidemobile">@item.Master_Name</td>
 
                         @*<td class="tdcenteralign">@item.Date_Wait</td>*@
 
 
-                        <td class="tdleftalign">@item.Object_Name</td>
+                        <td class="tdleftalign hidemobile">@item.Object_Name</td>
                         <td class="tdleftalign">@item.Status_Name</td>
-                        <td></td>
+                        @*<td></td>*@
                         @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
                             WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                         {
                             if (item.Modify_Date.Date != DateTime.MinValue.Date)
                             {
-                                <td class="tdcenteralign">@item.Modify_Date</td>
+                                <td class="tdcenteralign hidemobile">@item.Modify_Date</td>
                             }
                             else
                             {
-                                <td class="tdcenteralign">@item.Created_Date</td>
+                                <td class="tdcenteralign hidemobile">@item.Created_Date</td>
                             }
                         }
+
                         <td class="tdcenteralign">
                             <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemChiTiet"></a>
                             <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="@WebApps.Resources.Resource.Sua"></a>

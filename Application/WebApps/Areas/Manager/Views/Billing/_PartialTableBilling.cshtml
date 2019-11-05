@@ -14,16 +14,17 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class150">@WebApps.Resources.Resource.SoBill</th>
-                <th class="class150">@WebApps.Resources.Resource.CaseCode</th>
-                <th class="class100">@WebApps.Resources.Resource.Ngay</th>
-                <th class="class100">@WebApps.Resources.Resource.HanThanhToan</th>
+                <th class="class150 m20">@WebApps.Resources.Resource.SoBill</th>
+                <th class="class150 m20">@WebApps.Resources.Resource.CaseCode</th>
+                <th class="class100 m20">@WebApps.Resources.Resource.Ngay</th>
 
-                <th class="class100">@WebApps.Resources.Resource.SoNgayTre</th>
-                <th class="class150">@WebApps.Resources.Resource.SoTien</th>
-                <th class="class100">@WebApps.Resources.Resource.TrangThai</th>
-                <th class="class100">@WebApps.Resources.Resource.TrangThaiThanhToan</th>
-                <th class="class100">@WebApps.Resources.Resource.ChucNang</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.HanThanhToan</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.SoNgayTre</th>
+                <th class="class150 hidemobile">@WebApps.Resources.Resource.SoTien</th>
+
+                <th class="class100 m20">@WebApps.Resources.Resource.TrangThai</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.TrangThaiThanhToan</th>
+                <th class="class100 m20">@WebApps.Resources.Resource.ChucNang</th>
             </tr>
         </thead>
         <tbody>
@@ -36,9 +37,10 @@
                         <td class="tdleftalign">@item.Case_Code</td>
                         <td class="tdleftalign">@item.App_Case_Code</td>
                         <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
-                        <td class="tdcenteralign">@item.Deadline.ToString("dd/MM/yyyy")</td>
-                        <td class="tdcenteralign">@item.SoNgayTre</td>
-                        <td class="tdrightalign" style="font-weight:bold;color: red">@item.Total_Amount.ToString("#,##0.##")</td>
+
+                        <td class="tdcenteralign hidemobile">@item.Deadline.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign hidemobile">@item.SoNgayTre</td>
+                        <td class="tdrightalign hidemobile" style="font-weight:bold;color: red">@item.Total_Amount.ToString("#,##0.##")</td>
 
                         @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
                         {
@@ -51,14 +53,12 @@
 
                         @if (item.Pay_Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Pay_Status.Payment))
                         {
-                            <td class="tdleftalign" style="font-weight:bold; color: red">@item.Pay_Status_Name</td>
+                            <td class="tdleftalign hidemobile" style="font-weight:bold; color: red">@item.Pay_Status_Name</td>
                         }
                         else
                         {
-                            <td class="tdleftalign" style="font-weight:bold">@item.Pay_Status_Name</td>
+                            <td class="tdleftalign hidemobile" style="font-weight:bold">@item.Pay_Status_Name</td>
                         }
-
-
 
                         <td class="tdcenteralign">
                             <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-info" data-title="Xem chi tiết"></a>

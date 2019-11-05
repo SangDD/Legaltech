@@ -47,49 +47,49 @@
                         @if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Billing))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_Billing('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_Billing_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.App))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_App('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_App_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.TimeSheet))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_TimeSheet('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_TimeSheet_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Search))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_Search('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_Search_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Wiki))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_Wiki('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_Wiki_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Register))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_Register('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_Register_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.News))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_News('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_News_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
                         else if (item.TYPE == Convert.ToDecimal(Common.CommonData.CommonEnums.Todo_Type.Contact))
                         {
                             <td class="tdleftalign">
-                                <a href="javascript:;" onclick="GetView2Action_Contact('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
+                                <a href="javascript:;" onclick="GetView2Action_Contact_Todo('@item.CASE_CODE')" data-title="Xem chi tiết">@item.CASE_CODE</a>
                             </td>
                         }
 
@@ -182,7 +182,7 @@
         }
     }
 
-    function GetView2Action_App(_case_code) {
+    function GetView2Action_App_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -195,7 +195,7 @@
         }
     }
 
-    function GetView2Action_TimeSheet(_case_code) {
+    function GetView2Action_TimeSheet_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -208,7 +208,7 @@
         }
     }
 
-    function GetView2Action_Billing(_case_code) {
+    function GetView2Action_Billing_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -221,7 +221,7 @@
         }
     }
 
-    function GetView2Action_Search(_case_code) {
+    function GetView2Action_Search_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -234,7 +234,7 @@
         }
     }
 
-    function GetView2Action_Wiki(_case_code) {
+    function GetView2Action_Wiki_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -247,7 +247,7 @@
         }
     }
 
-    function GetView2Action_Register(_case_code) {
+    function GetView2Action_Register_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -260,7 +260,7 @@
         }
     }
 
-    function GetView2Action_News(_case_code) {
+    function GetView2Action_News_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }
@@ -273,7 +273,7 @@
             console.log(e.toString())
         }
     }
-    function GetView2Action_Contact(_case_code) {
+    function GetView2Action_Contact_Todo(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
         }

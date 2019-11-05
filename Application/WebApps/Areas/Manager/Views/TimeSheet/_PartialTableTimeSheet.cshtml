@@ -17,22 +17,21 @@
 
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
                 {
-                    <th class="class150">Luật sư</th>
+                    <th class="class150 m20">Luật sư</th>
                 }
 
-                <th class="class100">Ngày</th>
-                <th class="class50">Bắt đầu</th>
-                <th class="class50">Kết thúc</th>
-                <th class="class150">Case name</th>
-                <th class="class150">Case code</th>
-                <th class="class200">Mô tả công việc</th>
+                <th class="class100 hidemobile">Ngày</th>
+                <th class="class50 m20">Bắt đầu</th>
+                <th class="class50 m20">Kết thúc</th>
+                <th class="class150 hidemobile">Case name</th>
+                <th class="class150 m20">Case code</th>
+                <th class="class200 m30">Mô tả công việc</th>
 
-                <th class="class50">Thực tế</th>
-                <th class="class100">Điều chỉnh</th>
-
-                <th class="class100">Trạng thái</th>
-                <th class="class100">Ghi chú</th>
-                <th class="class100">Chức năng</th>
+                <th class="class50 hidemobile">Thực tế</th>
+                <th class="class100 hidemobile">Điều chỉnh</th>
+                <th class="class100 hidemobile">Trạng thái</th>
+                <th class="class100 hidemobile">Ghi chú</th>
+                <th class="class100 m20">Chức năng</th>
             </tr>
         </thead>
         <tbody>
@@ -48,28 +47,28 @@
                             <td class="tdleftalign">@item.Lawer_Name</td>
                         }
 
-                        <td class="tdcenteralign">@item.Time_Date.ToString("dd/MM/yyyy")</td>
+                        <td class="tdcenteralign hidemobile">@item.Time_Date.ToString("dd/MM/yyyy")</td>
                         <td class="tdcenteralign">@item.From_Time</td>
                         <td class="tdcenteralign">@item.To_Time</td>
 
-                        <td class="tdleftalign">@item.Case_Name</td>
+                        <td class="tdleftalign hidemobile">@item.Case_Name</td>
                         <td class="tdleftalign">@item.App_Case_Code</td>
                         <td class="tdleftalign">@item.Name</td>
 
-                        <td class="tdleftalign">@item.Hours</td>
-                        <td class="tdleftalign">@item.Hours_Adjust.ToString("#,##0.##")</td>
+                        <td class="tdleftalign hidemobile">@item.Hours</td>
+                        <td class="tdleftalign hidemobile">@item.Hours_Adjust.ToString("#,##0.##")</td>
 
                         @if (item.Status != Convert.ToDecimal(Common.CommonData.CommonEnums.TimeSheet_Status.Approve))
                         {
-                            <td class="tdleftalign" style="font-weight:bold; color: red">@item.Status_Name</td>
+                            <td class="tdleftalign hidemobile" style="font-weight:bold; color: red">@item.Status_Name</td>
                         }
                         else
                         {
-                            <td class="tdleftalign" style="font-weight:bold; color: blue">@item.Status_Name</td>
+                            <td class="tdleftalign hidemobile" style="font-weight:bold; color: blue">@item.Status_Name</td>
                         }
 
 
-                        <td class="tdleftalign">@item.Notes</td>
+                        <td class="tdleftalign hidemobile">@item.Notes</td>
 
                         <td class="tdcenteralign">
                             <a href="javascript:getViewTimeSheet(@item.Id)" class="icon icon-info" data-title="Xem chi tiết"></a>

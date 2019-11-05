@@ -14,14 +14,14 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class100">In/Out book</th>
-                <th class="class150">Case code</th>
+                <th class="class100 m20">In/Out book</th>
+                <th class="class150 m30">Case code</th>
                 @*<th class="class150">Mã tài liệu</th>*@
-                <th class="class200">Tên tài liệu</th>
-                <th class="class100">Loại tài liệu</th>
-                <th class="class150">Tình trạng</th>
-                <th class="class100">Thời hạn</th>
-                <th class="class100">Chức năng</th>
+                <th class="class200 m30">Tên tài liệu</th>
+                <th class="class100 hidemobile">Loại tài liệu</th>
+                <th class="class150 m20">Tình trạng</th>
+                <th class="class100 hidemobile">Thời hạn</th>
+                <th class="class100 m20">Chức năng</th>
             </tr>
         </thead>
         <tbody>
@@ -32,12 +32,11 @@
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdleftalign">@item.Docking_Type_Name</td>
-                        <td class="tdleftalign">@item.App_Case_Code</td>
-                        @*<td class="tdleftalign">@item.Case_Code</td>*@
+                        <td class="tdleftalign">@item.App_Case_Code</td> 
                         <td class="tdleftalign">@item.Document_Name</td>
-                        <td class="tdleftalign">@item.Document_Type_Name</td>
+                        <td class="tdleftalign hidemobile">@item.Document_Type_Name</td>
                         <td class="tdleftalign">@item.Status_Name</td>
-                        <td class="tdcenteralign">@(item.Deadline.Date == DateTime.MinValue.Date ? "" : item.Deadline.ToString("dd/MM/yyyy")) </td>
+                        <td class="tdcenteralign hidemobile">@(item.Deadline.Date == DateTime.MinValue.Date ? "" : item.Deadline.ToString("dd/MM/yyyy")) </td>
 
                         <td class="tdcenteralign">
                             <a href="javascript:getViewDocking(@item.Docking_Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
