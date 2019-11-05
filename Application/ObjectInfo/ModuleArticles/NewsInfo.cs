@@ -45,5 +45,6 @@ namespace ObjectInfos
         public decimal Deleted { get; set; }
         public decimal Country_Id { get; set; }
         public HttpPostedFileBase pfileLogo { get; set; }
+        public string Case_Code { get; set; }
     }
 }

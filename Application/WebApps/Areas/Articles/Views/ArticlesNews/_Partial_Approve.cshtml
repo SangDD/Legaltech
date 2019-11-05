@@ -187,43 +187,43 @@
             <textarea type="text" id="txtNoiDung_En" name="txtNoiDung_En" disabled>@Html.Raw(objInfo.Content_En)</textarea>
         </div>
     </div>
-</div>
 
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div>@WebApps.Resources.Resource.lblChuyenMucChinh<i class="redspan">(*)</i></div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <input type="text" id="txtCategory" readonly="readonly" value="@strChuyenMuc" maxlength="250" />
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblChuyenMucChinh<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtCategory" readonly="readonly" value="@strChuyenMuc" maxlength="250" />
+            </div>
         </div>
     </div>
-</div>
 
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div>@WebApps.Resources.Resource.lblChuyenMucLienQuan<i class="redspan">(*)</i></div>
-    </div>
-    <div class="div-search-content">
-        <div style="margin-left: 162px;">
-            <input type="text" id="txtReCategory" readonly="readonly" value="@strChuyenMucLienQuan" maxlength="250" />
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.lblChuyenMucLienQuan<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtReCategory" readonly="readonly" value="@strChuyenMucLienQuan" maxlength="250" />
+            </div>
         </div>
     </div>
+
+    <div class="class_save">
+        @if (_B_Todos_Info != null)
+        {
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnTuChoi" onclick="return do_Approve_Reject('@objInfo.Case_Code', 5)" style="margin-left: 5px" id="btnTuChoi" class="btn" />
+            </div>
+
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnXuatban" onclick="return do_Approve_Reject('@objInfo.Case_Code', 7)" style="margin-left: 5px" id="btnXuatBan" class="btn" />
+            </div>
+        }
+    </div>
 </div>
-
-<div class="class_save" style="margin-left:163px;">
-    @if (_B_Todos_Info != null)
-    {
-        <div class="classGuiDon">
-            <input type="button" value="@WebApps.Resources.Resource.btnTuChoi" onclick="return do_Approve_Reject('@Model.Case_Code', 5)" style="margin-left: 5px" id="btnTuChoi" class="btn" />
-        </div>
-
-        <div class="classGuiDon">
-            <input type="button" value="@WebApps.Resources.Resource.btnXuatban" onclick="return do_Approve_Reject('@Model.Case_Code', 7)" style="margin-left: 5px" id="btnXuatBan" class="btn" />
-        </div>
-    }
-</div>
-
 
 <script>
     function funcRemoveTradeMarkImg(ptag) {
