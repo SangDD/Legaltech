@@ -253,13 +253,17 @@
             height: 500
         });
    
-    $("#btnXuatBan").click(function () {
-        SaveArticles(7);
-    });
+    //$("#btnXuatBan").click(function () {
+    //    SaveArticles(7);
+    //});
 
-    $("#btnTuChoi").click(function () {
-        SaveArticles(5);
-    });
+    //$("#btnTuChoi").click(function () {
+    //    SaveArticles(5);
+    //});
+
+    function validateAction() {
+        return true;
+    }
 
     function do_Approve_Reject(_case_code, _status ) {
         if (validateAction()) {
