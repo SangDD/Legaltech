@@ -486,8 +486,12 @@
                 p_case_code: _caseCode,
                 p_docking_id: _docking_id
             },
-            async: false, cache: false, traditional: true,
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
             success: function (data) {
+                CreateRollingWaitingIcon(false);
                 if (data != null) {
                     $("#divPopUpDocking").html(data);
                     ShowPopupDialog_Ipace('divWrapperPopUpDocking', "Thông tin tài liệu", 750, 800);
