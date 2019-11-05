@@ -246,7 +246,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio" style="width:450px">
+                <div class="div-radio">
                     @if (_App_Detail.Request_To_Type == 3)
                     {
                         <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" disabled="disabled" checked="checked" />
@@ -259,12 +259,23 @@
                 </div>
             </div>
 
-            <div class="div-search-title" style="margin-left: 0px !important;">
+            @*<div class="div-search-title" style="margin-left: 0px !important;">
                 <div>@Resource.TM3B_DeNghiSuaThanh:</div>
             </div>
             <div class="div-search-content">
                 <div>
                     <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" disabled="disabled" value="@_App_Detail.Request_To_Content" />
+                </div>
+            </div>*@
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title" style="height: 63px;">
+                <div>@Resource.TM3B_DeNghiSuaThanh </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.Request_To_Content" style="height:65px" disabled="disabled"/>
                 </div>
             </div>
         </div>

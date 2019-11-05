@@ -179,18 +179,21 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio" style="width:382px">
+                <div class="div-radio">
+                    @*style="width:382px"*@
                     <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
                     <label>@Resource.TM3B_NoiDungKhac</label>
                 </div>
             </div>
+        </div>
 
-            <div class="div-search-title" style="margin-left: 0px !important;">
-                <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+        <div class="div-search-ad">
+            <div class="div-search-title" style="height: 63px;">
+                <div>@Resource.TM3B_DeNghiSuaThanh </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
+                    <input type="text" id="4_DeNghiSuaThanh" placeholder="@Resource.TM3B_DeNghiSuaThanh" style="height:65px" />
                 </div>
             </div>
         </div>
@@ -778,7 +781,7 @@
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Other", "10");
             formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_6_Doc_Other").val());
 
-            // 12 Tài liệu chứng minh sự thay đổi chủ đơn do thừa kế, kế thừa 
+            // 12 Tài liệu chứng minh sự thay đổi chủ đơn do thừa kế, kế thừa
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ThuaKe", "11");
         } catch (e) {
             console.log(e);
