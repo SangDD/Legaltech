@@ -211,6 +211,21 @@
         </div>
     </div>
 
+
+    @if (_B_Todos_Info != null)
+    {
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.GhiChu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtNotes" maxlength="2000" />
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="class_save">
         @if (_B_Todos_Info != null)
         {
@@ -262,6 +277,14 @@
     //});
 
     function validateAction() {
+        var _Note = $('#txtNotes').val();
+        if (_Note == null || _Note == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.GhiChuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $('#txtNotes').focus();
+            });
+            return false;
+        }
+
         return true;
     }
 
@@ -274,7 +297,7 @@
                     data: {
                         p_case_code: _case_code,
                         p_status: _status,
-                        p_note: ''
+                        p_note: $('#txtNotes').val()
                     },
                     async: true, cache: false, traditional: true,
                     beforeSend: function () {
