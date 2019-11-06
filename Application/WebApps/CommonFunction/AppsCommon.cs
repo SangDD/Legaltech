@@ -1768,26 +1768,50 @@ namespace WebApps.CommonFunction
                         {
                             pDetail.Doc_Id_1 = item.CHAR01;
                             pDetail.Doc_Id_1_Check = item.Isuse;
+                            if (pDetail.Doc_Id_1 == null || pDetail.Doc_Id_1 == "" || pDetail.Doc_Id_1.Length == 0)
+                            {
+                                pDetail.Doc_Id_1 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "01_SDD_02")
                         {
                             pDetail.Doc_Id_2 = item.CHAR01;
                             pDetail.Doc_Id_2_Check = item.Isuse;
+
+                            if (pDetail.Doc_Id_2 == null || pDetail.Doc_Id_2 == "" || pDetail.Doc_Id_2.Length == 0)
+                            {
+                                pDetail.Doc_Id_2 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "01_SDD_03")
                         {
                             pDetail.Doc_Id_3_Check = item.Isuse;
                             pDetail.Doc_Id_3 = item.CHAR01;
+
+                            if (pDetail.Doc_Id_3 == null || pDetail.Doc_Id_3 == "" || pDetail.Doc_Id_3.Length == 0)
+                            {
+                                pDetail.Doc_Id_3 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "01_SDD_04")
                         {
                             pDetail.Doc_Id_4 = item.CHAR01;
                             pDetail.Doc_Id_4_Check = item.Isuse;
+
+                            if (pDetail.Doc_Id_4 == null || pDetail.Doc_Id_4 == "" || pDetail.Doc_Id_4.Length == 0)
+                            {
+                                pDetail.Doc_Id_4 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "01_SDD_05")
                         {
                             pDetail.Doc_Id_5_Check = item.Isuse;
                             pDetail.Doc_Id_5 = item.CHAR01;
+
+                            if (pDetail.Doc_Id_5 == null || pDetail.Doc_Id_5 == "" || pDetail.Doc_Id_5.Length == 0)
+                            {
+                                pDetail.Doc_Id_5 = ".....";
+                            }
                         }
 
                         else if (item.Document_Id == "01_SDD_06")
@@ -1807,6 +1831,11 @@ namespace WebApps.CommonFunction
                         {
                             pDetail.Doc_Id_9 = item.CHAR01;
                             pDetail.Doc_Id_9_Check = item.Isuse;
+
+                            if (pDetail.Doc_Id_9 == null || pDetail.Doc_Id_9 == "" || pDetail.Doc_Id_9.Length == 0)
+                            {
+                                pDetail.Doc_Id_9 = "...............";
+                            }
                         }
                         else if (item.Document_Id == "01_SDD_10")
                         {
