@@ -1002,13 +1002,28 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             app_Detail.Doc_Id_1 = item.CHAR01;
                             app_Detail.Doc_Id_102 = item.CHAR02;
                             app_Detail.Doc_Id_1_Check = item.Isuse;
+                            if (app_Detail.Doc_Id_1 == "" || app_Detail.Doc_Id_1 == null || app_Detail.Doc_Id_1.Length == 0)
+                            {
+                                app_Detail.Doc_Id_1 = ".....";
+                            }
+                            if (app_Detail.Doc_Id_102 == "" || app_Detail.Doc_Id_102 == null || app_Detail.Doc_Id_102.Length == 0)
+                            {
+                                app_Detail.Doc_Id_102 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "A03_02")
                         {
                             app_Detail.Doc_Id_2 = item.CHAR01;
                             app_Detail.Doc_Id_202 = item.CHAR02;
-
                             app_Detail.Doc_Id_2_Check = item.Isuse;
+                            if (app_Detail.Doc_Id_2 == "" || app_Detail.Doc_Id_2 == null || app_Detail.Doc_Id_2.Length == 0)
+                            {
+                                app_Detail.Doc_Id_2 = ".....";
+                            }
+                            if (app_Detail.Doc_Id_202 == "" || app_Detail.Doc_Id_202 == null || app_Detail.Doc_Id_202.Length == 0)
+                            {
+                                app_Detail.Doc_Id_202 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "A03_03")
                         {
@@ -1026,6 +1041,10 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         {
                             app_Detail.Doc_Id_5_Check = item.Isuse;
                             app_Detail.Doc_Id_5 = item.CHAR01;
+                            if (app_Detail.Doc_Id_5 == "" || app_Detail.Doc_Id_5 == null || app_Detail.Doc_Id_5.Length == 0)
+                            {
+                                app_Detail.Doc_Id_5 = ".....";
+                            }
                         }
 
                         else if (item.Document_Id == "A03_06")
@@ -1033,6 +1052,10 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             app_Detail.Doc_Id_6_Check = item.Isuse;
                             app_Detail.Doc_Id_6 = item.CHAR01;
                             app_Detail.Doc_Id_602 = item.CHAR02;
+                            if (app_Detail.Doc_Id_6 == "" || app_Detail.Doc_Id_6 == null || app_Detail.Doc_Id_6.Length == 0)
+                            {
+                                app_Detail.Doc_Id_6 = ".....";
+                            }
                         }
                         else if (item.Document_Id == "A03_07")
                         {
@@ -1055,6 +1078,10 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             app_Detail.Doc_Id_10_Check = item.Isuse;
                             app_Detail.Doc_Id_10 = item.CHAR01;
                             app_Detail.Doc_Id_1002 = item.CHAR02;
+                            if (app_Detail.Doc_Id_10 == "" || app_Detail.Doc_Id_10 == null || app_Detail.Doc_Id_10.Length == 0)
+                            {
+                                app_Detail.Doc_Id_10 = "..............";
+                            }
                         }
                         // quyền ưu tiên cũ A03_11
                         else if (item.Document_Id == "1_TLCMQUT")
@@ -1068,6 +1095,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         {
                             app_Detail.Doc_Id_12 = item.CHAR01;
                             app_Detail.Doc_Id_12_Check = item.Isuse;
+                           
                         }
 
                         // cũ A03_13
@@ -1090,12 +1118,16 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                             app_Detail.Doc_Id_15 = item.CHAR01;
                             app_Detail.Doc_Id_15_Check = item.Isuse;
                         }
+                        if (app_Detail.Doc_Id_12 == "" || app_Detail.Doc_Id_12 == null || app_Detail.Doc_Id_12.Length == 0)
+                        {
+                            app_Detail.Doc_Id_12 = ".....";
+                        }
                     }
 
                     if (pUTienInfo == null)
                     {
                         app_Detail.Doc_Id_11 = "";
-                        app_Detail.Doc_Id_12 = "";
+                        app_Detail.Doc_Id_12 = ".....";
                         app_Detail.Doc_Id_13 = "";
                     }
                 }
@@ -1116,7 +1148,7 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                         }
                         else if (item.Fee_Id == 2)
                         {
-                            app_Detail.Fee_Id_2 = item.Isuse == 0 ? "" : item.Number_Of_Patent.ToString();
+                            app_Detail.Fee_Id_2 = item.Isuse == 0 ? "0" : item.Number_Of_Patent.ToString();
                             app_Detail.Fee_Id_2_Check = item.Isuse;
                             app_Detail.Fee_Id_2_Val = item.Amount.ToString("#,##0.##");
                         }
