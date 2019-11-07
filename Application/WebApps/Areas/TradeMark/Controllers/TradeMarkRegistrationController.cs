@@ -926,6 +926,11 @@
                     {
                         appInfo.strDanhSachFileDinhKem += item.Documentname + " ; ";
                     }
+
+                    if (appInfo.strDanhSachFileDinhKem.Trim() == ";")
+                    {
+                        appInfo.strDanhSachFileDinhKem = "";
+                    }
                 }
 
                 #endregion
