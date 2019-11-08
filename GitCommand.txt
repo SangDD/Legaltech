@@ -5,6 +5,11 @@ git clone  https://github.com/SangDD/LegalTech
 4. git commit -a -m "aa" du lieu o local host , hoặc sửa dl trên git
 5. git push (day code len) 
 /
+
+The pull would overwrite your local change to the following file:
+	-> git stash save --keep-index
+	If you don't need them anymore, you now can drop that stash: -> git stash drop
+
 --backup project tai thoi diem trong qua khu 
 git log -- lay danh sach cac lan thay doi
 /

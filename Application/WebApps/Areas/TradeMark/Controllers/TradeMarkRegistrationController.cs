@@ -737,7 +737,7 @@
                         language = pInfo.Languague_Code;
                     }
                 }
-                
+
                 if (pUTienInfo != null && pUTienInfo.Count > 0)
                 {
                     pDetail.Sodon_Ut = pUTienInfo[0].UT_SoDon;
@@ -1195,34 +1195,56 @@
                     _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
                     _pic01.Width = 200;
                     _pic01.Height = 200;
+                    int _marginleft = 300, _margintop = 4390;
                     try
                     {
                         Bitmap img = new Bitmap(appInfo.Logourl);
                         try
                         {
+                            ////_Const = 6.66 là tỷ lệ px với đơn độ dài ảnh quy định trong crystal
+                            //// _h = 600 là độ dài  và rộng  khung chứa cái ảnh đó
+                            //double _Const = 6.666666666666 / 2;
+                            //int _left = 0, _top = 0;
+                            //int _h = 600;
+                            //double _d1 = (_h - img.Width) / 2;
+                            //_d1 = _Const * _d1;
+                            //_left = _marginleft + Convert.ToInt32(_d1);
+                            //if (_left < 0)
+                            //{
+                            //    _left = _marginleft;
+                            //}
+                            //_pic01.Left = _left;
+                            //// top
 
-                            double _Const = 6.666666666666/2;
-                            int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
-                            int _h = 600;
-                            double _d1 = (_h - img.Width) / 2;
-                            _d1 = _Const * _d1;
-                            _left = _marginleft + Convert.ToInt32(_d1);
-                            if (_left < 0)
-                            {
-                                _left = _marginleft;
-                            }
-                            _pic01.Left = _left;
-                            // top
+                            //_d1 = (_h - img.Height) / 2;
+                            //_d1 = _Const * _d1;
+                            //_top = _margintop + Convert.ToInt32(_d1);
+                            //if (_top < 0)
+                            //{
+                            //    _top = _margintop;
+                            //}
+                            //_pic01.Top = _top;
 
-                            _d1 = (_h - img.Height) / 2;
-                            _d1 = _Const * _d1;
-                            _top = _margintop + Convert.ToInt32(_d1);
-                            if (_top < 0)
-                            {
-                                _top = _margintop;
-                            }
-                            _pic01.Top = _top;
+                            // dangtq sửa
+                            // tính theo đơn vị Twips -> 1 inch = 1440 twips
+                            // 96.00000 tỷ lệ convert 1px ra in (96 px = 1 in)
+                            // _height_pic_rpt, _width_pic_rpt kích thước khung box trong rpt
+                            int _height_pic_rpt = 4665; //-> 4855
+                            int _saixo = 260;
+                            int _twips = 1440;
+                            double _px_to_in = 96.00000;
 
+                            double h_in = img.Height / _px_to_in;
+                            double h1 = (_height_pic_rpt - (h_in * _twips)) / 2;
+                            _pic01.Top = _margintop + (int)h1;
+
+                            int _width_pic_rpt = 4340; // -> 4410
+                            double w_in = img.Width / _px_to_in;
+                            double w1 = (_width_pic_rpt - (w_in * _twips)) / 2;
+                            _pic01.Left = _marginleft + (int) w1 + _saixo;
+
+                            //_pic01.Left = 1335;
+                            //_pic01.Top = 5640;
                         }
                         catch (Exception ex)
                         {
