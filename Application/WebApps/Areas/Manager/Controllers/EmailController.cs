@@ -57,7 +57,8 @@ namespace WebApps.Areas.Manager.Controllers
                 }
 
                 string _content = pInfo.Content;// Replace("\n", "<br>");
-                _content = AppsCommon.SetContentMailTemplate(_content, yourref: "", outref: "", dearname: pInfo.Customer_Name);
+                _content = AppsCommon.SetContentMailTemplate(_content, yourref: pInfo.Your_Ref, outref: pInfo.Out_Ref, 
+                    dearname: pInfo.Customer_Name, p_namereply: pInfo.Sign, p_position_name: pInfo.Position);
                 pInfo.Content = _content;
 
                 CommonFunction.AppsCommon.EnqueueSendEmail(pInfo);

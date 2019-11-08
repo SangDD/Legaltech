@@ -118,6 +118,11 @@ namespace WebApps.Areas.Manager.Controllers
                     SessionData.SetDataSession(case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
                 }
 
+                if (_Billing_Header_Info != null && _Billing_Header_Info.Percent_Discount > 0)
+                {
+                    ViewBag.Percent_Discount = _Billing_Header_Info.Percent_Discount;
+                }
+
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
@@ -176,6 +181,11 @@ namespace WebApps.Areas.Manager.Controllers
 
                 ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
+                if (_Billing_Header_Info != null && _Billing_Header_Info.Percent_Discount > 0)
+                {
+                    ViewBag.Percent_Discount = _Billing_Header_Info.Percent_Discount;
+                }
 
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
             }
@@ -591,6 +601,11 @@ namespace WebApps.Areas.Manager.Controllers
 
                 ViewBag.App_Case_Code = p_app_case_code;
 
+                if (_Billing_Header_Info != null && _Billing_Header_Info.Percent_Discount > 0)
+                {
+                    ViewBag.Percent_Discount = _Billing_Header_Info.Percent_Discount;
+                }
+
 
                 ViewBag.ShowPopUp = 0;
 
@@ -707,6 +722,12 @@ namespace WebApps.Areas.Manager.Controllers
 
                 ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
                 ViewBag.objAppHeaderInfo = objAppHeaderInfo;
+
+                if (_Billing_Header_Info != null && _Billing_Header_Info.Percent_Discount > 0)
+                {
+                    ViewBag.Percent_Discount = _Billing_Header_Info.Percent_Discount;
+                }
+
                 return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
             }
             catch (Exception ex)
@@ -889,6 +910,11 @@ namespace WebApps.Areas.Manager.Controllers
                 foreach (Billing_Detail_Info item in _lst_billing_detail)
                 {
                     item.Total_Fee = item.Nation_Fee + item.Represent_Fee + item.Service_Fee;
+                }
+
+                if (_Billing_Header_Info != null && _Billing_Header_Info.Percent_Discount > 0)
+                {
+                    ViewBag.Percent_Discount = _Billing_Header_Info.Percent_Discount;
                 }
 
                 if (_Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.New_Wait_Approve)

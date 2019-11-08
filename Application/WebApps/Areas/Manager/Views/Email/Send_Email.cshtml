@@ -91,6 +91,57 @@
     </div>
 
     <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Out Ref </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_Out_Ref" maxlength="50" style="width: 200px" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Your Ref </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_Your_Ref" maxlength="50" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Người ký </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_Sign" maxlength="100" style="width: 200px" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>Chức vụ</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txt_Position" maxlength="100" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Email người nhận<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTo" maxlength="1000" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
         <div class="div-search-title" style="height:200px">
             <div>Nội dung<i class="redspan">(*)</i></div>
         </div>
@@ -173,6 +224,11 @@
                 formdata.append("pInfo.Content", $('#txtBody').val());
                 formdata.append("pInfo.Customer_Name", $('#txtName').val());
 
+                formdata.append("pInfo.Out_Ref", $('#txt_Out_Ref').val());
+                formdata.append("pInfo.Your_Ref", $('#txt_Your_Ref').val());
+
+                formdata.append("pInfo.Sign", $('#txt_Sign').val());
+                formdata.append("pInfo.Position", $('#txt_Position').val());
 
                 $.ajax({
                     url: '/quan-ly-email/do-send-email',

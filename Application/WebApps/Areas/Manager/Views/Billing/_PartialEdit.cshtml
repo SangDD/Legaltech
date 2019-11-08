@@ -8,10 +8,18 @@
     ViewBag.Title = WebApps.Resources.Resource.SuaBiliing;
     Layout = "~/ViewsShared/_Layout.cshtml";
     decimal _discount = 0;
-    List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
-    if (_lstDiscount.Count > 0)
+
+    if (ViewBag.Percent_Discount != null)
     {
-        _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+        _discount = (decimal)ViewBag.Percent_Discount;
+    }
+    else
+    {
+        List<AllCodeInfo> _lstDiscount = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DISCOUNT", "SERVICE");
+        if (_lstDiscount.Count > 0)
+        {
+            _discount = Convert.ToDecimal(_lstDiscount[0].CdVal);
+        }
     }
 
     List<AllCodeInfo> _lstBank = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("BILLING", "BANK");

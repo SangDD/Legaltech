@@ -234,11 +234,22 @@
 
         <div class="div-search-ad" id="clsLawer">
             <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.LinhVucHoatDong <i class="redspan"></i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Main_Business, new { @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad" id="clsLawer">
+            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.CongTy <i class="redspan"></i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Company_Name, new { @disabled = "disabled" , @style = "width: 200px" })
+                    @Html.TextBoxFor(m => m.Company_Name, new { @disabled = "disabled", @style = "width: 200px" })
                 </div>
             </div>
 

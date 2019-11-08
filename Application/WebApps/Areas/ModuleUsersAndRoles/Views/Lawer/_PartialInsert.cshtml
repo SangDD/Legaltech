@@ -274,15 +274,26 @@
                     </select>
                 </div>
             </div>
-
         </div>
+
+        <div class="div-search-ad" id="clsCustomer">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.LinhVucHoatDong</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtmain_business" maxlength="500" />
+                </div>
+            </div>
+        </div>
+
         <div class="div-search-ad">
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.SoTien1GioVND <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" id="txthourly_rate" onkeyup="jsFormatNumber(this.value, this.id)" style="width:200px"/>
+                    <input type="text" id="txthourly_rate" onkeyup="jsFormatNumber(this.value, this.id)" style="width:200px" />
                 </div>
             </div>
             <div class="div-search-title">
@@ -428,6 +439,8 @@
         //formData.append('userInfo.Contact_Person', $("#cboContact_Person").val());
 
         formData.append('userInfo.Other_Type', $("#cboLawerType").val());
+        formData.append('userInfo.Main_Business', $("#txtmain_business").val());
+
         formData.append('userInfo.Hourly_Rate', $("#txthourly_rate").val().replace(/,/g, ""));
         formData.append('userInfo.Hourly_Rate_USD', $("#txthourly_rate_usd").val().replace(/,/g, ""));
 

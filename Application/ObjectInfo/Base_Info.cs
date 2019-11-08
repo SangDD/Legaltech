@@ -40,7 +40,11 @@ namespace ObjectInfos
 
         public HttpPostedFileBase File_Attach_2 { get; set; }
         public string Customer_Name { get; set; }
+        public string Out_Ref { get; set; }
+        public string Your_Ref { get; set; }
 
+        public string Sign { get; set; }
+        public string Position { get; set; }
     }
 
     public class Send_Email_Info

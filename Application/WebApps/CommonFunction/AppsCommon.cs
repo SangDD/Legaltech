@@ -386,7 +386,7 @@ namespace WebApps.CommonFunction
             return _content;
         }
 
-        public static string SetContentMailTemplate(string content, string yourref = "", string outref = "", string dearname = "")
+        public static string SetContentMailTemplate(string content, string yourref = "", string outref = "", string dearname = "", string p_namereply = "", string p_position_name = "")
         {
             string _content = "";
 
@@ -400,6 +400,16 @@ namespace WebApps.CommonFunction
             string _namereply = Common.Configuration.namereply;
             string _address1 = Common.Configuration.address1;
             string _address2 = Common.Configuration.address2;
+
+            if (p_namereply == "")
+            {
+                p_namereply = _namereply;
+            }
+
+            if (p_position_name == "")
+            {
+                p_position_name = "Managing Partner";
+            }
 
             if (dearname != "" && dearname != null)
             {
@@ -433,8 +443,8 @@ namespace WebApps.CommonFunction
                     "<tr><td style='color:#5a5a5a;padding-top:10px'>Out Ref: " + _outref + "</td></tr>" +
                     "<tr><td style='font-weight:bold;color:#8e8e8e;padding-top:30px'>" + _dear + "</td></tr>	" +
                     "<tr>	<td style='color:#8a8a8a;line-height:20px;padding:20px 0 40px 0'>" + content + "</td></tr>" +
-                    "<tr><td style='font-weight:bold;color:#8e8e8e;'>" + _namereply + "</td>	</tr><tr>	" +
-                    "<td style='font-weight:bold;color:#8e8e8e;'>Managing Partner</td></tr>" +
+                    "<tr><td style='font-weight:bold;color:#8e8e8e;'>" + p_namereply + "</td>	</tr><tr>	" +
+                    "<td style='font-weight:bold;color:#8e8e8e;'>" + p_position_name + "</td></tr>" +
                     "</table> " +
                     "</div> " +
                     "<table class='column-1-22' width='100%' style='border-collapse: collapse;' cellspacing='0' cellpadding='0' border='0'> " +
