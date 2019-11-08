@@ -1193,15 +1193,15 @@
                 {
                     CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
                     _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
-                    _pic01.Width = 100;
-                    _pic01.Height = 100;
+                    _pic01.Width = 200;
+                    _pic01.Height = 200;
                     try
                     {
                         Bitmap img = new Bitmap(appInfo.Logourl);
                         try
                         {
 
-                            double _Const = 6.666666666666;
+                            double _Const = 6.666666666666/2;
                             int _left = 0, _top = 0, _marginleft = 225, _margintop = 4215;
                             int _h = 600;
                             double _d1 = (_h - img.Width) / 2;
