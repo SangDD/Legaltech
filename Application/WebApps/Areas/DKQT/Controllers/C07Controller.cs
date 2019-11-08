@@ -505,7 +505,11 @@ namespace WebApps.Areas.DKQT.Controllers
                     fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "C07_EN_" + _datetimenow + ".pdf");
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "C07_EN_" + _datetimenow + ".pdf";
                 }
-
+                // đẩy file lên server
+                if (pDetail.pfileLogo != null)
+                {
+                    pDetail.LOGOURL = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                }
                 C07_Info_Export _C07_Info_Export = new C07_Info_Export();
 
                 C07_Info_Export.CopyC07_Info(ref _C07_Info_Export, pDetail);
