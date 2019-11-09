@@ -259,17 +259,9 @@
                     CallBack_Info _CallBack_Info = MemoryData.Dequeue_ChangeData();
                     if (_CallBack_Info != null && _CallBack_Info.Table_Name != null && _CallBack_Info.Table_Name != "")
                     {
-                        if (_CallBack_Info.Table_Name == Table_Change.GROUP_USER)
-                        {
-                            MemoryData.ReloadGroup();
-                        }
-                        else if (_CallBack_Info.Table_Name == Table_Change.APPHEADER)
+                        if (_CallBack_Info.Table_Name == Table_Change.APPHEADER)
                         {
                             MemoryData.GetCacheCustomerInfo();
-                        }
-                        else if (_CallBack_Info.Table_Name == Table_Change.APP_DDSHCN)
-                        {
-                            MemoryData.GetCacheDDSHCN();
                         }
                     }
                     Thread.Sleep(1000);

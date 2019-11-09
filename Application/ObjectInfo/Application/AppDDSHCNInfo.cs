@@ -24,5 +24,6 @@ namespace ObjectInfos
         public decimal Deleted { get; set; }
         public string NguoiDDSH { get; set; }
         public string MaNguoiDaiDien { get; set; }
+        public string Country { get; set; }
     }
 }

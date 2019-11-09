@@ -175,16 +175,29 @@
     </div>
 
     <div style="margin-top:15px">
-        <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
+        <div style="font-weight:bold; padding:10px 0">@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
         <div>
-            <textarea type="text" id="txtNoiDung" name="txtNoiDung" disabled>@Html.Raw(objInfo.Content)</textarea>
+            <div class="show_desktop">
+                <textarea type="text" id="txtNoiDung" name="txtNoiDung" readonly disabled>@Html.Raw(objInfo.Content)</textarea>
+            </div>
+
+            <div class="smb_mobile div_text">
+                @Html.Raw(objInfo.Content)
+            </div>
         </div>
     </div>
 
     <div style="margin-top:15px">
-        <div>@WebApps.Resources.Resource.lblNoiDung (EN)<i class="redspan">(*)</i></div>
-        <div style="margin-left: 162px;">
-            <textarea type="text" id="txtNoiDung_En" name="txtNoiDung_En" disabled>@Html.Raw(objInfo.Content_En)</textarea>
+        <div style="font-weight:bold; padding:10px 0">@WebApps.Resources.Resource.lblNoiDung (EN)<i class="redspan">(*)</i></div>
+        <div>
+
+            <div class="show_desktop" style="margin-left: 162px;">
+                <textarea class="show_desktop" type="text" id="txtNoiDung_En" name="txtNoiDung_En" readonly disabled>@Html.Raw(objInfo.Content_En)</textarea>
+            </div>
+
+            <div class="smb_mobile div_text">
+                @Html.Raw(objInfo.Content_En)
+            </div>
         </div>
     </div>
 
@@ -267,14 +280,6 @@
         {
             height: 500
         });
-   
-    //$("#btnXuatBan").click(function () {
-    //    SaveArticles(7);
-    //});
-
-    //$("#btnTuChoi").click(function () {
-    //    SaveArticles(5);
-    //});
 
     function validateAction() {
         var _Note = $('#txtNotes').val();

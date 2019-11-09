@@ -2183,4 +2183,25 @@ input[type="checkbox"] {
         width: calc(100% - 40px) !important;
         float: left
     }
+
+    .smb_mobile {
+        display: block !important;
+        width: calc(100% - 20px) !important;
+    }
+
+    .div_text {
+        box-shadow: 0px 1px 9px 1px rgba(0, 0, 0, 0.2) !important;
+        text-align: justify !important;
+        padding: 10px !important;
+        border-radius: 4px !important;
+    }
+
+    .show_desktop {
+        display: none !important;
+    }
 }
+
+.smb_mobile {
+    display: none;
+}
+

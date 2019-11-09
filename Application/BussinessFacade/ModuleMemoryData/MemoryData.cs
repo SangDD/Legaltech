@@ -381,21 +381,33 @@
         {
             try
             {
-                BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
-                List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(3);
-                _lstUsersAdmin = _lstUsersAdmin.FindAll(x => x.Is_Agent == 1).ToList();
-                lstCache_Represent = new List<CustomerSuggestInfo>();
+                //BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
+                //List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(3);
+                //_lstUsersAdmin = _lstUsersAdmin.FindAll(x => x.Is_Agent == 1).ToList();
+                //lstCache_Represent = new List<CustomerSuggestInfo>();
 
-                foreach (var item in _lstUsersAdmin)
+                //foreach (var item in _lstUsersAdmin)
+                //{
+                //    CustomerSuggestInfo pInfo = new CustomerSuggestInfo();
+
+                //    pInfo.label = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.Customer_Code;
+                //    pInfo.value = item.FullName + "|" + item.Address + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.Customer_Code;
+                //    pInfo.name = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + item.Country;
+                //    pInfo.Language = item.Language;
+
+                //    lstCache_Represent.Add(pInfo);
+                //}
+
+                AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
+                decimal _total_record = 0;
+                List<AppDDSHCNInfo> _lst = _obj_bl.AppDDSHCNGetAll("", "", 0, 0, ref _total_record);
+                foreach (var item in _lst)
                 {
                     CustomerSuggestInfo pInfo = new CustomerSuggestInfo();
-
-                    pInfo.label = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.Customer_Code;
-                    pInfo.value = item.FullName + "|" + item.Address + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.Customer_Code;
-                    pInfo.name = item.FullName + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + item.Country;
-                    pInfo.Language = item.Language;
-
-                    lstCache_Represent.Add(pInfo);
+                    pInfo.label = item.NguoiDDSH + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.MaNguoiDaiDien;
+                    pInfo.value = item.NguoiDDSH + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.MaNguoiDaiDien;
+                    pInfo.name = item.NguoiDDSH + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email  + item.Country;
+                    lstChuDDSHCN.Add(pInfo);
                 }
             }
             catch (Exception ex)

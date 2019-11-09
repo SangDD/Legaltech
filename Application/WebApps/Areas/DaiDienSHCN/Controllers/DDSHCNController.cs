@@ -125,7 +125,7 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
                 decimal presonse = _obj_bl.AppDDSHCNInsert(pInfo);
                 if (presonse >= 0)
                 {
-                    MemoryData.Enqueue_ChangeData(Table_Change.APP_DDSHCN);
+                    MemoryData.GetCache_represent();
                 }
                 return Json(new { success = presonse });
             }
@@ -149,7 +149,7 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
                 decimal presonse = _obj_bl.AppDDSHCNUpdate(pInfo);
                 if (presonse >= 0)
                 {
-                    MemoryData.Enqueue_ChangeData(Table_Change.APP_DDSHCN);
+                    MemoryData.GetCache_represent();
                 }
                 return Json(new { success = presonse });
             }
@@ -170,7 +170,7 @@ namespace WebApps.Areas.DaiDienSHCN.Controllers
                 decimal presonse = _obj_bl.AppDDSHCNDeleted(pId, SessionData.CurrentUser.Username, CommonFuc.CurrentDate());
                 if (presonse >= 0)
                 {
-                    MemoryData.Enqueue_ChangeData(Table_Change.APP_DDSHCN);
+                    MemoryData.GetCache_represent();
                 }
                 return Json(new { success = presonse });
             }

@@ -431,7 +431,7 @@ namespace WebApps.CommonFunction
                     " <table class='column-1-2 remove' width='230' align='left' style='border-collapse: collapse;font-family: arial,sans-serif;' cellspacing='0' cellpadding='0' border='0'><tbody> <tr><td style='font-family: arial,sans-serif;color: #669cbb;font-size: 26px;' valign='top'>IPATH CONSULT CO., LTD.</td> </tr> " +
                     "<tr><td style='color:#afafaf;font-style:italic;padding-top:50px'>Following the Rule of Law</td></tr>  " +
                     "<tr><td style='padding-top: 80px;line-height: 21px;color: #666;margin-top: 80px;font-size: 13px;'>" +
-                    "Level 16, Deaha Business Center, 360 Kim Ma, Hanoi. Contact: " + _cellphone_business + " /" +
+                    "<table><tr><td style='line-height: 17px;color: #666;font-size: 13px;'>Level 16, Deaha Business Center,</tr></td><tr><td style='line-height: 17px;color: #666;font-size: 13px;'> 360 Kim Ma, Hanoi, Viet Nam</tr></td> <tr><td style='line-height: 17px;color: #666;font-size: 13px;'>Cell phone: " + _cellphone_business + " /</tr></td></table>" +
                     "</td> </tr>  <tr><td style='padding-top: 0px;line-height: 21px;font-size: 13px;'>" +
                     "<a href='mailto:tuyen.le@pathlaw.net' target='_blank'>" + emailfrom_business + "</a></td> </tr>" +
                     "<tr><td style='padding-top: 0px;line-height: 21px;font-size: 13px;font-weight: bold'>" +
@@ -444,12 +444,12 @@ namespace WebApps.CommonFunction
                     "<tr><td style='font-weight:bold;color:#8e8e8e;padding-top:30px'>" + _dear + "</td></tr>	" +
                     "<tr>	<td style='color:#8a8a8a;line-height:20px;padding:20px 0 40px 0'>" + content + "</td></tr>" +
                     "<tr><td style='font-weight:bold;color:#8e8e8e;'>" + p_namereply + "</td>	</tr><tr>	" +
-                    "<td style='font-weight:bold;color:#8e8e8e;'>" + p_position_name + "</td></tr>" +
+                    "<td style='color:#8e8e8e;'>" + p_position_name + "</td></tr>" +
                     "</table> " +
                     "</div> " +
                     "<table class='column-1-22' width='100%' style='border-collapse: collapse;' cellspacing='0' cellpadding='0' border='0'> " +
                     "<tr><td style='padding-top: 20px;line-height: 21px;color: #666;margin-top: 80px;font-size: 13px;'>" +
-                    "Level 16, Deaha Business Center, 360 Kim Ma, Hanoi. Contact: " + _cellphone_business + " /" +
+                    "<table><tr><td style='line-height: 17px;color: #666;font-size: 13px;'>Level 16, Deaha Business Center,</tr></td><tr><td style='line-height: 17px;color: #666;font-size: 13px;'> 360 Kim Ma, Hanoi, Viet Nam</tr></td> <tr><td style='line-height: 17px;color: #666;font-size: 13px;'>Cell phone: " + _cellphone_business + " /</tr></td></table>" +
                     "</td> </tr>  <tr><td style='padding-top: 0px;line-height: 21px;font-size: 13px;'>" +
                     "<a href='mailto:tuyen.le@pathlaw.net' target='_blank'>" +
                     emailfrom_business +

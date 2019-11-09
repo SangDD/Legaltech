@@ -97,6 +97,29 @@
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Quốc gia<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboCountry">
+                        @foreach (var item in BussinessFacade.ModuleMemoryData.MemoryData.c_lst_Country)
+                        {
+                            if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                            {
+                                <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                            }
+                            else
+                            {
+                                <option value="@item.Country_Id">@item.Name</option>
+                            }
+                        }
+                    </select>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="form-group">
@@ -107,6 +130,16 @@
 </div>
 
 <script>
+    $(document).ready(function () {
+        $('#cboCountry').multipleSelect({
+            filter: true,
+            single: true,
+            isdatastring: false,
+            maxHeight: 150,
+            placeholder: "-- @WebApps.Resources.Resource.ChonQuocTich --"
+        });
+    });
+
     function doInsertTimeSheet()
     {
         var formData = new FormData();
@@ -171,5 +204,6 @@
         formData.append('pInfo.Address_En', $("#txtAddress_Vi").val().trim());
         formData.append('pInfo.NguoiDDSH', $("#txtNguoiDDSH").val().trim());
         formData.append('pInfo.MaNguoiDaiDien', $("#txtMaNguoiDaiDien").val().trim());
+        formData.append('pInfo.Country', $("#cboCountry").val().trim());
     }
 </script>
