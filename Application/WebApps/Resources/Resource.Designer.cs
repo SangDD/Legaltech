@@ -1096,6 +1096,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cập nhật deadline.
+        /// </summary>
+        public static string CapNhatDeadline {
+            get {
+                return ResourceManager.GetString("CapNhatDeadline", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cập nhật dữ liệu thành công.
         /// </summary>
         public static string CapNhatDuLieuThanhCong {
@@ -5079,6 +5088,15 @@ namespace WebApps.Resources {
         public static string ResetPass {
             get {
                 return ResourceManager.GetString("ResetPass", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review.
+        /// </summary>
+        public static string Review {
+            get {
+                return ResourceManager.GetString("Review", resourceCulture);
             }
         }
         

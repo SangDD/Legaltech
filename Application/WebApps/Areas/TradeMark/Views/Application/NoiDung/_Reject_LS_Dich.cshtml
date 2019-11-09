@@ -54,7 +54,8 @@
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Lawer transale notice reject content
+            @*Lawer transale notice reject content*@
+            @(WebApps.Resources.Resource.Dich + " " + WebApps.Resources.Resource.ThongBaoNoiDung)
         </div>
     </div>
 
@@ -64,7 +65,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100"  value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
+                <input type="text" maxlength="100" value="@_App_Notice_Info.Notice_Number" id="txt_Notice_Number" style="width:200px" disabled="disabled" />
             </div>
         </div>
 
@@ -73,7 +74,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
+                <input type="text" id="txt_notice_date" maxlength="100" disabled="disabled" value="@_App_Notice_Info.Notice_Date.ToString("dd/MM/yyyy")" />
             </div>
         </div>
     </div>
@@ -84,7 +85,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text"  id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
+                <input type="text" id="txt_accept_date" maxlength="100" disabled="disabled" value="@(_App_Notice_Info.Accept_Date == DateTime.MinValue ? "" : _App_Notice_Info.Accept_Date.ToString("dd/MM/yyyy") )" />
             </div>
         </div>
     </div>
