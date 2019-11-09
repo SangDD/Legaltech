@@ -12,6 +12,11 @@
     }
 </style>
 
+<script>
+    var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+</script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
 <div class="divCover">
     <div class="d-nav">
         <img src="~/Content/icons/Body-icon-home.png" /> I
@@ -134,7 +139,7 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
+    @*<div class="div-search-ad">
         <div class="div-search-title" style="height:200px">
             <div>Nội dung<i class="redspan">(*)</i></div>
         </div>
@@ -143,7 +148,10 @@
                 <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody"></textarea>
             </div>
         </div>
-    </div>
+    </div>*@
+    <div>Nội dung<i class="redspan">(*)</i></div>
+    <textarea type="text" id="txtBody" name="txtBody" maxlength="2000"></textarea>
+
 
     <div class="div-search-ad">
         <div class="div-search-content">
@@ -192,6 +200,12 @@
 </div>
 
 <script>
+    var txtNoiDung = CKEDITOR.replace("txtBody",
+       {
+           height: 500
+       });
+
+
 
     function do_SendEmail() {
         if (validateAction()) {
@@ -214,7 +228,9 @@
                 formdata.append("pInfo.EmailTo", $('#txtTo').val());
                 formdata.append("pInfo.EmailFrom", $('#txtFrom').val());
                 formdata.append("pInfo.EmailCC", $('#txtCC').val());
-                formdata.append("pInfo.Content", $('#txtBody').val());
+                //formdata.append("pInfo.Content", $('#txtBody').val());
+               
+                formdata.append("pInfo.Content", CKEDITOR.instances['txtBody'].getData());
                 formdata.append("pInfo.Customer_Name", $('#txtName').val());
 
                 formdata.append("pInfo.Out_Ref", $('#txt_Out_Ref').val());
@@ -223,10 +239,14 @@
                 formdata.append("pInfo.Sign", $('#txt_Sign').val());
                 formdata.append("pInfo.Position", $('#txt_Position').val());
 
+                var text_content =  CKEDITOR.instances['txtBody'].getData() ;
+                //return false;
                 $.ajax({
                     url: '/quan-ly-email/do-send-email',
                     type: 'POST',
                     data: formdata,
+                    dataType: "json",
+                    
                     enctype: 'multipart/form-data',
                     async: true, cache: false, traditional: true, contentType: false,
                     processData: false,
@@ -305,7 +325,9 @@
                 }
             }
 
-            var _Body = $('#txtBody').val();
+            //var _Body = $('#txtBody').val();
+           
+            var _Body = CKEDITOR.instances['txtBody'].getData()
             if (_Body == null || _Body == "") {
                 jError("Nội dung thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtBody").focus();

@@ -24,7 +24,7 @@ namespace WebApps.Areas.Manager.Controllers
 
         [HttpPost]
         [Route("do-send-email")]
-        public ActionResult do_SendEmail(Email_Info pInfo)
+        public ActionResult do_SendEmail(Email_Info pInfo, string text_content = "")
         {
             try
             {

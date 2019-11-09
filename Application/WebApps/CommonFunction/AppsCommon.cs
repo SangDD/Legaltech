@@ -318,75 +318,8 @@ namespace WebApps.CommonFunction
             }
         }
 
-        public static string SetContentMailTemplate1(string content, string yourref = "", string outref = "", string dearname = "")
-        {
-            string _content = "";
-            string _ref = "";
-            string _dear = "";
-            string _cellphone_business = Common.Configuration.cellphone_business;
-            string _urlweb_business = Common.Configuration.urlweb_business;
-            string emailfrom_business = Common.Configuration.emailfrom_business;
-            string _namereply = Common.Configuration.namereply;
-            string _address1 = Common.Configuration.address1;
-            string _address2 = Common.Configuration.address2;
-            try
-            {
-                //if (yourref != "" && yourref != null)
-                //{
-                //    _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref + " </div>";
-                //}
-                //if (outref != "" && outref != null)
-                //{
-                //    _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref + " </div>";
-                //}
-
-                _ref += "<div style = 'color: #5a5a5a; padding-top: 10px;' > Your Ref: " + yourref == null ? "" : yourref + " </div>";
-                _ref += "<div  style = 'color: #5a5a5a; padding-top: 10px;'> Out Ref: " + outref == null ? "" : outref + " </div>";
-
-                if (dearname != "" && dearname != null)
-                {
-                    _dear = "<div style = 'font-weight: bold;padding-top: 40px; color:#5a5a5a' ><span> Dear </span>" + dearname + "<span>,</span></div>";
-
-                }
-                _content = "<div style='padding:1px;font-family:Roboto, sans-serif; font-size:14px;color:#5a5a5a'>" +
-                               "<div style = 'overflow: hidden;'>" +
-                                   "<div style = 'width:100%; text-align: right; overflow: hidden;'>" +
-                                                      "<img class='responsive' style='width:auto;height: 110px;'src='https://ci3.googleusercontent.com/proxy/Mcs1RNQrQZbufG-ry8_77wBxPn1TQ30a6rvW64dc0GEYKq5EKz0YACQ1Fb1yqwNOJAMPqj4ea2ru4naJfvFbfCg8hImIOD20tQ=s0-d-e1-ft#https://pathlaw.net/Content/News/images/logo_ipace.png'/>" +
-                                                        "<div style='padding: 7px 15px 7px 0 ;'>ACCESS.IP SOLUTION</div>" +
-                                   "</div>" +
-                                   "<div style = 'width:100%;'>" +
-                                                       "<div style='text-align: left'>" +
-                                                            _ref +
-                                                       "</div>" +
-                                   "</div>" +
-
-                               "<div>" +
-                                   _dear +
-                                  "<div style = 'line-height:28px; color: #5a5a5a; padding-top: 40px;' > " +
-                                       content +
-                                   "</div>" +
-                                   "<div style = 'padding: 40px 0; color:#5a5a5a'> Sincerely yours </div>" +
-                               "</div>" +
-                               "<div style = ''>" +
-                                  "<div style = 'color: #333; font-weight: 600'>" + _namereply + "</div>" +
-                                      "<div style = 'color: #333; padding: 15px 0;'> Managing Partner </div>" +
-                                      "<div style = 'color: #8a8a8a; font-weight:bold;' > IPath Consult Co.,</div>" +
-                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'>" + _address1 + "</div>" +
-                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'>" + _address2 + "</div>" +
-                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'> Cell phone: &nbsp;" + _cellphone_business + "</div>" +
-                                      "<div style = 'color: #9e9e9e; padding: 2px 0;'> Email: &nbsp;" + emailfrom_business + "</div>" +
-                                      "<div style = 'color: #8a8a8a;padding: 2px 0;font-style: italic;font-weight: 600;font-size:13px;'>" + _urlweb_business + "</div>" +
-                               "</div>" +
-                       "</div> ";
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-            }
-            return _content;
-        }
-
-        public static string SetContentMailTemplate(string content, string yourref = "", string outref = "", string dearname = "", string p_namereply = "", string p_position_name = "")
+        // chia 2 cột
+        public static string SetContentMailTemplate1(string content, string yourref = "", string outref = "", string dearname = "", string p_namereply = "", string p_position_name = "")
         {
             string _content = "";
 
@@ -490,7 +423,8 @@ namespace WebApps.CommonFunction
             return _content;
         }
 
-        public static string SetContentMailTemplate2(string content, string yourref = "", string outref = "", string dearname = "")
+        // không chi cột 
+        public static string SetContentMailTemplate(string content, string yourref = "", string outref = "", string dearname = "", string p_namereply = "", string p_position_name = "")
         {
             string _content = "";
 
@@ -505,6 +439,16 @@ namespace WebApps.CommonFunction
             string _address1 = Common.Configuration.address1;
             string _address2 = Common.Configuration.address2;
 
+            if (p_namereply == "")
+            {
+                p_namereply = _namereply;
+            }
+
+            if (p_position_name == "")
+            {
+                p_position_name = "Managing Partner";
+            }
+
             if (dearname != "" && dearname != null)
             {
                 _dear = "Dear " + dearname + ",";
@@ -514,89 +458,49 @@ namespace WebApps.CommonFunction
             try
             {
                 //_content = "<head>  <style> table.column-1-2 {   margin-right: 25px;  } @media only screen and (max-width: 640px) {  .container { width: 100% !important;  max-width: 100% !important; }.container .remove{	display: none;}table.column-1-2 {  float: none !important; margin-right: 0 !important; width: 100% !important;  text-align: center !important; }	.right{margin-left: 0 !important;} }  @media only screen and (min-width: 641px) {.container { max-width: 100% !important; }table.column-1-22{display:none;} }   </style>  </head><div style='margin: 0; font-family: 'Source Sans Pro', sans-serif; font-size: 14px;'><table style='border-collapse: collapse;' width='100%' cellspacing='0' cellpadding='0' border='0' align='center'><tr> <td style='padding: 50px 0;'> <div style='max-width: 100%; margin: 0 auto;'>   <table class='container' style='border-collapse: collapse;' width='100%' cellspacing='0' cellpadding='0' border='0' align='center'> <tbody> <tr> <td><table class='column-1-2 remove' width='230' align='left' style='border-collapse: collapse;font-family: arial,sans-serif;' cellspacing='0' cellpadding='0' border='0'><tbody> <tr><td style='font-family: arial,sans-serif;color: #669cbb;font-size: 26px;' valign='top'>IPATH CONSULT CO., LTD.</td> </tr><tr><td style='color:#afafaf;font-style:italic;padding-top:50px'>Following the Rule of Law</td>  </tr> <tr><td style='padding-top: 80px;line-height: 21px;color: #666;margin-top: 80px;font-size: 13px;'>Level 16, Deaha Business Center, 360 Kim Ma, Hanoi. Contact: +84936981616 /</td></tr><tr><td style='padding-top: 0px;line-height: 21px;font-size: 13px;'><a href='mailto:tuyen.le@pathlaw.net' target='_blank'>tuyen.le@pathlaw.net</a></td></tr><tr><td style='padding-top: 0px;line-height: 21px;font-size: 13px;font-weight: bold'><a href='www.pathlaw.net' target='_blank' style='text-decoration:none'>www.pathlaw.net</a></td> </tr>  </tbody></table><div class='right'  style='background: #fff; margin-left: 230px;'><table><tr><td style='color:#5a5a5a;padding-top:10px'>Your Ref:</td></tr><tr><td style='color:#5a5a5a;padding-top:10px'>Out Ref:</td></tr><tr><td style='font-weight:bold;color:#8e8e8e;padding-top:30px'>Dear dangtq,</td></tr><tr><td style='color:#8a8a8a;line-height:20px;padding:20px 0 40px 0'>ƯQE</td></tr><tr><td style='font-weight:bold;color:#8e8e8e;'>Tuyen Le</td></tr><tr>	<td style='font-weight:bold;color:#8e8e8e;'>	Managing Partner</td></tr></table>  </div> <table class='column-1-22' width='100%' style='border-collapse: collapse;' cellspacing='0' cellpadding='0' border='0'> <tr> <td style='padding: 25px; background: #f2f2f2; text-align: center;' style='border-collapse: collapse;' cellspacing='0' cellpadding='0' border='0' valign='top'>made by <a href='https://mangools.com'>mangools.com</a> </td>  </tr></table> </td> </tr></tbody> </table></div></td> </tr></table>";  }
-                _content = " <head> " +
-                            "</head>" +
-                            "<div style='margin: 0; font-family: 'Source Sans Pro', sans-serif; font-size: 14px;'>" +
-                            "<table style='max-width:800px; margin: 0 auto;'>" +
-                            "	 <tr>" +
-                            "		<td>" +
-                            "			 <table class='container' style='border-collapse: collapse;' width='100%' cellspacing='0' cellpadding='0' border='0' align='center'>" +
-                            "                   <tbody>" +
-                            "                      <tr>" +
-                            "                       <td>" +
-                            "						<img style='width: auto; height: 110px' src='https://ci3.googleusercontent.com/proxy/Mcs1RNQrQZbufG-ry8_77wBxPn1TQ30a6rvW64dc0GEYKq5EKz0YACQ1Fb1yqwNOJAMPqj4ea2ru4naJfvFbfCg8hImIOD20tQ=s0-d-e1-ft#https://pathlaw.net/Content/News/images/logo_ipace.png' class='CToWUd'>" +
-                            "						<div style='padding: 7px 15px 0px 0; font-family: Roboto,sans - serif; color:#5a5a5a; font-size:10px;'>ACCESS.IP SOLUTION</div>" +
-                            "					  </td>" +
-                            "					  <td style='vertical-align: bottom;'>" +
-                            "						<div  style='font-family: arial,sans-serif;color: #669cbb;font-size: 26px;' valign='top'>IPATH CONSULT CO., LTD.</div>" +
-                            "						<div  style='color:#afafaf;font-style:italic;'>Following the Rule of Law</div>" +
-                            "					  </td>" +
-                            "					</tr>" +
-                            "				</tbody>" +
-                            "		</table>" +
-                            "	</td>" +
-                            "<tr>" +
-                            "<tr>" +
-                            " <td>" +
-                            "	<table>" +
-                            "		<tbody>" +
-                            "			<tr>" +
-                            "				<td style='color:#5a5a5a;padding-top:10px'>" +
-                            "					Your Ref:" + _yourref +
-                            "				</td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            "				<td style='color:#5a5a5a;padding-top:10px'>" +
-                            "					Out Ref:" + _outref +
-                            "				</td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            "				<td style='font-weight:bold; color:#8e8e8e;padding-top:30px'>" +
-                                               _dear +
-                            "				</td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            "				<td style='color:#8a8a8a;line-height:20px;padding:20px 0 40px 0'>" +
-                                    			content+
-                            "				</td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            "				<td style='font-weight:bold; color:#8e8e8e;'>" +
-                            "					Tuyen Le" +
-                            "				</td>" +
-                            "			</tr>" +
-                            "			<tr>" +
-                            "				<td style='font-weight:bold; color:#8e8e8e;'>" +
-                            "					Managing Partner" +
-                            "				</td>" +
-                            "			</tr>" +
-                            "		</tbody>" +
-                            "	</table>" +
-                            " </td>" +
-                            "	 </tr>" +
-                            "	 <tr>" +
-                            "		<td>			" +
-                            "	<table class='column-1-22' width='100%' style='border-collapse: collapse;' cellspacing='0' cellpadding='0' border='0'>" +
-                            "		<tr>" +
-                            "			<td style='padding-top: 20px;line-height: 21px;color: #666;margin-top: 80px;font-size: 13px;'>" +
-                            "			Level 16, Deaha Business Center, 360 Kim Ma, Hanoi. Contact: +84936981616 /" +
-                            "			</td>" +
-                            "		</tr>" +
-                            "		<tr>" +
-                            "			<td style='padding-top: 0px;line-height: 21px;font-size: 13px;'>" +
-                            "			<a href='mailto:tuyen.le@pathlaw.net' target='_blank'>tuyen.le@pathlaw.net</a>" +
-                            "			</td>" +
-                            "		</tr>" +
-                            "		<tr>" +
-                            "			<td style='padding-top: 0px;line-height: 21px;font-size: 13px;font-weight: bold'>" +
-                            "			<a href='www.pathlaw.net' target='_blank' style='text-decoration:none'>www.pathlaw.net</a>" +
-                            "			</td>" +
-                            "		</tr>" +
-                            "	</table>" +
-                            "</td>" +
-                            "</tr>" +
-                            "</table>" +
-                            "</div> ";
+                _content = " <head>" +
+                    "<style>  table.column-1-2 {  margin-right: 25px;  } @media only screen and (max-width: 640px) {  .container { width: 100% !important;  max-width: 100% !important;  }.container .show{display: none;}table.column-1-2 {  float: none !important; margin-right: 0 !important;  width: 100% !important; text-align: center !important; }.right{margin-left: 0 !important;}} @media only screen and (min-width: 641px) { .container {  width: 700px !important;  }.container .remove{display: none !important;} }</style>  " +
+                    "</head> " +
+                    "<div style='margin: 0; font-family: 'Source Sans Pro', sans-serif; font-size: 14px;'>" +
+                    " <table style='border-collapse: collapse;' width='100%' cellspacing='0' cellpadding='0' border='0' align='center'><tr> <td style='padding: 50px 0;'> <div style='max-width: 100%; margin: 0 auto;'>  <table class='container' style='border-collapse: collapse;' width='700' cellspacing='0' cellpadding='0' border='0' align='center'>  <tbody><tr>  <td> " +
+
+                    "<table width='100%' style='border-collapse:collapse;' cellspacing='0' cellpadding='0' border='0'> <tr><td class='show' valign='bottom' style='max-width:400px;'><p style='color:#5a5a5a;'>Your Ref:   " + _yourref + "</p><p style='color:#5a5a5a;'>Out Ref:   " + _outref + "</p></td> <td style='text-align:right'><img style='width:auto; height:110px' src='https://ci3.googleusercontent.com/proxy/Mcs1RNQrQZbufG-ry8_77wBxPn1TQ30a6rvW64dc0GEYKq5EKz0YACQ1Fb1yqwNOJAMPqj4ea2ru4naJfvFbfCg8hImIOD20tQ=s0-d-e1-ft#https://pathlaw.net/Content/News/images/logo_ipace.png'><div style='padding:7px 15px 7px 0; font-family: Roboto,sans-serif; color:#5a5a5a'>ACCESS.IP SOLUTION</div> </td></tr></table>" +
+
+
+
+                    "<table width='100%' style='border-collapse:collapse;' cellspacing='0' cellpadding='0' border='0'>" +
+                    "<tr><td class='remove' style='color:#5a5a5a;padding-top:10px'>Your Ref: " + _yourref + "</td></tr>" +
+                    "<tr><td class='remove' style='color:#5a5a5a;padding-top:10px'>Out Ref: " + _outref + "</td></tr>" +
+                    "<tr><td style='font-weight:bold;color:#4a4a4a;padding-top:30px;font-weight: bold;'>" + _dear + "</td></tr>	" +
+                    "<tr>	<td style='color:#8a8a8a;line-height:23px;padding:20px 0 40px 0'>" + content + "</td></tr>" +
+                    "<tr><td style='font-weight:bold;color:#4a4a4a;font-weight: bold;'>" + p_namereply + "</td>	</tr><tr>	" +
+                    "<td style='color:#8e8e8e;padding-top: 10px;line-height: 15px;'>" + p_position_name + "</td></tr>" +
+                    "</table> " +
+                   
+                    "<table class='column-1-22' width='100%' style='border-collapse: collapse;' cellspacing='0' cellpadding='0' border='0'> " +
+
+                    "<tr><td style='padding-top: 10px;line-height: 15px;color: #7d7d7d;margin-top: 80px;font-size: 13px;font-weight: bold;'>" +
+                    "IPath Consult Co.," +
+                    "</td> </tr>  " +
+
+                    "<tr><td style='line-height: 21px;color: #a09f9f;font-size: 13px;'>" +
+                    "Level 16, Deaha Business Center" +
+                    "</td> </tr>  " +
+
+                     "<tr><td style='line-height: 21px;color: #a09f9f;font-size: 13px;'>" +
+                    "360 Kim Ma, Hanoi, Viet Nam " +
+                    "</td> </tr>  " +
+
+                     "<tr><td style='line-height: 21px;color: #a09f9f;font-size: 13px;'>" +
+                    "Cell phone: " + _cellphone_business + " /" +
+                    "</td> </tr>  " +
+
+                    "<tr><td style='padding-top: 0px;line-height: 21px;font-size: 13px;'>" +
+                    "<a href='mailto:tuyen.le@pathlaw.net' target='_blank' style='color: #a09f9f;text-decoration:none;'>Email: " +
+                     emailfrom_business +
+                    "</a></td> </tr> <tr>	<td style='padding-top: 0px;line-height: 21px;font-size: 13px;font-weight: bold'>" +
+                    "<a href='" + _urlweb_business + "' target='_blank' style='text-decoration:none; color: #7d7d7d;font-style: italic;'>www.pathlaw.net</a>" +
+                    "</td>  </tr> </table> </td>  </tr></tbody>  </table> </div>  </td></tr></table> ";
             }
             catch (Exception ex)
             {
