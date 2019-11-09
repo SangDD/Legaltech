@@ -113,7 +113,7 @@
                     <select id="cboCountry">
                         @foreach (var item in BussinessFacade.ModuleMemoryData.MemoryData.c_lst_Country)
                         {
-                            if (item.Country_Id == Model.Country)
+                            if (item.Country_Id.ToString() == Model.Country)
                             {
                                 <option selected="selected" value="@item.Country_Id">@item.Name</option>
                             }

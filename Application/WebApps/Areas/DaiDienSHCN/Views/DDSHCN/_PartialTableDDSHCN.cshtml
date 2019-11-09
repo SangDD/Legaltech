@@ -12,15 +12,15 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class150" data-sort id="Appcode">Tên tiếng việt</th>
-                <th class="class150" data-sort id="Appcode">Tên tiếng anh</th>
-                <th class="class150" data-sort id="Appcode">Người đại diện SH</th>
-                <th class="class100" data-sort id="Appcode">Mã Người đại diện</th>
-                <th class="class150" data-sort id="Appcode">Địa chỉ</th>
-                <th class="class100" data-sort id="Appcode">Điện thoại</th>
-                <th class="class150">Fax</th>
-                <th class="class100">Email</th>
-                <th class="class100">Chức năng</th>
+                <th class="class150 m20" data-sort id="Appcode">Tên tiếng việt</th>
+                <th class="class150 hidemobile" data-sort id="Appcode">Tên tiếng anh</th>
+                <th class="class150 m20" data-sort id="Appcode">Người đại diện SH</th>
+                <th class="class100 m20" data-sort id="Appcode">Mã Người đại diện</th>
+                <th class="class150 hidemobile" data-sort id="Appcode">Địa chỉ</th>
+                <th class="class100 hidemobile" data-sort id="Appcode">Điện thoại</th>
+                <th class="class150 hidemobile">Fax</th>
+                <th class="class100 hidemobile">Email</th>
+                <th class="class100 m20">Chức năng</th>
             </tr>
         </thead>
         <tbody>
@@ -31,13 +31,13 @@
             <tr>
                 <td class="tdcenteralign">@item.STT</td>
                 <td class="tdleftalign">@item.Name_Vi</td>
-                <td class="tdleftalign">@item.Name_En</td>
+                <td class="tdleftalign hidemobile">@item.Name_En</td>
                 <td class="tdleftalign">@item.NguoiDDSH</td>
                 <td class="tdcenteralign">@item.MaNguoiDaiDien</td>
-                <td class="tdleftalign">@item.Address_Vi</td>
-                <td class="tdleftalign">@item.Phone</td>
-                <td class="tdleftalign">@item.Fax</td>
-                <td class="tdleftalign">@item.Email</td>
+                <td class="tdleftalign hidemobile">@item.Address_Vi</td>
+                <td class="tdleftalign hidemobile">@item.Phone</td>
+                <td class="tdleftalign hidemobile">@item.Fax</td>
+                <td class="tdleftalign hidemobile">@item.Email</td>
                 <td class="tdcenteralign">
                     <a href="javascript:funcDetail(@item.Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
                     <a href="javascript:;" onclick="funcDeleteDDSHCN(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
