@@ -2,7 +2,7 @@
 @using ObjectInfos;
 @using BussinessFacade.ModuleMemoryData
 @{
-    ViewBag.Title = WebApps.Resources.Resource.lblQuanLyBaiViet ;
+    ViewBag.Title = WebApps.Resources.Resource.lblQuanLyBaiViet;
     Layout = "~/ViewsShared/_Layout.cshtml";
 }
 @try
@@ -21,9 +21,9 @@
             width: 75px;
         }
 
-        #cke_txtNoiDung {
+        /*#cke_txtNoiDung {
             margin-left: 162px;
-        }
+        }*/
     </style>
     <script>
         var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
@@ -34,7 +34,7 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="/quan-ly-tin/danh-sach-tin/1">@WebApps.Resources.Resource.lblQuanLyBaiViet</a> 
+            <a href="/quan-ly-tin/danh-sach-tin/1">@WebApps.Resources.Resource.lblQuanLyBaiViet</a>
         </div>
     </div>
     <div class="divCover">
@@ -123,7 +123,7 @@
                         <img id="imgMauNhanHieuTeplace" src="~/Content/images/logo_ipace.png" hidden="hidden">
                     </div>
                     <div class="container" style="flex-grow:1;padding-top:20px">
-                        <div class="file-upload btn btn-primary" style="margin-top:95px">
+                        <div class="file-upload btn btn-primary file-upload-mobile" style="margin-top:95px">
                             <span>@WebApps.Resources.Resource.lblTaiFile</span>
                             <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                         </div>
@@ -134,16 +134,12 @@
 
         <div style="margin-top:15px">
             <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
-            <div>
-                <textarea type="text" id="txtNoiDung" name="txtNoiDung"></textarea>
-            </div>
+            <textarea type="text" id="txtNoiDung" name="txtNoiDung"></textarea>
         </div>
 
         <div style="margin-top:15px">
             <div>@WebApps.Resources.Resource.lblNoiDung (EN)<i class="redspan">(*)</i></div>
-            <div style="margin-left: 162px;">
-                <textarea type="text" id="txtNoiDung_En"></textarea>
-            </div>
+            <textarea type="text" id="txtNoiDung_En"></textarea>
         </div>
     </div>
 
@@ -264,7 +260,7 @@ catch (Exception)
             }
 
             var category = $("#_txtCategories").val();
-            if (category == "" || category==null || category==undefined) {
+            if (category == "" || category == null || category == undefined) {
                 showError('danh mục bài viết không được để trống!!');
                 $("#_txtCategories").focus();
                 return false;

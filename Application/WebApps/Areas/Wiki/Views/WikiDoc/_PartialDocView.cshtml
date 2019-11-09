@@ -11,6 +11,7 @@
         _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + Model.CATA_ID; ;
     }
 }
+<script src="~/Content/ckeditor/ckeditor.js"></script>
 
 @try
 {
@@ -107,14 +108,30 @@
         <div style="margin-top:15px">
             <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
             <div>
-                <textarea type="text" id="txtNoiDung" name="txtNoiDung" disabled readonly style="height:500px;width: 100%;">@Html.Raw(Model.CONTENT)</textarea>
+                @*<textarea type="text" id="txtNoiDung" name="txtNoiDung" disabled readonly style="height:500px;width: 100%;">@Html.Raw(Model.CONTENT)</textarea>*@
+
+                <div class="show_desktop">
+                    <textarea type="text" id="txtNoiDung" name="txtNoiDung" readonly disabled>@Html.Raw(Model.CONTENT)</textarea>
+                </div>
+
+                <div class="smb_mobile div_text">
+                    @Html.Raw(Model.CONTENT)
+                </div>
             </div>
         </div>
 
         <div style="margin-top:15px">
             <div>@WebApps.Resources.Resource.lblNoiDung (En)<i class="redspan">(*)</i></div>
             <div>
-                <textarea type="text" id="txtNoiDung" name="txtNoiDung" readonly style="height:500px;width: 100%;">@Html.Raw(Model.CONTENT_En)</textarea>
+                @*<textarea type="text" id="txtNoiDung" name="txtNoiDung" readonly style="height:500px;width: 100%;">@Html.Raw(Model.CONTENT_En)</textarea>*@
+
+                <div class="show_desktop">
+                    <textarea type="text" id="txtNoiDung_EN" name="txtNoiDung_EN" readonly disabled>@Html.Raw(Model.CONTENT_En)</textarea>
+                </div>
+
+                <div class="smb_mobile div_text">
+                    @Html.Raw(Model.CONTENT_En)
+                </div>
             </div>
         </div>
 
@@ -159,3 +176,15 @@ catch (Exception)
 {
     // ignored
 }
+
+<script>
+    var txtNoiDung = CKEDITOR.replace("txtNoiDung",
+        {
+            height: 500
+        });
+
+    var txtNoiDung_EN = CKEDITOR.replace("txtNoiDung_En",
+        {
+            height: 500
+        });
+</script>

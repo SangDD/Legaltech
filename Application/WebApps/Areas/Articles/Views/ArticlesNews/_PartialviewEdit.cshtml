@@ -43,9 +43,9 @@
             width: 75px;
         }
 
-        #cke_txtNoiDung {
+        /*#cke_txtNoiDung {
             margin-left: 162px;
-        }
+        }*/
     </style>
     <script>
         var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
@@ -156,7 +156,7 @@
                     </div>
                     <div class="container" style="flex-grow:1;padding-top:20px">
                         <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
-                        <div class="file-upload btn btn-primary" style="margin-top:95px">
+                        <div class="file-upload btn btn-primary file-upload-mobile" style="margin-top:95px">
                             <span>@WebApps.Resources.Resource.lblTaiFile</span>
                             <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                         </div>
@@ -168,16 +168,12 @@
 
         <div style="margin-top:15px">
             <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
-            <div>
-                <textarea type="text" id="txtNoiDung" name="txtNoiDung">@Html.Raw(objInfo.Content)</textarea>
-            </div>
+            <textarea type="text" id="txtNoiDung" name="txtNoiDung">@Html.Raw(objInfo.Content)</textarea>
         </div>
 
         <div style="margin-top:15px">
             <div>@WebApps.Resources.Resource.lblNoiDung (EN)<i class="redspan">(*)</i></div>
-            <div style="margin-left: 162px;">
-                <textarea type="text" id="txtNoiDung_En" name="txtNoiDung_En">@Html.Raw(objInfo.Content_En)</textarea>
-            </div>
+            <textarea type="text" id="txtNoiDung_En" name="txtNoiDung_En">@Html.Raw(objInfo.Content_En)</textarea>
         </div>
     </div>
 
