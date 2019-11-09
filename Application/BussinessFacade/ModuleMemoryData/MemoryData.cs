@@ -408,6 +408,8 @@
                     pInfo.value = item.NguoiDDSH + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.MaNguoiDaiDien;
                     pInfo.name = item.NguoiDDSH + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email  + item.Country;
                     lstChuDDSHCN.Add(pInfo);
+
+                    lstCache_Represent.Add(pInfo);
                 }
             }
             catch (Exception ex)
