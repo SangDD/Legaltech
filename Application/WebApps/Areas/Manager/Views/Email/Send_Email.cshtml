@@ -315,7 +315,7 @@
             }
 
             var _cc = $("#txtCC").val();
-            if (_cc != null || _cc != "") {
+            if (_cc != null && _cc != "") {
                 if (!IsvalidEmail(_cc)) {
                     jError("@Html.Raw(WebApps.Resources.Resource.EmailFormat)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                         $('#txtCC').focus();
