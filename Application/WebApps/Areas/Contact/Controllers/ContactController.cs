@@ -158,7 +158,7 @@ namespace WebApps.Areas.Contact.Controllers
                 _ck = _bl.Contact_UpdateStatus(_contact.ID, _status, _contact.ReplyContent, _contact.ReplySubject, SessionData.CurrentUser.Username, _contact.URL, _contact.URL01);
                 if (_ck > 0)
                 {
-                    string _content = _contact.ReplyContent.Replace("\n", "<br>");
+                    string _content = _contact.ReplyContent.Replace("\n", "<br><br>");
                     List<string> _LstAttachment = new List<string>();
                     if (_contact.URL != null)
                     {

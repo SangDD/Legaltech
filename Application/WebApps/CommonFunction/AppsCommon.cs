@@ -464,17 +464,17 @@ namespace WebApps.CommonFunction
                     "<div style='margin: 0; font-family: 'Source Sans Pro', sans-serif; font-size: 14px;'>" +
                     " <table style='border-collapse: collapse;' width='100%' cellspacing='0' cellpadding='0' border='0' align='center'><tr> <td style='padding: 50px 0;'> <div style='max-width: 100%; margin: 0 auto;'>  <table class='container' style='border-collapse: collapse;' width='700' cellspacing='0' cellpadding='0' border='0' align='center'>  <tbody><tr>  <td> " +
 
-                    "<table width='100%' style='border-collapse:collapse;' cellspacing='0' cellpadding='0' border='0'> <tr><td class='show' valign='bottom' style='max-width:400px;'><p style='color:#5a5a5a;'>Your Ref:   " + _yourref + "</p><p style='color:#5a5a5a;'>Out Ref:   " + _outref + "</p></td> <td style='text-align:right'><img style='width:auto; height:110px' src='https://ci3.googleusercontent.com/proxy/Mcs1RNQrQZbufG-ry8_77wBxPn1TQ30a6rvW64dc0GEYKq5EKz0YACQ1Fb1yqwNOJAMPqj4ea2ru4naJfvFbfCg8hImIOD20tQ=s0-d-e1-ft#https://pathlaw.net/Content/News/images/logo_ipace.png'><div style='padding:7px 15px 7px 0; font-family: Roboto,sans-serif; color:#5a5a5a'>ACCESS.IP SOLUTION</div> </td></tr></table>" +
+                    "<table width='100%' style='border-collapse:collapse;' cellspacing='0' cellpadding='0' border='0'> <tr><td class='show' valign='bottom' style='max-width:400px;'><p style='color:#5a5a5a;margin-bottom: 0px;'>Your Ref:   " + _yourref + "</p><p style='color:#5a5a5a;margin-top: 5px;'>Out Ref:   " + _outref + "</p></td> <td style='text-align:right'><img style='width:auto; height:110px' src='https://ci3.googleusercontent.com/proxy/Mcs1RNQrQZbufG-ry8_77wBxPn1TQ30a6rvW64dc0GEYKq5EKz0YACQ1Fb1yqwNOJAMPqj4ea2ru4naJfvFbfCg8hImIOD20tQ=s0-d-e1-ft#https://pathlaw.net/Content/News/images/logo_ipace.png'><div style='padding:7px 15px 7px 0; font-family: Roboto,sans-serif; color:#5a5a5a'>ACCESS.IP SOLUTION</div> </td></tr></table>" +
 
 
 
                     "<table width='100%' style='border-collapse:collapse;' cellspacing='0' cellpadding='0' border='0'>" +
-                    "<tr><td class='remove' style='color:#5a5a5a;padding-top:10px'>Your Ref: " + _yourref + "</td></tr>" +
-                    "<tr><td class='remove' style='color:#5a5a5a;padding-top:10px'>Out Ref: " + _outref + "</td></tr>" +
+                    "<tr><td class='remove' style='color:#5a5a5a;padding-top:10px; margin-bottom: 0px;'>Your Ref: " + _yourref + "</td></tr>" +
+                    "<tr><td class='remove' style='color:#5a5a5a;padding-top:10px;margin-top: 5px;'>Out Ref: " + _outref + "</td></tr>" +
                     "<tr><td style='font-weight:bold;color:#4a4a4a;padding-top:30px;font-weight: bold;'>" + _dear + "</td></tr>	" +
                     "<tr>	<td style='color:#8a8a8a;line-height:23px;padding:20px 0 40px 0'>" + content + "</td></tr>" +
                     "<tr><td style='font-weight:bold;color:#4a4a4a;font-weight: bold;'>" + p_namereply + "</td>	</tr><tr>	" +
-                    "<td style='color:#8e8e8e;padding-top: 10px;line-height: 15px;'>" + p_position_name + "</td></tr>" +
+                    "<td style='color:#8e8e8e;padding-top: 5px;line-height: 15px;'>" + p_position_name + "</td></tr>" +
                     "</table> " +
                    
                     "<table class='column-1-22' width='100%' style='border-collapse: collapse;' cellspacing='0' cellpadding='0' border='0'> " +

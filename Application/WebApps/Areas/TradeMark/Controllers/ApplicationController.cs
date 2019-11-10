@@ -805,7 +805,7 @@ namespace WebApps.Areas.TradeMark.Controllers
                         //    _content = _lstStatus[0].Content + _App_Notice_Info.Advise_Replies.Replace("\n", "<br>") + _lstStatus[1].Content;
                         //}
 
-                        string _content = _App_Notice_Info.Advise_Replies.Replace("\n", "<br>");
+                        string _content = _App_Notice_Info.Advise_Replies.Replace("\n", "<br><br>");
                         _content = AppsCommon.SetContentMailTemplate(_content, yourref: _App_Notice_Info.Client_Reference, outref: p_case_code, dearname: _App_Notice_Info.Customer_Name);
 
                         Email_Info _Email_Info = new Email_Info
