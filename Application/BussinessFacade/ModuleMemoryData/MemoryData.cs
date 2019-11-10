@@ -402,6 +402,7 @@
                 decimal _total_record = 0;
                 List<AppDDSHCNInfo> _lst = _obj_bl.AppDDSHCNGetAll("", "", 0, 0, ref _total_record);
                 lstChuDDSHCN = new List<CustomerSuggestInfo>();
+                lstCache_Represent = new List<CustomerSuggestInfo>();
                 foreach (var item in _lst)
                 {
                     CustomerSuggestInfo pInfo = new CustomerSuggestInfo();
