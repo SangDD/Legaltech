@@ -401,12 +401,13 @@
                 AppDDSHCN_BL _obj_bl = new AppDDSHCN_BL();
                 decimal _total_record = 0;
                 List<AppDDSHCNInfo> _lst = _obj_bl.AppDDSHCNGetAll("", "", 0, 0, ref _total_record);
+                lstChuDDSHCN = new List<CustomerSuggestInfo>();
                 foreach (var item in _lst)
                 {
                     CustomerSuggestInfo pInfo = new CustomerSuggestInfo();
-                    pInfo.label = item.NguoiDDSH + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.MaNguoiDaiDien;
-                    pInfo.value = item.NguoiDDSH + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.MaNguoiDaiDien;
-                    pInfo.name = item.NguoiDDSH + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email  + item.Country;
+                    pInfo.label = item.Name_Vi + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.MaNguoiDaiDien;
+                    pInfo.value = item.Name_Vi + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.MaNguoiDaiDien;
+                    pInfo.name = item.Name_Vi + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email  + item.Country;
                     lstChuDDSHCN.Add(pInfo);
 
                     lstCache_Represent.Add(pInfo);
