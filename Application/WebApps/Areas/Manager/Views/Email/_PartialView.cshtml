@@ -1,0 +1,104 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Xem Email";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    Email_Info _Email_Info = new Email_Info();
+    if (ViewBag.Email_Info != null)
+    {
+        _Email_Info = (Email_Info)ViewBag.Email_Info;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<script>
+    var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+</script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/quan-ly-email/danh-sach-email">Quản lý email</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> GỬI EMAIL </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Chủ để<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtSubject" value="@_Email_Info.Subject" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Người gửi<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtFrom" value="@_Email_Info.EmailFrom" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Email người nhận<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtTo" value="@_Email_Info.EmailTo" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>CC</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtCC" value="@_Email_Info.EmailCC" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title" style="height:200px">
+            <div>Nội dung<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody" disabled>@Html.Raw(_Email_Info.Content)</textarea>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+</script>

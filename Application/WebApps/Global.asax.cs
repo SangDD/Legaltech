@@ -357,8 +357,8 @@
                         else
                             _Email_Info.Status = "S";
 
-                        AllCodeBL codeBL = new AllCodeBL();
-                        codeBL.Send_Email_Insert(_Email_Info);
+                        Email_BL _bl = new Email_BL();
+                        _bl.Send_Email_Insert(_Email_Info);
                     }
                     Thread.Sleep(1000);
                 }
