@@ -82,7 +82,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Billing(1, 1)" />
+            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Email(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
             {
                 <input type="button" value="@WebApps.Resources.Resource.ThemMoi" class="btn-default" onclick="getView2Insert()" />

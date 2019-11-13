@@ -8,6 +8,13 @@
     {
         _Email_Info = (Email_Info)ViewBag.Email_Info;
     }
+
+    if (_Email_Info.lst_attachment == null || _Email_Info.lst_attachment == "")
+    {
+        _Email_Info.lst_attachment = "";
+    }
+
+    string[] _arr_attach = _Email_Info.lst_attachment.Replace(@"C:\inetpub\wwwroot\Dropbox\LEGALTECH", "").Replace(@"\\", @"\").Split(',');
 }
 
 <style>
@@ -15,13 +22,14 @@
     .div-search-title > div {
         width: 150px;
     }
+
     .none_style a {
         padding: 0;
         /* height: 27px; */
-         border: none ; 
+        border: none;
         /* border-left: none; */
-        text-decoration: underline; 
-        color: #02961E ;
+        text-decoration: underline;
+        color: #02961E;
     }
 </style>
 
@@ -94,6 +102,28 @@
         </div>
     </div>
 
+    @foreach (string item in _arr_attach)
+    {
+        if (item != "")
+        {
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.FileDinhKem</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        @{
+                            string _a = item.Replace(@"\", ";");
+                            string[] _ar = _a.Split(';');
+                            string file_name = _ar.Length == 0 ? "" : _ar[_ar.Length - 1];
+                        }
+                        <a style="height: 20px !important;" download="@item" href="@item"> @file_name </a>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+
     <div class="div-search-ad">
         <div class="div-search-title" style="height:200px">
             <div>Nội dung<i class="redspan">(*)</i></div>
@@ -105,6 +135,8 @@
             </div>
         </div>
     </div>
+
+
 
 </div>
 
