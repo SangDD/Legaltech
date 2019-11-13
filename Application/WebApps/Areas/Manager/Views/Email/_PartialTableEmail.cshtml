@@ -2,7 +2,7 @@
 @using Common.Extensions
 @using ObjectInfos;
 @{
-    List<Billing_Header_Info> _list_data = new List<Billing_Header_Info>();
+    List<Email_Info> _list_data = new List<Email_Info>();
     if (ViewBag.Obj != null)
     {
         _list_data = ViewBag.Obj;
@@ -14,17 +14,11 @@
         <thead>
             <tr>
                 <th class="class30">STT</th>
-                <th class="class150 m20">@WebApps.Resources.Resource.SoBill</th>
-                <th class="class150 m20">@WebApps.Resources.Resource.CaseCode</th>
-                <th class="class100 m20">@WebApps.Resources.Resource.Ngay</th>
-
-                <th class="class100 hidemobile">@WebApps.Resources.Resource.HanThanhToan</th>
-                <th class="class100 hidemobile">@WebApps.Resources.Resource.SoNgayTre</th>
-                <th class="class150 hidemobile">@WebApps.Resources.Resource.SoTien</th>
-
-                <th class="class100 m20">@WebApps.Resources.Resource.TrangThai</th>
-                <th class="class100 hidemobile">@WebApps.Resources.Resource.TrangThaiThanhToan</th>
-                <th class="class100 m20">@WebApps.Resources.Resource.ChucNang</th>
+                <th class="class150" style="width:12%"> Người gửi</th>
+                <th class="class150 m20">Người nhận</th>
+                <th class="class100 m20">Chủ đề</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.TrangThai</th>
+                <th class="class30">@WebApps.Resources.Resource.ChucNang</th>
             </tr>
         </thead>
         <tbody>
@@ -34,51 +28,13 @@
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.Case_Code</td>
-                        <td class="tdleftalign">@item.App_Case_Code</td>
-                        <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
-
-                        <td class="tdcenteralign hidemobile">@item.Deadline.ToString("dd/MM/yyyy")</td>
-                        <td class="tdcenteralign hidemobile">@item.SoNgayTre</td>
-                        <td class="tdrightalign hidemobile" style="font-weight:bold;color: red">@item.Total_Amount.ToString("#,##0.##")</td>
-
-                        @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
-                        {
-                            <td class="tdleftalign" style="font-weight:bold; color: red">@item.Status_Name</td>
-                        }
-                        else
-                        {
-                            <td class="tdleftalign" style="font-weight:bold; color: blue">@item.Status_Name</td>
-                        }
-
-                        @if (item.Pay_Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Pay_Status.Payment))
-                        {
-                            <td class="tdleftalign hidemobile" style="font-weight:bold; color: red">@item.Pay_Status_Name</td>
-                        }
-                        else
-                        {
-                            <td class="tdleftalign hidemobile" style="font-weight:bold">@item.Pay_Status_Name</td>
-                        }
+                        <td class="tdleftalign">@item.EmailFrom</td>
+                        <td class="tdleftalign">@item.EmailTo</td>
+                        <td class="tdcenteralign">@item.Subject</td>
+                        <td class="tdcenteralign hidemobile">@item.Status_Name</td>
 
                         <td class="tdcenteralign">
-                            <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
-                            <a href="javascript:;" onclick="doDeleteBilling(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
-
-                            @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
-                            {
-                                <a href="javascript:;" onclick="getView2Edit(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-edit" data-title="Sửa"></a>
-                            }
-
-                            @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve)
-                                && (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin))
-                            {
-                                <a href="javascript:;" onclick="getView2Approve(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-confirm-circle" data-title="Approve"></a>
-                            }
-
-                            @if (item.Pay_Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Pay_Status.Payment))
-                            {
-                                <a href="javascript:;" onclick="getView2UpdatePayStatus(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-confirm-circle" data-title="Thanh toán"></a>
-                            }
+                            <a href="javascript:;" onclick="getView(@item.Id, '')" class="icon icon-info" data-title="Xem chi tiết"></a>
                         </td>
                     </tr>
                 }
@@ -86,7 +42,7 @@
             else
             {
                 <tr>
-                    <td colspan="10">@WebApps.Resources.Resource.KhongCoDuLieu</td>
+                    <td colspan="6">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                 </tr>
             }
         </tbody>

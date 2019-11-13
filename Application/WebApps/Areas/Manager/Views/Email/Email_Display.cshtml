@@ -74,7 +74,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus", @style = "width: 150px;" })
+                    @Html.DropDownList("cboStatus", lstStatus, new { @id = "cboStatus" })
                 </div>
             </div>
         </div>
@@ -92,7 +92,7 @@
 
     <div class="divCover">
         <div id="divDataEmail" class="divDataTables" style="overflow-x: auto;">
-            @Html.Partial("~/Areas/Manager/Views/Billing/_PartialTableEmail.cshtml")
+            @Html.Partial("~/Areas/Manager/Views/Email/_PartialTableEmail.cshtml")
         </div>
     </div>
 </div>

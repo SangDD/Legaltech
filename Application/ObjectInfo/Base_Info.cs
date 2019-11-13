@@ -34,6 +34,8 @@ namespace ObjectInfos
         public string Content { get; set; }
         public List<string> LstAttachment { get; set; }
         public string Status { get; set; }
+        public string Status_Name { get; set; }
+
         public DateTime Send_Time { get; set; }
 
         public HttpPostedFileBase File_Attach_1 { get; set; }
@@ -45,6 +47,10 @@ namespace ObjectInfos
 
         public string Sign { get; set; }
         public string Position { get; set; }
+        public string lst_attachment { get; set; }
+        public decimal STT { get; set; }
+        public decimal Id { get; set; }
+        public string Created_by { get; set; }
     }
 
     public class Send_Email_Info

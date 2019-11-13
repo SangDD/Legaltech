@@ -15,6 +15,14 @@
     .div-search-title > div {
         width: 150px;
     }
+    .none_style a {
+        padding: 0;
+        /* height: 27px; */
+         border: none ; 
+        /* border-left: none; */
+        text-decoration: underline; 
+        color: #02961E ;
+    }
 </style>
 
 <script>
@@ -38,13 +46,13 @@
 <div class="d-main">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> GỬI EMAIL </div>
+            <div class="div-title-content"> CHI TIẾT EMAIL </div>
         </div>
     </div>
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Chủ để<i class="redspan">(*)</i></div>
+            <div>Chủ để</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -55,7 +63,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Người gửi<i class="redspan">(*)</i></div>
+            <div>Người gửi</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -66,7 +74,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Email người nhận<i class="redspan">(*)</i></div>
+            <div>Email người nhận</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -92,7 +100,8 @@
         </div>
         <div class="div-search-content">
             <div>
-                <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody" disabled>@Html.Raw(_Email_Info.Content)</textarea>
+                <p class="none_style" style="width:100%; height:200px; border:1px solid #aaa; border-left: none; padding: 0 10px; overflow: auto">@Html.Raw(_Email_Info.Content)</p>
+                @*<textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody" disabled>@Html.Raw(_Email_Info.Content)</textarea>*@
             </div>
         </div>
     </div>

@@ -927,7 +927,7 @@
                         appInfo.strDanhSachFileDinhKem += item.Documentname + " ; ";
                     }
 
-                    if (appInfo.strDanhSachFileDinhKem.Trim() == ";")
+                    if (appInfo.strDanhSachFileDinhKem != null && appInfo.strDanhSachFileDinhKem.Trim() == ";")
                     {
                         appInfo.strDanhSachFileDinhKem = "";
                     }

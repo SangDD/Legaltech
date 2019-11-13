@@ -358,6 +358,10 @@
                             _Email_Info.Status = "S";
 
                         Email_BL _bl = new Email_BL();
+                        if (_Email_Info.Created_by == null || _Email_Info.Created_by == "")
+                        {
+                            _Email_Info.Created_by = "System";
+                        }
                         _bl.Send_Email_Insert(_Email_Info);
                     }
                     Thread.Sleep(1000);

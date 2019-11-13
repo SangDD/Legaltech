@@ -18,7 +18,7 @@ namespace BussinessFacade
             try
             {
                 EmailDA _da = new EmailDA();
-                DataSet _ds = _da.Email_Search(p_user_name, p_key_search , p_from, p_to, p_sort_type, ref p_total_record);
+                DataSet _ds = _da.Email_Search(p_user_name, p_key_search, p_from, p_to, p_sort_type, ref p_total_record);
                 return CBO<Email_Info>.FillCollectionFromDataSet(_ds);
             }
             catch (Exception ex)
@@ -28,7 +28,7 @@ namespace BussinessFacade
             }
         }
 
-       
+
         public Email_Info Email_GetBy_Id(decimal p_id, string p_case_code, string p_language_code)
         {
             try
@@ -49,7 +49,8 @@ namespace BussinessFacade
             try
             {
                 EmailDA emailDA = new EmailDA();
-                return emailDA.Send_Email_Insert(info.EmailFrom, info.EmailTo, info.EmailCC, info.Display_Name, info.Subject, info.Content, info.LstAttachment, info.Status, info.Send_Time);
+                return emailDA.Send_Email_Insert(info.EmailFrom, info.EmailTo, info.EmailCC, info.Display_Name,
+                    info.Subject, info.Content, info.LstAttachment, info.Status, info.Send_Time, info.Created_by);
             }
             catch (Exception ex)
             {

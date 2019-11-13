@@ -10,7 +10,7 @@
     public class EmailDA
     {
         public decimal Send_Email_Insert(string p_email_from, string p_email_to, string p_email_cc, string p_display_name, string p_subject,
-            string p_content, List<string> p_lst_attachment, string p_status, DateTime p_send_time)
+            string p_content, List<string> p_lst_attachment, string p_status, DateTime p_send_time, string p_created_by)
         {
             try
             {
@@ -20,7 +20,7 @@
                     _attachment = string.Join(",", p_lst_attachment);
                 }
 
-                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_send_email.Proc_Send_Email_Insert",
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_send_email.Proc_Send_Email_Insert_new",
                     new OracleParameter("p_email_from", OracleDbType.Varchar2, p_email_from, ParameterDirection.Input),
                     new OracleParameter("p_email_to", OracleDbType.Varchar2, p_email_to, ParameterDirection.Input),
                     new OracleParameter("p_email_cc", OracleDbType.Varchar2, p_email_cc, ParameterDirection.Input),
@@ -29,7 +29,8 @@
                     new OracleParameter("p_content", OracleDbType.Clob, p_content, ParameterDirection.Input),
                     new OracleParameter("p_lst_attachment", OracleDbType.Clob, _attachment, ParameterDirection.Input),
                     new OracleParameter("p_status", OracleDbType.Varchar2, p_status, ParameterDirection.Input),
-                    new OracleParameter("p_send_time", OracleDbType.Date, p_send_time, ParameterDirection.Input));
+                    new OracleParameter("p_send_time", OracleDbType.Date, p_send_time, ParameterDirection.Input),
+                    new OracleParameter("p_created_by", OracleDbType.Varchar2, p_created_by, ParameterDirection.Input));
                 return 0;
             }
             catch (Exception ex)

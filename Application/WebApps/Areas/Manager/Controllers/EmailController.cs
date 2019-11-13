@@ -133,6 +133,7 @@ namespace WebApps.Areas.Manager.Controllers
                     dearname: pInfo.Customer_Name, p_namereply: pInfo.Sign, p_position_name: pInfo.Position);
                 pInfo.Content = _content;
 
+                pInfo.Created_by = SessionData.CurrentUser.Username;
                 CommonFunction.AppsCommon.EnqueueSendEmail(pInfo);
 
                 return Json(new { success = 1 });
