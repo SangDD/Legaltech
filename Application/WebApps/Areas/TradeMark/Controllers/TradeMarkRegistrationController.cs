@@ -1236,7 +1236,7 @@
 
                             double h_in = img.Height / _px_to_in;
                             double h1 = (_height_pic_rpt - (h_in * _twips)) / 2;
-                            _pic01.Top = _margintop + (int)h1;
+                            _pic01.Top = _margintop + (int)h1 + 100;
 
                             int _width_pic_rpt = 4340; // -> 4410
                             double w_in = img.Width / _px_to_in;

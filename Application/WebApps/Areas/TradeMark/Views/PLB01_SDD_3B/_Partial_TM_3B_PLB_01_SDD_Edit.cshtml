@@ -908,6 +908,9 @@
             formData.append("pDetail.Number_Pic", parseInt(_soHinh));
             formData.append("pDetail.Number_Page", parseInt(_soTrang));
 
+            var txtMADDSHCN = $("#txtMADDSHCN").val();
+            formData.append("pInfo.Customer_Code", txtMADDSHCN);
+
             // số đơn
             var _3_SoDon = $("#3_SoDon").val();
             if ((_3_SoDon === "" || _3_SoDon == undefined) && p_status == 2) {
