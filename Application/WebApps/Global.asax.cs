@@ -33,13 +33,13 @@
                     Host = CommonFuc.GetConfig("EMailHost"),
                     Port = Convert.ToInt32(CommonFuc.GetConfig("EmailPost")),
                     EMailFrom = CommonFuc.GetConfig("EMailFrom"),
-                    PassWord = CommonFuc.GetConfig("EMailPass"),
+                    PassWord = Configuration.EMailPass,
                     DisplayName = CommonFuc.GetConfig("DisplayName"),
                     IsSsl = CommonFuc.GetConfig("SSL") == "Y",
                     EmailCC = CommonFuc.GetConfig("EmailCC"),
 
                     EMailFrom_Business = CommonFuc.GetConfig("EMailFrom_Business"),
-                    PassWord_Business = CommonFuc.GetConfig("EMailPass_Business"),
+                    PassWord_Business = Configuration.EMailPass_Business,
                     DisplayName_Business = CommonFuc.GetConfig("DisplayName_Business")
                 };
 
