@@ -1,11 +1,27 @@
 ﻿@using Common.CommonData
 @using WebApps.ExtensionObject
 @using WebApps.Resources;
-@using WebApps.CommonFunction
+@using WebApps.CommonFunction;
+@using Common;
 @{
     Layout = null;
     string language = AppsCommon.GetCurrentLang();
+
+    string RecaptchaDataSiteKey = CommonFuc.GetConfig("RecaptchaDataSiteKey");
+
+    string IsEnableRecaptcha = CommonFuc.GetConfig("IsEnableRecaptcha");
+
+
+    if (language.Contains("EN"))
+    {
+        <script src="https://www.google.com/recaptcha/api.js?hl=en"></script>
+    }
+    else
+    {
+        <script src="https://www.google.com/recaptcha/api.js?hl=vi"></script>
+    }
 }
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -131,6 +147,14 @@
                         <p>@Resource.Password</p>
                         <input type="password" name="password" id="txtPasswordLogin" placeholder="" />
                     </div>
+                    @if (IsEnableRecaptcha.ToString().ToUpper() == "TRUE")
+                    {
+                        <div class="recaptcha">
+                            <div class="g-recaptcha" data-sitekey="@RecaptchaDataSiteKey"></div>
+                            <input type="hidden" id="txtReCaptchaResponse" name="reCaptchaResponse" />
+                        </div>
+                    }
+
                     <div>
                         <input style="width: 120px;" type="submit" class="btn" value="@Resource.Login" onclick="return validateLoginData()" />
                         <p style="margin-top: 20px; font-size: 12px;" class="reset_pass">@Resource.Click <a href="/account/fogot-pass">@Resource.Here</a> @Resource.ToResetPass</p>
@@ -166,6 +190,32 @@
         $('#txtUsernameLogin').focus();
     });
 
+    $(document).ready(function () {
+        window.grecaptcha.reset();
+        scaleCaptcha();
+        $(window).resize($.throttle(100, scaleCaptcha));
+
+
+    });
+    function scaleCaptcha() {
+        // Width of the reCAPTCHA element, in pixels
+        var reCaptchaWidth = 304;
+        // Get the containing element's width
+        var containerWidth = $('.recaptcha').width();
+
+        // Only scale the reCAPTCHA if it won't fit
+        // inside the container
+        if (reCaptchaWidth > containerWidth) {
+            // Calculate the scale
+            var captchaScale = containerWidth / reCaptchaWidth;
+            // Apply the transformation
+            $('.g-recaptcha').css({
+                'transform': 'scale(' + captchaScale + ')',
+                'width': '0px'
+            });
+        }
+    }
+
     function RemovePassword() {
         try {
             alert('a');
@@ -182,7 +232,7 @@
                     //ShowPopupDialog_Ipace('divWrapperView', "Quên mật khẩu", 700, 700, "gmail");
 
                     $("#divPopUpUser").html(data);
-                    ShowPopupDialog_Ipace('divWrapperPopUpUser','@Resource.QuenMatKhau', 700, 700, "gmail");
+                    ShowPopupDialog_Ipace('divWrapperPopUpUser', '@Resource.QuenMatKhau', 700, 700, "gmail");
                 }
             });
 
@@ -206,7 +256,16 @@
             showError("@Resource.Password_KhongDuocDeTrong");
             return false;
         }
+        if ('@IsEnableRecaptcha.ToString().ToUpper()' === 'TRUE') {
+            /**/
+            $('#txtReCaptchaResponse').val(window.grecaptcha.getResponse());
+            if ($('#txtReCaptchaResponse').val() == null || $('#txtReCaptchaResponse').val() === "") {
+                showError('Mã capcha không hợp lệ');
+                return false;
+            }
+        }
         return true;
+
     }
 
     $("#frmLogin").on("submit", function (e) {
