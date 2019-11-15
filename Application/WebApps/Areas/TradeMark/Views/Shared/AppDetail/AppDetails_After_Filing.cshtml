@@ -103,11 +103,10 @@
 
 <div class="divCover">
     <div class="d-nav">
-        @*<a href="/home">
-                <img src="~/Content/icons/Body-icon-home.png" /> I
-            </a>*@
         <img src="~/Content/icons/Body-icon-home.png" /> I
-        <a href="/home">Dashboard</a>
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="/trade-mark-mana/quan-ly-don">@WebApps.Resources.Resource.QuanLyDon</a>
     </div>
 </div>
 <div class="divCover">
@@ -164,7 +163,7 @@
 
     @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
     {
-        <div style="width: 100%;float: left;margin-top:20px" >
+        <div style="width: 100%;float: left;margin-top:20px">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_Partial_Sub_Process.cshtml")
         </div>
     }
