@@ -139,7 +139,7 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
+    @*<div class="div-search-ad">
         <div class="div-search-title" style="height:200px">
             <div>Nội dung<i class="redspan">(*)</i></div>
         </div>
@@ -148,9 +148,9 @@
                 <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody"></textarea>
             </div>
         </div>
-    </div>
-    @*<div>Nội dung<i class="redspan">(*)</i></div>
-    <textarea type="text" id="txtBody" name="txtBody" maxlength="2000"></textarea>*@
+    </div>*@
+    <div>Nội dung<i class="redspan">(*)</i></div>
+    <textarea type="text" id="txtBody" name="txtBody" maxlength="2000"></textarea>
 
 
     <div class="div-search-ad">
@@ -200,10 +200,10 @@
 </div>
 
 <script>
-    //var txtNoiDung = CKEDITOR.replace("txtBody",
-    //   {
-    //       height: 500
-    //   });
+    var txtNoiDung = CKEDITOR.replace("txtBody",
+       {
+           height: 500
+       });
 
 
 
@@ -228,9 +228,9 @@
                 formdata.append("pInfo.EmailTo", $('#txtTo').val());
                 formdata.append("pInfo.EmailFrom", $('#txtFrom').val());
                 formdata.append("pInfo.EmailCC", $('#txtCC').val());
-                formdata.append("pInfo.Content", $('#txtBody').val());
+                //formdata.append("pInfo.Content", $('#txtBody').val());
                
-                //formdata.append("pInfo.Content", CKEDITOR.instances['txtBody'].getData());
+                formdata.append("pInfo.Content", CKEDITOR.instances['txtBody'].getData());
                 formdata.append("pInfo.Customer_Name", $('#txtName').val());
 
                 formdata.append("pInfo.Out_Ref", $('#txt_Out_Ref').val());
@@ -324,9 +324,9 @@
                 }
             }
 
-            var _Body = $('#txtBody').val();
+            //var _Body = $('#txtBody').val();
            
-            //var _Body = CKEDITOR.instances['txtBody'].getData()
+            var _Body = CKEDITOR.instances['txtBody'].getData()
             if (_Body == null || _Body == "") {
                 jError("Nội dung thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                     $("#txtBody").focus();
