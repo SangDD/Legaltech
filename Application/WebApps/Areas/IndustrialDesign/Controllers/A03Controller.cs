@@ -890,6 +890,10 @@ namespace WebApps.Areas.IndustrialDesign.Controllers
                 // copy Header
                 A03_Info_Export.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
 
+                if (app_Detail.Refappno == null)
+                {
+                    app_Detail.Refappno = "";
+                }
 
                 // copy class
                 if (pAppClassInfo != null)
