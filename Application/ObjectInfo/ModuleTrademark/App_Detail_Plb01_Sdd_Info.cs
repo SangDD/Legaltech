@@ -52,6 +52,7 @@ namespace ObjectInfos
             this.Request_To_Content = p_app_detail.Request_To_Content;
             this.Number_Pic = p_app_detail.Number_Pic;
             this.Number_Page = p_app_detail.Number_Page;
+            this.Request_Other_Content = p_app_detail.Request_Other_Content;
 
 
             this.STT = p_app_header.STT;
@@ -90,6 +91,7 @@ namespace ObjectInfos
         public string App_No_Change { get; set; }
         public int Request_To_Type { get; set; }
         public string Request_To_Content { get; set; }
+        public string Request_Other_Content { get; set; }
         public int Number_Pic { get; set; }
         public int Number_Page { get; set; }
 

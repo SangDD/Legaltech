@@ -164,14 +164,14 @@
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:382px">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
+                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" onchange="onChange_YCSD()">
                     <label>@Resource.TM3B_TenChuDon</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
+                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" onchange="onChange_YCSD()">
                     <label>@Resource.TM3B_DiaChiChuDon</label>
                 </div>
             </div>
@@ -179,10 +179,19 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio">
+                <div class="div-radio" style="width:382px">
                     @*style="width:382px"*@
-                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
+                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" onchange="onChange_YCSD()">
                     <label>@Resource.TM3B_NoiDungKhac</label>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>@Resource.ChiTietKhac</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtOtherContent" disabled maxlength="200"/>
                 </div>
             </div>
         </div>
@@ -734,6 +743,7 @@
                 return false;
             }
             formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
+            formData.append("pDetail.Request_Other_Content", $("#txtOtherContent").val());
         } catch (e) {
             console.log(e);
             showError("@Html.Raw(Resource.TM3B_InternetError)");
@@ -806,6 +816,17 @@
         } catch (e) {
             return false;
         }
+    }
 
+    function onChange_YCSD() {
+        var _check_noiDungKhac = $('#4_rdnoiDungKhac').is(":checked");
+        if (_check_noiDungKhac == true) {
+            // un disabled
+            $("#txtOtherContent").removeAttr("disabled");
+        } else {
+            // disabled
+            $("#txtOtherContent").prop('disabled', true);
+            $("#txtOtherContent").val("");
+        }
     }
 </script>

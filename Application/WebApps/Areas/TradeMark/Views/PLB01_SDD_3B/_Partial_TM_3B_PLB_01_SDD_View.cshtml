@@ -37,6 +37,12 @@
     {
         dic_appDoc[item.Document_Id] = item;
     }
+
+    string _dis = "";
+    if (_App_Detail.Request_To_Type != 3)
+    {
+        _dis = "disabled";
+    }
 }
 
 <style>
@@ -56,11 +62,11 @@
 </style>
 
 @*<div class="d-nav-container">
-    <ul class="ul-nav">
-        <li><a href="javascript:;">TradeMark</a></li>
-        <li><a href="javascript:;">  @Resource.TM3B_Formname</a></li>
-    </ul>
-</div>*@
+        <ul class="ul-nav">
+            <li><a href="javascript:;">TradeMark</a></li>
+            <li><a href="javascript:;">  @Resource.TM3B_Formname</a></li>
+        </ul>
+    </div>*@
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
         <div class="d-nav">
@@ -246,7 +252,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio">
+                <div class="div-radio" style="width:382px">
                     @if (_App_Detail.Request_To_Type == 3)
                     {
                         <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" disabled="disabled" checked="checked" />
@@ -259,14 +265,14 @@
                 </div>
             </div>
 
-            @*<div class="div-search-title" style="margin-left: 0px !important;">
-                <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+            <div class="div-search-title">
+                <div>@Resource.ChiTietKhac</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" disabled="disabled" value="@_App_Detail.Request_To_Content" />
+                    <input type="text" id="txtOtherContent" @_dis maxlength="200" value="@_App_Detail.Request_Other_Content" />
                 </div>
-            </div>*@
+            </div>
         </div>
 
         <div class="div-search-ad">
@@ -275,7 +281,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.Request_To_Content" style="height:65px" disabled="disabled"/>
+                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.Request_To_Content" style="height:65px" disabled="disabled" />
                 </div>
             </div>
         </div>
@@ -537,13 +543,13 @@
 
 
         @*<div class="class_save">
-            <div class="classGuiDon">
-                <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
-            </div>
-            <div class="classLuuTam">
-                  <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
-            </div>
-        </div>*@
+                <div class="classGuiDon">
+                    <input type="button" value="@Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+                </div>
+                <div class="classLuuTam">
+                      <input type="button" value="@Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                </div>
+            </div>*@
     </fieldset>
 </div>
 

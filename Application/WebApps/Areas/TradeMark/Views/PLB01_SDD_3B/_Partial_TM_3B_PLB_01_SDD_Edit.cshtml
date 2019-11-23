@@ -47,6 +47,12 @@
     {
         _todo = null;
     }
+
+    string _dis = "";
+    if (_App_Detail.Request_To_Type != 3)
+    {
+        _dis = "disabled";
+    }
 }
 
 <style>
@@ -234,11 +240,11 @@
                     @*<input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">*@
                     @if (_App_Detail.Request_To_Type == 1)
                     {
-                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked="checked" />
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked="checked" onchange="onChange_YCSD()"/>
                     }
                     else
                     {
-                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked="checked" />
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked="checked" onchange="onChange_YCSD()"/>
                     }
                     <label>@Resource.TM3B_TenChuDon</label>
                 </div>
@@ -249,11 +255,11 @@
                     @*<input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">*@
                     @if (_App_Detail.Request_To_Type == 2)
                     {
-                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" checked="checked" />
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" checked="checked" onchange="onChange_YCSD()"/>
                     }
                     else
                     {
-                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" />
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" onchange="onChange_YCSD()"/>
                     }
                     <label>@Resource.TM3B_DiaChiChuDon</label>
                 </div>
@@ -262,27 +268,28 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio">
+                <div class="div-radio" style="width:382px">
                     @if (_App_Detail.Request_To_Type == 3)
                     {
-                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" checked="checked" />
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" checked="checked" onchange="onChange_YCSD()"/>
                     }
                     else
                     {
-                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" />
+                        <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" onchange="onChange_YCSD()"/>
                     }
                     <label>@Resource.TM3B_NoiDungKhac</label>
                 </div>
             </div>
 
-            @*<div class="div-search-title" style="margin-left: 0px !important;">
-                <div>@Resource.TM3B_DeNghiSuaThanh:</div>
+
+            <div class="div-search-title">
+                <div>@Resource.ChiTietKhac</div>
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" placeholder="4_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.Request_To_Content" />
+                    <input type="text" id="txtOtherContent" @_dis maxlength="200" value="@_App_Detail.Request_Other_Content" />
                 </div>
-            </div>*@
+            </div>
         </div>
 
         <div class="div-search-ad">
@@ -940,6 +947,7 @@
                 return false;
             }
             formData.append("pDetail.Request_To_Content", _4_DeNghiSuaThanh);
+            formData.append("pDetail.Request_Other_Content", $("#txtOtherContent").val());
         } catch (e) {
             console.log(e);
             showError("@Html.Raw(Resource.TM3B_InternetError)");
@@ -991,7 +999,7 @@
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_Other", "10");
             formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_6_Doc_Other").val());
 
-            // 12 Tài liệu chứng minh sự thay đổi chủ đơn do thừa kế, kế thừa 
+            // 12 Tài liệu chứng minh sự thay đổi chủ đơn do thừa kế, kế thừa
             reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_ThuaKe", "11");
         } catch (e) {
             console.log(e);
@@ -1013,5 +1021,17 @@
             return false;
         }
 
+    }
+
+    function onChange_YCSD() {
+        var _check_noiDungKhac = $('#4_rdnoiDungKhac').is(":checked");
+        if (_check_noiDungKhac == true) {
+            // un disabled
+            $("#txtOtherContent").removeAttr("disabled");
+        } else {
+            // disabled
+            $("#txtOtherContent").prop('disabled', true);
+            $("#txtOtherContent").val("");
+        }
     }
 </script>

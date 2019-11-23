@@ -1697,6 +1697,10 @@ namespace WebApps.CommonFunction
             {
                 // copy Header
                 App_Detail_PLB01_SDD_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
+                if (pDetail.Request_Other_Content == null)
+                {
+                    pDetail.Request_Other_Content = "";
+                }
 
                 #region Tài liệu có trong đơn
 

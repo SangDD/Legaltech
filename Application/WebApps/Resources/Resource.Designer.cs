@@ -1186,6 +1186,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chi tiết nội dung khác.
+        /// </summary>
+        public static string ChiTietKhac {
+            get {
+                return ResourceManager.GetString("ChiTietKhac", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chi tiết thông báo.
         /// </summary>
         public static string ChiTietThongBao {
