@@ -74,8 +74,7 @@
                             <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemChiTiet"></a>
                             <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="@WebApps.Resources.Resource.Sua"></a>
 
-                            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
-                            || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer)
+                            @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
                             {
                                 <a href="/app-translate/translate-app/@item.Appcode/@item.Id.ToString()" data-title="Dịch">
                                     <img src="/Content/icons/translate.png">

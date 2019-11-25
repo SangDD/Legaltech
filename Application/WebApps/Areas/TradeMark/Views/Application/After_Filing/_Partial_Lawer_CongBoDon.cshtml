@@ -39,7 +39,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.SoCongBoDon<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.SoCongBoDon</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -73,7 +73,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>@WebApps.Resources.Resource.NoiDungChinh<i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.NoiDungChinh</div>
         </div>
         <div class="div-search-content">
             <div>
@@ -95,7 +95,7 @@
 
     @{
         string _id1 = "1";
-        string _isValid1 = "1";
+        string _isValid1 = "0";
         string _model1 = _id1 + "|" + _isValid1 + "|" + WebApps.Resources.Resource.FileTrichXuatSHCN;
         @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_UploadFile.cshtml", _model1)
     }
@@ -268,13 +268,13 @@
     }
 
     function validateAction() {
-        var txt_Notice_Number = $("#txt_Notice_Number").val();
+        @*var txt_Notice_Number = $("#txt_Notice_Number").val();
         if (txt_Notice_Number == null || txt_Notice_Number == "") {
             jError("@Html.Raw(WebApps.Resources.Resource.SoThongBao)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txt_Notice_Number").focus();
             });
             return false;
-        }
+        }*@
 
         // check validate ngày
         var txt_notice_date = $("#txt_notice_date").val();
@@ -289,13 +289,13 @@
             }
         }
 
-        var txt_advise_replies = $('#txt_advise_replies').val();
+        @*var txt_advise_replies = $('#txt_advise_replies').val();
         if (txt_advise_replies == null || txt_advise_replies == "") {
             jError("@Html.Raw(WebApps.Resources.Resource.NoiDungChinh)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txt_advise_replies').focus();
             });
             return false;
-        }
+        }*@
 
         var _Note = $('#txtNotes').val();
         if (_Note == null || _Note == "") {
