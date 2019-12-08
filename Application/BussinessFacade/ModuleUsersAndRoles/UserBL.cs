@@ -527,15 +527,17 @@
                 var lstSubMenu = this._lstFunctionDisplayInMenu.Where(t => t.ParentId.Equals(function.Id)).ToList();
                 var countSubMenu = lstSubMenu.Count;
                 var displayName = function.DisplayName;
+                string _language = "/vi-vn";
                 if (language == Language.LangEN)
                 {
                     displayName = function.DisplayName_Eng;
+                    _language = "/en-gb";
                 }
 
                 if (countSubMenu == 0)
                 {
                     userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
-                                    + "data-url='" + function.HrefGet + "' "
+                                    + "data-url='" + _language + function.HrefGet + "' "
                                     + "data-id='" + this._userHtmlMenuId + "' "
                                     + " onclick='gotoTask(this)'><span class='menu-text'>" + displayName
                                     + "</span></li>";
@@ -543,7 +545,7 @@
                 else
                 {
                     userHtmlMenu += "<li id='li-menu-" + this._userHtmlMenuId + "' "
-                                    + "data-url='" + function.HrefGet + "' "
+                                    + "data-url='" + _language + function.HrefGet + "' "
                                     + "data-id='" + this._userHtmlMenuId + "' "
                                     + " onclick='gotoTask(this)'><span class='menu-text'>" + displayName
                                     + "</span><ul class='ul-menu-" + (function.Lev + 1) + "'>"

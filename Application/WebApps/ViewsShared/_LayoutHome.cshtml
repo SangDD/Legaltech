@@ -177,7 +177,7 @@
                 $(ulSide).addClass('collapsed').removeClass('main-menu-active').slideUp('fast');
             }
         });
-
+        
         var currentPath = window.location.pathname;
         var currentTask = $('#divMns').find('[data-url="' + currentPath + '"]');
         $(currentTask).parent().removeClass('collapsed').slideDown('fast');

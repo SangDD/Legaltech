@@ -129,6 +129,8 @@ namespace WebApps.Areas.Manager.Controllers
                 }
 
                 string _content = pInfo.Content.Replace("<br />", "<br /><br />");  //.Replace("\n", "<br><br>");
+
+
                 _content = AppsCommon.SetContentMailTemplate(_content, yourref: pInfo.Your_Ref, outref: pInfo.Out_Ref, 
                     dearname: pInfo.Customer_Name, p_namereply: pInfo.Sign, p_position_name: pInfo.Position);
                 pInfo.Content = _content;
