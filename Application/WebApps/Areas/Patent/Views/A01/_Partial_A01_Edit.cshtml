@@ -159,7 +159,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.NguonGocDon
+                @Resource.NguonGocDon.ToUpper()
             </div>
         </div>
 
@@ -486,11 +486,11 @@
                         <div class="div-radio" style="width:464px">
                             @if (_App_Detail.DQSC_Valid_After == 1)
                             {
-                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" checked="checked">
+                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_TruocHopLe" checked="checked">
                             }
                             else
                             {
-                                <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe">
+                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_TruocHopLe">
                             }
                             <label>@Resource.TruocHopLe </label>
                         </div>
@@ -500,11 +500,11 @@
                         <div class="div-radio">
                             @if (_App_Detail.DQSC_Valid_Before == 1)
                             {
-                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" checked="checked">
+                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_SauHopLe" checked="checked">
                             }
                             else
                             {
-                                <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe">
+                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_SauHopLe">
                             }
                             <label>@Resource.SauHopLe </label>
                         </div>

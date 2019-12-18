@@ -23,7 +23,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên tiếng anh </div>
+                <div>Tên tiếng anh <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -34,7 +34,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Người DDSH </div>
+                <div>Người đại diện SHCN </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -151,6 +151,16 @@
             });
             return false;
         }
+
+        var name_en = $("#txtName_En").val();
+        if (name_en == "") {
+            jError( "@Html.Raw(WebApps.Resources.Resource.DDSHCNTrong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                $("#txtName_En").val('');
+                $("#txtName_En").focus();
+            });
+            return false;
+        }
+
         var address = $("#txtAddress_Vi").val();
         if (address == "") {
             jError( "@Html.Raw(WebApps.Resources.Resource.TM2B_DiaChiKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {

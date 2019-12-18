@@ -17,7 +17,7 @@
     var lstStatus = new List<SelectListItem> { new SelectListItem { Text = "Tất cả", Value = "ALL" } }.Concat(_lstStatus.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal }));
 
     string _type = "";
-    if (ViewBag.Type  != null)
+    if (ViewBag.Type != null)
     {
         _type = (string)ViewBag.Type;
     }
@@ -53,14 +53,14 @@
             <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="todo_id" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div id="divTitle" class="div-title-content"> THÔNG TIN @_type</div>
+            <div id="divTitle" class="div-title-content clssDisplaynone"> THÔNG TIN @_type</div>
         </div>
     </div>
-    
+
     @*Notify*@
     @*<div class="divCover" style="float:left;width:100%">
-        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
-    </div>*@
+            @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+        </div>*@
 
     <div class="divCover smb_content" id="div-search-simple">
         <div class="div-search-ad">
@@ -74,7 +74,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Người yêu cầu</div>
+                <div>@WebApps.Resources.Resource.Nguoigui</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -83,7 +83,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Người xử lý</div>
+                <div>@WebApps.Resources.Resource.Processor</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -94,7 +94,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Trạng thái  </div>
+                <div>@WebApps.Resources.Resource.TrangThai  </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -120,12 +120,12 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Notify(1, 1)" />
+            <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="Search_Notify(1, 1)" />
         </div>
     </div>
 
     <div class="divCover">
-        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Detail_Notify.cshtml" , _type)
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Detail_Notify.cshtml", _type)
     </div>
 
     <div class="divCover">

@@ -1888,7 +1888,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deadline alert.
+        ///   Looks up a localized string similar to Cảnh báo hết thời hạn.
         /// </summary>
         public static string DeadlineAlert {
             get {
@@ -7090,7 +7090,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to tiếng.
+        ///   Looks up a localized string similar to ngôn ngữ.
         /// </summary>
         public static string TM3B_Tieng {
             get {
@@ -7711,7 +7711,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Người làm đơn tự đặt, ví dụ: Đăng ký Nhãn hiệu “FUN” cho nhóm 41 tại Việt Nam.
+        ///   Looks up a localized string similar to Tên do người dùng tự đặt để dễ quản lý/ tìm kiếm.
         /// </summary>
         public static string TooltipCaseName {
             get {
@@ -7729,7 +7729,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Người làm đơn điền Số tham chiếu tương ứng với vụ việc nhằm mục đích quản lý của riêng mình, ví dụ: CLIENT-NH1-VN.
+        ///   Looks up a localized string similar to Tham chiếu do người dùng tự đặt, nếu có.
         /// </summary>
         public static string TooltipClientReference {
             get {

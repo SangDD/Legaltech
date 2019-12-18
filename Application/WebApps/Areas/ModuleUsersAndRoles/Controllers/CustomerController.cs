@@ -72,6 +72,24 @@ namespace WebApps.Areas.ModuleUsersAndRoles.Controllers
                 var userBL = new UserBL();
                 userInfo.CreatedBy = SessionData.CurrentUser.Username;
                 result = userBL.AddUser(userInfo, GroupId);
+                string _pass = userInfo.Password;
+                if (result.IsActionSuccess == true)
+                {
+                    Email_Info _Email_Info = new Email_Info
+                    {
+                        EmailFrom = EmailHelper.EmailOriginal.EMailFrom,
+                        Pass = EmailHelper.EmailOriginal.PassWord,
+                        Display_Name = EmailHelper.EmailOriginal.DisplayName,
+
+                        EmailTo = userInfo.Email,
+                        EmailCC = "",
+                        Subject = "Email thông báo đăng ký mở tài khoản thành công",
+                        Content = "Dear " + userInfo.FullName + ", Quí khách đăng ký thành công tài khoản username:" + userInfo.Email + " password:" + _pass + "\n quí khách vui lòng truy cập vào địa chỉ <a href='http://pathlaw.net/vi-vn/account/login'>http://pathlaw.net/vi-vn/account/login</a> để đổi mật khẩu của tài khoản. \n cảm ơn quí khách hàng. ",
+                        LstAttachment = new List<string>(),
+                    };
+
+                    CommonFunction.AppsCommon.EnqueueSendEmail(_Email_Info);
+                }
             }
             catch (Exception ex)
             {

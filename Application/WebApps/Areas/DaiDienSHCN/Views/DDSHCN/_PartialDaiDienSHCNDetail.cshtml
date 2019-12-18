@@ -21,7 +21,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Name_Vi, new { id = "txtName_Vi", @maxlength = "200" , @disabled = "disabled" })
+                    @Html.TextBoxFor(m => m.Name_Vi, new { id = "txtName_Vi", @maxlength = "200", @disabled = "disabled" })
                 </div>
             </div>
         </div>
@@ -32,6 +32,28 @@
             <div class="div-search-content">
                 <div>
                     @Html.TextBoxFor(m => m.Name_Vi, new { id = "txtName_En", @maxlength = "200", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Người đại diện SHCN </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.NguoiDDSH, new { id = "txtNguoiDDSH", @maxlength = "50", @disabled = "disabled" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>Mã Người đại diện </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.MaNguoiDaiDien, new { id = "txtMaNguoiDaiDien", @maxlength = "30", @disabled = "disabled" })
                 </div>
             </div>
         </div>
