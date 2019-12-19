@@ -4777,6 +4777,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nộp đơn Việt Nam.
+        /// </summary>
+        public static string NopDonVietNam {
+            get {
+                return ResourceManager.GetString("NopDonVietNam", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Nhãn hiệu thông thường.
         /// </summary>
         public static string NormalTrademark {
@@ -4948,6 +4957,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quản lý.
+        /// </summary>
+        public static string QuanLy {
+            get {
+                return ResourceManager.GetString("QuanLy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quản lý billing.
         /// </summary>
         public static string QuanLyBilling {
@@ -4989,6 +5007,15 @@ namespace WebApps.Resources {
         public static string QuanLyNguoiDung {
             get {
                 return ResourceManager.GetString("QuanLyNguoiDung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Articles.
+        /// </summary>
+        public static string QuanLyTinBai {
+            get {
+                return ResourceManager.GetString("QuanLyTinBai", resourceCulture);
             }
         }
         
@@ -6658,7 +6685,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sửa đơn.
+        ///   Looks up a localized string similar to Lưu lại.
         /// </summary>
         public static string TM2B_TitleEdit {
             get {
@@ -6703,7 +6730,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sửa đơn.
+        ///   Looks up a localized string similar to Lưu lại.
         /// </summary>
         public static string TM3B_BtnSuaDon {
             get {
@@ -7950,6 +7977,15 @@ namespace WebApps.Resources {
         public static string User_Name_KhongDuocDeTrong {
             get {
                 return ResourceManager.GetString("User_Name_KhongDuocDeTrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Việt Nam.
+        /// </summary>
+        public static string VietNam {
+            get {
+                return ResourceManager.GetString("VietNam", resourceCulture);
             }
         }
         

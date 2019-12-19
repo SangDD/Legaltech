@@ -95,14 +95,13 @@ namespace BussinessFacade
             }
         }
 
-        public List<SearchObject_Header_Info> SEARCH_OBJECT_SEARCH(string P_KEY_SEARCH = "", string OPTIONS = "")
+        public List<SearchObject_Header_Info> SEARCH_OBJECT_SEARCH(ref decimal totalRecordFindResult, string P_KEY_SEARCH = "", string OPTIONS = "")
         {
             try
             {
                 SearchObject_DA _da = new SearchObject_DA();
                 var optionFilter = new OptionFilter(OPTIONS);
-                decimal totalRecordFindResult = 0;
-                var ds = _da.SEARCH_OBJECT_SEARCH(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
+                DataSet ds = _da.SEARCH_OBJECT_SEARCH(P_KEY_SEARCH, optionFilter, ref totalRecordFindResult);
                 this.SetupPagingHtml(optionFilter, Convert.ToInt32(totalRecordFindResult), "pageListOfObjects", "divNumberRecordOnPageListObjects");
                 return CBO<SearchObject_Header_Info>.FillCollectionFromDataSet(ds);
             }

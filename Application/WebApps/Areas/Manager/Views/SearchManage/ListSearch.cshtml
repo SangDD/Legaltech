@@ -30,6 +30,8 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
+            <a href="#">@WebApps.Resources.Resource.QuanLy</a>
+            <span class="red">></span>
             <a href="#">iSearching</a>
         </div>
     </div>
@@ -50,7 +52,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Case code</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.CaseCode</div>
                 </div>
                 <div>
                     <div style="width:200px">
@@ -58,7 +60,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Client Reference</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.ClientReference</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -69,13 +71,13 @@
             </div>
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Trạng thái</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TrangThai</div>
                 </div>
                 <div class="div-search-content">
                     <div style="width:200px">
                         <select id="txtCboStatus">
                             <option value="ALL">
-                                Tất cả
+                                @WebApps.Resources.Resource.TatCa
                             </option>
                             @foreach (var item in _lstStatus)
                             {
@@ -87,7 +89,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Khách hàng tạo</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.KhachHang</div>
                 </div>
                 <div class="div-search-content">
                     <div style="width:200px">
@@ -95,7 +97,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Luật sư được phân</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.LuatSu</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -107,7 +109,7 @@
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
-                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
+                <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findObjects(1, 1)" />
                 @*<input type="button" value="Thêm mới" class="btn-default" onclick="AddNew()" />*@
             </div>
         </div>
@@ -156,13 +158,15 @@
 
                 updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
 
+                var _optionFilter = "" + "|" + "" + "||" + _pageNumber + "|" + "10";
+
                 $.ajax({
                     type: "POST",
                     headers: { "cache-control": "no-cache" },
                     url: "/quan-ly-search/findobject-search/",
                     data: {
                         keysSearch: keySearch,
-                        options: optionFilter
+                        options: _optionFilter
                     },
                     async: false,
                     success: function (data) {
@@ -187,6 +191,10 @@
         function initOrderBySearching() {
             window.colSort = 'MODIFIED_DATE';
             window.sortType = 'DESC';
+        }
+
+        function jsPaging(page) {
+            findObjects(_pagenum, 0);
         }
 
         function pageListOfObjects(_pagenum) {

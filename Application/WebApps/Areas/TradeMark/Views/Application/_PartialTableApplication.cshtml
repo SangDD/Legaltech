@@ -19,17 +19,11 @@
                 <th class="class30">STT</th>
                 <th class="class200 m30" data-sort id="Appcode">@WebApps.Resources.Resource.CaseCode</th>
                 <th class="class250 m40">@WebApps.Resources.Resource.CaseName</th>
-                <th class="class150 hidemobile">@WebApps.Resources.Resource.TenDoiTuong</th> 
+                @*<th class="class150 hidemobile">@WebApps.Resources.Resource.TenDoiTuong</th>*@ 
                 <th class="class250 hidemobile">@WebApps.Resources.Resource.Agent</th>
-                <th class="class250 hidemobile">@WebApps.Resources.Resource.lblChuDon</th>
-
-                @*<th class="class100">@WebApps.Resources.Resource.Thoigiancho (@WebApps.Resources.Resource.Ngay)</th>*@
-
+                <th class="class250 hidemobile">@WebApps.Resources.Resource.lblChuDon</th> 
                 <th class="class150 hidemobile">@WebApps.Resources.Resource.SoDon</th>
-                <th class="class250 m30">@WebApps.Resources.Resource.TinhTrangDon</th>
-                @*<th class="class150 hidemobile">@WebApps.Resources.Resource.Deadline</th>*@
-
-
+                <th class="class250 m30">@WebApps.Resources.Resource.TinhTrangDon</th> 
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
                     WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                 {
@@ -47,16 +41,11 @@
                         <td class="tdcenteralign">@item.STT</td>
                         <td class="tdleftalign">@item.Case_Code</td>
                         <td class="tdleftalign">@item.Case_Name</td>
-                        <td class="tdleftalign hidemobile">@item.App_No</td>
+                        @*<td class="tdleftalign hidemobile">@item.Object_Name</td>*@
                         <td class="tdleftalign hidemobile">@item.Rep_Master_Name</td>
                         <td class="tdleftalign hidemobile">@item.Master_Name</td>
-
-                        @*<td class="tdcenteralign">@item.Date_Wait</td>*@
-
-
-                        <td class="tdleftalign hidemobile">@item.Object_Name</td>
+                        <td class="tdleftalign hidemobile">@item.App_No</td>
                         <td class="tdleftalign">@item.Status_Name</td>
-                        @*<td></td>*@
                         @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
                             WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                         {

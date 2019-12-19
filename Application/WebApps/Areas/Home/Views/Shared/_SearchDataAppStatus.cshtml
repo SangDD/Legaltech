@@ -21,7 +21,7 @@
             <th class="class200 tdleftalign" id='@("CASE_CODE_" + _typesearch)' onclick="HomeSortByCol('CASE_CODE',@_typesearch)">@WebApps.Resources.Resource.CaseCode</th>
             <th class="class250 tdleftalign" id='@("CASE_NAME_" + _typesearch)' onclick="HomeSortByCol('CASE_NAME',@_typesearch)">@WebApps.Resources.Resource.CaseName</th>
             <th class="class150 tdleftalign" id='@("App_No_" + _typesearch)' onclick="HomeSortByCol('APPCODE',@_typesearch)">@WebApps.Resources.Resource.SoDon</th>
-            <th class="class150 tdleftalign" id='@("Object_Name_" + _typesearch)' onclick="HomeSortByCol('APPCODE',@_typesearch)">@WebApps.Resources.Resource.TenDoiTuong</th>
+            @*<th class="class150 tdleftalign" id='@("Object_Name_" + _typesearch)' onclick="HomeSortByCol('APPCODE',@_typesearch)">@WebApps.Resources.Resource.TenDoiTuong</th>*@
             <th class="class250 tdleftalign">@WebApps.Resources.Resource.Agent</th>
             <th class="class250 tdleftalign">@WebApps.Resources.Resource.lblChuDon</th>
 
@@ -40,7 +40,7 @@
             </td>
             <td class="tdleftalign">@item.Case_Name</td>
             <td class="tdleftalign">@item.App_No</td>
-            <td class="tdleftalign">@item.Object_Name</td>
+            @*<td class="tdleftalign">@item.Object_Name</td>*@
             <td class="tdleftalign">@item.Rep_Master_Name</td>
             <td class="tdleftalign">@item.Master_Name</td>
 

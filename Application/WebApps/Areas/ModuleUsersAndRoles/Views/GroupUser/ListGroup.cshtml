@@ -5,19 +5,32 @@
 }
 @try
 {
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="#">@WebApps.Resources.Resource.QuanLy</a>
+            <span class="red">></span>
+            <a href="/quan-tri-he-thong/quan-ly-nhom-quyen">Quản lý nhóm quyền</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+
+    @*Notify*@
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
 	<input type="hidden" value="LastTimeUpdated" id="colSorted" />
 	<input type="hidden" value="DESC" id="SortType" />
 	<input type="hidden" value="" id="OptionSorting" />
 
 	<div class="d-popup-container" id="dpop-groupuser"></div>
-
-	<div class="d-nav-container">
-		<ul class="ul-nav">
-			<li><a href="javascript:;">Quản trị hệ thống</a></li>
-			<li><a href="/quan-tri-he-thong/quan-ly-nhom-quyen">Quản lý nhóm quyền</a></li>
-		</ul>
-	</div>
-
+ 
 	<div class="title-section-content">
 		<p class="font-size-15 text-font-medium">Danh sách nhóm quyền</p>
 	</div>

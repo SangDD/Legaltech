@@ -12,7 +12,11 @@
     string _Country = "";
     if (ViewBag.Country != null)
     {
-        _Country = (string)ViewBag.App_No;
+        _Country = (string)ViewBag.Country;
+    }
+    else
+    {
+        _Country = "VN";
     }
 
     List<FunctionInfo> functionInfos = new List<FunctionInfo>();
@@ -116,19 +120,22 @@
         .item_list a:hover {
             color: #094cc4;
         }
-        .main-content{
-            padding:10px;
-        }
-       .div_form:nth-child(2n) {
-          margin-left: 10px !important;
-        }
-       .div_form:nth-child(2n+1) {
-          margin-left: 0px !important;
-        }
-       .group-menu:hover {
-           
-            border-left: 1px solid #7ed3f7;
-        }
+
+    .main-content {
+        padding: 10px;
+    }
+
+    .div_form:nth-child(2n) {
+        margin-left: 10px !important;
+    }
+
+    .div_form:nth-child(2n+1) {
+        margin-left: 0px !important;
+    }
+
+    .group-menu:hover {
+        border-left: 1px solid #7ed3f7;
+    }
 </style>
 <div class="d-nav-container" style="background-color:#fff">
     <div class="divCover">
@@ -136,7 +143,9 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="@_url">@Resource.lblNopdon</a>
+            <a href="#">@Resource.lblNopdon</a>
+            <span class="red">></span>
+            <a href="@_url">@Resource.VietNam</a>
         </div>
     </div>
     <div class="divCover">

@@ -2,72 +2,78 @@
 @using Common.Extensions
 @using ObjectInfos
 @model List<SearchObject_Header_Info>
-@try
-{
-    <div>
-        <table class="table-lst-data" id="tableListObject">
-            <thead>
-                <tr>
-                    <th style="width: 4%">STT</th>
-                    <th style="width: 15%" data-sort id="CASE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Case code</th>
-                    <th data-sort style="width: 20%" id="CONTENT">Mô tả</th>
-                    <th style="width: 15%" data-sort id="STATUS_NAME" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
-                    <th style="width: 10%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Người yêu cầu</th>
-                    <th style="width: 10%" data-sort id="MODIFIED_DATE">Thời gian chờ</th>
-                    <th style="width: 15%" data-sort id="MODIFIED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Người xử lý</th>
-                    <th style="width: 200px;">Chức năng</th>
-                </tr>
-            </thead>
-            <tbody>
-                @if (Model != null && Model.Count > 0)
-                {
-                    foreach (var item in Model)
+    @try
+    {
+        <div>
+            <table class="table-lst-data" id="tableListObject">
+                <thead>
+                    <tr>
+                        <th style="width: 4%">STT</th>
+                        <th style="width: 15%" data-sort id="CASE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.CaseCode</th>
+                        <th data-sort style="width: 20%" id="CONTENT">Mô tả</th>
+                        <th style="width: 15%" data-sort id="STATUS_NAME" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.TrangThai</th>
+                        <th style="width: 10%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.Nguoigui</th>
+                        <th style="width: 10%" data-sort id="MODIFIED_DATE">Thời gian chờ</th>
+                        <th style="width: 15%" data-sort id="MODIFIED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.Processor</th>
+                        <th style="width: 200px;">@WebApps.Resources.Resource.ChucNang</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="tdcenteralign">@item.STT</td>
+                                <td class="tdleftalign">@item.CASE_CODE</td>
+                                <td class="tdleftalign">@item.NOTE</td>
+                                <td class="tdleftalign">@item.STATUS_NAME</td>
+                                <td class="tdleftalign">@item.CREATED_BY</td>
+
+                                <td class="tdleftalign">
+                                    @{
+                                        TimeSpan TS = DateTime.Now - item.REQUEST_DATE;
+                                        int hour = TS.Days * 24 + TS.Hours;
+                                        int mins = TS.Minutes;
+                                        int secs = TS.Seconds;
+                                        string timeDiff = hour.ToString() + "h";
+                                    }
+                                    @timeDiff
+                                </td>
+                                <td class="tdleftalign">@item.Lawer_User_Name</td>
+                                <td class="tdcenteralign">
+                                    <a href="/quan-ly-search/search-todo-detail/@item.CASE_CODE/4" class="icon icon-info" data-title="Xem chi tiết"></a>
+
+                                    @if (item.STATUS == Convert.ToDecimal(Common.CommonData.CommonSearch.Stt_PhanChoLuatSu))
+                                    {
+                                        <a href="/quan-ly-search/search-edit/@item.SEARCH_ID/@item.STATUS" class="icon icon-edit" data-title="Sửa"></a>
+                                        <a href="javascript:doDeleteObject(@item.SEARCH_ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
                     {
                         <tr>
-                            <td class="tdcenteralign">@item.STT</td>
-                            <td class="tdleftalign">@item.CASE_CODE</td>
-                            <td class="tdleftalign">@item.NOTE</td>
-                            <td class="tdleftalign">@item.STATUS_NAME</td>
-                            <td class="tdleftalign">@item.CREATED_BY</td>
-
-                            <td class="tdleftalign">
-                                @{
-                                    TimeSpan TS = DateTime.Now - item.REQUEST_DATE;
-                                    int hour = TS.Days * 24 + TS.Hours;
-                                    int mins = TS.Minutes;
-                                    int secs = TS.Seconds;
-                                    string timeDiff = hour.ToString() + "h";
-                                }
-                                @timeDiff
-                            </td>
-                            <td class="tdleftalign">@item.CREATED_BY</td>
-                            <td class="tdcenteralign">
-                                <a href="/quan-ly-search/search-todo-detail/@item.CASE_CODE/4" class="icon icon-info" data-title="Xem chi tiết"></a>
-
-                                @if (item.STATUS == Convert.ToDecimal(Common.CommonData.CommonSearch.Stt_PhanChoLuatSu))
-                                {
-                                    <a href="/quan-ly-search/search-edit/@item.SEARCH_ID/@item.STATUS" class="icon icon-edit" data-title="Sửa"></a>
-                                    <a href="javascript:doDeleteObject(@item.SEARCH_ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
-                                }
-                            </td>
+                            <td colspan="9">Không có dữ liệu</td>
                         </tr>
                     }
-                }
-                else
-                {
-                    <tr>
-                        <td colspan="9">Không có dữ liệu</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+                </tbody>
+            </table>
+        </div>
 
-    <div class="d-paging">
-        @Html.Raw(ViewBag.Paging)
-    </div>
-}
-catch (Exception)
-{
-    // ignored
-}
+        @*<div class="d-paging">
+                @Html.Raw(ViewBag.Paging)
+            </div>*@
+
+        <div class="_ClassPage">
+            <ul>
+                @Html.Raw(ViewBag.Paging)
+            </ul>
+        </div>
+    }
+    catch (Exception)
+    {
+        // ignored
+    }

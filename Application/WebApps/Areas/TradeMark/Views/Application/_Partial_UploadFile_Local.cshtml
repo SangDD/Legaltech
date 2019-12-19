@@ -33,23 +33,26 @@
         <input type="hidden" id="@lblName" value="@_lable" />
         <input type="hidden" id="@dock_id" />
 
-        <input type="button" id="@btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File('@_id')" style="margin-left:4px;height:29px;" />
-        @*<input type="button" id="@btnChooseFile" value="Tải file" class="btn" onclick="return OpenChooseFile('@_id')" style="margin-left:4px;height:29px;" />*@
+        @*<input type="button" id="@btnChooseFile" value="@WebApps.Resources.Resource.lblTaiFile" class="btn" onclick="return Click_Upload_File('@_id')" style="margin-left:4px;height:29px;" />*@
+        <button id="@btnChooseFile" onclick="return Click_Upload_File('@_id')" style="width: 30px;height:30px"><i class="fa fa-upload"></i></button>
+
         <input type="file" id="@file_attach" style="display:none" onchange="FuncChooseResultFile('@_id')" />
 
-        <div class="div-checkbox clssDisplaynone" id="@div_RemoveImg">
+        @*<div class="div-checkbox clssDisplaynone" id="@div_RemoveImg">
             <img onclick="RemoveFile('@_id')" src="~/Content/icons/delete_file.png" style="margin: 10px 5px 0px 5px" />
-        </div>
+        </div>*@
+
+        <button class="clssDisplaynone" id="@div_RemoveImg" onclick="return RemoveFile('@_id')" style="width: 30px;height:30px">
+            <i class="fa fa-minus-circle"></i>
+        </button>
+
     </div>
-    <div class="div-search-title">
+    <div class="div-search-title clssDisplaynone">
         <div id="@div_filename" style="width: 250px;">@_lable</div>
     </div>
     <div class="div-search-content">
         <div>
             <input type="text" id="@txtMaxFile" readonly="readonly" />
-            @*<a id="@txtMaxFile" style="height: 20px !important;">
-
-                </a>*@
         </div>
     </div>
 </div>

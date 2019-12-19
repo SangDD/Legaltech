@@ -119,7 +119,9 @@ namespace WebApps.Areas.Home.Controllers
                     //seach
                     var _SearchObject_BL = new SearchObject_BL();
                     string _key = "ALL|ALL|ALL|ALL|ALL" + "|" + SessionData.CurrentUser.Type.ToString() + "|" + SessionData.CurrentUser.Username + "|" + keysSearch;
-                    List<SearchObject_Header_Info> lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(_key, options);
+
+                    decimal totalRecordFindResult = 0;
+                    List<SearchObject_Header_Info> lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(ref totalRecordFindResult, _key, options);
                     ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
 
                     return PartialView("~/Areas/Home/Views/Shared/_SearchDataSearch.cshtml", lstOjects);

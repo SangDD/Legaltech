@@ -156,7 +156,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
+                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "0" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatNumber(this.value, this.id)" })
                 </div>
             </div>
         </div>
@@ -167,8 +167,8 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @*@Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })*@
-                    <input type="text" id="txtNotes" maxlength = "2000"/>
+                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes", @maxlength = "2000" })
+                    @*<input type="text" id="txtNotes" maxlength = "2000"/>*@
                 </div>
             </div>
         </div>

@@ -61,8 +61,13 @@ namespace WebApps.Areas.Manager.Controllers
 
                 var _SearchObject_BL = new SearchObject_BL();
                 string _key = "ALL|ALL|ALL|ALL|ALL" + "|" + SessionData.CurrentUser.Type.ToString() + "|" + SessionData.CurrentUser.Username;
-                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(_key);
-                ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
+
+                decimal totalRecordFindResult = 0;
+                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(ref totalRecordFindResult, _key);
+                //ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
+
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<SearchObject_Header_Info>((int)totalRecordFindResult, 1, "Nội dung");
+                ViewBag.Paging = htmlPaging;
             }
             catch (Exception ex)
             {
@@ -81,8 +86,12 @@ namespace WebApps.Areas.Manager.Controllers
             {
 
                 var _SearchObject_BL = new SearchObject_BL();
-                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(keysSearch + "|" + SessionData.CurrentUser.Type.ToString() + "|" + SessionData.CurrentUser.Username, options);
-                ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
+                decimal totalRecordFindResult = 0;
+                lstOjects = _SearchObject_BL.SEARCH_OBJECT_SEARCH(ref totalRecordFindResult, keysSearch + "|" + SessionData.CurrentUser.Type.ToString() + "|" + SessionData.CurrentUser.Username, options);
+                //ViewBag.Paging = _SearchObject_BL.GetPagingHtml();
+
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<SearchObject_Header_Info>((int)totalRecordFindResult, 1, "Nội dung");
+                ViewBag.Paging = htmlPaging;
             }
             catch (Exception ex)
             {
