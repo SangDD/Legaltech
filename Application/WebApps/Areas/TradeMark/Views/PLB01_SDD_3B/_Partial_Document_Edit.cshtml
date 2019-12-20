@@ -1,4 +1,5 @@
 ﻿@model string
+@using ObjectInfos;
 @{
     string[] arr = Model.Split(';');
 
@@ -47,7 +48,22 @@
     string div_ImgDownload = "div_ImgDownload_" + Id;
     string div_ImgRemove = "div_ImgRemove_" + Id;
     string div_ImgRevert = "div_ImgRevert_" + Id;
+
+    List<AllCodeInfo> _lstLanguage = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOC", "LANGUAGE");
+    string _class_cbo = "";
+    if (Lable3 != "")
+    {
+        _class_cbo = "width_cbo";
+    }
+
 }
+
+<style>
+    .width_cbo {
+        width: 173px !important;
+    }
+</style>
+
 
 <div class="div-search-ad">
     <div class="div-search-content">
@@ -99,11 +115,35 @@
             <div>
                 @if (Isuse == "1")
                 {
-                    <input type="text" placeholder="@Lable2" id="@Id_textbox" value="@Char01" />
+                    if (Lable2.ToUpper() == "NGÔN NGỮ" || Lable2.ToUpper() == "TIẾNG" || Lable2.ToUpper() == "LANGUAGE")
+                    {
+                        <select id="@Id_textbox" class="@_class_cbo">
+                            @foreach (var item in _lstLanguage)
+                            {
+                                <option @(Char01 == item.CdVal ? "selected" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <input type="text" placeholder="@Lable2" id="@Id_textbox" value="@Char01" />
+                    }
                 }
                 else
                 {
-                    <input type="text" placeholder="@Lable2" id="@Id_textbox" value="@Char01" disabled="disabled" />
+                    if (Lable2.ToUpper() == "NGÔN NGỮ" || Lable2.ToUpper() == "TIẾNG" || Lable2.ToUpper() == "LANGUAGE")
+                    {
+                        <select id="@Id_textbox" class="@_class_cbo">
+                            @foreach (var item in _lstLanguage)
+                            {
+                                <option @(Char01 == item.CdVal ? "selected" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <input type="text" placeholder="@Lable2" id="@Id_textbox" value="@Char01" disabled="disabled" />
+                    }
                 }
             </div>
         </div>
@@ -118,11 +158,36 @@
             <div>
                 @if (Isuse == "1")
                 {
-                    <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" />
+                    if (Lable3.ToUpper() == "NGÔN NGỮ" || Lable3.ToUpper() == "TIẾNG" || Lable3.ToUpper() == "LANGUAGE")
+                    {
+                        <select id="@Id_textbox2">
+                            @foreach (var item in _lstLanguage)
+                            {
+                                <option @(Char02 == item.CdVal ? "selected" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" />
+                    }
+
                 }
                 else
                 {
-                    <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" disabled="disabled" />
+                    if (Lable3.ToUpper() == "NGÔN NGỮ" || Lable3.ToUpper() == "TIẾNG" || Lable3.ToUpper() == "LANGUAGE")
+                    {
+                        <select id="@Id_textbox2">
+                            @foreach (var item in _lstLanguage)
+                            {
+                                <option @(Char02 == item.CdVal ? "selected" : "") value="@item.CdVal">@item.Content</option>
+                            }
+                        </select>
+                    }
+                    else
+                    {
+                        <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" disabled="disabled" />
+                    }
                 }
             </div>
         </div>

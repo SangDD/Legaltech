@@ -5011,6 +5011,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quản lý nội dung.
+        /// </summary>
+        public static string QuanLyNoiDung {
+            get {
+                return ResourceManager.GetString("QuanLyNoiDung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Articles.
         /// </summary>
         public static string QuanLyTinBai {

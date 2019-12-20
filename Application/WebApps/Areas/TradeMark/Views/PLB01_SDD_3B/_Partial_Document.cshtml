@@ -1,5 +1,7 @@
 ﻿@model string
 @using WebApps.Resources;
+@using Common.CommonData;
+@using ObjectInfos;
 @{
 
     // id doc | id của check box | level | lable | lable 2 | is upload
@@ -38,8 +40,21 @@
         Lable3 = arr_id[7];
     }
 
+    string _class_cbo = "";
+    if (Lable3 != "")
+    {
+        _class_cbo = "width_cbo";
+    }
+
     string hrefPOA = "/Content/POA/VNmese translation POA (Blank).doc";
+    List<AllCodeInfo> _lstLanguage = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOC", "LANGUAGE");
 }
+
+<style>
+    .width_cbo {
+        width: 173px !important;
+    }
+</style>
 
 <div class="div-search-ad">
     <div class="div-search-content">
@@ -78,7 +93,19 @@
         <div class="div-search-content">
             <div>
                 @*style="width:329px"*@
-                <input type="text" placeholder="@Lable2" id="@Id_textbox" disabled="disabled" />
+                @if (Lable2.ToUpper() == "NGÔN NGỮ" || Lable2.ToUpper() == "TIẾNG" || Lable2.ToUpper() == "LANGUAGE")
+                {
+                    <select id="@Id_textbox" class="@_class_cbo">
+                        @foreach (var item in _lstLanguage)
+                        {
+                            <option value="@item.CdVal">@item.Content</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <input type="text" placeholder="@Lable2" id="@Id_textbox" disabled="disabled" />
+                }
             </div>
         </div>
     }
@@ -90,7 +117,20 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" placeholder="@Lable3" id="@Id_textbox2" disabled="disabled" />
+                @if (Lable3.ToUpper() == "NGÔN NGỮ" || Lable3.ToUpper() == "TIẾNG" || Lable3.ToUpper() == "LANGUAGE")
+                {
+                    <select id="@Id_textbox2">
+                        @foreach (var item in _lstLanguage)
+                        {
+                            <option value="@item.CdVal">@item.Content</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <input type="text" placeholder="@Lable3" id="@Id_textbox2" disabled="disabled" />
+                }
+
             </div>
         </div>
     }
