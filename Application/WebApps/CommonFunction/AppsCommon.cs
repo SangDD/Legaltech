@@ -798,7 +798,7 @@ namespace WebApps.CommonFunction
                 string _created_by = "";
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
 
-                if (p_case_code.Contains("SEARCH"))
+                if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                 {
                     SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
 
@@ -989,7 +989,47 @@ namespace WebApps.CommonFunction
                 p_Docking_Info.Status = (decimal)CommonEnums.Docking_Status.Completed;
                 p_Docking_Info.Docking_Type = (decimal)CommonEnums.Docking_Type_Enum.In_Book;
                 p_Docking_Info.Document_Type = (decimal)CommonEnums.Document_Type_Enum.Khac;
+
                 p_Docking_Info.Document_Name = p_doc_name;
+                p_Docking_Info.Document_Name_Other = p_doc_name;
+
+                #region MyRegion
+                //// A01 - Đk cấp bằng sáng chế 
+                //if (p_app_case_code.Contains("PT"))
+                //{
+                //    p_Docking_Info.Document_Name_Type = p_doc_name;
+                //}
+                //// A04 - Đăng ký nhãn hiệu
+                //else if (p_app_case_code.Contains("TM"))
+                //{
+                //    p_Docking_Info.Document_Name_Type = p_doc_name;
+                //}
+                //// A03 - ĐK kiểu dáng công nghiệp 
+                //else if (p_app_case_code.Contains("ID"))
+                //{
+                //    p_Docking_Info.Document_Name_Type = p_doc_name;
+                //}
+                //// B01 - Sửa đổi đơn đăng ký sở hữu công nghiệp
+                //else if (p_app_case_code.Contains("B01"))
+                //{
+                //    p_Docking_Info.Document_Name_Type = p_doc_name;
+                //}
+                //// B02 - Chuyển giao đơn
+                //else if (p_app_case_code.Contains("B02"))
+                //{
+                //    p_Docking_Info.Document_Name_Type = p_doc_name;
+                //}
+                //// A03 - ĐK kiểu dáng công nghiệp 
+                //else if (p_app_case_code.Contains("ID"))
+                //{
+                //    p_Docking_Info.Document_Name_Type = p_doc_name;
+                //}
+                //else
+                //{
+                //    p_Docking_Info.Document_Name_Type = "CV";
+                //} 
+                #endregion
+
                 p_Docking_Info.In_Out_Date = DateTime.Now;
                 p_Docking_Info.Isshowcustomer = 1;
                 p_Docking_Info.App_Case_Code = p_app_case_code;

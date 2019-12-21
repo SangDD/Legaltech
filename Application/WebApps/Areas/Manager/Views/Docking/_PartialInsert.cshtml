@@ -22,6 +22,10 @@
     var lstPlace = _lstPlace.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
     Model.In_Out_Date = DateTime.Now;
+
+    List<AllCodeInfo> _lstDocumentNameType= WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOCKING", "NAME");
+    var lstDocumentNameType = _lstDocumentNameType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -99,7 +103,16 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    @Html.TextBoxFor(m => m.Document_Name, new { id = "Document_Name", @maxlength = "200" })
+                    @Html.DropDownList("Document_Name_Type", lstDocumentNameType, new { @id = "Document_Name_Type", onchange = "Choose_DockingType()", @style = "width: 200px;" })
+                </div>
+            </div>
+
+            <div class="div-search-title clssDisplaynone">
+                <div>Tên tài liệu<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Document_Name_Other, new { id = "Document_Name_Other", @maxlength = "200" })
                 </div>
             </div>
         </div>
@@ -254,11 +267,11 @@
             return false;
         }
 
-        var _txtDocument_Name = $("#Document_Name").val();
+        var _txtDocument_Name = $("#Document_Name_Other").val();
         if (_txtDocument_Name == "") {
             jError("@Html.Raw(WebApps.Resources.Resource.TenTaiLieuKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                $("#Document_Name").val('');
-                $("#Document_Name").focus();
+                $("#Document_Name_Other").val('');
+                $("#Document_Name_Other").focus();
             });
             return false;
         }
@@ -381,7 +394,7 @@
     function collectData(formData) {
         try {
             formData.append('p_Docking_Info.App_Case_Code', $("#txtApp_Case_Code").val());
-            formData.append('p_Docking_Info.Document_Name', $("#Document_Name").val());
+            formData.append('p_Docking_Info.Document_Name', $("#Document_Name_Other").val());
             formData.append('p_Docking_Info.Docking_Type', $("#Docking_Type").val());
             formData.append('p_Docking_Info.Place_Submit', $("#Place_Submit").val());
             formData.append('p_Docking_Info.Document_Type', $("#Document_Type").val());
@@ -390,6 +403,9 @@
             formData.append('p_Docking_Info.In_Out_Date', $("#txtIn_Out_Date").val());
             formData.append('p_Docking_Info.Deadline', $("#txtDeadline").val());
             formData.append('p_Docking_Info.Notes', $("#txtNotes").val());
+
+            formData.append('p_Docking_Info.Document_Name_Other', $("#Document_Name_Other").val());
+            formData.append('p_Docking_Info.Document_Name_Type', $("#Document_Name_Type").val());
 
             var pfile = $("#file_attach");//lay du lieu file
             if (pfile.val() != "") {

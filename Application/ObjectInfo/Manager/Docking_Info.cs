@@ -20,6 +20,10 @@ namespace ObjectInfos
         public decimal Place_Submit { get; set; }
         public string Place_Submit_Name { get; set; }
 
+        public string Document_Name_Type { get; set; }
+        public string Document_Name_Other { get; set; }
+
+
         public string Document_Name { get; set; }
 
         public decimal Document_Type { get; set; }

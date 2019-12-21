@@ -126,7 +126,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
                 p_Docking_Info.Created_Date = DateTime.Now;
                 p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
-
+                p_Docking_Info.Document_Name = p_Docking_Info.Document_Name_Type + p_Docking_Info.Document_Name_Other;
 
                 if (p_Docking_Info.File_Upload != null)
                 {
@@ -135,7 +135,7 @@ namespace WebApps.Areas.Manager.Controllers
                     p_Docking_Info.Url = url_File_Upload;
                 }
 
-                decimal _ck = _obj_bl.Docking_Insert(p_Docking_Info);
+                decimal _ck = _obj_bl.Docking_Insert_Manual(p_Docking_Info);
                 return Json(new { success = _ck });
             }
             catch (Exception ex)
@@ -173,6 +173,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Docking_Info.Modify_By = SessionData.CurrentUser.Username;
                 p_Docking_Info.Modify_Date = DateTime.Now;
                 p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
+                p_Docking_Info.Document_Name = p_Docking_Info.Document_Name_Type + p_Docking_Info.Document_Name_Other;
 
                 if (p_Docking_Info.File_Upload != null)
                 {

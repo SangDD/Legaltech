@@ -114,7 +114,7 @@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
-            @if (Model.App_Case_Code.Contains("SEARCH"))
+            @if (Model.App_Case_Code.Contains("SEARCH") || Model.App_Case_Code.Contains("L"))
             {
                 @Html.Partial("~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml")
             }
@@ -216,7 +216,7 @@
         </div>
 
         <div id="divDataBillingDetail" class="divDataTables" style="overflow-x: auto;">
-            @if (Model.App_Case_Code.Contains("SEARCH"))
+            @if (Model.App_Case_Code.Contains("SEARCH") || Model.App_Case_Code.Contains("L"))
             {
                 @Html.Partial("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml")
             }
@@ -230,7 +230,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            @if (Model.App_Case_Code.Contains("SEARCH"))
+            @if (Model.App_Case_Code.Contains("SEARCH") || Model.App_Case_Code.Contains("L"))
             {
                 <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.KetXuat" onclick="return onExport('@Model.Case_Code',2)" />
             }

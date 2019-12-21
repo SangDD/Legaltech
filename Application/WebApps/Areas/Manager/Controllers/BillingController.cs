@@ -103,7 +103,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                if (case_code.Contains("SEARCH"))
+                if (case_code.Contains("SEARCH") || case_code.Contains("L"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
 
@@ -154,7 +154,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                if (case_code.Contains("SEARCH"))
+                if (case_code.Contains("SEARCH") || case_code.Contains("L"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
 
@@ -261,7 +261,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Billing_Header_Info.Status = (decimal)CommonEnums.Billing_Status.New_Wait_Approve;
                 p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.App;
                 p_Billing_Header_Info.Currency_Rate = AppsCommon.Get_Currentcy_VCB();
-                if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH"))
+                if (p_Billing_Header_Info.App_Case_Code.Contains("SEARCH") || p_Billing_Header_Info.App_Case_Code.Contains("L"))
                 {
                     p_Billing_Header_Info.Billing_Type = (decimal)CommonEnums.Billing_Type.Search;
                 }
@@ -333,7 +333,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                if (p_case_code.Contains("SEARCH"))
+                if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                 {
                     SearchObject_BL _bl = new SearchObject_BL();
                     SearchObject_Header_Info = _bl.GetBilling_By_Case_Code(p_case_code, SessionData.CurrentUser.Username,
@@ -391,7 +391,7 @@ namespace WebApps.Areas.Manager.Controllers
                 ViewBag.App_Case_Code = p_case_code;
                 ViewBag.ShowPopUp = 0;
 
-                if (p_case_code.Contains("SEARCH"))
+                if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                 {
                     var Partial_AppInfo = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_Partial_SearchInfo.cshtml");
                     var PartialDetail_Insert_Billing = AppsCommon.RenderRazorViewToString(this.ControllerContext, "~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
@@ -453,7 +453,7 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.Currency_Type = _Currency_Type;
                 }
 
-                if (p_case_code.Contains("SEARCH"))
+                if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                 {
                     return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
                 }
@@ -497,7 +497,7 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.Currency_Type = _Currency_Type;
                 }
 
-                if (p_case_code.Contains("SEARCH"))
+                if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                 {
                     return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
                 }
@@ -544,7 +544,7 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.Currency_Type = _Currency_Type;
                 }
 
-                if (p_case_code.Contains("SEARCH"))
+                if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                 {
                     return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
                 }
@@ -573,7 +573,7 @@ namespace WebApps.Areas.Manager.Controllers
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
 
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                if (p_app_case_code.Contains("SEARCH"))
+                if (p_app_case_code.Contains("SEARCH") || p_app_case_code.Contains("L"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(p_id, p_app_case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
 
@@ -609,7 +609,7 @@ namespace WebApps.Areas.Manager.Controllers
 
                 ViewBag.ShowPopUp = 0;
 
-                if (p_app_case_code.Contains("SEARCH"))
+                if (p_app_case_code.Contains("SEARCH") || p_app_case_code.Contains("L"))
                 {
                     ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
                     //return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialEdit.cshtml", _Billing_Header_Info);
@@ -702,7 +702,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                if (case_code.Contains("SEARCH"))
+                if (case_code.Contains("SEARCH") || case_code.Contains("L"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
                 }
@@ -827,7 +827,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                if (case_code.Contains("SEARCH"))
+                if (case_code.Contains("SEARCH") || case_code.Contains("L"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Id(id, case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
                 }
@@ -888,7 +888,7 @@ namespace WebApps.Areas.Manager.Controllers
                 SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                 List<Billing_Detail_Info> _lst_billing_detail = new List<Billing_Detail_Info>();
                 Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                if (case_code.Contains("SEARCH"))
+                if (case_code.Contains("SEARCH") || case_code.Contains("L"))
                 {
                     _Billing_Header_Info = _obj_bl.Billing_Search_GetBy_Code(case_code, AppsCommon.GetCurrentLang(), ref SearchObject_Header_Info, ref _lst_billing_detail);
 
@@ -1184,7 +1184,7 @@ namespace WebApps.Areas.Manager.Controllers
                     ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
                     SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();
                     Billing_Header_Info _Billing_Header_Info = new Billing_Header_Info();
-                    if (p_case_code.Contains("SEARCH"))
+                    if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                     {
                         SearchObject_BL _bl = new SearchObject_BL();
                         SearchObject_Header_Info = _bl.GetBilling_By_Case_Code(p_case_code, SessionData.CurrentUser.Username,
@@ -1243,7 +1243,7 @@ namespace WebApps.Areas.Manager.Controllers
                 ViewBag.ShowPopUp = 1;
                 ViewBag.App_Case_Code = p_case_code;
 
-                if (p_case_code.Contains("SEARCH"))
+                if (p_case_code.Contains("SEARCH") || p_case_code.Contains("L"))
                 {
                     return PartialView("~/Areas/Manager/Views/Billing_Search/_PartialDetail_Insert_Billing.cshtml");
 
