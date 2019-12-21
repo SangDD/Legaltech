@@ -259,7 +259,7 @@
         }
 
         var App_Case_Code = $("#txtApp_Case_Code").val();
-        if (App_Case_Code == null) {
+        if (App_Case_Code == null || App_Case_Code == "") {
             jError("@Html.Raw(WebApps.Resources.Resource.CaseCodeKhongDuocBoTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $("#txtApp_Case_Code").val('');
                 $('#txtApp_Case_Code').focus();
