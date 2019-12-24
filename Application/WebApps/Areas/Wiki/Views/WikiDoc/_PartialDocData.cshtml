@@ -2,60 +2,53 @@
 @using Common.Extensions
 @using ObjectInfos
 @model List<WikiDoc_Info>
-    @try
-    {
-        <div>
-            <table class="table-lst-data" id="tableListObject">
-                <thead>
+<div>
+    <table class="table-lst-data" id="tableListObject">
+        <thead>
+            <tr>
+                <th style="width: 4%">STT</th>
+                @*<th data-sort style="width: 10%" id="LANGUAGE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Ngôn ngữ</th>*@
+                <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tiêu đề</th>
+                <th style="width: 10%" data-sort id="STATUS" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
+                <th style="width: 15%" data-sort id="HASHTAG" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Hashtag</th>
+                <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
+                <th style="width: 100px;">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
                     <tr>
-                        <th style="width: 4%">STT</th>
-                        @*<th data-sort style="width: 10%" id="LANGUAGE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Ngôn ngữ</th>*@
-                        <th style="width: 25%" data-sort id="TITLE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tiêu đề</th>
-                        <th style="width: 10%" data-sort id="STATUS" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
-                        <th style="width: 15%" data-sort id="HASHTAG" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Hashtag</th>
-                        <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
-                        <th style="width: 100px;">Chức năng</th>
+                        <td class="tdcenteralign">@item.STT</td>
+                        @*<td class="tdleftalign">@item.LANGUAGE_CODE</td>*@
+                        <td class="tdleftalign">@item.TITLE</td>
+                        <td class="tdleftalign">@item.Status_Name</td>
+                        <td class="tdleftalign">@item.HASHTAG</td>
+                        <td class="tdleftalign">@item.MODIFIED_DATE.ToDateTimeStringN0()</td>
+                        <td class="tdcenteralign">
+                            <a href="/wiki-manage/wiki-doc/doc-view/@item.ID/@item.STATUS" class="icon icon-info" data-title="Xem chi tiết"></a>
+
+                            @if (item.STATUS != 3)
+                            {
+                                <a href="/wiki-manage/wiki-doc/doc-edit/@item.ID/@item.STATUS" class="icon icon-edit" data-title="Sửa"></a>
+                                <a href="javascript:doDeleteObject(@item.ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
+                            }
+
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Count > 0)
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="tdcenteralign">@item.STT</td>
-                                @*<td class="tdleftalign">@item.LANGUAGE_CODE</td>*@
-                                <td class="tdleftalign">@item.TITLE</td>
-                                <td class="tdleftalign">@item.Status_Name</td>
-                                <td class="tdleftalign">@item.HASHTAG</td>
-                                <td class="tdleftalign">@item.MODIFIED_DATE.ToDateTimeStringN0()</td>
-                                <td class="tdcenteralign">
-                                    <a href="/wiki-manage/wiki-doc/doc-view/@item.ID/@item.STATUS" class="icon icon-info" data-title="Xem chi tiết"></a>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">Không có dữ liệu</td>
+                </tr>}
+        </tbody>
+    </table>
+</div>
 
-                                    @if (item.Status != 3)
-                                    {
-                                        <a href="/wiki-manage/wiki-doc/doc-edit/@item.ID/@item.STATUS" class="icon icon-edit" data-title="Sửa"></a>
-                                        <a href="javascript:doDeleteObject(@item.ID, 1)" class="icon icon-delete" data-title="Xóa"></a>
-                                    }
-
-                                </td>
-                            </tr>
-                        }
-                    }
-                    else
-                    {
-                        <tr>
-                            <td colspan="9">Không có dữ liệu</td>
-                        </tr>}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="d-paging">
-            @Html.Raw(ViewBag.Paging)
-        </div>
-    }
-    catch (Exception)
-    {
-        // ignored
-    }
+<div class="d-paging">
+    @Html.Raw(ViewBag.Paging)
+</div>

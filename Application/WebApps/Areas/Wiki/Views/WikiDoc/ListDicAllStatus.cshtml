@@ -32,112 +32,113 @@
     List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("WIKI", "STATUS");
 }
 
-@try
-{
-    <style>
-        /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
-        .div-search-title > div {
-            width: 120px;
-        }
-    </style>
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
 
-    <div class="divCover">
-        <div class="d-nav">
-            <img src="~/Content/icons/Body-icon-home.png" /> I
-            <a href="/home">Home</a>
-            <span class="red">></span>
-            <a href="#">@WebApps.Resources.Resource.QuanLyWiki</a>
-            <span class="red">></span>
-            <a href="/wiki-manage/wiki-doc/list/1">@WebApps.Resources.Resource.QuanLyNoiDung</a>
-        </div>
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="#">@WebApps.Resources.Resource.QuanLyWiki</a>
+        <span class="red">></span>
+        <a href="/wiki-manage/wiki-doc/list/1">@WebApps.Resources.Resource.QuanLyNoiDung</a>
     </div>
-    <div class="divCover">
-        <div class="classLine">
-        </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
     </div>
+</div>
 
 
-    @*Notify*@
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main smb_content">
     <div class="divCover">
-        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
-    </div>
-
-    <div class="d-main smb_content">
-        <div class="divCover">
+        
+        <div class="classTitle">
             <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
             <input type="hidden" value="DESC" id="SortType" />
             <input type="hidden" value="" id="OptionSorting" />
-            @*<div class="div-title-content"> THÔNG TIN NỘI DUNG</div>*@
+            <div class="div-title-content"> THÔNG TIN NỘI DUNG</div>
         </div>
-
-        <div class="divCover" id="div-search-simple">
-
-            <div class="div-search-ad">
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.TrangThai</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="cboStatus" style="width:150px">
-                            <option value="ALL">
-                                @WebApps.Resources.Resource.TatCa
-                            </option>
-                            @foreach (AllCodeInfo item in _lstStatus)
-                            {
-                                <option value="@item.CdVal">
-                                    @item.Content
-                                </option>
-                            }
-                        </select>
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.ChuDeBaiViet</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="cboSearchWikiCatalogue" style="width:150px">
-                            <option value="ALL">
-                                @WebApps.Resources.Resource.TatCa
-                            </option>
-                            @foreach (WikiCatalogues_Info item in _listcata)
-                            {
-                                <option value="@item.ID">
-                                    @item.NAME
-                                </option>
-                            }
-                        </select>
-                    </div>
-                </div>
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.Hashtag</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txtSearchTitleHashtag" data-controlcondition="TRUE" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="divCover">
-            <div class="div-search-btn" style="width:450px;">
-                <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findObjects(1, 1)" />
-                <input type="button" value="Thêm tài liệu" class="btn-default" onclick="getView2Insert()" />
-            </div>
-        </div>
-
-        <div class="divCover">
-            <div id="divTableObjects">
-                @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml")
-            </div>
-        </div>
-
     </div>
 
-    <script>
+    <div class="divCover" id="div-search-simple">
+
+        <div class="div-search-ad">
+
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.TrangThai</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboStatus" style="width:150px">
+                        <option value="ALL">
+                            @WebApps.Resources.Resource.TatCa
+                        </option>
+                        @foreach (AllCodeInfo item in _lstStatus)
+                        {
+                            <option value="@item.CdVal">
+                                @item.Content
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.ChuDeBaiViet</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <select id="cboSearchWikiCatalogue" style="width:150px">
+                        <option value="ALL">
+                            @WebApps.Resources.Resource.TatCa
+                        </option>
+                        @foreach (WikiCatalogues_Info item in _listcata)
+                        {
+                            <option value="@item.ID">
+                                @item.NAME
+                            </option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Hashtag</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtSearchTitleHashtag" data-controlcondition="TRUE" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:450px;">
+            <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findObjects(1,1)" />
+            <input type="button" value="Thêm tài liệu" class="btn-default" onclick="getView2Insert()" />
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div id="divTableObjects">
+            @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml")
+        </div>
+    </div>
+
+</div>
+
+<script>
         @*var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml' + '@_CurrentStatus';
         var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml_OptionFilter' + '@_CurrentStatus';*@
 
@@ -269,9 +270,4 @@
             }
 
         }
-    </script>
-}
-catch (Exception)
-{
-    // ignored
-}
+</script>
