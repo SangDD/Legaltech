@@ -64,7 +64,7 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 var _WikiCataBL = new WikiCatalogue_BL();
                 var ObjBL = new WikiDoc_BL();
-                lstObj = ObjBL.WikiDoc_Search(_Status.ToString() + "||");
+                lstObj = ObjBL.WikiDoc_Search("ALL|ALL|ALL" + "|" + SessionData.CurrentUser.Username);
                 ViewBag.Paging = ObjBL.GetPagingHtml();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
@@ -96,7 +96,7 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 var _WikiCataBL = new WikiCatalogue_BL();
                 var ObjBL = new WikiDoc_BL();
-                lstObj = ObjBL.WikiDoc_Search(CommonWiki.Stt_daduyet.ToString() +  "|" + _Cataid.ToString() +   "|");
+                lstObj = ObjBL.WikiDoc_Search(CommonWiki.Stt_daduyet.ToString() + "|" + _Cataid.ToString() + "|" + "|" + SessionData.CurrentUser.Username);
                 ViewBag.Paging = ObjBL.GetPagingHtml();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
@@ -119,7 +119,7 @@ namespace WebApps.Areas.Wiki.Controllers
             try
             {
                 var _WikiDoc_BL = new WikiDoc_BL();
-                 lstOjects = _WikiDoc_BL.WikiDoc_Search(keysSearch, options);
+                lstOjects = _WikiDoc_BL.WikiDoc_Search(keysSearch + "|" + SessionData.CurrentUser.Username, options);
                 ViewBag.Paging = _WikiDoc_BL.GetPagingHtml();
             }
             catch (Exception ex)
@@ -151,7 +151,7 @@ namespace WebApps.Areas.Wiki.Controllers
                 ViewBag.Cataid = _Cataid;
                 if (SessionData.CurrentUser == null)
                     return Redirect("/");
-                var _WikiCataBL = new WikiCatalogue_BL ();
+                var _WikiCataBL = new WikiCatalogue_BL();
                 List<WikiCatalogues_Info> lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 ViewBag.ListCata = lstOjects;
 
@@ -176,13 +176,13 @@ namespace WebApps.Areas.Wiki.Controllers
                 var _WikiDoc_BL = new WikiDoc_BL();
                 _objectInfo.CREATED_BY = SessionData.CurrentUser.Username;
                 _objectInfo.CREATED_DATE = DateTime.Now;
-                _objectInfo.LANGUAGE_CODE= AppsCommon.GetCurrentLang();
+                _objectInfo.LANGUAGE_CODE = AppsCommon.GetCurrentLang();
                 _objectInfo.CONTENT = SetHashtagStyle(_objectInfo.CONTENT, ref strListHashtag);
                 if (pAppDocumentInfo != null)
                 {
                     if (pAppDocumentInfo.Count > 0)
                     {
-                        
+
                         foreach (var info in pAppDocumentInfo)
                         {
                             if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
@@ -198,7 +198,7 @@ namespace WebApps.Areas.Wiki.Controllers
 
                                 info.Filename = _filename;
                                 info.Url_Hardcopy = _url;
-                                 
+
                                 if (info.keyFileUpload == "WIKIADD_FILE_01")
                                 {
                                     _objectInfo.FILE_URL01 = info.Url_Hardcopy;
@@ -218,7 +218,7 @@ namespace WebApps.Areas.Wiki.Controllers
                     }
                 }
                 pReturn = _WikiDoc_BL.WikiDoc_Insert(_objectInfo);
-              
+
             }
             catch (Exception ex)
             {
@@ -228,7 +228,7 @@ namespace WebApps.Areas.Wiki.Controllers
             return Json(new { status = pReturn, HashTag = strListHashtag.Trim() });
         }
 
-   
+
         [Route("wiki-doc/doc-edit/{id}/{id1}")]
         public ActionResult ViewEdit()
         {
@@ -238,7 +238,7 @@ namespace WebApps.Areas.Wiki.Controllers
             }
             var _WikiDoc_BL = new WikiDoc_BL();
             WikiDoc_Info _ObjInfo = new WikiDoc_Info();
-        
+
             decimal _docid = 0;
             if (RouteData.Values.ContainsKey("id"))
             {
@@ -257,8 +257,8 @@ namespace WebApps.Areas.Wiki.Controllers
                 ViewBag.ListCata = lstOjects;
 
                 // bỏ hết hashtag nvshashtag đi
-                _ObjInfo.CONTENT = _ObjInfo.CONTENT.Replace("<nvshashtag>" , "").Replace("</nvshashtag>", "");
-           
+                _ObjInfo.CONTENT = _ObjInfo.CONTENT.Replace("<nvshashtag>", "").Replace("</nvshashtag>", "");
+
                 var _ObjectInfo = new WikiCatalogues_Info();
                 var _WikiCatalogue_BL = new WikiCatalogue_BL();
                 _ObjectInfo = _WikiCatalogue_BL.WikiCatalogue_GetByID(_ObjInfo.CATA_ID);
@@ -287,7 +287,7 @@ namespace WebApps.Areas.Wiki.Controllers
                 if (pAppDocumentInfo != null)
                 {
                     if (pAppDocumentInfo.Count > 0)
-                    {                      
+                    {
                         foreach (var info in pAppDocumentInfo)
                         {
                             if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
@@ -348,7 +348,7 @@ namespace WebApps.Areas.Wiki.Controllers
             {
                 Logger.LogException(ex);
             }
-            return Json(new { status = pReturn});
+            return Json(new { status = pReturn });
         }
 
         [HttpPost]
@@ -369,7 +369,7 @@ namespace WebApps.Areas.Wiki.Controllers
 
             return Json(new { result = _result });
         }
- 
+
 
         [HttpPost]
         [Route("wiki-doc/search-catalogue-child")]
@@ -381,7 +381,7 @@ namespace WebApps.Areas.Wiki.Controllers
             try
             {
                 var _WikiCataBL = new WikiCatalogue_BL();
-                 lstOjects = _WikiCataBL.WikiCatalogueGetAll();
+                lstOjects = _WikiCataBL.WikiCatalogueGetAll();
                 if (!string.IsNullOrEmpty(p_parentid))
                 {
                     lstOjects = lstOjects.FindAll(m => m.PARENT_ID.ToString().Equals(p_parentid));
@@ -452,64 +452,64 @@ namespace WebApps.Areas.Wiki.Controllers
         {
 
             string strListHashtag = "";
-                try
+            try
+            {
+                StringBuilder _StrContent = new StringBuilder();
+                int _isHashtag = 0;
+                string strtemp = "";
+
+                int v_length = p_content.Length;
+                int v_count = 0;
+                foreach (char item in p_content)
                 {
-                    StringBuilder _StrContent = new StringBuilder();
-                    int _isHashtag = 0;
-                    string strtemp = "";
-
-                    int v_length = p_content.Length;
-                    int v_count = 0;
-                    foreach (char item in p_content)
+                    if (item == '#')
                     {
-                        if (item == '#')
-                        {
-                            //  bắt đầu 1 ht
-                            _isHashtag = 1;
-                            _StrContent.Append("<nvshashtag>" + item);
-                        }
-                        else if (item == ' ' || "<>'".Contains(item) ||
-                            (item == '&' && v_count < v_length - 3 && p_content[v_count + 1] == 'n'
-                            && p_content[v_count + 2] == 'b')
-                            && p_content[v_count + 3] == 's'
-                            && p_content[v_count + 4] == 'p')
-                        {
+                        //  bắt đầu 1 ht
+                        _isHashtag = 1;
+                        _StrContent.Append("<nvshashtag>" + item);
+                    }
+                    else if (item == ' ' || "<>'".Contains(item) ||
+                        (item == '&' && v_count < v_length - 3 && p_content[v_count + 1] == 'n'
+                        && p_content[v_count + 2] == 'b')
+                        && p_content[v_count + 3] == 's'
+                        && p_content[v_count + 4] == 'p')
+                    {
 
-                            // có thể là kết thúc 1 ht
-                            if (_isHashtag == 1)
-                            {
-                                // kết thúc 1 ht
-                                // thêm đóng thẻ
-                                _StrContent.Append("</nvshashtag>" + item);
-                                // lưu lại chuỗi ht vừa rồi
-                                strListHashtag = strListHashtag + " " + strtemp;
-                            }
-                            else
-                            {
-                                // nếu không phải kết thúc ht thì thêm bình thường
-                                _StrContent.Append(item);
-                            }
-                            _isHashtag = 0;
+                        // có thể là kết thúc 1 ht
+                        if (_isHashtag == 1)
+                        {
+                            // kết thúc 1 ht
+                            // thêm đóng thẻ
+                            _StrContent.Append("</nvshashtag>" + item);
+                            // lưu lại chuỗi ht vừa rồi
+                            strListHashtag = strListHashtag + " " + strtemp;
                         }
                         else
                         {
-                            // chuỗi bất kỳ khác # và rỗng
+                            // nếu không phải kết thúc ht thì thêm bình thường
                             _StrContent.Append(item);
-                            if (_isHashtag == 1)
-                            {
-                                // nếu đang trong chuỗi ht thì append thằng char này vào làm 1 chuỗi ht
-                                strtemp += item;
-                            }
-                            else
-                            {
-                                strtemp = "";
-                            }
                         }
-                        v_count++;
+                        _isHashtag = 0;
                     }
+                    else
+                    {
+                        // chuỗi bất kỳ khác # và rỗng
+                        _StrContent.Append(item);
+                        if (_isHashtag == 1)
+                        {
+                            // nếu đang trong chuỗi ht thì append thằng char này vào làm 1 chuỗi ht
+                            strtemp += item;
+                        }
+                        else
+                        {
+                            strtemp = "";
+                        }
+                    }
+                    v_count++;
+                }
                 p_listhashtag = strListHashtag;
                 return _StrContent.ToString().Replace("<nvshashtag>#</nvshashtag>", "#");
-             
+
             }
             catch (Exception ex)
             {

@@ -34,13 +34,15 @@ namespace WebApps.Areas.Articles.Controllers
                     pStatus = CommonFuc.ConvertToDecimal(RouteData.Values["id"]);
                 }
                 ViewBag.Status = pStatus;
-                 
+
 
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 string _status = "ALL";
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch = _status + "|ALL|" + language + "|ALL";
+                string _category = "ALL";
+                string _title = "ALL";
+                string _keySearch = _status + "|ALL|" + language + "|" + _category + "|" + _title + "|" + SessionData.CurrentUser.Username;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record);
                 string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
@@ -78,7 +80,7 @@ namespace WebApps.Areas.Articles.Controllers
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + pTitile;
+                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + (pTitile == "" ? "ALL" : pTitile) + "|" + SessionData.CurrentUser.Username;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
                 string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
@@ -260,7 +262,7 @@ namespace WebApps.Areas.Articles.Controllers
                 return View();
             }
         }
-        
+
 
         [HttpGet]
         [Route("chi-tiet-bai-viet/{id}/{id2}")]
@@ -382,7 +384,7 @@ namespace WebApps.Areas.Articles.Controllers
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + pTitile;
+                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + pCategory + "|" + pTitile + "|" + SessionData.CurrentUser.Username;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
                 string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;
@@ -409,7 +411,10 @@ namespace WebApps.Areas.Articles.Controllers
                 NewsBL objBL = new NewsBL();
                 //string _status = "ALL";
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|ALL";
+                string _category = "ALL";
+                string _title = "ALL";
+
+                string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + _category + "|" + _title + "|" + SessionData.CurrentUser.Username;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, "1", "10");
                 string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, 1, "Tin");
                 ViewBag.listArticles = _lst;
@@ -436,7 +441,9 @@ namespace WebApps.Areas.Articles.Controllers
                 decimal _total_record = 0;
                 NewsBL objBL = new NewsBL();
                 string language = AppsCommon.GetCurrentLang();
-                string _keySearch = Status.XuatBan.ToString() + "|ALL|" + language + "|" + pCategory + "|" + "";
+
+                string _title = "ALL";
+                string _keySearch = Status.XuatBan.ToString() + "|ALL|" + language + "|" + pCategory + "|" + _title + "|" + SessionData.CurrentUser.Username;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, from.ToString(), to.ToString());
                 string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<NewsInfo>((int)_total_record, pPage, "Tin");
                 ViewBag.listArticles = _lst;

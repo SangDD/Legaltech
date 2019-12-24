@@ -13,7 +13,9 @@
     {
         _CataInfo = ViewBag.CataInfo;
     }
-    string _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + _CataInfo.ID;
+
+    //string _backhref = "/wiki-manage/wiki-doc/list-by-catalogue/" + _CataInfo.ID;
+    string _backhref = "/wiki-manage/wiki-doc/list/1";
     decimal _Cataid = 0;
     if (ViewBag.Cataid != null)
     {

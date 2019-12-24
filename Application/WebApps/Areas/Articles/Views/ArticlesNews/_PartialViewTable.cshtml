@@ -43,27 +43,25 @@
                                 <td class="tdleftalign">@item.Status_Name</td>
                             }
 
-
                             @*<td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>*@
-                            <td class="tdcenteralign">
-                                <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@item.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
-                                <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
+                                <td class="tdcenteralign">
+                                    <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@item.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
+                                    @if (item.Status != Common.Status.XuatBan)
+                                    {
+                                        <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
+                                        <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.btnXoa"></a>
+                                    }
+                                    @if (item.Status == Common.Status.ChoXuly)
+                                    {
+                                        <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-confirm-circle" data-title="@WebApps.Resources.Resource.btnXuatban"></a>
+                                    }
 
-                                @if (item.Status != Common.Status.XuatBan)
-                                {
-                                    <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.btnXoa"></a>
-                                }
-                                @if (item.Status == Common.Status.ChoXuly)
-                                {
-                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-confirm-circle" data-title="@WebApps.Resources.Resource.btnXuatban"></a>
-                                }
+                                    @if (item.Status == Common.Status.XuatBan)
+                                    {
+                                        <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-cancel-circle" data-title="@WebApps.Resources.Resource.btnGoBo"></a>
+                                    }
 
-                                @if (item.Status == Common.Status.XuatBan)
-                                {
-                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-cancel-circle" data-title="@WebApps.Resources.Resource.btnGoBo"></a>
-                                }
-
-                            </td>
+                                </td>
                         </tr>
                     }
 

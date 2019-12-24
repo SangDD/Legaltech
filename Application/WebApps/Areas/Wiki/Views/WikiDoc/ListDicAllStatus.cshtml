@@ -10,40 +10,34 @@
     {
         _listcata = ViewBag.ListCata;
     }
-    int _CurrentStatus = ViewBag.CurrStatus;
-    string _hef01 = "", _hef02 = "",  _hef04 = "", _hef05 = "";
-    if (_CurrentStatus == 1)
-    {
-        _hef01 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 2)
-    {
-        _hef02 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 4)
-    {
-        _hef04 = "text-decoration: underline;";
-    }
-    if (_CurrentStatus == 3)
-    {
-        _hef05 = "text-decoration: underline;";
-    }
-    }
+    //int _CurrentStatus = ViewBag.CurrStatus;
+    //string _hef01 = "", _hef02 = "", _hef04 = "", _hef05 = "";
+    //if (_CurrentStatus == 1)
+    //{
+    //    _hef01 = "text-decoration: underline;";
+    //}
+    //if (_CurrentStatus == 2)
+    //{
+    //    _hef02 = "text-decoration: underline;";
+    //}
+    //if (_CurrentStatus == 4)
+    //{
+    //    _hef04 = "text-decoration: underline;";
+    //}
+    //if (_CurrentStatus == 3)
+    //{
+    //    _hef05 = "text-decoration: underline;";
+    //}
 
-    @try
+    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("WIKI", "STATUS");
+}
+
+@try
 {
     <style>
         /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
         .div-search-title > div {
-            width: 150px;
-        }
-        .ms-parent
-        {
-            margin:0px 3px;
-        }
-        .ms-choice
-        {
-            height:30px; 
+            width: 120px;
         }
     </style>
 
@@ -62,75 +56,63 @@
         </div>
     </div>
 
-    <div class="d-main">
-        <div class="divCover" >
+
+    @*Notify*@
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+
+    <div class="d-main smb_content">
+        <div class="divCover">
             <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
             <input type="hidden" value="DESC" id="SortType" />
             <input type="hidden" value="" id="OptionSorting" />
-           <table style="margin:10px 0px">
-               <tr>
-                   <td>
-                       <a  href="/vi-vn/wiki-manage/wiki-doc/add/0">1. @WebApps.Resources.Resource.ThemMoi</a>
-                   </td>
-               </tr>
-               <tr>
-                   <td>
-                       <a style="@_hef01" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_luutam">2. @WebApps.Resources.Resource.DanhSachBaiVietLuuTam</a> 
-                   </td>
-               </tr>
-               <tr>
-                   <td>
-                       <a style="@_hef02" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_guibai">  3. @WebApps.Resources.Resource.DanhSachBaiVietChoXuLy</a> 
-                   </td>
-               </tr>
-               <tr>
-                   <td>
-                       <a style="@_hef04" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_tuchoi">  4. @WebApps.Resources.Resource.DanhSachBaiVietBiTuChoi</a>
-                   </td>
-               </tr>
-               <tr>
-                   <td>
-                       <a style="@_hef05" href="/wiki-manage/wiki-doc/list/@CommonWiki.Stt_daduyet">  5. @WebApps.Resources.Resource.DanhSachBaiVietDaDuyet</a>
-                   </td>
-               </tr>
-           </table>
-
+            @*<div class="div-title-content"> THÔNG TIN NỘI DUNG</div>*@
         </div>
 
-        <div class="divCover smb_content" id="div-search-simple">
+        <div class="divCover" id="div-search-simple">
 
             <div class="div-search-ad">
+
                 <div class="div-search-title">
-                    <div style="width: 120px">@WebApps.Resources.Resource.ChuDeBaiViet</div>
+                    <div>@WebApps.Resources.Resource.TrangThai</div>
                 </div>
-                <div>
-                    <div style="width:200px">
-                       <select id="cboSearchWikiCatalogue">
-                           @*@foreach (WikiCatalogues_Info item in _listcata)
-                           {
-                               if (item.CATA_LEVEL == 1)
-                               {
-                                   <option value="@item.ID">
-                                       @item.NAME
-                                   </option>
-                               }
-                           }*@
-                           <option value="ALL">
-                               @WebApps.Resources.Resource.TatCa
-                           </option>
-                           @foreach (WikiCatalogues_Info item in _listcata)
-                           {
-                          
-                                   <option value="@item.ID">
-                                       @item.NAME
-                                   </option>
-                             
-                           }
-                       </select>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboStatus" style="width:150px">
+                            <option value="ALL">
+                                @WebApps.Resources.Resource.TatCa
+                            </option>
+                            @foreach (AllCodeInfo item in _lstStatus)
+                            {
+                                <option value="@item.CdVal">
+                                    @item.Content
+                                </option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.ChuDeBaiViet</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="cboSearchWikiCatalogue" style="width:150px">
+                            <option value="ALL">
+                                @WebApps.Resources.Resource.TatCa
+                            </option>
+                            @foreach (WikiCatalogues_Info item in _listcata)
+                            {
+                                <option value="@item.ID">
+                                    @item.NAME
+                                </option>
+                            }
+                        </select>
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">@WebApps.Resources.Resource.Hashtag</div>
+                    <div>@WebApps.Resources.Resource.Hashtag</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -138,12 +120,12 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
                 <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findObjects(1, 1)" />
+                <input type="button" value="Thêm tài liệu" class="btn-default" onclick="getView2Insert()" />
             </div>
         </div>
 
@@ -152,13 +134,19 @@
                 @Html.Partial("/Areas/Wiki/Views/WikiDoc/_PartialDocData.cshtml")
             </div>
         </div>
- 
+
     </div>
 
     <script>
-        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml' + '@_CurrentStatus';
-        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml_OptionFilter' + '@_CurrentStatus';
-        var _status = '@_CurrentStatus', _catalogue = '', _titleHashtag = '';
+        @*var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml' + '@_CurrentStatus';
+        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml_OptionFilter' + '@_CurrentStatus';*@
+
+        var _currentKeySearch = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml';
+        var _currentOptionFilter = '/Areas/Wiki/Views/WikiDoc/DocListBystatus.cshtml_OptionFilter';
+
+        var _status = 'ALL';
+        var _catalogue = '';
+        var _titleHashtag = '';
 
         $(document).ready(function () {
               initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
@@ -170,18 +158,23 @@
 				});
         });
 
+        function getView2Insert() {
+            var url = "/wiki-manage/wiki-doc/add/0";
+            window.location.href = url;
+        }
+
 
         function findObjects(_pageNumber, _isSearching) {
             try {
 
                 reinitSearchingConditions(_currentKeySearch, _currentOptionFilter, _pageNumber, _isSearching);
                 if (isSearching === 1) {
-                    _status = '@_CurrentStatus';
+                    _status = $("#cboStatus").val();
                     _catalogue = $("#cboSearchWikiCatalogue").val();
                     _titleHashtag = $("#txtSearchTitleHashtag").val().trim();
 
                 } else {
-                  
+
                     window.arrKeySearch = window.keySearch.split('|');
                     if (arrKeySearch.length > 0)
                     {
@@ -192,10 +185,10 @@
                         {
                             $("#cboSearchWikiCatalogue option[value=" + _catalogue + "]").attr("selected", "selected");
                         }
-                       
+
                         $("#txtSearchTitleHashtag").val(_titleHashtag);
                     }
-                  
+
                 }
 
                 updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
@@ -220,8 +213,6 @@
                 alert(e.toString());
                 return false;
             }
-
-
         }
 
         function setKeySearch() {
@@ -253,40 +244,31 @@
 
         function doDeleteObject(p_id) {
             try {
-
-                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
-                        $.ajax({
-                            url: "/wiki-manage/wiki-doc/do-delete-doc",
-                            type: "POST",
-                            data: { p_id: p_id },
-                            headers: { "cache-control": "no-cache" },
-                            async: false,
-                            success: function (data) {
-                                //if (data != null) {
-                                //    if (onResponse(data)) {
-                                //        ClosePopupDialog('dpop-users', true);
-                                //        findObjects(1, 0);
-                                //    }
-                                //}
-                                if (data.result >= 0) {
-                                    showSuccess("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)");
-                                    window.findObjects(1, 0);
-                                }
-                            },
-                            error: function (e) {
-                                console.log(e);
+                nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
+                    $.ajax({
+                        url: "/wiki-manage/wiki-doc/do-delete-doc",
+                        type: "POST",
+                        data: { p_id: p_id },
+                        headers: { "cache-control": "no-cache" },
+                        async: false,
+                        success: function (data) {
+                            if (data.result >= 0) {
+                                showSuccess("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)");
+                                window.findObjects(1, 0);
                             }
-                        });
-
+                        },
+                        error: function (e) {
+                            console.log(e);
+                        }
                     });
+
+                });
 
             } catch (e) {
                 alert(e.toString());
             }
 
         }
-
-
     </script>
 }
 catch (Exception)

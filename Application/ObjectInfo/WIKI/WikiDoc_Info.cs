@@ -40,6 +40,7 @@ namespace ObjectInfos
         public string FILE_URL03 { set; get; }
 
         public decimal STATUS { set; get; }
+        public string Status_Name { set; get; }
 
         public decimal OLD_STATUS { set; get; }
 
