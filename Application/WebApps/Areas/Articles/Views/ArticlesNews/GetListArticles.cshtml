@@ -129,6 +129,18 @@
 
 <script>
 
+    $(document).ready(function () {
+        $('#cboSearchWikiCatalogue').focus();
+        $("#cboSearchWikiCatalogue,#cboStatus,#txtTieuDeBaiViet").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                funcSearch(1,0);
+            }
+        });
+
+        //funcSearchKHDangKy(1, 1);
+    });
+
     $("#btnSearch").click(function () {
         funcSearch(1,0);
     });

@@ -100,7 +100,7 @@
 <script>
     $(document).ready(function () {
         $('#txtTo').focus();
-        $("#cboStatus").keypress(function (evt) {
+        $("#cboStatus,#txtTo,#txtCaseCode").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {
                 Search_Email(1, 1);

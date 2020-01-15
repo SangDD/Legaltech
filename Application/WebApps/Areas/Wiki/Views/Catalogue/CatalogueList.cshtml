@@ -111,11 +111,18 @@
 
         $(document).ready(function () {
             initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
-            $('txt_listname').focus();
-            $('[data-controlcondition="TRUE"]').on('keypress',
-				function (e) {
-				    enterKeyPress(e, 'btnfindObjects');
-				});
+            $('#txt_listname').focus();
+    //        $('[data-controlcondition="TRUE"]').on('keypress',
+				//function (e) {
+				//    enterKeyPress(e, 'btnfindObjects');
+				//});
+
+            $("#txt_listname,#CboListWikiCataParent").keypress(function (evt) {
+                var key = evt.which || evt.charCode || evt.keyCode || 0;
+                if (key == 13) {
+                    findObjects(1, 1);
+                }
+            });
         });
 
         function findObjects(_pageNumber, _isSearching) {
@@ -147,8 +154,12 @@
                         keysSearch: keySearch,
                         options: optionFilter
                     },
-                    async: false,
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
                     success: function (data) {
+                        CreateRollingWaitingIcon(false);
                         if (data != null) {
                             onResponseWhenSearching(data, "divTableObjects", findObjects);
                         }

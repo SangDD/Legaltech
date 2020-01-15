@@ -130,10 +130,17 @@
         $(document).ready(function () {
             initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
             $('#txtCasecode').focus();
-            $('[data-controlcondition="TRUE"]').on('keypress',
-                function (e) {
-                    enterKeyPress(e, 'btnfindObjects');
-                });
+            //$('[data-controlcondition="TRUE"]').on('keypress',
+            //    function (e) {
+            //        enterKeyPress(e, 'btnfindObjects');
+            //    });
+
+            $("#txtCasecode,#_txtClientReference,#txtCboStatus,#_txtCreateBy,#_txtLawer").keypress(function (evt) {
+                var key = evt.which || evt.charCode || evt.keyCode || 0;
+                if (key == 13) {
+                    findObjects(1, 1);
+                }
+            });
         });
 
 
@@ -168,8 +175,12 @@
                         keysSearch: keySearch,
                         options: _optionFilter
                     },
-                    async: false,
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
                     success: function (data) {
+                        CreateRollingWaitingIcon(false);
                         if (data != null) {
                             onResponseWhenSearching(data, "divTableObjects", findObjects);
                         }

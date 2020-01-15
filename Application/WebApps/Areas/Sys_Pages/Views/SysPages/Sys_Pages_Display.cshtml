@@ -91,6 +91,17 @@
         funcSearch(1, 0);
     });
 
+    $(document).ready(function () {
+        $('#txtTieuDeBaiViet').focus();
+        $("#txtTieuDeBaiViet").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                funcSearch(1, 0);
+            }
+        });
+
+        //funcSearch(1, 1);
+    });
 
     function funcSearch(page, pType) {
         try {

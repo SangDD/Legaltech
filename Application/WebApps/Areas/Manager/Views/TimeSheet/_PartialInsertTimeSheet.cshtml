@@ -54,13 +54,13 @@
 <div class="d-main smb_content">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÊM MỚI TIMESHEET</div>
+            <div class="div-title-content"> @(WebApps.Resources.Resource.ThemMoi.ToUpper() + " TIMESHEET")</div>
         </div>
     </div>
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Case code<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -76,7 +76,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Mô tả công việc <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.MoTaCongViec <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -87,7 +87,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Ngày <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.Ngay <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -98,7 +98,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Bắt đầu <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.BatDau <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -106,7 +106,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Kết thúc  <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.KetThuc  <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -117,7 +117,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Giờ thực tế <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.GioThucTe <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="div-search-title">
-                <div>Giờ điều chỉnh  <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.GioDieuChinh  <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -136,7 +136,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Yêu cầu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -148,7 +148,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Gửi Admin" onclick="return doInsertTimeSheet()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Send" onclick="return doInsertTimeSheet()" />
         </div>
     </div>
 </div>

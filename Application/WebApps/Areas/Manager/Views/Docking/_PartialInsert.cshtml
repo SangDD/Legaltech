@@ -72,14 +72,14 @@
 <div class="d-main smb_content">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> THÊM MỚI THÔNG TIN DOCKETING</div>
+            <div class="div-title-content"> @(WebApps.Resources.Resource.ThemMoi.ToUpper() +  " DOCKETING")</div>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Case code<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -99,7 +99,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên tài liệu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.lblTenTaiLieu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -108,7 +108,7 @@
             </div>
 
             <div class="div-search-title clssDisplaynone">
-                <div>Tên tài liệu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.lblTenTaiLieu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -119,7 +119,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại tài liệu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.LoaiTaiLieu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -128,7 +128,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Trạng thái <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TrangThai <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -150,7 +150,7 @@
 
         <div class="div-search-ad clssDisplaynone" id="clsPlace">
             <div class="div-search-title">
-                <div>Nơi nộp <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NoiNop <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -161,7 +161,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Deadline </div>
+                <div>@WebApps.Resources.Resource.Deadline </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -183,7 +183,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <input type="button" id="btnChooseFile" value="Tải file" class="btn" onclick="return Click_Upload_File()" style="height:29px;" />
+                <input type="button" id="btnChooseFile" value="@WebApps.Resources.Resource.TM2B_taifile" class="btn" onclick="return Click_Upload_File()" style="height:29px;" />
                 <input type="file" id="file_attach" style="display:none" onchange="FuncChooseResultFile()" />
 
                 <div class="div-checkbox clssDisplaynone" id="div_RemoveImg">
@@ -192,7 +192,7 @@
             </div>
 
             <div class="div-search-title clssDisplaynone">
-                <div id="div_filename" style="width: 168px;">Tên file<i class="redspan">(*)</i></div>
+                <div id="div_filename" style="width: 168px;">@WebApps.Resources.Resource.Tenfile<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -205,7 +205,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="Lưu" onclick="return doInsertDocking()" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doInsertDocking()" />
         </div>
     </div>
 </div>

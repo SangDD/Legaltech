@@ -1,73 +1,105 @@
 ﻿@try
 {
-	<div class="popup-opacity-wrapper"></div>
-	<div class="d-popup" style="overflow: visible">
-		<div class="d-popup-content grid">
-			<div>
-				<label>Tên nhóm <i class="redspan">(*)</i></label>
-				<input type="text" id="txtGroupNameAdd" maxlength="250" />
-			</div>
+    @*<div class="popup-opacity-wrapper"></div>
+        <div class="d-popup" style="overflow: visible">
+            <div class="d-popup-content grid">
+                <div>
+                    <label>Tên nhóm <i class="redspan">(*)</i></label>
+                    <input type="text" id="txtGroupNameAdd" maxlength="250" />
+                </div>
 
-            <div>
-                <label>Mô tả </label>
-                <input type="text" id="txtNotes" maxlength="2000" />
+                <div>
+                    <label>Mô tả </label>
+                    <input type="text" id="txtNotes" maxlength="2000" />
+                </div>
+
+            </div>
+            <div class="d-popup-footer">
+                <input type="submit" class="btn" value="Lưu" onclick="return doAddNewGroupUser()" />
+            </div>
+        </div>*@
+
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.TenNhom<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtGroupNameAdd" maxlength="250" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.lblMoTa</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtNotes" maxlength="2000" />
+                    </div>
+                </div>
             </div>
 
-		</div>
-		<div class="d-popup-footer">
-			<input type="submit" class="btn" value="Lưu" onclick="return doAddNewGroupUser()" />
-		</div>
-	</div>
+            <div class="form-group">
+                <div class="form-group-bottom">
+                    <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doAddNewGroupUser()" />
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<script>
-		var groupNameAdd;
+    <script>
+        var groupNameAdd;
 
-		function doAddNewGroupUser() {
-			if (validateFormAddNewGroupUser()) {
-				var formData = new FormData();
-				collectDataToAddNewGroupUser(formData);
-				$.ajax({
-					url: '/quan-tri-he-thong/quan-ly-nhom-quyen/do-add-group',
-					type: 'POST',
-					data: formData,
-					processData: false,
-					contentType: false,
-					traditional: true,
-					async: false,
-					headers: { "cache-control": "no-cache" },
-					success: function (data) {
-						if (data != null) {
-							if (onResponse(data)) {
-								ClosePopupDialog('dpop-groupuser', true);
-								window.findGroupUsers(1, 0);
-							}
-						}
-					},
-					error: function (e) {
-						console.log(e);
-					}
-				});
-			}
-		}
+        function doAddNewGroupUser() {
+            if (validateFormAddNewGroupUser()) {
+                var formData = new FormData();
+                collectDataToAddNewGroupUser(formData);
+                $.ajax({
+                    url: '/quan-tri-he-thong/quan-ly-nhom-quyen/do-add-group',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    traditional: true,
+                    async: false,
+                    headers: { "cache-control": "no-cache" },
+                    success: function (data) {
+                        if (data != null) {
+                            if (onResponse(data)) {
+                                //ClosePopupDialog('dpop-groupuser', true);
+                                CloseDivPopUp('divWrapperViewUser');
+                                window.findGroupUsers(1, 0);
+                            }
+                        }
+                    },
+                    error: function (e) {
+                        console.log(e);
+                    }
+                });
+            }
+        }
 
-		function validateFormAddNewGroupUser() {
-			groupNameAdd = $('#txtGroupNameAdd').val().trim();
-			if (groupNameAdd === "") {
-				$('#txtGroupNameAdd').focus().val('');
-				showError('Tên nhóm không được để trống!');
-				return false;
-			}
+        function validateFormAddNewGroupUser() {
+            groupNameAdd = $('#txtGroupNameAdd').val().trim();
+            if (groupNameAdd === "") {
+                $('#txtGroupNameAdd').focus().val('');
+                showError('Tên nhóm không được để trống!');
+                return false;
+            }
 
-			return true;
-		}
+            return true;
+        }
 
-		function collectDataToAddNewGroupUser(formData) {
-		    formData.append('groupInfo.Name', groupNameAdd);
-		    formData.append('groupInfo.Notes', $('#txtNotes').val());
-		}
-	</script>
+        function collectDataToAddNewGroupUser(formData) {
+            formData.append('groupInfo.Name', groupNameAdd);
+            formData.append('groupInfo.Notes', $('#txtNotes').val());
+        }
+    </script>
 }
 catch (Exception)
 {
-	// ignored
+    // ignored
 }

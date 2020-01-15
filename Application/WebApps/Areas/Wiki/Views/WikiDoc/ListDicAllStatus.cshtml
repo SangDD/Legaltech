@@ -153,10 +153,17 @@
               initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
 
             $('txtSearchTitleHashtag').focus();
-            $('[data-controlcondition="TRUE"]').on('keypress',
-				function (e) {
-				    enterKeyPress(e, 'btnfindObjects');
-				});
+    //        $('[data-controlcondition="TRUE"]').on('keypress',
+				//function (e) {
+				//    enterKeyPress(e, 'btnfindObjects');
+				//});
+
+            $("#cboStatus,#cboSearchWikiCatalogue,#txtSearchTitleHashtag").keypress(function (evt) {
+                var key = evt.which || evt.charCode || evt.keyCode || 0;
+                if (key == 13) {
+                    findObjects(1, 1);
+                }
+            });
         });
 
         function getView2Insert() {
@@ -202,8 +209,12 @@
                         keysSearch: keySearch,
                         options: optionFilter
                     },
-                    async: false,
+                    async: true, cache: false, traditional: true,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
                     success: function (data) {
+                        CreateRollingWaitingIcon(false);
                         if (data != null) {
                             onResponseWhenSearching(data, "divTableObjects", findObjects);
                         }

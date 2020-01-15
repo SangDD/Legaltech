@@ -133,7 +133,7 @@
 <script>
     $(document).ready(function () {
         $('#txtAppCaseCode').focus();
-        $("#cboStatus").keypress(function (evt) {
+        $("#cboStatus,#txtAppCaseCode,#txtLawer,#txtCustomerName,#cboPayStatus").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {
                 Search_Billing(1, 1);

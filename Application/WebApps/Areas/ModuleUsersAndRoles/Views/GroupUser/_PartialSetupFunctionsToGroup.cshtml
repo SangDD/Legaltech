@@ -53,13 +53,13 @@
 			}
 			else
 			{
-				<div class="nodata-found-on-popup">Không có dữ liệu</div>
+                <div class="nodata-found-on-popup">@WebApps.Resources.Resource.KhongCoDuLieu</div>
 			}
 		</div>
 		@if (!string.IsNullOrEmpty(Model))
 		{
 			<div class="d-popup-footer">
-				<input type="submit" class="text-color-3 bg-color-3 " value="Lưu" onclick="return doSetupFunctionsToGroup()" />
+				<input type="submit" class="text-color-3 bg-color-3 " value="@WebApps.Resources.Resource.Luu" onclick="return doSetupFunctionsToGroup()" />
 			</div>
 		}
 	</div>
@@ -126,6 +126,7 @@
 					if (data != null) {
 						if (onResponse(data)) {
 							ClosePopupDialog('dpop-groupuser', true);
+                            //ClosePopupDialog('divWrapperViewUser', true);
 						}
 					}
 				},

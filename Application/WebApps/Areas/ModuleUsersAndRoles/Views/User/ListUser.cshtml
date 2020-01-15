@@ -25,7 +25,7 @@
             <span class="red">></span>
             <a href="#">@WebApps.Resources.Resource.QuanLy</a>
             <span class="red">></span>
-            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung">Quản lý người dùng</a>
+            <a href="/quan-tri-he-thong/quan-ly-nguoi-dung">@WebApps.Resources.Resource.QuanLyNguoiDung</a>
         </div>
     </div>
     <div class="divCover">
@@ -44,7 +44,7 @@
                 <input type="hidden" value="ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
                 <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
                 <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-                <div class="div-title-content"> THÔNG TIN QUẢN TRỊ </div>
+                <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinNguoiDung.ToUpper() </div>
             </div>
         </div>
 
@@ -52,7 +52,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên đăng nhập </div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TenDangNhap </div>
                 </div>
                 <div>
                     <div>
@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên đầy đủ</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.HoTen</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -71,7 +71,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Loại người dùng </div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.LoaiNguoiDung </div>
                 </div>
                 <div>
                     <div>
@@ -85,7 +85,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Trạng thái</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TrangThai</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -103,8 +103,8 @@
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
-                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findUsers(1, 1)" />
-                <input type="button" value="Thêm người dùng" class="btn-default" style="width: 125px;" onclick="getViewToAddNewUser()" />
+                <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findUsers(1, 1)" />
+                <input type="button" value="@WebApps.Resources.Resource.Them" class="btn-default" style="width: 125px;" onclick="getViewToAddNewUser()" />
             </div>
         </div>
 
@@ -141,10 +141,17 @@
 
         $(document).ready(function () {
             $('txtUsernameSearch').focus();
-            $('[data-controlcondition="TRUE"]').on('keypress',
-                function (e) {
-                    enterKeyPress(e, 'btnFindUsers');
-                });
+            //$('[data-controlcondition="TRUE"]').on('keypress',
+            //    function (e) {
+            //        enterKeyPress(e, 'btnFindUsers');
+            //    });
+
+            $("#txtUsernameSearch,#txtFullNameSearch,#cboUserType,#cboStatusSearch").keypress(function (evt) {
+                var key = evt.which || evt.charCode || evt.keyCode || 0;
+                if (key == 13) {
+                    findUsers(1, 1);
+                }
+            });
 
             findUsers(1, 1)
         });

@@ -8,10 +8,10 @@
 			<thead>
 				<tr>
 					<th style="width: 4%">STT</th>
-					<th data-sort id="Name" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên nhóm</th>
-                    <th data-sort id="Notes" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Mô tả</th>
-					<th style="width: 15%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>
-					<th style="width: 100px;">Chức năng</th>
+                    <th data-sort id="Name" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.TenNhom</th>
+                    <th data-sort id="Notes" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.lblMoTa</th>
+					@*<th style="width: 15%" data-sort id="LastTimeUpdated">Cập nhật lúc</th>*@
+                    <th style="width: 100px;">@WebApps.Resources.Resource.ChucNang</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -23,11 +23,11 @@
 							<td class="tdcenteralign">@item.Stt</td>
 							<td class="tdleftalign">@item.Name</td>
                             <td class="tdleftalign">@item.Notes</td>
-							<td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>
+							@*<td class="tdleftalign">@item.LastTimeUpdated.ToDateTimeStringN0()</td>*@
 							<td class="tdcenteralign">
-								<a href="javascript:getViewToEditGroupUser(@item.Id, '@item.Name')" class="icon icon-edit" data-title="Sửa"></a>
-								<a href="javascript:doDeleteGroupUser(@item.Id, @item.NumberUsersInGroup)" class="icon icon-delete" data-title="Xóa"></a>
-								<a href="javascript:setupFunctionsToGroup(@item.Id, '@item.Name')" class="icon icon-group-setting" data-title="Phân quyền cho nhóm"></a>
+								<a href="javascript:getViewToEditGroupUser(@item.Id, '@item.Name')" class="icon icon-edit" data-title="@WebApps.Resources.Resource.Sua"></a>
+								<a href="javascript:doDeleteGroupUser(@item.Id, @item.NumberUsersInGroup)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.Xoa"></a>
+								<a href="javascript:setupFunctionsToGroup(@item.Id, '@item.Name')" class="icon icon-group-setting" data-title="@WebApps.Resources.Resource.PhanQuyen"></a>
 							</td>
 						</tr>
 					}
@@ -35,7 +35,7 @@
 				else
 				{
 					<tr>
-						<td colspan="4">Không có dữ liệu</td>
+                        <td colspan="3">@WebApps.Resources.Resource.KhongCoDuLieu</td>
 					</tr>
 				}
 			</tbody>

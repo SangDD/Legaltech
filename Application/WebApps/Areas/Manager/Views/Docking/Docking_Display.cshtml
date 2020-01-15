@@ -55,7 +55,7 @@
             <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="Docking_Id" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> THÔNG TIN DOCKETING</div>
+            <div class="div-title-content"> @(WebApps.Resources.Resource.ThongTin.ToUpper() + " DOCKETING")</div>
         </div>
     </div>
 
@@ -63,7 +63,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Case code</div>
+                <div>@WebApps.Resources.Resource.CaseCode</div>
             </div>
             <div>
                 <div>
@@ -72,7 +72,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Mã tài liệu</div>
+                <div>@WebApps.Resources.Resource.MaTaiLieu</div>
             </div>
             <div>
                 <div>
@@ -81,7 +81,7 @@
             </div>
 
             <div class="div-search-title">
-                <div style="width: 120px">Tên tài liệu</div>
+                <div style="width: 120px">@WebApps.Resources.Resource.lblTenTaiLieu</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -101,7 +101,7 @@
             </div>
 
             <div class="div-search-title">
-                <div style="width: 120px">Loại tài liệu </div>
+                <div style="width: 120px">@WebApps.Resources.Resource.LoaiTaiLieu </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -110,7 +110,7 @@
             </div>
 
             <div class="div-search-title">
-                <div style="width: 120px">Trạng thái </div>
+                <div style="width: 120px">@WebApps.Resources.Resource.TrangThai </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -125,7 +125,7 @@
             <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Docking(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
             {
-                <input type="button" value="Thêm tài liệu" class="btn-default" onclick="getView2Insert()" />
+                <input type="button" value="@WebApps.Resources.Resource.Them" class="btn-default" onclick="getView2Insert()" />
             }
         </div>
     </div>
@@ -145,7 +145,7 @@
 <script>
     $(document).ready(function () {
         $('#txtCaseCode').focus();
-        $("#cboStatus").keypress(function (evt) {
+        $("#txtCaseCode,#cboStatus,#txtAppCaseCode,#txtDocument_Name,#cboDocumentType,#cboDockingType").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {
                 Search_Docking(1, 1);

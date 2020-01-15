@@ -93,6 +93,18 @@
         </div>
 
      <script>
+         $(document).ready(function () {
+             $('#txtFistLastName').focus();
+             $("#txtCompany,#txtEmailSearch,#txtPhoneSearch,#txtFistLastName,#txtFistLastName").keypress(function (evt) {
+                 var key = evt.which || evt.charCode || evt.keyCode || 0;
+                 if (key == 13) {
+                     funcSearchKHDangKy(1);
+                 }
+             });
+
+             //funcSearchKHDangKy(1, 1);
+         });
+
          function funcSearchKHDangKy(page) {
              try {
                  var company = $("#txtCompany").val().trim();
@@ -107,9 +119,13 @@
                  $.ajax({
                      url: "/quan-tri-he-thong/tim-kiem-kh-dk",
                      type: 'POST',
-                     data: { pKeySearch: keysearch, pNumPage: page}, 
-                     success: function (data)
-                     {
+                     data: { pKeySearch: keysearch, pNumPage: page }, 
+                     async: true, cache: false, traditional: true,
+                     beforeSend: function () {
+                         CreateRollingWaitingIcon(true);
+                     },
+                     success: function (data) {
+                         CreateRollingWaitingIcon(false);
                          $("#divKHRegistor").html(data);
                      },
                      error: function (e) {

@@ -73,14 +73,14 @@
 <div class="d-main smb_content">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> XEM CHI TIẾT THÔNG TIN DOCKETING</div>
+            <div class="div-title-content"> @(WebApps.Resources.Resource.XemChiTiet.ToUpper() + " DOCKETING")</div>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Case code<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -100,7 +100,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Tên tài liệu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.lblTenTaiLieu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -111,7 +111,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Loại tài liệu<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.LoaiTaiLieu<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -120,7 +120,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>Trạng thái <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TrangThai <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -142,7 +142,7 @@
 
         <div class="div-search-ad clssDisplaynone" id="clsPlace">
             <div class="div-search-title">
-                <div>Nơi nộp <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.NoiNop <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -153,7 +153,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Deadline <i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.Deadline <i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -177,7 +177,7 @@
         {
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>File đính kèm</div>
+                    <div>@WebApps.Resources.Resource.FileDinhKem</div>
                 </div>
                 <div class="div-search-content">
                     <div class="div-checkbox">
@@ -195,7 +195,7 @@
         }
         <div class="divCover">
             <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-                <input type="submit" class="btn-default" value="Thoát" onclick="return doExitDocking()" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Thoat" onclick="return doExitDocking()" />
             </div>
         </div>
     </div>

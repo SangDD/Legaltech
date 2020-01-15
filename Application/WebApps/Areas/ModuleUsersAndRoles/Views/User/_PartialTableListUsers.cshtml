@@ -14,14 +14,14 @@
         <thead>
             <tr>
                 <th style="width: 4%">STT</th>
-                <th data-sort id="Username" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên đăng nhập</th>
-                <th style="width: 17%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Họ tên</th>
-                <th style="width: 10%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Trạng thái</th>
-                <th style="width: 10%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Loại người dùng</th>
+                <th data-sort id="Username" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.TenDangNhap</th>
+                <th style="width: 17%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.HoTen</th>
+                <th style="width: 10%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.TrangThai</th>
+                <th style="width: 10%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.LoaiNguoiDung</th>
                 <th style="width: 15%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
-                <th style="width: 10%" data-sort id="Phone" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Số điện thoại</th>
-                <th style="width: 15%" data-sort id="LastTimeUpdated">Lần truy cập gần nhất</th>
-                <th style="width: 100px;">Chức năng</th>
+                <th style="width: 10%" data-sort id="Phone" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.SoDienThoai</th>
+                @*<th style="width: 15%" data-sort id="LastTimeUpdated">Lần truy cập gần nhất</th>*@
+                <th style="width: 100px;">@WebApps.Resources.Resource.ChucNang</th>
             </tr>
         </thead>
         <tbody>
@@ -37,7 +37,7 @@
                         <td class="tdleftalign">@item.Type_Name</td>
                         <td class="tdleftalign">@item.Email</td>
                         <td class="tdleftalign">@item.Phone</td>
-                        <td class="tdleftalign">@item.LAST_LOGIN.ToDateTimeStringN0()</td>
+                        @*<td class="tdleftalign">@item.LAST_LOGIN.ToDateTimeStringN0()</td>*@
                         <td class="tdcenteralign">
                             <a href="javascript:viewDetailUser(@item.Id, '@item.Username')" class="icon icon-info" data-title="Xem chi tiết"></a>
                             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)

@@ -73,6 +73,16 @@
 
 <script>
 
+    $(document).ready(function () {
+        $('txtChuSoHuu').focus();
+        $("#txtChuSoHuu,#txtPhoneSearch").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                SearchDDSHCN(1, 1);
+            }
+        });
+    });
+
     function funcGetView2Edit(_id) {
         if (CheckSessionTimeOut() == false) {
             return false;

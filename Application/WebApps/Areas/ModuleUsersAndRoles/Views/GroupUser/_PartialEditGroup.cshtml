@@ -1,24 +1,55 @@
 ﻿@model ObjectInfos.GroupUserInfo
 @try
 {
-	<div class="popup-opacity-wrapper"></div>
-	<div class="d-popup" style="overflow: visible">
-		<div class="d-popup-content grid">
-			<div>
-				<label>Tên nhóm <i class="redspan">(*)</i></label>
-				<input type="text" id="txtGroupNameEdit" maxlength="250" value="@Model.Name" />
-			</div>
-            <div>
-                <label>Mô tả </label>
-                <input type="text" id="txtNotes" maxlength="2000" value="@Model.Notes"/>
+    @*<div class="popup-opacity-wrapper"></div>
+        <div class="d-popup" style="overflow: visible">
+            <div class="d-popup-content grid">
+                <div>
+                    <label>Tên nhóm <i class="redspan">(*)</i></label>
+                    <input type="text" id="txtGroupNameEdit" maxlength="250" value="@Model.Name" />
+                </div>
+                <div>
+                    <label>Mô tả </label>
+                    <input type="text" id="txtNotes" maxlength="2000" value="@Model.Notes"/>
+                </div>
             </div>
-		</div>
-		<div class="d-popup-footer">
-			<input type="submit" class="btn" value="Lưu" onclick="return doEditGroupUser()" />
-		</div>
-	</div>
+            <div class="d-popup-footer">
+                <input type="submit" class="btn" value="Lưu" onclick="return doEditGroupUser()" />
+            </div>
+        </div>*@
 
-	<script>
+    <div class="" style="padding:5px 38px">
+        <div class="divCover divCover_popup">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.TenNhom<i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtGroupNameEdit" maxlength="250" value="@Model.Name" />
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.lblMoTa</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="txtNotes" maxlength="2000" value="@Model.Notes" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="form-group-bottom">
+                    <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Luu" onclick="return doEditGroupUser()" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
 		var groupNameEdit;
 
 		function doEditGroupUser() {
@@ -37,7 +68,8 @@
 					success: function (data) {
 						if (data != null) {
 							if (onResponse(data)) {
-								ClosePopupDialog('dpop-groupuser', true);
+								//ClosePopupDialog('dpop-groupuser', true);
+                                CloseDivPopUp('divWrapperViewUser');
 								window.findGroupUsers(1, 0);
 							}
 						}
@@ -65,9 +97,9 @@
 		    formData.append('groupInfo.Name', groupNameEdit);
 		    formData.append('groupInfo.Notes', $('#txtNotes').val());
 		}
-	</script>
+    </script>
 }
 catch (Exception)
 {
-	// ignored
+    // ignored
 }

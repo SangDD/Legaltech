@@ -17,21 +17,21 @@
 
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
                 {
-                    <th class="class150 m20">Luật sư</th>
+                <th class="class150 m20">@WebApps.Resources.Resource.LuatSu</th>
                 }
 
-                <th class="class100 hidemobile">Ngày</th>
-                <th class="class50 m20">Bắt đầu</th>
-                <th class="class50 m20">Kết thúc</th>
-                <th class="class150 hidemobile">Case name</th>
-                <th class="class150 m20">Case code</th>
-                <th class="class200 m30">Mô tả công việc</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.Ngay</th>
+                <th class="class50 m20">@WebApps.Resources.Resource.BatDau</th>
+                <th class="class50 m20">@WebApps.Resources.Resource.KetThuc</th>
+                <th class="class150 hidemobile">@WebApps.Resources.Resource.CaseName</th>
+                <th class="class150 m20">@WebApps.Resources.Resource.CaseCode</th>
+                <th class="class200 m30">@WebApps.Resources.Resource.MoTaCongViec</th>
 
-                <th class="class50 hidemobile">Thực tế</th>
-                <th class="class100 hidemobile">Điều chỉnh</th>
-                <th class="class100 hidemobile">Trạng thái</th>
-                <th class="class100 hidemobile">Ghi chú</th>
-                <th class="class100 m20">Chức năng</th>
+                <th class="class50 hidemobile">@WebApps.Resources.Resource.GioThucTe</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.GioDieuChinh</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.TrangThai</th>
+                <th class="class100 hidemobile">@WebApps.Resources.Resource.GhiChu</th>
+                <th class="class100 m20">@WebApps.Resources.Resource.ChucDanh</th>
             </tr>
         </thead>
         <tbody>
@@ -98,11 +98,11 @@
                 <tr>
                     @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
                     {
-                        <td colspan="13">Không có dữ liệu</td>
+                    <td colspan="13">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                     }
                     else
                     {
-                        <td colspan="12">Không có dữ liệu</td>
+                    <td colspan="12">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                     }
                 </tr>
             }

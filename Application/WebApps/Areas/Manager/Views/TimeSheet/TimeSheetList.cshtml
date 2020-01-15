@@ -43,7 +43,7 @@
             <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> THÔNG TIN TIMESHEET</div>
+            <div class="div-title-content"> @(WebApps.Resources.Resource.ThongTin.ToUpper() + " TIMESHEET")</div>
         </div>
     </div>
 
@@ -51,7 +51,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Case code</div>
+                <div>@WebApps.Resources.Resource.CaseCode</div>
             </div>
             <div>
                 <div>
@@ -63,12 +63,12 @@
             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
             {
                 <div class="div-search-title">
-                    <div>Luật sư </div>
+                    <div>@WebApps.Resources.Resource.LuatSu </div>
                 </div>
                 <div class="div-search-content">
                     <div>
                         <select id="cboLawer" style="width:200px">
-                            <option value="ALL">Tất cả</option>
+                            <option value="ALL">@WebApps.Resources.Resource.TatCa</option>
                             @foreach (var item in _lstLawer)
                             {
                                 <option value="@item.Id">@item.FullName</option>
@@ -79,7 +79,7 @@
             }
 
             <div class="div-search-title">
-                <div>Trạng thái </div>
+                <div>@WebApps.Resources.Resource.TrangThai </div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -97,10 +97,10 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_TimeSheet(1, 1)" />
+            <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="Search_TimeSheet(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
             {
-                <input type="button" value="Khai timesheet" class="btn-default" onclick="getView2Insert()" />
+                <input type="button" value="@WebApps.Resources.Resource.KhaiTimeSheet" class="btn-default" onclick="getView2Insert()" />
             }
         </div>
     </div>

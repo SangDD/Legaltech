@@ -1,7 +1,7 @@
 ﻿@using Common.CommonData
 @{
-	ViewBag.Title = "Quản lý nhóm quyền";
-	Layout = "~/ViewsShared/_Layout.cshtml";
+    ViewBag.Title = "Quản lý nhóm quyền";
+    Layout = "~/ViewsShared/_Layout.cshtml";
 }
 @try
 {
@@ -12,7 +12,7 @@
             <span class="red">></span>
             <a href="#">@WebApps.Resources.Resource.QuanLy</a>
             <span class="red">></span>
-            <a href="/quan-tri-he-thong/quan-ly-nhom-quyen">Quản lý nhóm quyền</a>
+            <a href="/quan-tri-he-thong/quan-ly-nhom-quyen">@WebApps.Resources.Resource.QuanlyNhomQuyen</a>
         </div>
     </div>
     <div class="divCover">
@@ -25,36 +25,69 @@
         @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
     </div>
 
-	<input type="hidden" value="LastTimeUpdated" id="colSorted" />
-	<input type="hidden" value="DESC" id="SortType" />
-	<input type="hidden" value="" id="OptionSorting" />
+    <div class="d-main smb_content">
+        <div class="divCover">
+            <div class="classTitle">
+                <input type="hidden" value="ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
+                <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
+                <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
+                <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinNhomQuyen.ToUpper() </div>
+            </div>
+        </div>
 
-	<div class="d-popup-container" id="dpop-groupuser"></div>
- 
-	<div class="title-section-content">
-		<p class="font-size-15 text-font-medium">Danh sách nhóm quyền</p>
-	</div>
+        <div class="divCover">
+            <div class="div-search-btn" style="width:450px;">
+                @*<input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findUsers(1, 1)" />*@
+                <input type="button" id="btnSearch" value="@WebApps.Resources.Resource.Them" class="btn-default" style="width: 125px;" onclick="getViewToAddNewGroupUser()" />
+            </div>
+        </div>
 
-	<div class="action">
-		<input class="btn" type="button" value="Thêm mới nhóm quyền" onclick="getViewToAddNewGroupUser()" />
-	</div>
+        <div class="divCover">
+            <div id="divTableGroupUsers">
+                @Html.Partial("_PartialTableListGroups")
+            </div>
+        </div>
 
-	<div id="divTableGroupUsers">
-		@Html.Partial("_PartialTableListGroups")
-	</div>
+        <div id="divWrapperViewUser" class="divWrapperPopup" style="display: none;">
+            <div class="divPopup" id="divViewUser">
+            </div>
+        </div>
 
-	<script>
+        <div class="d-popup-container" id="dpop-groupuser"></div>
+    </div>
+
+    <input type="hidden" value="LastTimeUpdated" id="colSorted" />
+    <input type="hidden" value="DESC" id="SortType" />
+    <input type="hidden" value="" id="OptionSorting" />
+
+    @*<div class="d-popup-container" id="dpop-groupuser"></div>
+
+    <div class="title-section-content">
+        <p class="font-size-15 text-font-medium">Danh sách nhóm quyền</p>
+    </div>
+
+    <div class="action">
+        <input class="btn" type="button" value="Thêm mới nhóm quyền" onclick="getViewToAddNewGroupUser()" />
+    </div>
+
+    <div id="divTableGroupUsers">
+        @Html.Partial("_PartialTableListGroups")
+    </div>*@
+
+    <script>
 		var _currentKeySearch = '@SessionStorages.SEARCH_GROUPUSER_KEY_CONDITIONS';
 		var _currentOptionFilter = '@SessionStorages.SEARCH_GROUPUSER_KEY_OPTIONS';
 		var groupName = '';
 
-		$(document).ready(function () {
-		});
-	 
-	</script>
+        $(document).ready(function () {
 
-	@* task function *@
-	<script>
+            
+		});
+
+    </script>
+
+    @* task function *@
+    <script>
 		function getViewToAddNewGroupUser() {
 			$.ajax({
 				type: "POST",
@@ -64,8 +97,11 @@
 				success: function (data) {
 					if (data != null) {
 						if (validateResponse(data)) {
-							$("#dpop-groupuser").html(data);
-							ShowPopupDialog("dpop-groupuser", "Thêm mới nhóm quyền", 600, 0, "txtGroupNameAdd");
+							//$("#dpop-groupuser").html(data);
+							//ShowPopupDialog("dpop-groupuser", "Thêm mới nhóm quyền", 600, 0, "txtGroupNameAdd");
+
+                            $("#divViewUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperViewUser', "Thêm mới nhóm quyền", 600, 500, "txtGroupNameAdd");
 						}
 					}
 					return false;
@@ -83,8 +119,11 @@
 				success: function (data) {
 					if (data != null) {
 						if (validateResponse(data)) {
-							$("#dpop-groupuser").html(data);
-							ShowPopupDialog("dpop-groupuser", "Sửa nhóm quyền: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 0, "txtGroupNameEdit");
+							//$("#dpop-groupuser").html(data);
+							//ShowPopupDialog("dpop-groupuser", "Sửa nhóm quyền: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 0, "txtGroupNameEdit");
+
+                            $("#divViewUser").html(data);
+                            ShowPopupDialog_Ipace('divWrapperViewUser', "Sửa nhóm quyền: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 500, "txtGroupNameEdit");
 						}
 					}
 					return false;
@@ -107,7 +146,7 @@
 						success: function (data) {
 							if (data != null) {
 								if (onResponse(data)) {
-									ClosePopupDialog('dpop-groupuser', true);
+									//ClosePopupDialog('dpop-groupuser', true);
 									window.findGroupUsers(1, 0);
 								}
 							}
@@ -133,15 +172,21 @@
 						if (validateResponse(data)) {
 							$("#dpop-groupuser").html(data);
 							ShowPopupDialog("dpop-groupuser", "Phân quyền cho nhóm: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 0, "");
+
+                            //$("#divViewUser").html(data);
+                            //ShowPopupDialog("divWrapperViewUser", "Phân quyền cho nhóm: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 0, "");
+
+                            //$("#divViewUser").html(data);
+                            //ShowPopupDialog_Ipace('divWrapperViewUser', "Phân quyền cho nhóm: <span class='data-in-title-popup'>" + groupName + "</span>", 600, 500, "");
 						}
 					}
 					return false;
 				}
 			});
 		}
-	</script>
+    </script>
 }
 catch (Exception)
 {
-	// ignored
+    // ignored
 }
