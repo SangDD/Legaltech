@@ -12,8 +12,8 @@
                         <th style="width: 15%" data-sort id="CASE_CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.CaseCode</th>
                         <th data-sort style="width: 20%" id="CONTENT">Mô tả</th>
                         <th style="width: 15%" data-sort id="STATUS_NAME" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.TrangThai</th>
-                        <th style="width: 10%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.Nguoigui</th>
-                        <th style="width: 10%" data-sort id="MODIFIED_DATE">Thời gian chờ</th>
+                        <th style="width: 10%" data-sort id="CREATED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.KhachHang</th>
+                        <th style="width: 10%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.Thoigiancho</th>
                         <th style="width: 15%" data-sort id="MODIFIED_BY" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.Processor</th>
                         <th style="width: 200px;">@WebApps.Resources.Resource.ChucNang</th>
                     </tr>
@@ -28,7 +28,7 @@
                                 <td class="tdleftalign">@item.CASE_CODE</td>
                                 <td class="tdleftalign">@item.NOTE</td>
                                 <td class="tdleftalign">@item.STATUS_NAME</td>
-                                <td class="tdleftalign">@item.CREATED_BY</td>
+                                <td class="tdleftalign">@item.Customer_Name</td>
 
                                 <td class="tdleftalign">
                                     @{
@@ -40,7 +40,7 @@
                                     }
                                     @timeDiff
                                 </td>
-                                <td class="tdleftalign">@item.Lawer_User_Name</td>
+                                <td class="tdleftalign">@item.LAWER_NAME</td>
                                 <td class="tdcenteralign">
                                     <a href="/quan-ly-search/search-todo-detail/@item.CASE_CODE/4" class="icon icon-info" data-title="Xem chi tiết"></a>
 

@@ -362,11 +362,11 @@ namespace WebApps.Areas.Manager.Controllers
                     }
 
 
-                    // chỉ lấy những thằng nào mà > đã nộp đơn lên cục
-                    if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
-                    {
-                        return Json(new { success = -2 });
-                    }
+                    //// chỉ lấy những thằng nào mà > đã nộp đơn lên cục
+                    //if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
+                    //{
+                    //    return Json(new { success = -2 });
+                    //}
                 }
 
                 // chi phí khác
@@ -929,7 +929,14 @@ namespace WebApps.Areas.Manager.Controllers
 
                     ViewBag.App_Case_Code = _Billing_Header_Info.App_Case_Code;
 
-                    return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
+                    if (WebApps.Session.SessionData.CurrentUser != null && WebApps.Session.SessionData.CurrentUser.Type == (decimal)Common.CommonData.CommonEnums.UserType.Admin)
+                    {
+                        return PartialView("~/Areas/Manager/Views/Billing/_PartialApprove.cshtml", _Billing_Header_Info);
+                    }
+                    else
+                    {
+                        return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
+                    }
                 }
                 else if (_Billing_Header_Info.Status == (decimal)CommonEnums.Billing_Status.Approved)
                 {
@@ -940,7 +947,14 @@ namespace WebApps.Areas.Manager.Controllers
                     ViewBag.objSearch_HeaderInfo = SearchObject_Header_Info;
                     ViewBag.objAppHeaderInfo = objAppHeaderInfo;
 
-                    return PartialView("~/Areas/Manager/Views/Billing/_PartialChangePayStatus.cshtml", _Billing_Header_Info);
+                    if (WebApps.Session.SessionData.CurrentUser != null && WebApps.Session.SessionData.CurrentUser.Type == (decimal)Common.CommonData.CommonEnums.UserType.Admin)
+                    {
+                        return PartialView("~/Areas/Manager/Views/Billing/_PartialChangePayStatus.cshtml", _Billing_Header_Info);
+                    }
+                    else
+                    {
+                        return PartialView("~/Areas/Manager/Views/Billing/_PartialView.cshtml", _Billing_Header_Info);
+                    }
                 }
                 else
                 {
@@ -970,7 +984,7 @@ namespace WebApps.Areas.Manager.Controllers
                 string _mapPath_Report = Server.MapPath("~/Report/");
                 string _mapPath = Server.MapPath("~/");
 
-                string _fileName = AppsCommon.Export_Billing_Crytal_View(p_case_code,  _mapPath_Report, _mapPath);
+                string _fileName = AppsCommon.Export_Billing_Crytal_View(p_case_code, _mapPath_Report, _mapPath);
                 return Json(new { success = _fileName });
             }
             catch (Exception ex)
@@ -1211,10 +1225,10 @@ namespace WebApps.Areas.Manager.Controllers
                         }
 
                         // chỉ lấy những thằng nào mà > đã nộp đơn lên cục
-                        if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
-                        {
-                            return Json(new { success = -2 });
-                        }
+                        //if (objAppHeaderInfo != null && objAppHeaderInfo.Status < (decimal)Common.CommonData.CommonEnums.App_Status.DaNopDon)
+                        //{
+                        //    return Json(new { success = -2 });
+                        //}
 
                         SessionData.SetDataSession(p_case_code + "_CURRENCY_TYPE", objAppHeaderInfo.Currency_Type);
                         ViewBag.Currency_Type = objAppHeaderInfo.Currency_Type;

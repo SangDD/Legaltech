@@ -15,14 +15,14 @@
         <thead>
             <tr>
                 <th style="width: 4%">STT</th>
-                <th data-sort id="Username" style="width:7%" data-sortoption="@((int)CommonEnums.OrderOptions.String)">First Name</th>
-                <th style="width: 8%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">LastName</th>
-                <th style="width: 8%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Phone</th>
+                <th data-sort id="Username" style="width:7%" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.FirstName</th>
+                <th style="width: 8%" data-sort id="FullName" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.LastName</th>
+                <th style="width: 8%" data-sort id="Status" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.SoDienThoai</th>
                 <th style="width: 15%" data-sort id="Type" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Email</th>
-                <th style="width: 20%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Company</th>
-                <th style="width: 15%" data-sort id="LastTimeUpdated">Ngày đăng ký</th>
-                <th style="width: 7%" data-sort id="Status" >Trạng thái</th>
-                <th style="width: 100px;">Chức năng</th>
+                <th style="width: 20%" data-sort id="Email" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.CongTy</th>
+                <th style="width: 15%" data-sort id="LastTimeUpdated">@WebApps.Resources.Resource.NgayDangKy</th>
+                <th style="width: 7%" data-sort id="Status">@WebApps.Resources.Resource.TrangThai</th>
+                <th style="width: 100px;">@WebApps.Resources.Resource.ChucNang</th>
             </tr>
         </thead>
         <tbody>
@@ -58,7 +58,7 @@
             else
             {
                 <tr>
-                    <td colspan="9">Không có dữ liệu</td>
+                    <td colspan="9">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                 </tr>
             }
         </tbody>
