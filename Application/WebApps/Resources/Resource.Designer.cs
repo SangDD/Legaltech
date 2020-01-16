@@ -19,7 +19,7 @@ namespace WebApps.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -1488,6 +1488,15 @@ namespace WebApps.Resources {
         public static string ConfirmEdit {
             get {
                 return ResourceManager.GetString("ConfirmEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bạn có chắc chắn tải file này ?.
+        /// </summary>
+        public static string ConfirmFile {
+            get {
+                return ResourceManager.GetString("ConfirmFile", resourceCulture);
             }
         }
         

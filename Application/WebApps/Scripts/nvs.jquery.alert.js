@@ -9,20 +9,18 @@ var _loi1 = "Lỗi!";
 var _thanhcong1 = "Thành công!";
 var _thongbao1 = "Thông báo!";
 var _canhbao1 = "Cảnh báo!";
-if (_currentlanguage != undefined)
-{
-    if(_currentlanguage == "EN_US")
-    {
-         _thongbao = "Message";
-         _loi = "Error";
-         _thanhcong = "Success";
-         _canhbao = "Warning";
-         _chapnhap = "Accept";
-         _huy = "Abort";
-         _loi1 = "Error!";
-         _thanhcong1 = "Success!";
-         _thongbao1 = "Message!";
-         _canhbao1 = "Warning!";
+if (_currentlanguage != undefined) {
+    if (_currentlanguage == "EN_US") {
+        _thongbao = "Message";
+        _loi = "Error";
+        _thanhcong = "Success";
+        _canhbao = "Warning";
+        _chapnhap = "Accept";
+        _huy = "Abort";
+        _loi1 = "Error!";
+        _thanhcong1 = "Success!";
+        _thongbao1 = "Message!";
+        _canhbao1 = "Warning!";
     }
 }
 function nvsAlert($title, $content, $fncallback) {
@@ -101,6 +99,46 @@ function nvsConfirm($title, $content, $fnokcallback, $fncancelcallback) {
                 $fncancelcallback();
             }
         });
+    } catch (e) {
+    }
+}
+
+function nvsConfirmResize($title, $content, $fnokcallback, $fncancelcallback) {
+    try {
+        //$title = $title == undefined ? "" : $title;
+        //swal({
+        //    type: "question",
+        //    text: $content,
+        //    html: ""  +$content+
+        //        "<br>" +
+        //       '<button type="button" role="button" tabindex="0" class="SwalBtn1 customSwalBtnOK" style="background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);">' + 'OK' + '</button>' +
+        //       '<button type="button" role="button" tabindex="0" class="SwalBtn1 customSwalBtnOK" style="background-color: rgb(48, 133, 214); border-left-color: rgb(48, 133, 214); border-right-color: rgb(48, 133, 214);">' + 'Resize' + '</button>' +
+        //       '<button type="button" role="button" tabindex="0" class="SwalBtn2 customSwalBtnCancel" style="display: inline-block; background-color: rgb(170, 170, 170);">' + 'Cancel' + '</button>',
+        //    showCancelButton: false,
+        //    showConfirmButton: false
+        //});
+
+        var buttons = $('<div>')
+           .append(createButton('Ok', function () {
+               swal.close();
+               console.log('ok');
+           })).append(createButton('Later', function () {
+               swal.close();
+               console.log('Later');
+           })).append(createButton('Cancel', function () {
+               swal.close();
+               console.log('Cancel');
+           }));
+        
+        e.preventDefault();
+        swal({
+            title: "Are you sure?",
+            html: buttons,
+            type: "warning",
+            showConfirmButton: false,
+            showCancelButton: false
+        });
+
     } catch (e) {
     }
 }
@@ -286,28 +324,24 @@ function funcShowOrHidden(ptag) {
     }
 }
 
-function funcHidden(ptag, ptgHiden, pAddNew)
-{
+function funcHidden(ptag, ptgHiden, pAddNew) {
     $("#" + ptag).attr("hidden", "hidden");
     $("#" + ptgHiden).css('display', 'none');
 
     //An hien chu don khac 
     var allElems = document.getElementsByClassName('classChuDonKhac');
     var count = 0;
-    for (var i = 0; i < allElems.length; i++)
-    {
+    for (var i = 0; i < allElems.length; i++) {
         var thisElem = allElems[i];
         if (thisElem.style.display == 'block') {
             count++;
         }
     }
-    if (count == 0)
-    {
+    if (count == 0) {
         $("#divChungDonKhac001").css('display', 'none');
     }
 
-    if (pAddNew == "01")
-    {
+    if (pAddNew == "01") {
         $("#divThemChuDon01").css('display', 'block');
         $("#divThemChuDon02").css('display', 'none');
         $("#divThemChuDon03").css('display', 'none');
@@ -333,15 +367,14 @@ function funcHidden(ptag, ptgHiden, pAddNew)
     }
 }
 
-function funcShowOrHiddenCD(ptag, ptgShow)
-{
+function funcShowOrHiddenCD(ptag, ptgShow) {
     $(".ms-drop").css('width', '100%');
 
     $("#" + ptag).removeAttr("hidden");
     $("#" + ptgShow).css('display', 'block');
     var check = "00";
     if (ptgShow == "divHiddenChuDon01") {
-        
+
         $("#divChungDonKhac001").css('display', 'block');
         $("#divThemChuDon01").css('display', 'none');
         $("#divThemChuDon03").css('display', 'none');
