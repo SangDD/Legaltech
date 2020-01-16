@@ -24,6 +24,12 @@
     BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
     List<UserInfo> _lstUsersAdmin = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Admin));
     var lstUsersAdmin = _lstUsersAdmin.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
+
+    bool _isApprove = false;
+    if (WebApps.Session.SessionData.CurrentUser != null && WebApps.Session.SessionData.CurrentUser.Type == (decimal)Common.CommonData.CommonEnums.UserType.Admin)
+    {
+        _isApprove = true;
+    }
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -96,13 +102,13 @@
 
 
             @*<div class="div-search-title">
-                <div>Người xét duyệt<i class="redspan">(*)</i></div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
+                    <div>Người xét duyệt<i class="redspan">(*)</i></div>
                 </div>
-            </div>*@
+                <div class="div-search-content">
+                    <div>
+                        @Html.DropDownList("Approve_By", lstUsersAdmin, new { @id = "Approve_By", @disabled = "disabled" })
+                    </div>
+                </div>*@
         </div>
 
         <div id="divInfoApp" style="margin-top: 10px;">
@@ -150,7 +156,7 @@
         </div>
 
         <div class="divCover cls_form_title">
-            <img src="~/Content/icons/bank.png" class="title_left_img"/>
+            <img src="~/Content/icons/bank.png" class="title_left_img" />
             <div class="cls_form_header title_left_2">
                 @WebApps.Resources.Resource.VuiLongChuyenKhoan
             </div>
@@ -196,7 +202,6 @@
             </div>
         </div>
 
-
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/info_2.png" />
             <div class="cls_form_header">
@@ -215,22 +220,29 @@
             }
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.LyDoTuChoi</div>
-            </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" value="" id="txtReject_Reason" maxlength="500"/>
+        @if (_isApprove == true)
+        {
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.LyDoTuChoi</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="" id="txtReject_Reason" maxlength="500" />
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;margin-top: 5px;">
-            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Duyet" onclick="return onApprove()" />
-            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.TuChoi" onclick="return onReject()" />
+
+            @if (_isApprove == true)
+            {
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Duyet" onclick="return onApprove()" />
+                <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.TuChoi" onclick="return onReject()" />
+            }
 
             @if (Model.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
             {

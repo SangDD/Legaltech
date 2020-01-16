@@ -62,10 +62,11 @@
 
                         <td class="tdcenteralign">
                             <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
-                            <a href="javascript:;" onclick="doDeleteBilling(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
+                            
 
                             @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
                             {
+                                <a href="javascript:;" onclick="doDeleteBilling(@item.Billing_Id)" class="icon icon-delete" data-title="Xóa"></a>
                                 <a href="javascript:;" onclick="getView2Edit(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-edit" data-title="Sửa"></a>
                             }
 
