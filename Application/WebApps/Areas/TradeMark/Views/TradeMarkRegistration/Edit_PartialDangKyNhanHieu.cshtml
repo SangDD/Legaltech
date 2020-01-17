@@ -1026,6 +1026,19 @@
     </div>
 </div>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="iconFormConfirm" style="">?</div>
+        <div style="text-align:center">@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)</div>
+        <div style="overflow: hidden">
+            <div onclick="ActionOk()" class="btnRS">OK</div>
+            <div onclick="ActionResize()" class="btnRS">Resize</div>
+            <div onclick="ActionCancel()" style="background:rgb(170, 170, 170)" class="btnRS">Cancel</div>
+        </div>
+    </div>
+</div>
+
 
 <style>
     .div-search-content .ms-ul > ul {
@@ -1380,15 +1393,20 @@
                 //2x2 75x75 px
                 if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
                     _checkanh = 1;
-                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
+                    @*nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
+                        return true;
+                    }, function () {
+                        //Callback
+                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                    });*@
+                    showFResize();
+                } else {
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmFile)", function () {
                         return true;
                     }, function () {
                         //Callback
                         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
                     });
-
-                } else {
-                    return true;
                 }
             }
             reader.readAsDataURL(this.files[0]);
@@ -1397,6 +1415,20 @@
             _checkanh = 2;
         }
     };
+
+    function ActionOk(){
+        $("#myModal").css("display","none");
+        return true;
+    }
+    function ActionCancel(){
+        $("#myModal").css("display","none");
+        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+    }
+    function ActionResize(){
+        $("#myModal").css("display","none");
+        window.open("https://picresize.com/", '_blank');
+
+    }
 
     function funcUpLoadMauNhanHieu(pFile) {
         try {
@@ -1893,10 +1925,10 @@
                 return false;
             }
 
-            if (_checkanh === 1) {
-                showError('Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8!');
-                return false;
-            }
+            //if (_checkanh === 1) {
+            //    showError('Ảnh tải lên không đúng kích cỡ từ 2x2 đến 8x8!');
+            //    return false;
+            //}
             if (_checkanh === 2) {
                 showError('File tải lên không đúng định dạng file ảnh');
                 return false;
@@ -2522,6 +2554,34 @@
         } catch (e) {
             alert(e);
         }
+    }
+
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    function showFResize() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+      modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
     }
 
 </script>
