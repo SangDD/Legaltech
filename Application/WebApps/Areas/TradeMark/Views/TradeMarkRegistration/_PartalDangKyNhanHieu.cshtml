@@ -1145,6 +1145,7 @@
                         return true;
                     }, function () {
                         //Callback
+                        $('#pfile_6_rdoMauNhanHieu').val('');
                         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
                     });
                    // return true;
@@ -1163,10 +1164,12 @@
     }
     function ActionCancel(){
         $("#myModal").css("display","none");
+        $('#pfile_6_rdoMauNhanHieu').val('');
         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
     }
     function ActionResize(){
         $("#myModal").css("display","none");
+        $('#pfile_6_rdoMauNhanHieu').val('');
         window.open("https://picresize.com/", '_blank');
 
     }

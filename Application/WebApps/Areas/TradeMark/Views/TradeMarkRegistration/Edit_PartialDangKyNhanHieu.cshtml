@@ -1405,6 +1405,8 @@
                         return true;
                     }, function () {
                         //Callback
+                        funcRemoveTradeMarkImg('imgMauNhanHieu');
+                        $('#pfile_6_rdoMauNhanHieu').val('');
                         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
                     });
                 }
@@ -1422,10 +1424,15 @@
     }
     function ActionCancel(){
         $("#myModal").css("display","none");
+        funcRemoveTradeMarkImg('imgMauNhanHieu');
+        $('#pfile_6_rdoMauNhanHieu').val('');
         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
     }
     function ActionResize(){
         $("#myModal").css("display","none");
+        funcRemoveTradeMarkImg('imgMauNhanHieu');
+        $('#pfile_6_rdoMauNhanHieu').val('');
+        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
         window.open("https://picresize.com/", '_blank');
 
     }
