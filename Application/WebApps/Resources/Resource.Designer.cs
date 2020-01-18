@@ -5137,6 +5137,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quản lý nhân viên.
+        /// </summary>
+        public static string QuanLyNhanVien {
+            get {
+                return ResourceManager.GetString("QuanLyNhanVien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quản lý nhóm quyền.
         /// </summary>
         public static string QuanlyNhomQuyen {
@@ -6001,6 +6010,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm nhân viên.
+        /// </summary>
+        public static string ThemNhanVien {
+            get {
+                return ResourceManager.GetString("ThemNhanVien", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Lưu ý nếu đã biết phân nhóm, nhập hàng hóa dịch vụ tại đây.
         /// </summary>
         public static string ThemNhomThuCong {
@@ -6195,6 +6213,15 @@ namespace WebApps.Resources {
         public static string ThongTinNguoiDung {
             get {
                 return ResourceManager.GetString("ThongTinNguoiDung", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin nhân viên.
+        /// </summary>
+        public static string ThongTinNhanVien {
+            get {
+                return ResourceManager.GetString("ThongTinNhanVien", resourceCulture);
             }
         }
         
