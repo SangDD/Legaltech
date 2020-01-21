@@ -44,7 +44,7 @@
                 <input type="hidden" value="ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
                 <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
                 <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-                <div class="div-title-content"> THÔNG TIN KHÁCH HÀNG </div>
+                <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinKhachHang.ToUpper() </div>
             </div>
         </div>
 
@@ -52,7 +52,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên khách hàng</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TenKhachHang</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div style="width: 120px">Trạng thái</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TrangThai</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -79,10 +79,10 @@
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
-                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findUsers(1, 1)" />
+                <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findUsers(1, 1)" />
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.SupperAdmin)
                 {
-                    <input type="button" value="Thêm khách hàng" class="btn-default" style="width: 125px;" onclick="getViewToAddNewUser()" />
+                    <input type="button" value="@WebApps.Resources.Resource.ThemMoiKhachHang" class="btn-default" style="width: 145px;" onclick="getViewToAddNewUser()" />
                 }
             </div>
         </div>

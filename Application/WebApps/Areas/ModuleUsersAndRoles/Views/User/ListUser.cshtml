@@ -60,7 +60,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">@WebApps.Resources.Resource.HoTen</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TenNhanVien</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -76,7 +76,7 @@
                 <div>
                     <div>
                         <select data-controlcondition="TRUE" id="cboUserType" style="width: 250px;">
-                            <option value="ALL">Tất cả</option>
+                            <option value="ALL">@WebApps.Resources.Resource.TatCa</option>
                             @foreach (var item in _lstType)
                             {
                                 <option value="@item.CdVal">@item.Content</option>
@@ -90,7 +90,7 @@
                 <div class="div-search-content">
                     <div>
                         <select data-controlcondition="TRUE" id="cboStatusSearch">
-                            <option selected="selected" value="">Tất cả</option>
+                            <option selected="selected" value="">@WebApps.Resources.Resource.TatCa</option>
                             @foreach (var item in _lstStatus)
                             {
                                 <option value="@item.CdVal">@item.Content</option>

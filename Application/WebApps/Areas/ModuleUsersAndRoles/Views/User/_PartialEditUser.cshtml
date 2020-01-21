@@ -62,7 +62,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.HoTen<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenNhanVien<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -416,9 +416,10 @@
 		GroupId = $('#cboGroupUser').val();
 
 		if (fullName === "") {
-            jError("Họ tên không được để trống!", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
-                $('#txtFullName').focus();
+            jError("@Html.Raw(WebApps.Resources.Resource.TenNhanVien)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                 $('#txtFullName').focus();
             });
+
             return false;
         }
 
