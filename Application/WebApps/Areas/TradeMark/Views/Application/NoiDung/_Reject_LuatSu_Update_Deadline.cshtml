@@ -219,7 +219,7 @@
 
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, jAlert("@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
 
                 // file copy scan cv trả lời có dấu đỏ của cục
                 var pfile = $("#file_attach_1");//lay du lieu file

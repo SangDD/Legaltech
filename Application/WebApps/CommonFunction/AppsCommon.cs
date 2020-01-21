@@ -1090,6 +1090,7 @@ namespace WebApps.CommonFunction
                         _AllCodeInfo.CdVal = item.CdVal;
                         _AllCodeInfo.Content = item.Content;
                         _AllCodeInfo.Content_Eng = item.Content_Eng;
+                        _AllCodeInfo.LstOdr = item.LstOdr;
                         _lst.Add(_AllCodeInfo);
                     }
 

@@ -62,7 +62,7 @@
             </div>
 
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.HoTen<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.TenKhachHang<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -556,7 +556,7 @@
 		GroupId = $('#cboGroupUser').val();
 
 		if (fullName === "") {
-            jError("@Html.Raw(WebApps.Resources.Resource.fullNameTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+            jError("@Html.Raw(WebApps.Resources.Resource.TenKhachHang)" + "@Html.Raw(WebApps.Resources.Resource.KhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
                 $('#txtFullName').focus();
             });
             return false;

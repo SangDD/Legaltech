@@ -4,8 +4,11 @@
 @using BussinessFacade.ModuleMemoryData
 @{
     string _Checked = "";
-    List<AllCodeInfo> _lstStatus = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("APP", "STATUS");
-    int _count = 0;
+    List<AllCodeInfo> _lstStatus =
+        WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("APP", "STATUS").FindAll(x => Convert.ToDecimal(x.CdVal) >= (decimal)Common.CommonData.CommonEnums.App_Status.Customer_Review).ToList();
+
+    _lstStatus = _lstStatus.OrderBy(x => x.LstOdr).ToList();
+
     List<B_Todos_Info> _Listtodo = new List<B_Todos_Info>();
     if (ViewBag.ListTodo != null)
     {
@@ -18,6 +21,7 @@
         _currstatus = ViewBag.Currstatus;
     }
 
+
     B_Todos_Info _FirstTodo = new B_Todos_Info();
     if (_Listtodo.Count > 0)
     {
@@ -25,11 +29,14 @@
     }
 
     string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
+    int _count = 0;
+    AllCodeInfo _AllCodeInfo = _lstStatus.Find(x => x.CdVal == _currstatus.ToString());
+    int _status_index = _AllCodeInfo == null ? 0 : _AllCodeInfo.LstOdr;
 }
 
 <style>
     /*style process*/
-    .progress_div_radio {
+    /*.progress_div_radio {
         width: 19px;
         float: left;
         padding: 0px 5px;
@@ -68,8 +75,7 @@
         width: 90px;
         float: left;
         text-align: center;
-        margin-left: calc(11% - 29px + 22px - 90px + 40px);
-        /*margin-left: calc(12% - 29px + 22px - 90px + 40px);*/
+        margin-left: calc(11% - 29px + 22px - 90px + 40px); 
     }
 
     .progress_div_text3 {
@@ -161,51 +167,138 @@
 
     .user_progress_active {
         background-color: burlywood;
-    }
+    }*/
+
+
+    /*new*/
+
+    /* apply a natural box layout model to all elements */
+    /**, *:before, *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }*/
 </style>
-<div style="width:100%;float:left;" class="mb_disnone"> 
+
+<div style="width:100%;float:left;" class="mb_disnone">
     @{
         _count = 0;
     }
-    @foreach (var item in _lstStatus)
-    {
-        if (Convert.ToDecimal(item.CdVal) < (decimal)Common.CommonData.CommonEnums.App_Status.Customer_Review)
-        {
-            continue;
-        }
 
-        _count++;
+    <ol class="steps">
+        @foreach (var item in _lstStatus)
+        {
+            _count++;
 
-        if (language.Contains("VN"))
-        {
-            <div class="@("progress_div_text" +  _count)"> @item.Content</div>
+            if (item.CdVal == _currstatus.ToString())
+            {
+                if (language.Contains("VN"))
+                {
+                    <li class="open">
+                        <div class="wrap">
+                            <div class="num"><b>@_count</b></div>
+                            <p><span>@item.Content</span></p>
+                        </div>
+                    </li>
+                }
+                else
+                {
+                    <li class="open">
+                        <div class="wrap">
+                            <div class="num"><b>@_count</b></div>
+                            <p><span>@item.Content_Eng</span></p>
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                if (item.LstOdr < _status_index)
+                {
+                    if (_count == _lstStatus.Count)
+                    {
+                        <li>
+                            <div class="num last tooltip_status"><b>@_count</b> <span class="tooltiptext">@item.Content</span></div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <div class="num tooltip_status"><b>@_count</b> <span class="tooltiptext">@item.Content</span></div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    if (_count == _lstStatus.Count)
+                    {
+                        <li class="closed">
+                            <div class="num last tooltip_status"><b>@_count</b> <span class="tooltiptext">@item.Content</span></div>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="closed">
+                            <div class="num tooltip_status"><b>@_count</b> <span class="tooltiptext">@item.Content</span></div>
+                        </li>
+                    }
+                }
+
+
+            }
         }
-        else
-        {
-            <div class="@("progress_div_text" +  _count)"> @item.Content_Eng</div>
-        }
-    }
+    </ol>
 </div>
-<div style="width:100%;float:left;margin-top:0px" class="mb_disnone">
-    <hr class="progress_hr" />
-    @{
-        _count = 0;
-    }
-    @foreach (var item in _lstStatus)
-    {
-        if (Convert.ToDecimal(item.CdVal) < (decimal)Common.CommonData.CommonEnums.App_Status.Customer_Review)
-        {
-            continue;
-        }
 
-        _count++;
-        _Checked = "";
-        if (item.CdVal == _currstatus.ToString())
-        {
-            _Checked = "checked='checked'";
+@*<div style="width:100%;float:left;" class="mb_disnone">
+        @{
+            _count = 0;
         }
+        @foreach (var item in _lstStatus)
+        {
+            if (Convert.ToDecimal(item.CdVal) < (decimal)Common.CommonData.CommonEnums.App_Status.Customer_Review)
+            {
+                continue;
+            }
 
-        <div class="progress_div_radio"><input type="checkbox" name="name" disabled @_Checked /></div>
+            _count++;
+            if (item.CdVal == _currstatus.ToString())
+            {
+                if (language.Contains("VN"))
+                {
+                    <div class="@("progress_div_text" + _count)"> @item.Content</div>
+                }
+                else
+                {
+                    <div class="@("progress_div_text" + _count)"> @item.Content_Eng</div>
+                }
+            }
+            else
+            {
+                <div class="@("progress_div_text" + _count)"> </div>
+            }
+        }
+    </div>
+    <div style="width:100%;float:left;margin-top:0px" class="mb_disnone">
         <hr class="progress_hr" />
-    }
-</div>
+        @{
+            _count = 0;
+        }
+        @foreach (var item in _lstStatus)
+        {
+            if (Convert.ToDecimal(item.CdVal) < (decimal)Common.CommonData.CommonEnums.App_Status.Customer_Review)
+            {
+                continue;
+            }
+
+            _count++;
+            _Checked = "";
+            if (item.CdVal == _currstatus.ToString())
+            {
+                _Checked = "checked='checked'";
+            }
+
+            <div class="progress_div_radio"><input type="checkbox" name="name" disabled @_Checked /></div>
+            <hr class="progress_hr" />
+        }
+    </div>*@

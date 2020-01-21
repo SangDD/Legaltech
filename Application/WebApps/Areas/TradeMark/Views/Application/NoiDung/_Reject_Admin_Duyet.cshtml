@@ -211,7 +211,7 @@
 
     function do_Reject(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, jAlert("@Html.Raw(WebApps.Resources.Resource.TuChoiNoiDung)", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.TuChoiNoiDung)", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/reject-admin-approve',
                     type: 'POST',

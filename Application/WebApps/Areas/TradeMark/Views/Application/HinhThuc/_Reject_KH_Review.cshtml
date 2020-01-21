@@ -167,7 +167,7 @@
 
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, jAlert("@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/reject-customer-approve',

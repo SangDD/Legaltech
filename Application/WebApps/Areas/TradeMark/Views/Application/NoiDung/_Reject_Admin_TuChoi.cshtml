@@ -195,7 +195,7 @@
 
     function do_Submit(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, jAlert("@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
                 var formdata = new FormData();
                 formdata.append("pInfo.Case_Code", _case_code);

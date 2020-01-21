@@ -233,7 +233,7 @@
 
     function do_Reject(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, jAlert("@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmApprove)", function () {
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/reject-admin-approve-translate',
                     type: 'POST',

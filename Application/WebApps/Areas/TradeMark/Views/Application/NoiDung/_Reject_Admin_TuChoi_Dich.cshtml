@@ -192,7 +192,7 @@
     // dịch lại
     function do_Re_Translate(_case_code) {
         if (validateAction()) {
-            nvsConfirm(null, jAlert("@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmSubmit)", function () {
 
                 $.ajax({
                     url: '/trade-mark-mana/quan-ly-don/reject-lawer-translate',

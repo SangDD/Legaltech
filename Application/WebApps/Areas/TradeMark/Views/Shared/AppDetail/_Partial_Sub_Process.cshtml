@@ -35,7 +35,7 @@
 
 <style>
     /*style process*/
-    .progress_div_radio_sub {
+    /*.progress_div_radio_sub {
         width: 19px;
         float: left;
         padding: 0px 5px;
@@ -140,10 +140,144 @@
 
     .user_progress_active {
         background-color: burlywood;
+    }*/
+
+    *, *:before, *:after {
+        -moz-box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .steps {
+        margin: 0 0 20px;
+        padding: 0;
+        list-style: none;
+        overflow: hidden;
+    }
+
+        .steps li {
+            float: left;
+            position: relative;
+        }
+
+    .wrap {
+        float: left
+    }
+
+    .num {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        border-radius: 50%;
+        background: green;
+        color: #000;
+        font-weight: bold;
+        text-align: center;
+        float: left;
+        position: relative;
+        margin: 0 4px 0 0;
+    }
+
+        .num b, .steps p span {
+            position: relative;
+            z-index: 2;
+        }
+
+        .num:after {
+            content: " ";
+            width: 0;
+            height: 0;
+            border-top: 14px solid #e9eaef;
+            border-bottom: 14px solid #e9eaef;
+            border-left: 14px solid green;
+            position: absolute;
+            right: -4px;
+            top: 1px;
+        }
+
+    .steps p {
+        background: #e9eaef;
+        margin: 0;
+        float: left;
+        height: 30px;
+        line-height: 14px;
+        font-size: 10px;
+        width: 20em;
+        padding: 0 25px 0 15px;
+        text-align: center;
+    }
+    /* closed */
+    .closed .num:after {
+        border-left-color: #000
+    }
+
+    .closed .num {
+        color: #fff;
+        background: #000
+    }
+
+        .closed .num.last:after {
+            display: none
+        }
+    /* open */
+    .open .num:after {
+        border-left-color: #ccc;
+        border-top-color: transparent;
+        border-bottom-color: transparent;
+        z-index: 1;
+    }
+
+    .open .num:before {
+        width: 0;
+        height: 0;
+        content: " ";
+        position: absolute;
+        border-top: 15px solid #e9eaef;
+        border-bottom: 15px solid #e9eaef;
+        border-left: 15px solid green;
+        position: absolute;
+        right: -5px;
+        top: 0;
+        z-index: 0;
+    }
+
+    .open .num {
+        background: #ccc;
+    }
+
+    .open .wrap {
+        border-radius: 15px 0 0 15px;
+        border: 1px solid green
+    }
+
+    li.open:after {
+        content: " ";
+        width: 0;
+        height: 0;
+        border-top: 16px solid #e9eaef;
+        border-bottom: 16px solid #e9eaef;
+        border-left: 15px solid green;
+        position: absolute;
+        right: 0;
+        top: 0;
+        z-index: 0;
+    }
+
+    li.open:before {
+        width: 0;
+        height: 0;
+        content: " ";
+        border-top: 15px solid transparent;
+        border-bottom: 15px solid transparent;
+        border-left: 14px solid #e9eaef;
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        z-index: 1;
     }
 </style>
 
-<div style="width:100%;float:left;" class="mb_disnone">
+@*<div style="width:100%;float:left;" class="mb_disnone">
     @{
         _count = 0;
     }
@@ -213,5 +347,5 @@
             }
         }
     </div>
-}
+}*@
 
