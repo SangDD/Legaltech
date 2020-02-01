@@ -51,4 +51,14 @@
         //UpdatenewsfindObjects(1, 1);
     });
 
+    $(document).ready(function () {
+        $('#legalsearch_txtsearchcontent').focus();
+        $("#cbo_searchtype,#legalsearch_txtsearchcontent").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                findObjects(1, 1);
+            }
+        });
+    });
+
 </script>

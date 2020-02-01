@@ -35,7 +35,7 @@
         <span class="red">></span>
         <a href="#">@WebApps.Resources.Resource.QuanLy</a>
         <span class="red">></span>
-        <a href="/quan-ly-docking/danh-sach-docking">Quản lý Docketing</a>
+        <a href="/quan-ly-docking/danh-sach-docking">@WebApps.Resources.Resource.QuanLyDocketing</a>
     </div>
 </div>
 <div class="divCover">
@@ -55,7 +55,7 @@
             <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="Docking_Id" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> @(WebApps.Resources.Resource.ThongTin.ToUpper() + " DOCKETING")</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinDocketing.ToUpper()</div>
         </div>
     </div>
 
@@ -144,7 +144,7 @@
 
 <script>
     $(document).ready(function () {
-        $('#txtCaseCode').focus();
+        $('#txtAppCaseCode').focus();
         $("#txtCaseCode,#cboStatus,#txtAppCaseCode,#txtDocument_Name,#cboDocumentType,#cboDockingType").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {

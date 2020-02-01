@@ -139,12 +139,7 @@
     <script>
         var username = '', fullName = '', type = '', status = '';
 
-        $(document).ready(function () {
-            $('txtUsernameSearch').focus();
-            //$('[data-controlcondition="TRUE"]').on('keypress',
-            //    function (e) {
-            //        enterKeyPress(e, 'btnFindUsers');
-            //    });
+        $(document).ready(function () { 
 
             $("#txtUsernameSearch,#txtFullNameSearch,#cboUserType,#cboStatusSearch").keypress(function (evt) {
                 var key = evt.which || evt.charCode || evt.keyCode || 0;
@@ -154,6 +149,7 @@
             });
 
             findUsers(1, 1)
+            $("#txtUsernameSearch").focus();
         });
 
         function jsPaging(page) {

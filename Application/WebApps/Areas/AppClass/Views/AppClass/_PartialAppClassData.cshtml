@@ -9,11 +9,11 @@
             <thead>
                 <tr>
                     <th style="width: 4%">STT</th>
-                    <th data-sort id="CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Mã hàng hóa</th>
-                    <th style="width: 25%" data-sort id="NAME_VI" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên tiếng Việt</th>
-                    <th style="width: 25%" data-sort id="NAME_EN" data-sortoption="@((int)CommonEnums.OrderOptions.String)">Tên tiếng Anh</th>
-                    <th style="width: 15%" data-sort id="MODIFIED_DATE">Cập nhật lúc</th>
-                    <th style="width: 100px;">Chức năng</th>
+                    <th data-sort id="CODE" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.MaHangHoa</th>
+                    <th style="width: 25%" data-sort id="NAME_VI" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.TenTiengViet</th>
+                    <th style="width: 25%" data-sort id="NAME_EN" data-sortoption="@((int)CommonEnums.OrderOptions.String)">@WebApps.Resources.Resource.TenTiengAnh</th>
+                    <th style="width: 15%" data-sort id="MODIFIED_DATE">@WebApps.Resources.Resource.lblCapNhatLuc</th>
+                    <th style="width: 100px;">@WebApps.Resources.Resource.ChucNang</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,7 +38,7 @@
                 else
                 {
                     <tr>
-                        <td colspan="9">Không có dữ liệu</td>
+                        <td colspan="9">@WebApps.Resources.Resource.KhongCoDuLieu</td>
                     </tr>}
             </tbody>
         </table>

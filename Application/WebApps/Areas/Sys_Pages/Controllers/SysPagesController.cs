@@ -62,7 +62,7 @@ namespace WebApps.Areas.Sys_Pages.Controllers
                 ViewBag.Paging = htmlPaging;
                 ViewBag.SumRecord = _total_record;
 
-                return View("~/Areas/Sys_Pages/Views/SysPages/_PartialView_List.cshtml");
+                return PartialView("~/Areas/Sys_Pages/Views/SysPages/_PartialView_List.cshtml");
             }
             catch (Exception ex)
             {

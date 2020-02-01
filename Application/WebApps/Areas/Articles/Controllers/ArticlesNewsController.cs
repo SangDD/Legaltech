@@ -413,7 +413,8 @@ namespace WebApps.Areas.Articles.Controllers
                 string language = AppsCommon.GetCurrentLang();
                 string _category = "ALL";
                 string _title = "ALL";
-                string _username = SessionData.CurrentUser == null ? "" : SessionData.CurrentUser.Username;
+                //string _username = SessionData.CurrentUser == null ? "" : SessionData.CurrentUser.Username;
+                string _username = "";
 
                 string _keySearch = pStatus.ToString() + "|ALL|" + language + "|" + _category + "|" + _title + "|" + _username;
                 List<NewsInfo> _lst = objBL.ArticleHomeSearch(_keySearch, ref _total_record, "1", "10");

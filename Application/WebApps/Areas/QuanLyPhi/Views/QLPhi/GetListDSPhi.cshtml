@@ -98,8 +98,16 @@
 
 
     $(document).ready(function () {
-        $("#txtMaDon").focus();
+        $("#cboMauDon").focus();
+
+        $("#cboMauDon").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                functionSearchDSPhi();
+            }
+        });
     });
+
     function funcGetView2Edit(_id, _appcode) {
         if (CheckSessionTimeOut() == false) {
             return false;

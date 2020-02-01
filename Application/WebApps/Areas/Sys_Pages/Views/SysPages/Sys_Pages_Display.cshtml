@@ -25,6 +25,8 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
+        <a href="#">@WebApps.Resources.Resource.QuanLy</a>
+        <span class="red">></span>
         <a href="/quan-ly-trang-bìa/danh-sach-tin">@WebApps.Resources.Resource.QuanLyTrangBia</a>
     </div>
 </div>
@@ -39,6 +41,7 @@
         <input type="hidden" value="DESC" id="SortType" />
         <input type="hidden" value="" id="OptionSorting" />
         <input type="hidden" value="@ViewBag.Status" id="txtStatusFilter" />
+        <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinTrangBia.ToUpper()</div>
     </div>
 
     <div class="divCover" id="div-search-simple" style="margin-top:10px">
@@ -72,8 +75,8 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:450px;">
-            <input type="button" value="Tìm kiếm" id="btnSearch" class="btn-default" />
-            <a href="/quan-ly-trang-bia/soan-bai-viet"><input type="button" value="Thêm bài viết" class="btn-default" style="width: 125px;" /></a>
+            <input type="button" value="@WebApps.Resources.Resource.TimKiem" id="btnSearch" class="btn-default" />
+            <a href="/quan-ly-trang-bia/soan-bai-viet"><input type="button" value="@WebApps.Resources.Resource.ThemMoi" class="btn-default" style="width: 125px;" /></a>
         </div>
     </div>
 

@@ -43,7 +43,7 @@
             <input type="hidden" value="ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="ID" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> @(WebApps.Resources.Resource.ThongTin.ToUpper() + " TIMESHEET")</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinTimeSheet.ToUpper()</div>
         </div>
     </div>
 
@@ -100,7 +100,7 @@
             <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="Search_TimeSheet(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
             {
-                <input type="button" value="@WebApps.Resources.Resource.KhaiTimeSheet" class="btn-default" onclick="getView2Insert()" />
+                <input type="button" value="@WebApps.Resources.Resource.ThemMoi" class="btn-default" onclick="getView2Insert()" />
             }
         </div>
     </div>

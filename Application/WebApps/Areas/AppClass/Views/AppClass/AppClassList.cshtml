@@ -25,7 +25,7 @@
             <span class="red">></span>
             <a href="#">@WebApps.Resources.Resource.QuanLy</a>
             <span class="red">></span>
-            <a href="/quan-ly-thong-tin/hang-hoa-dich-vu/danh-sach-hang-hoa">Quản lý sản phẩm dịch vụ</a>
+            <a href="/quan-ly-thong-tin/hang-hoa-dich-vu/danh-sach-hang-hoa">@WebApps.Resources.Resource.QuanLySanPhamDichVu</a>
         </div>
     </div>
     <div class="divCover">
@@ -39,7 +39,7 @@
                 <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
                 <input type="hidden" value="DESC" id="SortType" />
                 <input type="hidden" value="" id="OptionSorting" />
-                <div class="div-title-content"> THÔNG TIN HÀNG HÓA DỊCH VỤ </div>
+                <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinHangHoa.ToUpper() </div>
             </div>
         </div>
 
@@ -47,7 +47,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Mã hàng hóa</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.MaHangHoa</div>
                 </div>
                 <div>
                     <div>
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên tiếng Việt</div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TenTiengViet</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -66,7 +66,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 120px">Tên tiếng Anh </div>
+                    <div style="width: 120px">@WebApps.Resources.Resource.TenTiengAnh </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -78,8 +78,8 @@
 
         <div class="divCover">
             <div class="div-search-btn" style="width:450px;">
-                <input type="button" value="Tìm kiếm" class="btn-default" onclick="findObjects(1, 1)" />
-                <input type="button" value="Thêm hàng hóa" class="btn-default" style="width: 125px;" onclick="getViewToAddNewObject()" />
+                <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="findObjects(1, 1)" />
+                <input type="button" value="@WebApps.Resources.Resource.ThemMoi" class="btn-default" style="width: 125px;" onclick="getViewToAddNewObject()" />
             </div>
         </div>
 
@@ -225,7 +225,7 @@
             } catch (e) {
                 alert(e.toString());
             }
-           
+
         }
 
         function getViewToEditObject(p_id, p_display_value) {
@@ -250,12 +250,12 @@
             } catch (e) {
                 alert(e.toString());
             }
-           
+
         }
 
         function doDeleteObject(p_id) {
             try {
-               
+
                     nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                         $.ajax({
                             url: "/quan-ly-thong-tin/hang-hoa-dich-vu/do-delete-class",
@@ -281,11 +281,11 @@
                         });
 
                     });
-                
+
             } catch (e) {
                 alert(e.toString());
             }
-           
+
         }
 
         function viewDetailObject(p_id, p_display_value) {
@@ -309,7 +309,7 @@
             } catch (e) {
                 alert(e.toString());
             }
-            
+
         }
 
         function ClosePopUpObject() {
@@ -423,8 +423,8 @@
             }
         }
 
-  
- 
+
+
 
     </script>
 }

@@ -24,7 +24,7 @@
         <img src="~/Content/icons/Body-icon-home.png" /> I
         <a href="/home">Home</a>
         <span class="red">></span>
-        <a href="/quan-ly-email/danh-sach-email">@(WebApps.Resources.Resource.lblQuanLy + " Email")</a>
+        <a href="/quan-ly-email/danh-sach-email">@WebApps.Resources.Resource.QuanLyEmail</a>
     </div>
 </div>
 <div class="divCover">
@@ -44,7 +44,7 @@
             <input type="hidden" value="ALL|ALL|ALL|ALL|ALL" name="txtKeyValue" id="txtKeyValue" />
             <input type="hidden" value="Billing_Id" name="txtSortColum" id="txtSortColumn" />
             <input type="hidden" value="DESC" name="txtSortType" id="txtSortType" />
-            <div class="div-title-content"> Chi tiết email</div>
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinEmail.ToUpper()</div>
         </div>
     </div>
 
@@ -52,7 +52,7 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>Người nhận</div>
+                <div>@WebApps.Resources.Resource.NguoiNhan</div>
             </div>
             <div>
                 <div>
@@ -82,7 +82,7 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Email(1, 1)" />
+            <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="Search_Email(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
             {
                 <input type="button" value="@WebApps.Resources.Resource.ThemMoi" class="btn-default" onclick="getView2Insert()" />
@@ -169,7 +169,7 @@
             alert(e);
         }
     }
-   
+
     function getView2Insert() {
         if (CheckSessionTimeOut() == false) {
             return false;
@@ -191,6 +191,6 @@
         }
     }
 
-   
+
 
 </script>

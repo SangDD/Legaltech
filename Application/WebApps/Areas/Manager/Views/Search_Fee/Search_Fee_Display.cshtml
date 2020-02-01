@@ -104,10 +104,10 @@
 
     <div class="divCover">
         <div class="div-search-btn" style="width:600px;">
-            <input type="button" value="Tìm kiếm" class="btn-default" onclick="Search_Fee(1, 1)" />
+            <input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn-default" onclick="Search_Fee(1, 1)" />
             @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Lawer || WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
             {
-                <input type="button" value="Thêm phí" class="btn-default" onclick="getView2Insert()" />
+                <input type="button" value="@WebApps.Resources.Resource.ThemMoi" class="btn-default" onclick="getView2Insert()" />
             }
         </div>
     </div>
@@ -121,8 +121,15 @@
 
 <script>
     $(document).ready(function () {
-        $('#txtAppCaseCode').focus();
+        $('#cboCountry').focus();
         Search_Fee(1, 1);
+
+        $("#cboCountry,#cboObject,#cboType").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 13) {
+                Search_Fee(1,1);
+            }
+        });
     });
 
     function jsPaging(page) {
