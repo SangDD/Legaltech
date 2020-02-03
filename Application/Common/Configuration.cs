@@ -33,16 +33,16 @@
                     EMailPass = CommonFuc.DecryptString(CommonFuc.GetConfig("EMailPass"));
                     EMailPass_Business = CommonFuc.DecryptString(CommonFuc.GetConfig("EMailPass_Business"));
 
-                    Common.BaseDir = CommonFuc.DecryptString(System.Configuration.ConfigurationManager.AppSettings["BaseDir"].ToString());
+                    //Common.BaseDir = CommonFuc.DecryptString(System.Configuration.ConfigurationManager.AppSettings["BaseDir"].ToString());
                 }
                 else
                 {
                     EMailPass = CommonFuc.GetConfig("EMailPass");
                     EMailPass_Business = CommonFuc.GetConfig("EMailPass_Business");
                     connectionString = ConfigurationManager.ConnectionStrings["ConnectionStringDB"].ConnectionString;
-
-                    Common.BaseDir = System.Configuration.ConfigurationManager.AppSettings["BaseDir"].ToString();
                 }
+
+                Common.BaseDir = System.Configuration.ConfigurationManager.AppSettings["BaseDir"].ToString();
 
 
                 //Host = CommonFuc.GetConfig("HostLegal");
