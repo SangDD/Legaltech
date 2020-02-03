@@ -135,35 +135,7 @@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
         </div>
-        <div class="div_full_100_area">
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo </div>
-                    <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
-                       data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
-                </div>
-
-                <div class="div-search-content">
-                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" />
-                </div>
-
-                <div class="div-search-title">
-                    <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
-                </div>
-                <div class="div-search-content">
-                </div>
-
-                <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input class="datetimepicker" readonly="readonly" type="text" id="0_txtNgayNopDon" maxlength="10" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       
         @* 1 *@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
@@ -174,54 +146,10 @@
         @* Thong tin chu don   *@
         <div class="div_full_100_area" style="display:none" id="divChungDonKhac001">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDonKhac.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
-            <div id="divAddNewChuDon01" hidden="hidden">
-                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
-            </div>
         </div>
 
-        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon01">
-            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
-        </div>
+      
 
-        @*CHỦ ĐƠN KHÁC 1*@
-        <div id="divAddNewChuDon02" hidden="hidden">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
-        </div>
-
-        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon02">
-            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
-        </div>
-        <div id="divAddNewChuDon03" hidden="hidden">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
-        </div>
-
-        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon03">
-            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
-        </div>
-
-        <div id="divAddNewChuDon04" hidden="hidden">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
-        </div>
-
-        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon04">
-            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
-        </div>
-
-        <div class="div_full_100_area" id="divThemChuDon01">
-
-            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue; ">@WebApps.Resources.Resource.lblChuDonKhac</a>
-
-        </div>
-        <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
-            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
-        </div>
-        <div class="div_full_100_area" style="display:none" id="divThemChuDon03">
-            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon03','divHiddenChuDon03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
-        </div>
-        <div class="div_full_100_area" style="display:none" id="divThemChuDon04">
-            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon04','divHiddenChuDon04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
-        </div>
-        @* End thong tin chu don *@
 
         @* Nhan hieu *@
         <div class="div_full_100_area">
