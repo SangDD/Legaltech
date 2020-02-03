@@ -56,6 +56,7 @@
         [Route("request-for-trade-mark/{id}")]
         public ActionResult TradeMarkChoiseApplication()
         {
+            string AppCode = "";
             try
             {
                 if (SessionData.CurrentUser == null)
@@ -63,7 +64,7 @@
 
                 SessionData.CurrentUser.chashFile.Clear();
                 SessionData.CurrentUser.chashFileOther.Clear();
-                string AppCode = "";
+               
                 if (RouteData.Values.ContainsKey("id"))
                 {
                     AppCode = RouteData.Values["id"].ToString().ToUpper();
@@ -74,7 +75,14 @@
             {
                 Logger.LogException(ex);
             }
-            return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartalDangKyNhanHieu.cshtml");
+            if (AppCode == "A04")
+            {
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartalDangKyNhanHieu.cshtml");
+            }else
+            {
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartalDangKyNhanHieuForeign.cshtml");
+            }
+            
         }
 
         [HttpGet]
