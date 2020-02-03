@@ -1,0 +1,2219 @@
+﻿@using WebApps.CommonFunction
+@using Common.CommonData
+@using ObjectInfos
+@using BussinessFacade.ModuleMemoryData
+@using WebApps.Resources;
+@{
+    ViewBag.Title = "Đăng ký nhãn hiệu";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    string language = AppsCommon.GetCurrentLang();
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+
+        if (language == Language.LangVI)
+        {
+            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+            }
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+            {
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+            }
+        }
+        clstAppClassShortSuggest.Add(pShortInfo);
+    }
+    List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
+
+    string _Search_Code = "";
+    if (ViewBag.SearchCode != null)
+    {
+        _Search_Code = (string)ViewBag.SearchCode;
+    }
+
+    string _Logourl = "";
+    if (ViewBag.Logourl != null)
+    {
+        _Logourl = (string)ViewBag.Logourl;
+    }
+
+    int _Logochu = 0;
+    if (ViewBag.Logochu != null)
+    {
+        _Logochu = (int)ViewBag.Logochu;
+    }
+
+    string urlMauNhanHieu = "/Content/icons/logo.jpg";
+    string urlLogoChu = "";
+    if (!string.IsNullOrEmpty(_Logourl) && _Logochu != 1)
+    {
+        urlMauNhanHieu = _Logourl.Replace("~", "");
+    }
+    if (!string.IsNullOrEmpty(_Logourl) && _Logochu == 1)
+    {
+        urlLogoChu = _Logourl;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 110px;
+    }
+
+    a.icon :hover {
+        display: block !important;
+        z-index: 100;
+        left: 0px;
+        margin: 10px;
+        width: 250px !important;
+        position: absolute !important;
+        top: 10px;
+    }
+    .customSwalBtnCancel{
+        border: 0;
+        box-shadow: none;
+        color: #fff;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        height: auto;
+        width: 26%;
+        padding: 10px 10px;
+        margin: 10px 10px;
+    }
+    .customSwalBtnOK, customSwalBtnResize{
+        border: 0;
+        box-shadow: none;
+        color: #fff;
+        cursor: pointer;
+        font-size: 13px;
+        font-weight: 500;
+        height: auto;
+        width: 26%;
+        padding: 10px 10px;
+        margin: 10px 10px;
+    }
+</style>
+<div class="d-nav-container" style="background-color:#fff">
+    <div class="divCover">
+        <div class="d-nav">
+            <img src="~/Content/icons/Body-icon-home.png" /> I
+            <a href="/home">Home</a>
+            <span class="red">></span>
+            <a href="/application/register/VN">@Resource.lblNopdon</a>
+            <span class="red">></span>
+            <a href="/application/register/VN">@Resource.VietNam</a>
+            <span class="red">></span>
+            <a href="javascript:;">@Resource.TM2A_Formname</a>
+        </div>
+    </div>
+    <div class="divCover">
+        <div class="classLine">
+        </div>
+    </div>
+    <div class="divCover">
+        @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+    </div>
+</div>
+<input type="hidden" id="txtAppCode" value='@ViewBag.AppCode' />
+
+<div class="div-search ">
+    <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
+
+        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+
+        @*thông tin khách hàng mà admin nhập hộ*@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
+
+        @* Case name *@
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+        </div>
+        <div class="div_full_100_area">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 200px;">@WebApps.Resources.Resource.lblDonTachRaTuDonSo </div>
+                    <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+                       data-title="@WebApps.Resources.Resource.TooltipDonTachRaTuDonSo"></a>
+                </div>
+
+                <div class="div-search-content">
+                    <input type="text" id="0_txtDonSo" onblur="return funcDetailDontach();" maxlength="20" />
+                </div>
+
+                <div class="div-search-title">
+                    <div><a id="hrfDetailDonTach" href="javascript:;" target="_blank" style="color:blue;border:none">@WebApps.Resources.Resource.XemChiTiet</a></div>
+                </div>
+                <div class="div-search-content">
+                </div>
+
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input class="datetimepicker" readonly="readonly" type="text" id="0_txtNgayNopDon" maxlength="10" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* 1 *@
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+        </div>
+
+
+        @* Thong tin chu don   *@
+        <div class="div_full_100_area" style="display:none" id="divChungDonKhac001">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDonKhac.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
+            <div id="divAddNewChuDon01" hidden="hidden">
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "9")
+            </div>
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon01">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon01','divHiddenChuDon01','01');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
+        </div>
+
+        @*CHỦ ĐƠN KHÁC 1*@
+        <div id="divAddNewChuDon02" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "10")
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon02">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon02','divHiddenChuDon02','02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
+        </div>
+        <div id="divAddNewChuDon03" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "11")
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon03">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon03','divHiddenChuDon03','03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
+        </div>
+
+        <div id="divAddNewChuDon04" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhac.cshtml", "12")
+        </div>
+
+        <div class="div_full_100_area classChuDonKhac" style="display:none" id="divHiddenChuDon04">
+            <a href="javascript:;" onclick="return funcHidden('divAddNewChuDon04','divHiddenChuDon04','04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblAn</a>
+        </div>
+
+        <div class="div_full_100_area" id="divThemChuDon01">
+
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon01','divHiddenChuDon01');" style="text-decoration:underline; color: blue; ">@WebApps.Resources.Resource.lblChuDonKhac</a>
+
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon02">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon02','divHiddenChuDon02');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon03">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon03','divHiddenChuDon03');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
+        </div>
+        <div class="div_full_100_area" style="display:none" id="divThemChuDon04">
+            <a href="javascript:;" onclick="return funcShowOrHiddenCD('divAddNewChuDon04','divHiddenChuDon04');" style="text-decoration:underline; color: blue;float: right;">@WebApps.Resources.Resource.lblThemChuDon</a>
+        </div>
+        @* End thong tin chu don *@
+
+        @* Nhan hieu *@
+        <div class="div_full_100_area">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
+
+            <div class="class_full_div_input_extent">
+                <div class="class_left_40">
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
+                            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+                               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:300px">
+                                    @foreach (var item in _lstLogoType)
+                                    {
+                                        <option value="@item.CdVal">
+                                            @item.Content
+                                        </option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad" id="spfontsize" style="display:none">
+                        <div class="div-search-title">
+                            <div style="width:135px">
+                                Font-size
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="class_block_title_control" style="display:flex;margin-top: 10px;">
+                        <div style="width:165px ;height:165px;margin-left: 10px;" id="divLogo">
+                            <img id="imgMauNhanHieu" src="@urlMauNhanHieu" style="width:160px ;height:160px">
+                            <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
+                        </div>
+                        <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
+                            <div class="file-upload btn btn-primary" style="margin-top:95px">
+                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
+                            </div>
+                        </div>
+                        <div id="divckbNhanHieuChu" style="display:none">
+                            <div style="width:165px ;height:165px;margin-left: 10px;">
+                                <input type="text" class="classChuNhanHieu" id="txtChuNhanHieu" value="@urlLogoChu" style="height:160px;width:160px;text-align: center;" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="class_right_60" style="display:block">
+                    @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblTenNhanHieu:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" maxlength="50" id="0_txtTenNhanHieu" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblMauSac :</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" maxlength="50" id="0_MauSac" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title" style="height: 100px;">
+                            <div>@WebApps.Resources.Resource.lblMoTa:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
+            <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
+               data-title="@Resource.TooltipSizeofImage"></a>
+
+
+            <script>
+                function funcChangeLogoType() {
+                    try {
+                        if ($("#cboLogoType").val() != "1") {
+                            $("#divckbNhanHieuAnh").css('display', 'block');
+                            $("#divLogo").css('display', 'block');
+                            $("#divckbNhanHieuChu").css('display', 'none');
+                            $("#tagSuggessIMG").css('display', 'block');
+                            $("#spfontsize").css('display', 'none');
+                            $("#txtFontSize").css('display', 'none');
+                        }
+                        else {
+                            $("#divckbNhanHieuAnh").css('display', 'none');
+                            $("#divLogo").css('display', 'none');
+                            $("#tagSuggessIMG").css('display', 'none');
+                            $("#divckbNhanHieuChu").css('display', 'block');
+                            $("#spfontsize").css('display', 'block');
+                            $("#txtFontSize").css('display', 'block');
+                        }
+
+                    } catch (e) {
+                        console.log(e.toString());
+                    }
+                }
+            </script>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio" style="width:482px">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" />
+                        <label>@WebApps.Resources.Resource.NormalTrademark</label>
+                    </div>
+                </div>
+
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
+                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio" style="width:482px">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
+                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                    </div>
+                </div>
+
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
+                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                    </div>
+                </div>
+            </div>
+
+            @*<div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-search-ad">
+                    <div class="div-search-content">
+                        <div class="div-radio">
+                            <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
+                            <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                        </div>
+                    </div>
+                </div>*@
+        </div>
+
+        @* End tai lieu dinh kem  *@
+        <div class="div_full_100_area" style="display:none" id="divNhanHieuChungNhan">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblMoTaDacTinhCuaHangHoa.ToUpper())
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-checkbox">
+                        <input type="checkbox" name="0_ckbDacTinhHangHoa" value="DTHH" id="0_ckbDacTinhHangHoa" />
+                        <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" id="8_ckbNguonGocDiaLy" />
+                    <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" id="8_ckbChatLuong" />
+                    <div>@WebApps.Resources.Resource.lblChatLuong:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" id="8_ckbDacTinhKhac" />
+                    <div>@WebApps.Resources.Resource.lblDacTinhKhac:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @* Class *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
+        @* End Class *@
+
+        @* 2 *@
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()
+            </div>
+
+            <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
+                <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
+                <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
+            </div>
+            <div style="display: inline-block;">
+                <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
+                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
+            </div>
+        </div>
+
+        <div id="div_ThongTinDonUuTien" class="clssDisplaynone">
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
+        </div>
+
+        @* 3  A14*@
+        @*<div class="div_full_100_area">
+                <div class="divCover cls_form_title">
+                    <img src="/Content/icons/category.png">
+                    <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
+                    <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
+                        <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
+                        <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
+                    </div>
+                    <div style="display: inline-block;">
+                        <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
+                        <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
+                    </div>
+                </div>
+                <script>
+                    function funcChoiseDonUT(pID) {
+                        try {
+                            if (pID == "0_ckbCoSuDungDonUuTien") {
+                                $('#0_ckbCoSuDungDonUuTien').prop('checked', true);
+                                $('#divDonUuTienSo1').css('display', 'block');
+                                $('#KOUT').prop('checked', false);
+                                funcEnableDisable('classDacTinhUT', true);
+                                $("#6_txtNuocNopDon").multipleSelect("enable")
+
+                            } else {
+                                $('#KOUT').prop('checked', true);
+                                $('#0_ckbCoSuDungDonUuTien').prop('checked', false);
+                                $('#divDonUuTienSo1').css('display', 'none');
+                                funcEnableDisable('classDacTinhUT', false);
+                                $("#6_txtNuocNopDon").multipleSelect("disable")
+                                //Reset form
+                                $("#6_txtSoDon").val("")
+                                $("#6_txtNgayNopDon").val("")
+                                $('#4_ckbNopTaiVietNam').prop('checked', false);
+                                $('#4_ckbNopTaiParis').prop('checked', false);
+                                $('#4_ckbThoaThuanKhac').prop('checked', false);
+                                $("#txtThoathuanKhac").val("")
+
+
+                                $('#6_rdoTLCMQUT').prop('checked', false);
+                                $('#6_rdoBSDDT').prop('checked', false);
+                                $('#6_rdoBDTVGom').prop('checked', false);
+                                $('#6_rdoGiayChuyenNhungUT').prop('checked', false);
+
+                                $("#6_txtBDTVGom").val("")
+                                $("#6_txtBSDDT").val("")
+                                $("#6_txtTLCMQUT").val("")
+                            }
+                        } catch (e) {
+                        }
+                    }
+                </script>
+
+                <div id="divDonUuTienSo1" style="display:none">
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblSoDon:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblNgayNopDon:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblNuocNopDon:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <select id="6_txtNuocNopDon" class="classDacTinhUT">
+                                    @foreach (var item in MemoryData.c_lst_Country)
+                                    {
+                                        <option value="@item.Country_Id">@item.Name</option>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="NTVN" id="4_ckbNopTaiVietNam" />
+                                <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="CUPR" id="4_ckbNopTaiParis" />
+                                <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad" style="display:inline-flex;">
+                        <div class="div-search-content" style="width:385px">
+                            <div class="div-radio" style="width:385px">
+                                <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="TTTK" id="4_ckbThoaThuanKhac" />
+                                <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="txtThoathuanKhac" maxlength="150" />
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad" style="display:inline-flex;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:426px">
+                                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                                <label>@WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUuTien</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" style="width: 100px;" placeholder="@WebApps.Resources.Resource.lblBan" />
+                        </div>
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:382px">
+                                <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                                <label>@WebApps.Resources.Resource.lblbanSaoDauTienGom</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="6_txtBSDDT" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan" />
+                        </div>
+
+                    </div>
+                    <div style="margin-left:40px">
+                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:382px">
+                                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" name="NameTLUT04NH_D_16" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                                <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="6_txtBDTVGom" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan" />
+                        </div>
+
+                    </div>
+                    <div style="margin-left:40px">
+                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:382px">
+                                <input type="checkbox" maxlength="3" value="04NH_D_17" class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
+                                <label>@WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-left:40px">
+                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
+                    </div>
+                    <a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">@WebApps.Resources.Resource.lblThemDon</a>
+                </div>
+            </div>*@
+
+        <div id="divDonUuTienSo2" hidden="hidden">
+            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHDonUTSo2.cshtml")
+        </div>
+
+        @* Tài liệu có trong đơn *@
+        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")*@
+
+        @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                @Resource.TM2B_TaiLieuCoTrongDon
+            </div>
+        </div>
+        @* id doc | id của check box | level | lable | lable 2 | is upload *@
+
+        <div class="divCover cls_form_title">
+            <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
+        </div>
+
+        @* 4. Giấy uỷ quyền bằng tiếng *@
+        @{
+            string _doc_id4 = "04NH_D_04";
+            string _model4 = _doc_id4 + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+        }
+
+        @* 4.1 Bản gốc *@
+        @{
+            string _doc_id6 = "04NH_D_05";
+            string _model6 = _doc_id6 + "|Doc_05|1|" + Resource.TM2B_BanGoc + "||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
+        }
+
+        @* 4.2 Bản sao *@
+        @{
+            string _doc_id7 = "04NH_D_06";
+            string _model7 = _doc_id7 + "|Doc_06|1|" + Resource.TM2B_BanSao + "||0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
+        }
+
+        @* 4.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
+        @{
+            string _doc_id8 = "04NH_D_07";
+            string _model8 = _doc_id8 + "|Doc_07|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
+        }
+
+        @* 4.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
+        @{
+            string _doc_id9 = "04NH_D_08";
+            string _model9 = _doc_id9 + "|Doc_08|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
+        }
+
+        @* 4.1  Bản dịch tiếng Việt, gồm *@
+        @{
+            string _doc_id5 = "04NH_D_09";
+            string _model5 = _doc_id5 + "|Doc_09|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
+        }
+
+        <div class="divCover cls_form_title">
+            @*<img src="/Content/icons/category.png">*@
+            <div class="cls_form_header">@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</div>
+            <div style="display: inline-block;  padding-top: 5px; padding-left: 10px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()">
+                <label>@WebApps.Resources.Resource.lblYes</label>
+            </div>
+
+            <div style="display: inline-block;padding-left: 5px;">
+                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked />
+                <label>@WebApps.Resources.Resource.lblNo</label>
+            </div>
+        </div>
+
+        <div id="divTLKhac" class="clssDisplaynone">
+            @{
+                string _doc_id = "";
+                string _model = "";
+            }
+
+            @{
+                _doc_id = "04NH_D_10";
+                _model = _doc_id + "|Doc_10|0|" + Resource.lblTaiLieuXacNhanDuoc + "|" + Resource.TM2B_SoTrang + "|1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+
+            @{
+                _doc_id = "04NH_D_11";
+                _model = _doc_id + "|Doc_11|0|" + Resource.lblTaiLieuXacNhanQuyenDKNH + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+
+            @{
+                _doc_id = "04NH_D_12";
+                _model = _doc_id + "|Doc_12|0|" + Resource.lblTaiLieuDKXacNhanThuHuong + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+
+            @{
+                _doc_id = "04NH_D_13";
+                _model = _doc_id + "|Doc_13|0|" + Resource.lblQuyCheSuDungNH + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+
+            @{
+                _doc_id = "04NH_D_18";
+                _model = _doc_id + "|Doc_18|0|" + Resource.lblBanDoKhuVucDiaLy + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+
+            @{
+                _doc_id = "04NH_D_19";
+                _model = _doc_id + "|Doc_19|0|" + Resource.lblVanBanUBNDTinh + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+
+            @{
+                _doc_id = "04NH_D_20";
+                _model = _doc_id + "|Doc_20|0|" + Resource.lblCoTaiLieuBoTro + "||1";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+
+            @{
+                _doc_id = "04NH_D_22";
+                _model = _doc_id + "|Doc_22|0|" + Resource.CoTaiLieuKhac + "||0";
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+            }
+        </div>
+
+        @*TÀI LIỆU KHÁC*@
+        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")*@
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
+
+        @* CAM KẾT CHỦ ĐƠN  *@
+        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
+
+        <div class="class_save">
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+<input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
+<input type="hidden" id="ActionView" value="N" />
+@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview_IU.cshtml")
+<div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
+    <div class="dpop-preview" id="dpop-preview">
+    </div>
+</div>
+
+
+<div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpFee">
+    </div>
+</div>
+
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <div class="iconFormConfirm" style="">?</div>
+        <div style="text-align:center">@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)</div>
+        <div style="overflow: hidden">
+            <div onclick="ActionOk()" class="btnRS">OK</div>
+            <div onclick="ActionResize()" class="btnRS">Resize</div>
+            <div onclick="ActionCancel()" style="background:rgb(170, 170, 170)" class="btnRS">Cancel</div>
+        </div>
+    </div>
+</div>
+
+
+<style>
+    .div-search-content .ms-ul > ul {
+        margin-left: 0px;
+    }
+
+    .ms-drop {
+        width: 100% !important;
+    }
+    
+</style>
+<script>
+
+    //nếu dùng checkbox
+    $(document).ready(function () {
+        //$('.classNhanHieu').click(function () {
+        //    $('.classNhanHieu').not(this).prop('checked', false);
+        //});
+
+        var _divCheckbox = document.getElementById('divCheckbox_04NH_D_10');
+        _divCheckbox.style.width = '650px';
+
+       
+    });
+   
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                $("#txtTenHangHoa").val("");
+
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
+    });
+
+    function funcDetailDontach() {
+        try {
+            var SoDonTach = document.getElementById("0_txtDonSo").value ;
+            var url = "";
+            url = "/trade-mark-share-data/todo-details/" + SoDonTach + "/0";
+            $("#hrfDetailDonTach").attr("href", url);
+            if(SoDonTach != "")
+            {
+                $("#0_txtNgayNopDon").removeAttr("readonly");
+            }
+            else
+            {
+                $("#0_txtNgayNopDon").attr("readonly", "readonly");
+                $("#0_txtNgayNopDon").val("");
+            }
+        } catch (e) {
+        }
+    }
+
+    function GetThongTinDaiDien(vChoise) {
+        try {
+            $.ajax({
+                url: '/trade-mark/funcGetTTDHSH/',
+                type: 'POST',
+                data: {
+                    pKeyData: "", pDDSH:vChoise,   pEdit: 0,  pID:0,   pStatus:0
+                },
+                async: false, cache: false, traditional: true,
+                success: function (data) {
+                    if (data != null)
+                    {
+                        if (vChoise == "DDPL") {
+                            $("#divDDPLChoise").html(data);
+                            $("#divDDSHChoise").html("");
+                            $("#divDDUQChoise").html("");
+                        }
+                        else if (vChoise == "DDSH") {
+                            $("#divDDSHChoise").html(data);
+                            $("#divDDPLChoise").html("");
+                            $("#divDDUQChoise").html("");
+                        }
+                        else if (vChoise == "DDUQ") {
+                            $("#divDDUQChoise").html(data);
+                            $("#divDDPLChoise").html("");
+                            $("#divDDSHChoise").html("");
+                        }
+                        //$("#txtDaiDienSHCN").val("");
+                        //$("#txtMADDSHCN").val("");
+
+                        var txtTenDayDu_02 = $("#2_txtTenDayDu").val();
+                        $.ajax({
+                            url: '/trade-mark/GetNameSuggestKhac/',
+                            type: 'POST',
+                            data: {
+                                pName: txtTenDayDu_02,
+                                pNumber: 5
+                            },
+                            sync: true, cache: false, traditional: true,
+                            success: function (data) {
+                                var lts = data.lst;
+                                $('#2_txtTenDayDu').autocomplete({
+                                    autoFocus: true,
+                                    source: function (request, response) {
+                                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                                        response($.grep(lts, function (item) {
+                                            return matcher.test(item.value);
+                                        }));
+                                    },
+                                    select: function (event, ui) {
+                                        $("#2_txtTenDayDu").val("");
+                                        event.preventDefault();
+                                        funcChuDonKhacReuse02(ui.item.value);
+                                    },
+                                    focus: function (event, ui) {
+                                        var arrResult = $(".ui-menu-item");
+                                        for (var i = 0; i < arrResult.length; i++) {
+                                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                                            if (label == ui.item.name) {
+                                                $(".clsLiActive").removeClass("clsLiActive")
+                                                $(arrResult[i]).addClass("clsLiActive");
+                                                break;
+                                            }
+                                        }
+                                        event.preventDefault();
+                                    },
+                                    open: function (event, ui) {
+                                        $("ul").scrollTop(0);
+                                        event.preventDefault();
+                                    },
+                                });
+
+                            }
+                        });
+                    }
+                }
+            });
+        } catch (e) {
+        }
+    }
+
+    $('#cboKhachHangCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
+    });
+
+    $('#cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
+    });
+
+    $('#9_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
+    });
+
+    $('#10_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
+        single: true,
+        isdatastring: false,
+        width: '100%',
+        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
+    });
+
+    $('#11_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
+        single: true,
+        isdatastring: false, width: '100%',
+        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
+    });
+
+    $('#12_cboDaiDienChuDonCu').multipleSelect({
+        filter: true,
+        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
+        single: true,
+        isdatastring: false, width: '100%',
+        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
+    });
+
+
+    function funcAddRemoveDisabled(pIDControl, ptxtDisable) {
+        try {
+            if ($("#" + pIDControl).is(':checked')) {
+                $("#" + ptxtDisable).removeAttr('disabled');
+            } else {
+                $("#" + ptxtDisable).attr('disabled', 'disabled');
+            }
+        } catch (e) {
+
+        }
+    }
+
+    $("input[name='0_NhanHieu'").change(function () {
+        var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
+        if (v_NhanHieu == "NHCN") {
+            $("#divNhanHieuChungNhan").css('display', 'block')
+        } else {
+            $('#0_ckbDacTinhHangHoa').prop('checked', false);
+            $('#8_ckbNguonGocDiaLy').prop('checked', false);
+            $('#8_ckbChatLuong').prop('checked', false);
+            $('#8_ckbDacTinhKhac').prop('checked', false);
+
+            $("#8_txtNguonGocDiaLy").val("");
+            $("#8_txtChatLuong").val("");
+            $("#8_txtDacTinhKhac").val("");
+            $("#divNhanHieuChungNhan").css('display', 'none');
+        }
+    });
+
+
+    $('#6_txtNuocNopDon').multipleSelect({
+        filter: true,
+        noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+        single: true,
+        isdatastring: false,
+        placeholder: '@WebApps.Resources.Resource.TM2B_TimKiemQuocGia'
+    });
+
+    $("#6_txtNuocNopDon").multipleSelect("disable");
+
+
+    $("#0_ckbDacTinhHangHoa").change(function () {
+        if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
+    });
+
+    function funcEnableDisable(classaction, enable) {
+        if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
+    }
+
+    var _checkanh = 0;
+    document.getElementById("pfile_6_rdoMauNhanHieu").onchange = function () {
+        _checkanh = 0;
+        var preturn = fileNhanHieu(this, 'imgMauNhanHieu');
+
+        //kiểm tra ảnh có đúng kích cỡ hay không?
+        if (this.files[0].type.indexOf("image") != -1) {
+
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $("#imgMauNhanHieuTeplace").attr("src", e.target.result);
+
+                var img = $("#imgMauNhanHieuTeplace");
+                var iheight = 500; var iwidth = 500;
+
+                iheight = img[0].height;
+                console.log('lan 1: ' + iheight);
+                iheight = img[0].height;
+                iwidth = img[0].width;
+                console.log(iheight);
+                //2x2 75x75 px , 8x8 302x302
+                if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
+                    _checkanh = 1;
+                    @*nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
+                        return true;
+                    }, function () {
+                        //Callback
+                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                    });*@
+
+
+                    showFResize();
+
+                } else {
+                    nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmFile)", function () {
+                        return true;
+                    }, function () {
+                        //Callback
+                        $('#pfile_6_rdoMauNhanHieu').val('');
+                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+                    });
+                   // return true;
+                }
+            }
+            reader.readAsDataURL(this.files[0]);
+        } else {
+            nvsAlert("@Html.Raw(WebApps.Resources.Resource.ThongBao)", "@Html.Raw(WebApps.Resources.Resource.FileKhongPhaiLaAnh)", "");
+            _checkanh = 2;
+        }
+    };
+
+    function ActionOk(){
+        $("#myModal").css("display","none");
+        return true;
+    }
+    function ActionCancel(){
+        $("#myModal").css("display","none");
+        $('#pfile_6_rdoMauNhanHieu').val('');
+        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
+    }
+    function ActionResize(){
+        $("#myModal").css("display","none");
+        $('#pfile_6_rdoMauNhanHieu').val('');
+        window.open("https://picresize.com/", '_blank');
+
+    }
+
+    function funcUpLoadMauNhanHieu(pFile) {
+        try {
+            var file = document.getElementsByName(pFile);
+            if (file != undefined) {
+                formdata.append("pInfo.pfiles", file[0].files[0]);
+            }
+        } catch (e) {
+        }
+    }
+
+    $(document).ready(function () {
+        funcEnableDisable('classDacTinhUT', false);
+        funcEnableDisable('ClassOtherDisable', false);
+        $.datetimepicker.setLocale('vi');
+        $('.datetimepicker').datetimepicker({
+            timepicker: false,
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            mask: '39/19/9999',
+            validateOnBlur: false,
+            scrollInput: false
+        });
+
+        //var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+        //GetThongTinDaiDien(v_DDSHCN);
+
+        //Search suggestion
+        var Name = $("#1_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggest/',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+
+                var lts = data.lst;
+                $('#1_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#1_txtTenDayDu").val("");
+                        event.preventDefault();
+                        var arrVal = ui.item.value.split('|');
+                        if (arrVal.length === 5) {
+                            $("#1_txtTenDayDu").val(arrVal[0]);
+                            $("#1_txtDiaChi").val(arrVal[1]);
+                            $("#1_txtDienThoai").val(arrVal[2]);
+                            $("#1_txtFax").val(arrVal[3]);
+                            $("#1_txtEmail").val(arrVal[4]);
+                        }
+
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+            }
+        });
+
+        //Start 9
+        var txtTenDayDu_9 = $("#9_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_9, pNumber: 1
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#9_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#9_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse9(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        //End 9
+
+        //Start 10
+        var txtTenDayDu_10 = $("#10_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_10, pNumber: 2
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#10_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#10_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse10(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        //End 10
+
+        //Start 11
+        var txtTenDayDu_11 = $("#11_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_11, pNumber: 3
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#11_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#11_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse11(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+        //End 11
+
+        //Start 12
+        var txtTenDayDu_12 = $("#12_txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggestKhac/',
+            type: 'POST',
+            data: {
+                pName: txtTenDayDu_11, pNumber: 4
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
+                var lts = data.lst;
+                $('#12_txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#12_txtTenDayDu").val("");
+                        event.preventDefault();
+                        funcChuDonKhacReuse12(ui.item.value);
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+
+            }
+        });
+    });
+
+    function funcChuDonKhacReuse9(displayVal) {
+        try {
+            var txtNguoiDaidien = "9_txtTenDayDu";
+            var txtDiaChi = "9_txtDiaChi";
+            var txtDienThoai = "9_txtDienThoai";
+            var txtFax = "9_txtFax";
+            var txtEmail = "9_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function funcChuDonKhacReuse10(displayVal) {
+        try {
+            var txtNguoiDaidien = "10_txtTenDayDu";
+            var txtDiaChi = "10_txtDiaChi";
+            var txtDienThoai = "10_txtDienThoai";
+            var txtFax = "10_txtFax";
+            var txtEmail = "10_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function funcChuDonKhacReuse11(displayVal) {
+        try {
+            var txtNguoiDaidien = "11_txtTenDayDu";
+            var txtDiaChi = "11_txtDiaChi";
+            var txtDienThoai = "11_txtDienThoai";
+            var txtFax = "11_txtFax";
+            var txtEmail = "11_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function funcChuDonKhacReuse12(displayVal) {
+        try {
+            var txtNguoiDaidien = "12_txtTenDayDu";
+            var txtDiaChi = "12_txtDiaChi";
+            var txtDienThoai = "12_txtDienThoai";
+            var txtFax = "12_txtFax";
+            var txtEmail = "12_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 5) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    //ĐẠI DIỆN CỦA CHỦ ĐƠN
+    function funcChuDonKhacReuse02(displayVal) {
+        try {
+            var txtNguoiDaidien = "2_txtTenDayDu";
+            var txtDiaChi = "2_txtDiaChi";
+            var txtDienThoai = "2_txtDienThoai";
+            var txtFax = "2_txtFax";
+            var txtEmail = "2_txtEmail";
+            var arrVal = displayVal.split('|');
+            if (arrVal.length === 7) {
+                $("#" + txtNguoiDaidien).val(arrVal[0]);
+                $("#" + txtDiaChi).val(arrVal[1]);
+                $("#" + txtDienThoai).val(arrVal[2]);
+                $("#" + txtFax).val(arrVal[3]);
+                $("#" + txtEmail).val(arrVal[4]);
+            }
+        } catch (e) {
+
+        }
+    }
+
+    function ShowHidenUpLoad(pID, pClass) {
+        try {
+            if ($("#" + pID).is(':checked')) {
+                $('.' + pClass).css('display', 'block');
+            } else {
+                $('.' + pClass).css('display', 'none');
+            }
+        } catch (e) {
+        }
+    }
+
+
+    $("#btnGuiDon").click(function () {
+        var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
+
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+            var url = "/trade-mark/dang_ky_nhan_hieu";
+            funGetData_A04(2, url);
+        });
+    });
+
+    function funcGetAppDetail(formdata, pEditOrNew, pPreView) {
+        try {
+            if (pEditOrNew == undefined) pEditOrNew = 1;
+            if (pPreView == undefined) pPreView = 0;
+
+            var v_soDon_0 = $("#0_txtDonSo").val();
+            formdata.append("pDetail.Appno", v_soDon_0);
+            var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
+            if (v_soDon_0 != "" && pPreView !=3) {
+                if (v_NgayNopDonn_0 === "" || v_NgayNopDonn_0 == undefined && (pEditOrNew == 1)) {
+                    showError("@Html.Raw(WebApps.Resources.Resource.YeuCauChonNhanHieu)");
+                    $("#0_txtNgayNopDon").focus();
+                    return false;
+                }
+            }
+            /// return true if strDate1 <= strDate2
+            //function compareDate_N0(strDate1, strDate2) {
+            var timenow = $("#txtDateTime").val();
+            if (v_soDon_0 != "" && pPreView != 3) {
+                if (compareDate_N0(v_NgayNopDonn_0, timenow) == false) {
+                    showError("@Html.Raw(WebApps.Resources.Resource.NgayNopDonLonHonNgayHienTai)");
+                    $("#0_txtNgayNopDon").focus();
+                    return false;
+                }
+            }
+            formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
+
+            var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
+            formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
+
+            //Logo dang chu
+            if ($("#cboLogoType").val() == "1") {
+                formdata.append("pDetail.Logochu", 1);
+                formdata.append("pDetail.ChuLogo", $("#txtChuNhanHieu").val());
+                formdata.append("pDetail.LOGO_FONT_SIZE", $("#txtFontSize").val());
+                formdata.append("pDetail.FONTTYPE", "");
+            }
+            else {
+                formdata.append("pDetail.Logochu", $("#cboLogoType").val());
+                var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
+                if (fileLogo != undefined || fileLogo != null) {
+                    formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
+                } else {
+                    showError("@Html.Raw(WebApps.Resources.Resource.lblMauNhanHieu + Resource.KhongDuocDeTrong)");
+                    $("#pfile_6_rdoMauNhanHieu").focus();
+                }
+            }
+
+            var v_DacTinh = 0;
+            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
+                v_DacTinh = 1;
+            }
+            formdata.append("pDetail.Dactichhanghoa", v_DacTinh);
+
+
+            // đơn ưu tiên
+            var reponse = Get_DonUuTien(formdata, pEditOrNew, pPreView );
+            if (reponse == false) {
+                return false;
+            }
+
+            var codeNhanHieu = $("#0_txtTenNhanHieu").val();
+            formdata.append("pDetail.CodeLogo", codeNhanHieu);
+
+            var v_MauSac_0 = $("#0_MauSac").val();
+            formdata.append("pDetail.Color", v_MauSac_0);
+
+            var v_MoTa_0 = $("#0_MoTa").val();
+            formdata.append("pDetail.Description", v_MoTa_0);
+
+            //Lay thong tin Chu don khac 1
+            var reponse = funcThongTinChuDonNguoiDaiDien(formdata, "9", New);
+            if (reponse == false) {
+                return false;
+            }
+            //Lấy thông tin chu don khac 2,,3,4
+            reponse = funcThongTinChuDonKhac(formdata, "10");
+            if (reponse == false) {
+                return false;
+            }
+            reponse = funcThongTinChuDonKhac(formdata, "11");
+            if (reponse == false) {
+                return false;
+            }
+            reponse = funcThongTinChuDonKhac(formdata, "12");
+            if (reponse == false) {
+                return false;
+            }
+            if ($("#0_ckbDacTinhHangHoa").prop('checked') == true) {
+                var v_NguonGocDL = $("#8_txtNguonGocDiaLy").val();
+                if ($("#8_ckbNguonGocDiaLy").prop('checked') == true) {
+                    if (v_NguonGocDL === "" || v_NguonGocDL == undefined && (pEditOrNew == 1) && pPreView != 3) {
+                        showError("@Html.Raw(WebApps.Resources.Resource.lblNguonGocDiaLy + Resource.KhongDuocDeTrong)");
+                        $("#8_txtNguonGocDiaLy").focus();
+                        return false;
+                    }
+                }
+
+                formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
+                var v_ChatLuong = "";
+                if ($("#8_ckbChatLuong").prop('checked') == true) {
+                      v_ChatLuong = $("#8_txtChatLuong").val();
+                    if (v_ChatLuong === "" || v_ChatLuong == undefined && (pEditOrNew == 1) && pPreView != 3) {
+                        showError("@Html.Raw(WebApps.Resources.Resource.lblChatLuong + Resource.KhongDuocDeTrong)");
+                        $("#8_txtChatLuong").focus();
+                        return false;
+                    }
+                } else {
+                      v_ChatLuong = $("#8_txtChatLuong").val();
+                    if (v_ChatLuong === "" || v_ChatLuong == undefined) {
+                        v_ChatLuong = "";
+                    }
+                }
+
+                formdata.append("pDetail.Chatluong", v_ChatLuong);
+                var v_Dactinhkhac = "";
+                if ($("#8_ckbDacTinhKhac").prop('checked') == true) {
+                      v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
+                    if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined && (pEditOrNew == 1) && pPreView != 3) {
+                        showError("@Html.Raw(WebApps.Resources.Resource.lblDacTinhKhac + Resource.KhongDuocDeTrong)");
+                        $("#8_txtDacTinhKhac").focus();
+                        return false;
+                    }
+                }
+
+                formdata.append("pDetail.Dactinhkhac", v_Dactinhkhac);
+
+            }
+        } catch (e) {
+            showError('Có lỗi xảy ra kiểm tra kết nối internet');
+            return false;
+        }
+    }
+
+    $("#ckb_Doc_22").change(function () {
+        if ($("#ckb_Doc_22").is(":checked") == true) {
+            $("#divContainerDocOther").css('display', 'block')
+        } else {
+            $("#divContainerDocOther").css('display', 'none');
+        }
+    });
+
+    function Get_DonUuTien(formData, pEditOrNew, pPreView) {
+        try {
+            var v_CoSDQuyenUT = 0;
+            if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
+                v_CoSDQuyenUT = 1;
+            }
+            formData.append("pDetail.Used_Special", v_CoSDQuyenUT);
+
+            if (v_CoSDQuyenUT == 1) {
+
+                _index = 0;
+                var _index_document = 14;
+
+                $(".clsDivDonUTien").each(function (item) {
+                    var _id = $(this).attr('data-id');
+                    if ($("#" + _id + "_UT_Use").val() == "1") {
+
+                        if (pEditOrNew == 1 && pPreView != 3) {
+                            if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
+                                showError("@Html.Raw(WebApps.Resources.Resource.SoDonUuTien + Resource.KhongDuocDeTrong)");
+                                $("#" + _id + "_UT_txtSoDon").focus();
+                                return false;
+                            }
+
+                            if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
+                                showError("@Html.Raw(WebApps.Resources.Resource.NgayNopDonUuTien + Resource.KhongDuocDeTrong)");
+                                $("#" + _id + "_UT_txtNgayNopDon").focus();
+                                return false;
+                            }
+
+                            if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
+                                showError("@Html.Raw(WebApps.Resources.Resource.NuocNopQuyenUuTien + Resource.KhongDuocDeTrong)");
+                                $("#" + _id + "_UT_txtQuocGia").focus();
+                                return false;
+                            }
+                        }
+
+                        formData.append("pUTienInfo[" + _index + "].UT_SoDon", $("#" + _id + "_UT_txtSoDon").val());
+                        formData.append("pUTienInfo[" + _index + "].UT_NgayNopDon", $("#" + _id + "_UT_txtNgayNopDon").val());
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia", $("#" + _id + "_UT_txtQuocGia").val());
+
+                        var cbo_country = document.getElementById(_id + "_UT_txtQuocGia");
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia_Display", cbo_country.options[cbo_country.selectedIndex].text);
+
+                        var _nameYC = _id + "_rdo_YCHuongQuyen";
+                        var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
+                        if (pEditOrNew == 1 && pPreView != 3) {
+                            if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
+                                showError("@Html.Raw(WebApps.Resources.Resource.YeuCauChonQuyenUuTien)");
+                                return false;
+                            }
+                        }
+                        formData.append("pUTienInfo[" + _index + "].UT_Type", v_QuyenUuTien);
+                        formData.append("pUTienInfo[" + _index + "].UT_ThoaThuanKhac", $("#" + _id + "_txtThoathuanKhac").val());
+                        _index = _index + 1;
+                        _index_document = _index_document + 1;
+                        // 13
+
+                        var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
+                        var _id_textbox = "txt_" + _id + "_TLCMQUT";
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+
+                        _index_document = _index_document + 1;
+                        _id_checkbox = "ckb_" + _id + "_BanSaoDauTien";
+                        var _id_textbox = "txt_" + _id + "_BanSaoDauTien";
+
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+
+                        _index_document = _index_document + 1;
+                        _id_checkbox = "ckb_" + _id + "_BanDich";
+                        var _id_textbox = "txt_" + _id + "_BanDich";
+
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+
+                        _index_document = _index_document + 1;
+                        _id_checkbox = "ckb_" + _id + "_GiayChuyenNhuong";
+                        var _id_textbox = "txt_" + _id + "_GiayChuyenNhuong";
+                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
+                        //formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+                    }
+                });
+
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funGetThongTinFile(formData) {
+        try {
+            var Isuse = 0, Note = "", reponse = false;
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_POA", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_POA").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "1");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "2");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "3");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "4");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "5");
+            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_08").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "6");
+            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_Doc_09").val());
+
+            ////////////////////////////////
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_Doc_10").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "8");
+            formData.append("pAppDocumentInfo[8].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "9");
+            formData.append("pAppDocumentInfo[9].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "10");
+            formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_13").val());
+            formData.append("pAppDocumentInfo[10].CHAR02", $("#txt_Doc_13_2").val());
+
+            ///////////
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_18", "11");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_19", "12");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_20", "13");
+            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_22", "14");
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    //function funGetThongTinFile(formData) {
+    //    try {
+    //        var Isuse = 0, Note = "", reponse = false;
+
+    //        //Các tài liệu có trong đơn
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoToKhai", "0");
+    //        formData.append("pAppDocumentInfo[0].CHAR01", $("#6_txtToKhaiTrang").val());
+    //        formData.append("pAppDocumentInfo[0].CHAR02", $("#6_txtToKhaiBan").val());
+    //        //
+
+    //        //Các tài liệu có trong đơn
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoMauNhanHieuTD", "1");
+    //        formData.append("pAppDocumentInfo[1].CHAR01", $("#6_txtMauNhanHieuTD").val());
+    //        //
+    //        //Các tài liệu có trong đơn
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoChungTuPhiLP", "2");
+    //        //
+    //        //Các tài liệu có trong đơn 3
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoGiayUyQuyen", "3");
+    //        formData.append("pAppDocumentInfo[3].CHAR01", $("#6_txtGiayUQTiengViet").val());
+
+    //        // 4 6_rdoBanGoc
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanGoc", "4");
+
+    //        // 5 6_rdoBanSao
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanSao", "5");
+
+    //        // 6 6_rdoBanGocSeNopSau
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocSeNopSau", "6");
+
+    //        // 7 6_rdoBanGocDaNopTheoDonSo
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocDaNopTheoDonSo", "7");
+    //        formData.append("pAppDocumentInfo[7].CHAR01", $("#6_txtBangocDNTheoDonSo").val());
+    //        // 8 6_rdoBanDichTiengViet
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanDichTiengViet", "8");
+    //        formData.append("pAppDocumentInfo[8].CHAR01", $("#6_txtBDTV_UQ").val());
+
+    //        // 9 6_rdoTLXNDPSD
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLXNDPSD", "9");
+    //        formData.append("pAppDocumentInfo[9].CHAR01", $("#6_TLXNDPSD").val());
+
+    //        //
+    //        // 10 6_rdoTLDKNH
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLDKNH", "10");
+
+    //        // 11 6_rdoTLThuHuongNK
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLThuHuongNK", "11");
+
+
+    //        // 12 6_rdoQuyCheSDNH
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoQuyCheSDNH", "12");
+    //        formData.append("pAppDocumentInfo[12].CHAR01", $("#6_txtQuyCheSDNHTrang").val());
+    //        formData.append("pAppDocumentInfo[12].CHAR02", $("#6_txtQuyCheSDNHBan").val());
+
+    //        // 13 6_rdoTLCMQUT
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT", "13");
+    //        formData.append("pAppDocumentInfo[13].CHAR01", $("#6_txtTLCMQUT").val());
+
+    //        // 13 6_rdoBSDDT----------
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
+    //        formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBSDDT").val());
+
+    //        // 15 6_rdoBDTVGom
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
+    //        formData.append("pAppDocumentInfo[15].CHAR01", $("#6_txtBDTVGom").val());
+
+    //        // 16 6_rdoGiayChuyenNhungUT
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
+    //        // 17 6_rdoGiayChuyenNhungUT
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanDoKVDL", "17");
+
+
+    //        // 18 6_rdoGiayChuyenNhungUT
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
+    //        // 19 6_rdoGiayChuyenNhungUT
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
+
+    //        // 21 6_rdoGiayChuyenNhungUT
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "20");
+    //        // 22 6_rdoBSDDT----------
+
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT_2", "21");
+    //        formData.append("pAppDocumentInfo[21].CHAR01", $("#6_txtTLCMQUT_2").val());
+
+
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT_2", "22");
+    //        formData.append("pAppDocumentInfo[22].CHAR01", $("#6_txtBSDDT_2").val());
+
+    //        // 23 6_rdoBDTVGom
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom_2", "23");
+    //        formData.append("pAppDocumentInfo[23].CHAR01", $("#6_txtBDTVGom_2").val());
+
+    //        // 24 6_rdoGiayChuyenNhungUT
+    //        reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT_2", "24");
+
+    //    } catch (e) {
+    //        console.log(e);
+    //    }
+    //}
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            return false;
+        }
+
+    }
+
+    $("#btnLuuTam").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmLuuTam)", function () {
+                var url = "/trade-mark/dang_ky_nhan_hieu";
+                funGetData_A04(1, url);
+            });
+        } catch (e) {
+        }
+    });
+
+    function funcGetTenTaiLieuKhac(formData) {
+        try {
+            var item = 0;
+            $(".clssListUpload").each(function () {
+                formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
+                formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
+                item++;
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    function funGetData_A04(ptype, url) {
+        try {
+            //Thông tin chủ đơn
+            var formData = new FormData();
+
+            var reponse = getNation_Represent(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            var reponse = funcThongTinNhapHo(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            var reponse = funcThongTinCaseName(formData, "0");
+            if (reponse == false) {
+                return false;
+            }
+
+            if (funcThongTinChuDonNguoiDaiDien(formData, "1", New) != true) {
+                return false;
+            }
+
+            @*if (_checkanh === 1 && ptype !=1) {
+                showError("@Html.Raw(WebApps.Resources.Resource.AnhTaiLen8x8)");
+                return false;
+            }*@
+            if (_checkanh === 2 && ptype != 1) {
+                showError("@Html.Raw(WebApps.Resources.Resource.FileAnhKhongDungDinhDang)");
+                return false;
+            }
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "" && ptype != 1) {
+                $('#txtAppCode').focus().val('');
+                showError('Chưa chọn loại đơn đăng ký!');
+                return false;
+            }
+            formData.append("pInfo.Appcode", v_AppCode);
+            formData.append("pInfo.Search_Code", '@_Search_Code');
+
+            //
+            //if (funcThongTinChuDonNguoiDaiDien(formData, "2", New) != true) {
+            //    return false;
+            //}
+            //var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
+            //if ((v_RepMasterType === "" || v_RepMasterType == undefined) && ptype != 1) {
+            //    showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
+            //    return false;
+            //}
+            //var daidienSH = $("#txtDaiDienSHCN").val();
+            //formData.append("pInfo.DDSHCN", daidienSH);
+
+            //07/09/2018
+            //var madhsh = $("#txtMADDSHCN").val();
+            //formData.append("pInfo.MADDSHCN", madhsh);
+
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
+                return false;
+            }
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            if (v_RepMasterType === "" || v_RepMasterType == undefined) {
+                jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                    $("#_2_rdoNguoiDaiDienPL").focus()
+                });
+                return false;
+            }
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+            //trang thai
+            formData.append("pInfo.Status", ptype);
+
+            //Lấy thông tin detail
+            var reponse = funcGetAppDetail(formData, New);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin file có trong đơn
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                formData.append("pInfo.USE_DOC_OTHERS", 1);
+            } else {
+                formData.append("pInfo.USE_DOC_OTHERS", 0);
+            }
+
+            reponse = funGetThongTinFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+            reponse = funcGetDataClassInfo(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //lay tai lieu khac
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
+            //
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: formData,
+                processData: false, contentType: false, traditional: true, dataType: "json",
+                enctype: 'multipart/form-data', async: false, headers: { "cache-control": "no-cache" },
+                success: function (data) {
+                    if (data != null && data.status >= 0) {
+                        if (ptype == 1) {
+                            nvsAlert('@Resource.LuuTamThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        } else {
+                            nvsAlert('@Resource.GuiDonThanhCong', ThongBao, function () {
+                                window.location = "/trade-mark-mana/quan-ly-don";
+                            });
+                        }
+
+                        return true;
+                    } else {
+                        nvsError(AddFail, ThongBao, function () {
+                        });
+                    }
+                },
+                error: function (e) {
+                    console.log(e);
+                }
+            });
+
+            return true;
+        } catch (e) {
+
+        }
+    }
+
+    $(document).on('dblclick', '.classDaiDienChuDon', function () {
+        if (this.checked) {
+            $(this).prop('checked', false);
+            $("#divDDPLChoise").empty();
+            $("#divDDSHChoise").empty();
+            $("#divDDUQChoise").empty();
+
+        }
+    });
+
+    function changeFontSize()
+    {
+        try {
+            document.getElementById("txtChuNhanHieu").style.fontSize = document.getElementById("txtFontSize").value + "px";
+        } catch (e) {
+
+        }
+    }
+
+    function funcChoiseDonUT(pID) {
+        try {
+            if (pID == "0_ckbCoSuDungDonUuTien") {
+                $('#0_ckbCoSuDungDonUuTien').prop('checked', true);
+                $('#KOUT').prop('checked', false);
+
+                $("#div_ThongTinDonUuTien").removeClass("clssDisplaynone");
+
+            } else {
+                $('#KOUT').prop('checked', true);
+                $('#0_ckbCoSuDungDonUuTien').prop('checked', false);
+
+                $("#div_ThongTinDonUuTien").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+    function onChangeTLKhac() {
+        try {
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                $("#divTLKhac").removeClass("clssDisplaynone");
+            } else {
+                $("#divTLKhac").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function ThemDonUuTien() {
+        try {
+
+            $.ajax({
+                type: 'POST',
+                url: '/lg-patent/don-uu-tien/them-don/',
+                data: {
+                    p_id: "2"
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#div_ThongTinDonUuTien").append(data);
+                }
+            });
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+</script>
+<script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var btn = document.getElementById("myBtn");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal
+    function showFResize() {
+      modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+  
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  
+</script>
