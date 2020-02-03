@@ -44,14 +44,25 @@
                             }
 
                             @*<td class="tdleftalign">@item.Createddate.ToString("dd/MM/yyy HH:mm:ss")</td>*@
-                                <td class="tdcenteralign">
-                                    <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@item.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
-                                    @if (item.Status != Common.Status.XuatBan)
+                            <td class="tdcenteralign">
+                                <a href="/quan-ly-tin/chi-tiet-bai-viet/@item.Id/@item.Status" class="icon icon-info" data-title="@WebApps.Resources.Resource.btnXemChiTiet"></a>
+
+                                @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin)
+                                {
+                                    <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
+                                    <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.btnXoa"></a>
+                                }
+                                else
+                                {
+                                    if (item.Status != Common.Status.XuatBan)
                                     {
                                         <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-edit" data-title="@WebApps.Resources.Resource.btnSua"></a>
                                         <a href="javascript:;" onclick="return funcDelArticles(@item.Id)" class="icon icon-delete" data-title="@WebApps.Resources.Resource.btnXoa"></a>
                                     }
-                                    @if (item.Status == Common.Status.ChoXuly)
+                                }
+
+
+                                @*@if (item.Status == Common.Status.ChoXuly)
                                     {
                                         <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-confirm-circle" data-title="@WebApps.Resources.Resource.btnXuatban"></a>
                                     }
@@ -59,9 +70,9 @@
                                     @if (item.Status == Common.Status.XuatBan)
                                     {
                                         <a href="/quan-ly-tin/sua-bai-viet/@item.Id/@item.Status" class="icon icon-cancel-circle" data-title="@WebApps.Resources.Resource.btnGoBo"></a>
-                                    }
+                                    }*@
 
-                                </td>
+                            </td>
                         </tr>
                     }
 
