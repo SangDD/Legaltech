@@ -17,6 +17,7 @@
                 <th class="class150 m20">@WebApps.Resources.Resource.SoBill</th>
                 <th class="class150 m20">@WebApps.Resources.Resource.CaseCode</th>
                 <th class="class100 m20">@WebApps.Resources.Resource.Ngay</th>
+                <th class="class100 m20">@WebApps.Resources.Resource.KhachHang</th>
 
                 <th class="class100 hidemobile">@WebApps.Resources.Resource.HanThanhToan</th>
                 <th class="class100 hidemobile">@WebApps.Resources.Resource.SoNgayTre</th>
@@ -37,6 +38,7 @@
                         <td class="tdleftalign">@item.Case_Code</td>
                         <td class="tdleftalign">@item.App_Case_Code</td>
                         <td class="tdcenteralign">@item.Billing_Date.ToString("dd/MM/yyyy")</td>
+                        <td class="tdleftalign">@item.CustomerName</td>
 
                         <td class="tdcenteralign hidemobile">@item.Deadline.ToString("dd/MM/yyyy")</td>
                         <td class="tdcenteralign hidemobile">@item.SoNgayTre</td>
@@ -62,7 +64,7 @@
 
                         <td class="tdcenteralign">
                             <a href="javascript:;" onclick="GetView2View_Billing(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-info" data-title="Xem chi tiết"></a>
-                            
+
 
                             @if (item.Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Status.New_Wait_Approve))
                             {

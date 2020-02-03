@@ -844,7 +844,7 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Lưu.
+        ///   Looks up a localized string similar to Sửa.
         /// </summary>
         public static string btnSua {
             get {
@@ -4872,6 +4872,15 @@ namespace WebApps.Resources {
         public static string Nhap {
             get {
                 return ResourceManager.GetString("Nhap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nhập vào Mã hồ sơ – Tab/Enter =&gt; hệ thống sẽ tự động hiển thị Form billing theo Casecode tương ứng.
+        /// </summary>
+        public static string NhapCaseCodeBilling {
+            get {
+                return ResourceManager.GetString("NhapCaseCodeBilling", resourceCulture);
             }
         }
         
