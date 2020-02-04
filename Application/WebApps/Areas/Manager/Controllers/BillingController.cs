@@ -56,6 +56,9 @@ namespace WebApps.Areas.Manager.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 decimal _total_record = 0;
                 string p_to = "";
                 string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to);
@@ -98,6 +101,9 @@ namespace WebApps.Areas.Manager.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 Billing_BL _obj_bl = new Billing_BL();
                 ApplicationHeaderInfo objAppHeaderInfo = new ApplicationHeaderInfo();
                 SearchObject_Header_Info SearchObject_Header_Info = new SearchObject_Header_Info();

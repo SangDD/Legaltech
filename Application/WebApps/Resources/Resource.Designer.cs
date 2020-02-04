@@ -5290,6 +5290,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quản lý tìm kiếm.
+        /// </summary>
+        public static string QuanLyTimKiem {
+            get {
+                return ResourceManager.GetString("QuanLyTimKiem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Articles.
         /// </summary>
         public static string QuanLyTinBai {
@@ -6447,6 +6456,15 @@ namespace WebApps.Resources {
         public static string ThongTinPhi {
             get {
                 return ResourceManager.GetString("ThongTinPhi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin tìm kiếm.
+        /// </summary>
+        public static string ThongTinSearch {
+            get {
+                return ResourceManager.GetString("ThongTinSearch", resourceCulture);
             }
         }
         

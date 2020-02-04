@@ -332,13 +332,16 @@ namespace WebApps.Areas.Articles.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 decimal preturn = 0;
                 if (pNewsInfo == null)
                 {
                     return Json(new { status = -99 });
                 }
                 string language = AppsCommon.GetCurrentLang();
-                var ModifiedBy = SessionData.CurrentUser.Username;
+                var ModifiedBy = SessionData.CurrentUser == null ? "" : SessionData.CurrentUser.Username;
                 var ModifiedDate = CommonFuc.CurrentDate();
                 if (pNewsInfo.pfileLogo != null)
                 {
