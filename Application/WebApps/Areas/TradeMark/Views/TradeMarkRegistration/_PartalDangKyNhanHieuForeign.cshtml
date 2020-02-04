@@ -465,7 +465,7 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
         }
 
-       
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
@@ -1412,8 +1412,8 @@
         }
     }
 
-    $("#ckb_Doc_22").change(function () {
-        if ($("#ckb_Doc_22").is(":checked") == true) {
+    $("#ckb_DOC_20").change(function () {
+        if ($("#ckb_DOC_20").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
         } else {
             $("#divContainerDocOther").css('display', 'none');
