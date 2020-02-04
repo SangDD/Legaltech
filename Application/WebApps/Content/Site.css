@@ -2342,12 +2342,14 @@ input[type="checkbox"] {
 }
 /* closed */
 .closed .num:after {
-    border-left-color: #000
+    /*border-left-color: #000*/
+    border-left-color: #A9A9A9
 }
 
 .closed .num {
     color: #fff;
-    background: #000
+    /*background: #000*/
+    background: #A9A9A9
 }
 
     .closed .num.last:after {
@@ -2355,7 +2357,8 @@ input[type="checkbox"] {
     }
 /* open */
 .open .num:after {
-    border-left-color: #ccc;
+    /*border-left-color: #ccc;*/
+    border-left-color: #e29914;
     border-top-color: transparent;
     border-bottom-color: transparent;
     z-index: 1;
@@ -2376,7 +2379,8 @@ input[type="checkbox"] {
 }
 
 .open .num {
-    background: #ccc;
+    /*background: #ccc;*/
+    background: #e29914;
 }
 
 .open .wrap {
