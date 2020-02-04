@@ -58,6 +58,13 @@
     {
         urlLogoChu = _Logourl;
     }
+
+    var b03_info = new B03_Info();
+    if (ViewBag.B03_Info != null)
+    {
+        b03_info = ViewBag.B03_Info;
+    }
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("F04");
 }
 
 <style>
@@ -75,7 +82,8 @@
         position: absolute !important;
         top: 10px;
     }
-    .customSwalBtnCancel{
+
+    .customSwalBtnCancel {
         border: 0;
         box-shadow: none;
         color: #fff;
@@ -87,7 +95,8 @@
         padding: 10px 10px;
         margin: 10px 10px;
     }
-    .customSwalBtnOK, customSwalBtnResize{
+
+    .customSwalBtnOK, customSwalBtnResize {
         border: 0;
         box-shadow: none;
         color: #fff;
@@ -135,61 +144,127 @@
         <div class="div_full_100_area">
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
         </div>
-       
+
         @* 1 *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDon.cshtml", @WebApps.Resources.Resource.lblChuDon.ToUpper())
+            <div class="divCover cls_form_title">
+                <img src="~/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    APPLICANT
+                </div>
+            </div>
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio" style="width:482px">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" />
+                        <label>Individual</label>
+                    </div>
+                </div>
+
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
+                        <label>Legal entity or organization</label>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
 
-        @* Thong tin chu don   *@
-        <div class="div_full_100_area" style="display:none" id="divChungDonKhac001">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitleChuDonKhac.cshtml", @WebApps.Resources.Resource.lblChuDonKhac.ToUpper())
+
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                REPRESENTATIVE
+            </div>
         </div>
 
-      
+        <div id="div_PartialThongTinChuDon">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Name_Evaluator" type="text" maxlength="200" id="txtTenDayDu" />
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Address_Evaluator" type="text" maxlength="200" id="txtDiaChi" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> @Resource.lblDienThoai: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@b03_info.Phone_Evaluator" maxlength="50" id="txtDienThoai" style="width: 250px;" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div> Fax: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Fax_Evaluator" type="text" maxlength="50" id="txtFax" />
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Email:  </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@b03_info.Email_Evaluator" type="text" maxlength="50" id="txtEmail" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Business line of application
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title" style="height: 100px;">
+                <div>@WebApps.Resources.Resource.lblMoTa:</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px"></textarea>
+                </div>
+            </div>
+        </div>
 
 
         @* Nhan hieu *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Specimen of the mark(Place a copy of the mark in the box.The mark should be clear enough to be reproduced and digitized)")
 
             <div class="class_full_div_input_extent">
                 <div class="class_left_40">
 
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblMauNhanHieu:</div>
-                            <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
-                               data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <select id="cboLogoType" onchange="funcChangeLogoType()" style="width:300px">
-                                    @foreach (var item in _lstLogoType)
-                                    {
-                                        <option value="@item.CdVal">
-                                            @item.Content
-                                        </option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="div-search-ad" id="spfontsize" style="display:none">
-                        <div class="div-search-title">
-                            <div style="width:135px">
-                                Font-size
-                            </div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input type="number" onchange="changeFontSize()" id="txtFontSize" value="12" style="height: 24px;width: 300px;padding: 3px 0px 1px 0px;display:none" />
-                            </div>
-                        </div>
-                    </div>
+
+
 
 
 
@@ -247,38 +322,23 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title" style="height: 100px;">
+                            <div>Translation of word(s) mark*</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <textarea id="1_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
             <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
             <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
                data-title="@Resource.TooltipSizeofImage"></a>
-
-
-            <script>
-                function funcChangeLogoType() {
-                    try {
-                        if ($("#cboLogoType").val() != "1") {
-                            $("#divckbNhanHieuAnh").css('display', 'block');
-                            $("#divLogo").css('display', 'block');
-                            $("#divckbNhanHieuChu").css('display', 'none');
-                            $("#tagSuggessIMG").css('display', 'block');
-                            $("#spfontsize").css('display', 'none');
-                            $("#txtFontSize").css('display', 'none');
-                        }
-                        else {
-                            $("#divckbNhanHieuAnh").css('display', 'none');
-                            $("#divLogo").css('display', 'none');
-                            $("#tagSuggessIMG").css('display', 'none');
-                            $("#divckbNhanHieuChu").css('display', 'block');
-                            $("#spfontsize").css('display', 'block');
-                            $("#txtFontSize").css('display', 'block');
-                        }
-
-                    } catch (e) {
-                        console.log(e.toString());
-                    }
-                }
-            </script>
 
             <div class="div-search-ad">
                 <div class="div-search-content">
@@ -312,86 +372,8 @@
                 </div>
             </div>
 
-            @*<div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
-                            <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
-                            <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu" id="0_NhanHieuChungNhan" />
-                            <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
-                        </div>
-                    </div>
-                </div>*@
         </div>
-
-        @* End tai lieu dinh kem  *@
-        <div class="div_full_100_area" style="display:none" id="divNhanHieuChungNhan">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblMoTaDacTinhCuaHangHoa.ToUpper())
-
-            <div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-checkbox">
-                        <input type="checkbox" name="0_ckbDacTinhHangHoa" value="DTHH" id="0_ckbDacTinhHangHoa" />
-                        <label>@WebApps.Resources.Resource.lblDacTinhHanghoa</label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" class="classDacTinhHangHoa" disabled="disabled" name="8_ckbNguonGocDiaLy" value="NGDL" id="8_ckbNguonGocDiaLy" />
-                    <div style="width:250px">@WebApps.Resources.Resource.lblNguonGocDiaLy:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtNguonGocDiaLy" class="classDacTinhHangHoa" disabled="disabled" maxlength="100" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbChatLuong" class="classDacTinhHangHoa" disabled="disabled" value="CLCL" id="8_ckbChatLuong" />
-                    <div>@WebApps.Resources.Resource.lblChatLuong:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtChatLuong" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <input type="checkbox" style="float: left;margin: 8px 0px 5px 5px;" name="8_ckbDacTinhKhac" class="classDacTinhHangHoa" disabled="disabled" value="DTKK" id="8_ckbDacTinhKhac" />
-                    <div>@WebApps.Resources.Resource.lblDacTinhKhac:</div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="8_txtDacTinhKhac" maxlength="100" class="classDacTinhHangHoa" disabled="disabled" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @* Class *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClass.cshtml")
-        @* End Class *@
 
         @* 2 *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
@@ -399,7 +381,7 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()
+                CLAIM FOR PRIORITY
             </div>
 
             <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
@@ -416,184 +398,49 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
         </div>
 
-        @* 3  A14*@
-        @*<div class="div_full_100_area">
-                <div class="divCover cls_form_title">
-                    <img src="/Content/icons/category.png">
-                    <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
-                    <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
-                        <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
-                        <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
-                    </div>
-                    <div style="display: inline-block;">
-                        <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
-                        <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
+        <div id="" data-id="" class="clsDivDonUTien">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 150px"> @Resource.SoDon <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" maxlength="200" id=""  style="width:200px" />
                     </div>
                 </div>
-                <script>
-                    function funcChoiseDonUT(pID) {
-                        try {
-                            if (pID == "0_ckbCoSuDungDonUuTien") {
-                                $('#0_ckbCoSuDungDonUuTien').prop('checked', true);
-                                $('#divDonUuTienSo1').css('display', 'block');
-                                $('#KOUT').prop('checked', false);
-                                funcEnableDisable('classDacTinhUT', true);
-                                $("#6_txtNuocNopDon").multipleSelect("enable")
 
-                            } else {
-                                $('#KOUT').prop('checked', true);
-                                $('#0_ckbCoSuDungDonUuTien').prop('checked', false);
-                                $('#divDonUuTienSo1').css('display', 'none');
-                                funcEnableDisable('classDacTinhUT', false);
-                                $("#6_txtNuocNopDon").multipleSelect("disable")
-                                //Reset form
-                                $("#6_txtSoDon").val("")
-                                $("#6_txtNgayNopDon").val("")
-                                $('#4_ckbNopTaiVietNam').prop('checked', false);
-                                $('#4_ckbNopTaiParis').prop('checked', false);
-                                $('#4_ckbThoaThuanKhac').prop('checked', false);
-                                $("#txtThoathuanKhac").val("")
+                <div class="div-search-title">
+                    <div> @Resource.NgayNopDon <i class="redspan">(*)</i> </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" id="" class="datetimepicker" />
+                    </div>
+                </div>
+            </div>
 
-
-                                $('#6_rdoTLCMQUT').prop('checked', false);
-                                $('#6_rdoBSDDT').prop('checked', false);
-                                $('#6_rdoBDTVGom').prop('checked', false);
-                                $('#6_rdoGiayChuyenNhungUT').prop('checked', false);
-
-                                $("#6_txtBDTVGom").val("")
-                                $("#6_txtBSDDT").val("")
-                                $("#6_txtTLCMQUT").val("")
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 150px">@WebApps.Resources.Resource.NuocNopQuyenUuTien <i class="redspan">(*)</i></div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <select id="">
+                            @foreach (var item in MemoryData.c_lst_Country)
+                            {
+                                if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                                {
+                                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@item.Country_Id">@item.Name</option>
+                                }
                             }
-                        } catch (e) {
-                        }
-                    }
-                </script>
-
-                <div id="divDonUuTienSo1" style="display:none">
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblSoDon:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input type="text" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
-                            </div>
-                        </div>
+                        </select>
                     </div>
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblNgayNopDon:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input type="text" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
-                            </div>
-                        </div>
-                    </div>
-                    <div class="div-search-ad">
-                        <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblNuocNopDon:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <select id="6_txtNuocNopDon" class="classDacTinhUT">
-                                    @foreach (var item in MemoryData.c_lst_Country)
-                                    {
-                                        <option value="@item.Country_Id">@item.Name</option>
-                                    }
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="NTVN" id="4_ckbNopTaiVietNam" />
-                                <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="CUPR" id="4_ckbNopTaiParis" />
-                                <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad" style="display:inline-flex;">
-                        <div class="div-search-content" style="width:385px">
-                            <div class="div-radio" style="width:385px">
-                                <input type="radio" name="4_YCHuongQuyen" class="classDacTinhUT" value="TTTK" id="4_ckbThoaThuanKhac" />
-                                <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
-                            </div>
-                        </div>
-                        <div class="div-search-content">
-                            <input type="text" id="txtThoathuanKhac" maxlength="150" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad" style="display:inline-flex;">
-                        <div class="div-search-content">
-                            <div class="div-checkbox" style="width:426px">
-                                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_14" id="6_rdoTLCMQUT" name="NameTLUT04NH_D_14" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                                <label>@WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUuTien</label>
-                            </div>
-                        </div>
-                        <div class="div-search-content">
-                            <input type="text" id="6_txtTLCMQUT" disabled="disabled" maxlength="3" style="width: 100px;" placeholder="@WebApps.Resources.Resource.lblBan" />
-                        </div>
-                    </div>
-                    <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
-                        <div class="div-search-content">
-                            <div class="div-checkbox" style="width:382px">
-                                <input type="checkbox" maxlength="3" class="classDacTinhUT" value="04NH_D_15" id="6_rdoBSDDT" name="NameTLUT04NH_D_15" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                                <label>@WebApps.Resources.Resource.lblbanSaoDauTienGom</label>
-                            </div>
-                        </div>
-                        <div class="div-search-content">
-                            <input type="text" id="6_txtBSDDT" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan" />
-                        </div>
-
-                    </div>
-                    <div style="margin-left:40px">
-                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBSDDT")
-                    </div>
-                    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                        <div class="div-search-content">
-                            <div class="div-checkbox" style="width:382px">
-                                <input type="checkbox" class="classDacTinhUT" maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" name="NameTLUT04NH_D_16" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                                <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
-                            </div>
-                        </div>
-                        <div class="div-search-content">
-                            <input type="text" id="6_txtBDTVGom" disabled="disabled" style="width: 100px;" maxlength="3" placeholder="@WebApps.Resources.Resource.lblBan" />
-                        </div>
-
-                    </div>
-                    <div style="margin-left:40px">
-                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoBDTVGom")
-                    </div>
-                    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                        <div class="div-search-content">
-                            <div class="div-checkbox" style="width:382px">
-                                <input type="checkbox" maxlength="3" value="04NH_D_17" class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" onchange="return ShowHidenUpLoad(this.id, this.id);" />
-                                <label>@WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT</label>
-                            </div>
-                        </div>
-                    </div>
-                    <div style="margin-left:40px">
-                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialTaiLieuTrongDon.cshtml", "6_rdoGiayChuyenNhungUT")
-                    </div>
-                    <a href="javascript:;" onclick="return funcShowOrHidden('divDonUuTienSo2');" style="text-decoration:underline; color: blue;float: right;padding-top: 5px;">@WebApps.Resources.Resource.lblThemDon</a>
                 </div>
-            </div>*@
-
-        <div id="divDonUuTienSo2" hidden="hidden">
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHDonUTSo2.cshtml")
+            </div>
         </div>
 
         @* Tài liệu có trong đơn *@
@@ -612,121 +459,13 @@
             <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
         </div>
 
-        @* 4. Giấy uỷ quyền bằng tiếng *@
-        @{
-            string _doc_id4 = "04NH_D_04";
-            string _model4 = _doc_id4 + "|6_Doc_POA|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)
+        @foreach (Sys_Document_Info item in _lst_doc)
+        {
+            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
         }
 
-        @* 4.1 Bản gốc *@
-        @{
-            string _doc_id6 = "04NH_D_05";
-            string _model6 = _doc_id6 + "|Doc_05|1|" + Resource.TM2B_BanGoc + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model6)
-        }
-
-        @* 4.2 Bản sao *@
-        @{
-            string _doc_id7 = "04NH_D_06";
-            string _model7 = _doc_id7 + "|Doc_06|1|" + Resource.TM2B_BanSao + "||0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model7)
-        }
-
-        @* 4.3.1 Bản sao  > Bản gốc sẽ nộp sau *@
-        @{
-            string _doc_id8 = "04NH_D_07";
-            string _model8 = _doc_id8 + "|Doc_07|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model8)
-        }
-
-        @* 4.3.2 Bản sao  > Bản gốc đã nộp theo đơn *@
-        @{
-            string _doc_id9 = "04NH_D_08";
-            string _model9 = _doc_id9 + "|Doc_08|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|0";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model9)
-        }
-
-        @* 4.1  Bản dịch tiếng Việt, gồm *@
-        @{
-            string _doc_id5 = "04NH_D_09";
-            string _model5 = _doc_id5 + "|Doc_09|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model5)
-        }
-
-        <div class="divCover cls_form_title">
-            @*<img src="/Content/icons/category.png">*@
-            <div class="cls_form_header">@WebApps.Resources.Resource.lblTaiLieuKhac.ToUpper()</div>
-            <div style="display: inline-block;  padding-top: 5px; padding-left: 10px;">
-                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac" onchange="onChangeTLKhac()">
-                <label>@WebApps.Resources.Resource.lblYes</label>
-            </div>
-
-            <div style="display: inline-block;padding-left: 5px;">
-                <input type="radio" name="ck_TaiLieu_Khac" id="ck_TaiLieu_Khac_No" onchange="onChangeTLKhac()" checked />
-                <label>@WebApps.Resources.Resource.lblNo</label>
-            </div>
-        </div>
-
-        <div id="divTLKhac" class="clssDisplaynone">
-            @{
-                string _doc_id = "";
-                string _model = "";
-            }
-
-            @{
-                _doc_id = "04NH_D_10";
-                _model = _doc_id + "|Doc_10|0|" + Resource.lblTaiLieuXacNhanDuoc + "|" + Resource.TM2B_SoTrang + "|1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-
-            @{
-                _doc_id = "04NH_D_11";
-                _model = _doc_id + "|Doc_11|0|" + Resource.lblTaiLieuXacNhanQuyenDKNH + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-
-            @{
-                _doc_id = "04NH_D_12";
-                _model = _doc_id + "|Doc_12|0|" + Resource.lblTaiLieuDKXacNhanThuHuong + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-
-            @{
-                _doc_id = "04NH_D_13";
-                _model = _doc_id + "|Doc_13|0|" + Resource.lblQuyCheSuDungNH + "|" + Resource.TM2B_SoTrang + "|1||" + Resource.lblSoBan;
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-
-            @{
-                _doc_id = "04NH_D_18";
-                _model = _doc_id + "|Doc_18|0|" + Resource.lblBanDoKhuVucDiaLy + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-
-            @{
-                _doc_id = "04NH_D_19";
-                _model = _doc_id + "|Doc_19|0|" + Resource.lblVanBanUBNDTinh + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-
-            @{
-                _doc_id = "04NH_D_20";
-                _model = _doc_id + "|Doc_20|0|" + Resource.lblCoTaiLieuBoTro + "||1";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-
-            @{
-                _doc_id = "04NH_D_22";
-                _model = _doc_id + "|Doc_22|0|" + Resource.CoTaiLieuKhac + "||0";
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
-            }
-        </div>
-
-        @*TÀI LIỆU KHÁC*@
-        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTaiLieuKhac.cshtml", "12")*@
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
-
+       
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
@@ -777,10 +516,62 @@
     .ms-drop {
         width: 100% !important;
     }
-    
 </style>
 <script>
+    $(document).ready(function () {
+        //Search suggestion
+        var Name = $("#txtTenDayDu").val();
+        $.ajax({
+            url: '/trade-mark/GetNameSuggest/',
+            type: 'POST',
+            data: {
+                pName: Name
+            },
+            sync: true, cache: false, traditional: true,
+            success: function (data) {
 
+                var lts = data.lst;
+                $('#txtTenDayDu').autocomplete({
+                    autoFocus: true,
+                    source: function (request, response) {
+                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+                        response($.grep(lts, function (item) {
+                            return matcher.test(item.value);
+                        }));
+                    },
+                    select: function (event, ui) {
+                        $("#txtTenDayDu").val("");
+                        event.preventDefault();
+                        var arrVal = ui.item.value.split('|');
+                        if (arrVal.length === 5) {
+                            $("#txtTenDayDu").val(arrVal[0]);
+                            $("#txtDiaChi").val(arrVal[1]);
+                            $("#txtDienThoai").val(arrVal[2]);
+                            $("#txtFax").val(arrVal[3]);
+                            $("#txtEmail").val(arrVal[4]);
+                        }
+
+                    },
+                    focus: function (event, ui) {
+                        var arrResult = $(".ui-menu-item");
+                        for (var i = 0; i < arrResult.length; i++) {
+                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                            if (label == ui.item.name) {
+                                $(".clsLiActive").removeClass("clsLiActive")
+                                $(arrResult[i]).addClass("clsLiActive");
+                                break;
+                            }
+                        }
+                        event.preventDefault();
+                    },
+                    open: function (event, ui) {
+                        $("ul").scrollTop(0);
+                        event.preventDefault();
+                    },
+                });
+            }
+        });
+    });
     //nếu dùng checkbox
     $(document).ready(function () {
         //$('.classNhanHieu').click(function () {
@@ -790,45 +581,45 @@
         var _divCheckbox = document.getElementById('divCheckbox_04NH_D_10');
         _divCheckbox.style.width = '650px';
 
-       
+
     });
-   
+
     $(function ()
     {
-      try {
-        var availableTags = [];
-        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
-        for (var i = 0; i < array.length; i++) {
-            availableTags[i] = array[i];
-        }
-        $("#txtTenHangHoa").autocomplete({
-            minLength: 3,
-            source: function (request, response) {
-                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
-                response(results.slice(0, 100));
-            },
-            select: function (event, ui) {
-                $("#txtClass").val(ui.item.value);
-                //return false;
-                var textinput = $("#txtTenHangHoa").val();
-                event.preventDefault();
-                funcAddDataRowSuggest(ui.item.label, ui.item.value);
-                $("#txtTenHangHoa").val("");
-
-            },
-            focus: function (event, ui) {
-                var arrResult = $(".ui-menu-item");
-                for (var i = 0; i < arrResult.length; i++) {
-                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                    if (label == ui.item.name) {
-                        $(".clsLiActive").removeClass("clsLiActive")
-                        $(arrResult[i]).addClass("clsLiActive");
-                        break;
-                    }
-                }
-                event.preventDefault();
+        try {
+            var availableTags = [];
+            var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+            for (var i = 0; i < array.length; i++) {
+                availableTags[i] = array[i];
             }
-        });
+            $("#txtTenHangHoa").autocomplete({
+                minLength: 3,
+                source: function (request, response) {
+                    var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                    response(results.slice(0, 100));
+                },
+                select: function (event, ui) {
+                    $("#txtClass").val(ui.item.value);
+                    //return false;
+                    var textinput = $("#txtTenHangHoa").val();
+                    event.preventDefault();
+                    funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                    $("#txtTenHangHoa").val("");
+
+                },
+                focus: function (event, ui) {
+                    var arrResult = $(".ui-menu-item");
+                    for (var i = 0; i < arrResult.length; i++) {
+                        var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                        if (label == ui.item.name) {
+                            $(".clsLiActive").removeClass("clsLiActive")
+                            $(arrResult[i]).addClass("clsLiActive");
+                            break;
+                        }
+                    }
+                    event.preventDefault();
+                }
+            });
         } catch (e) {
         }
     });
@@ -1076,7 +867,7 @@
                         $('#pfile_6_rdoMauNhanHieu').val('');
                         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
                     });
-                   // return true;
+                    // return true;
                 }
             }
             reader.readAsDataURL(this.files[0]);
@@ -1588,14 +1379,14 @@
                 formdata.append("pDetail.Nguongocdialy", v_NguonGocDL);
                 var v_ChatLuong = "";
                 if ($("#8_ckbChatLuong").prop('checked') == true) {
-                      v_ChatLuong = $("#8_txtChatLuong").val();
+                    v_ChatLuong = $("#8_txtChatLuong").val();
                     if (v_ChatLuong === "" || v_ChatLuong == undefined && (pEditOrNew == 1) && pPreView != 3) {
                         showError("@Html.Raw(WebApps.Resources.Resource.lblChatLuong + Resource.KhongDuocDeTrong)");
                         $("#8_txtChatLuong").focus();
                         return false;
                     }
                 } else {
-                      v_ChatLuong = $("#8_txtChatLuong").val();
+                    v_ChatLuong = $("#8_txtChatLuong").val();
                     if (v_ChatLuong === "" || v_ChatLuong == undefined) {
                         v_ChatLuong = "";
                     }
@@ -1604,7 +1395,7 @@
                 formdata.append("pDetail.Chatluong", v_ChatLuong);
                 var v_Dactinhkhac = "";
                 if ($("#8_ckbDacTinhKhac").prop('checked') == true) {
-                      v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
+                    v_Dactinhkhac = $("#8_txtDacTinhKhac").val();
                     if (v_Dactinhkhac === "" || v_Dactinhkhac == undefined && (pEditOrNew == 1) && pPreView != 3) {
                         showError("@Html.Raw(WebApps.Resources.Resource.lblDacTinhKhac + Resource.KhongDuocDeTrong)");
                         $("#8_txtDacTinhKhac").focus();
@@ -2131,17 +1922,17 @@
 
     // When the user clicks the button, open the modal
     function showFResize() {
-      modal.style.display = "block";
+        modal.style.display = "block";
     }
 
     // When the user clicks on <span> (x), close the modal
-  
+
 
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
-      if (event.target == modal) {
-        modal.style.display = "none";
-      }
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
     }
-  
+
 </script>
