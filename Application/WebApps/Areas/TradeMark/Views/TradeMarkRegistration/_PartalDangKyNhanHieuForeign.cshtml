@@ -59,11 +59,7 @@
         urlLogoChu = _Logourl;
     }
 
-    var b03_info = new B03_Info();
-    if (ViewBag.B03_Info != null)
-    {
-        b03_info = ViewBag.B03_Info;
-    }
+  
     List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("F04");
 }
 
@@ -191,7 +187,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="@b03_info.Name_Evaluator" type="text" maxlength="200" id="txtTenDayDu" />
+                        <input value="" type="text" maxlength="200" id="txtTenDayDu" />
                     </div>
                 </div>
             </div>
@@ -203,7 +199,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="@b03_info.Address_Evaluator" type="text" maxlength="200" id="txtDiaChi" />
+                        <input value="" type="text" maxlength="200" id="txtDiaChi" />
                     </div>
                 </div>
             </div>
@@ -214,7 +210,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="@b03_info.Phone_Evaluator" maxlength="50" id="txtDienThoai" style="width: 250px;" />
+                        <input type="text" value="" maxlength="50" id="txtDienThoai" style="width: 250px;" />
                     </div>
                 </div>
 
@@ -223,7 +219,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="@b03_info.Fax_Evaluator" type="text" maxlength="50" id="txtFax" />
+                        <input value="" type="text" maxlength="50" id="txtFax" />
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -231,7 +227,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="@b03_info.Email_Evaluator" type="text" maxlength="50" id="txtEmail" />
+                        <input value="" type="text" maxlength="50" id="txtEmail" />
                     </div>
                 </div>
             </div>
