@@ -154,7 +154,7 @@
             </div>
             @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
 
-            <div class="div-search-ad">
+            @*<div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" />
@@ -168,7 +168,7 @@
                         <label>Legal entity or organization</label>
                     </div>
                 </div>
-            </div>
+            </div>*@
 
 
         </div>
@@ -176,7 +176,7 @@
 
 
 
-        <div class="divCover cls_form_title">
+        @*<div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
                 REPRESENTATIVE
@@ -234,7 +234,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -1497,168 +1497,8 @@
         }
     }
 
-    function funGetThongTinFile(formData) {
-        try {
-            var Isuse = 0, Note = "", reponse = false;
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_6_Doc_POA", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_6_Doc_POA").val());
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "1");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "2");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "3");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "4");
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "5");
-            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_08").val());
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "6");
-            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_Doc_09").val());
-
-            ////////////////////////////////
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", $("#txt_Doc_10").val());
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01", "");
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01", "");
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "10");
-            formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_13").val());
-            formData.append("pAppDocumentInfo[10].CHAR02", $("#txt_Doc_13_2").val());
-
-            ///////////
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_18", "11");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_19", "12");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_20", "13");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_22", "14");
-
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    //function funGetThongTinFile(formData) {
-    //    try {
-    //        var Isuse = 0, Note = "", reponse = false;
-
-    //        //Các tài liệu có trong đơn
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoToKhai", "0");
-    //        formData.append("pAppDocumentInfo[0].CHAR01", $("#6_txtToKhaiTrang").val());
-    //        formData.append("pAppDocumentInfo[0].CHAR02", $("#6_txtToKhaiBan").val());
-    //        //
-
-    //        //Các tài liệu có trong đơn
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoMauNhanHieuTD", "1");
-    //        formData.append("pAppDocumentInfo[1].CHAR01", $("#6_txtMauNhanHieuTD").val());
-    //        //
-    //        //Các tài liệu có trong đơn
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoChungTuPhiLP", "2");
-    //        //
-    //        //Các tài liệu có trong đơn 3
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoGiayUyQuyen", "3");
-    //        formData.append("pAppDocumentInfo[3].CHAR01", $("#6_txtGiayUQTiengViet").val());
-
-    //        // 4 6_rdoBanGoc
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanGoc", "4");
-
-    //        // 5 6_rdoBanSao
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanSao", "5");
-
-    //        // 6 6_rdoBanGocSeNopSau
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocSeNopSau", "6");
-
-    //        // 7 6_rdoBanGocDaNopTheoDonSo
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanGocDaNopTheoDonSo", "7");
-    //        formData.append("pAppDocumentInfo[7].CHAR01", $("#6_txtBangocDNTheoDonSo").val());
-    //        // 8 6_rdoBanDichTiengViet
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanDichTiengViet", "8");
-    //        formData.append("pAppDocumentInfo[8].CHAR01", $("#6_txtBDTV_UQ").val());
-
-    //        // 9 6_rdoTLXNDPSD
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLXNDPSD", "9");
-    //        formData.append("pAppDocumentInfo[9].CHAR01", $("#6_TLXNDPSD").val());
-
-    //        //
-    //        // 10 6_rdoTLDKNH
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLDKNH", "10");
-
-    //        // 11 6_rdoTLThuHuongNK
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLThuHuongNK", "11");
-
-
-    //        // 12 6_rdoQuyCheSDNH
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoQuyCheSDNH", "12");
-    //        formData.append("pAppDocumentInfo[12].CHAR01", $("#6_txtQuyCheSDNHTrang").val());
-    //        formData.append("pAppDocumentInfo[12].CHAR02", $("#6_txtQuyCheSDNHBan").val());
-
-    //        // 13 6_rdoTLCMQUT
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT", "13");
-    //        formData.append("pAppDocumentInfo[13].CHAR01", $("#6_txtTLCMQUT").val());
-
-    //        // 13 6_rdoBSDDT----------
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT", "14");
-    //        formData.append("pAppDocumentInfo[14].CHAR01", $("#6_txtBSDDT").val());
-
-    //        // 15 6_rdoBDTVGom
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom", "15");
-    //        formData.append("pAppDocumentInfo[15].CHAR01", $("#6_txtBDTVGom").val());
-
-    //        // 16 6_rdoGiayChuyenNhungUT
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT", "16");
-    //        // 17 6_rdoGiayChuyenNhungUT
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBanDoKVDL", "17");
-
-
-    //        // 18 6_rdoGiayChuyenNhungUT
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoVBuyBanTinh", "18");
-    //        // 19 6_rdoGiayChuyenNhungUT
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLKhaiTTBS", "19");
-
-    //        // 21 6_rdoGiayChuyenNhungUT
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLK", "20");
-    //        // 22 6_rdoBSDDT----------
-
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoTLCMQUT_2", "21");
-    //        formData.append("pAppDocumentInfo[21].CHAR01", $("#6_txtTLCMQUT_2").val());
-
-
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBSDDT_2", "22");
-    //        formData.append("pAppDocumentInfo[22].CHAR01", $("#6_txtBSDDT_2").val());
-
-    //        // 23 6_rdoBDTVGom
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoBDTVGom_2", "23");
-    //        formData.append("pAppDocumentInfo[23].CHAR01", $("#6_txtBDTVGom_2").val());
-
-    //        // 24 6_rdoGiayChuyenNhungUT
-    //        reponse = funcGetCheckValueAndText(formData, "6_rdoGiayChuyenNhungUT_2", "24");
-
-    //    } catch (e) {
-    //        console.log(e);
-    //    }
-    //}
-
-    function funcGetCheckValueAndText(formData, pID, pItem) {
-        try {
-            var Isuse = 0, Note = "";
-            //Các tài liệu có trong đơn
-            if ($("#" + pID).prop('checked') == true) {
-                Isuse = 1;
-            }
-            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
-            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
-            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
-            return true;
-        } catch (e) {
-            return false;
-        }
-
-    }
-
+    
+   
     $("#btnLuuTam").click(function () {
         try {
             nvsConfirm(null, "@Html.Raw(@WebApps.Resources.Resource.ConfirmLuuTam)", function () {
@@ -1756,26 +1596,19 @@
             formData.append("pInfo.Status", ptype);
 
             //Lấy thông tin detail
-            var reponse = funcGetAppDetail(formData, New);
-            if (reponse == false) {
-                return false;
-            }
+            //var reponse = funcGetAppDetail(formData, New);
+            //if (reponse == false) {
+            //    return false;
+            //}
 
             //Lấy thông tin file có trong đơn
-            if ($("#ck_TaiLieu_Khac").is(':checked')) {
-                formData.append("pInfo.USE_DOC_OTHERS", 1);
-            } else {
-                formData.append("pInfo.USE_DOC_OTHERS", 0);
-            }
+          
 
-            reponse = funGetThongTinFile(formData);
+            reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
             }
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
+           
             //lay tai lieu khac
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
@@ -1822,6 +1655,94 @@
         }
     }
 
+    function funGetDocumentFile(formData) {
+        try {
+            var Isuse = 0, Note = "", reponse = false;
+         
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_01", "0");
+            formData.append("pAppDocumentInfo[0].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_02", "1");
+            formData.append("pAppDocumentInfo[1].CHAR01", "");
+
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_03", "2");
+            formData.append("pAppDocumentInfo[2].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_04", "3");
+            formData.append("pAppDocumentInfo[3].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_05", "4");
+            formData.append("pAppDocumentInfo[4].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_06", "5");
+            formData.append("pAppDocumentInfo[5].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_07", "6");
+            formData.append("pAppDocumentInfo[6].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_08", "7");
+            formData.append("pAppDocumentInfo[7].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_09", "8");
+            formData.append("pAppDocumentInfo[8].CHAR01", "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_10", "9");
+            formData.append("pAppDocumentInfo[9].CHAR01",  $("#txt_DOC_10").val());
+            formData.append("pAppDocumentInfo[9].CHAR02",  $("#txt_DOC_10_2").val());
+            formData.append("pAppDocumentInfo[9].CHAR03",  $("#txt_DOC_10_3").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_11", "10");
+            formData.append("pAppDocumentInfo[10].CHAR01",  "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_12", "11");
+            formData.append("pAppDocumentInfo[11].CHAR01",  "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_13", "12");
+            formData.append("pAppDocumentInfo[12].CHAR01",  "");
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_14", "13");
+            formData.append("pAppDocumentInfo[13].CHAR01",  "");
+          
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_15", "14");
+            formData.append("pAppDocumentInfo[14].CHAR01",  $("#txt_DOC_15").val());
+            formData.append("pAppDocumentInfo[14].CHAR02",  $("#txt_DOC_15_2").val());
+            formData.append("pAppDocumentInfo[14].CHAR03",  $("#txt_DOC_15_3").val());
+
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_16", "15");
+            formData.append("pAppDocumentInfo[15].CHAR01",  "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_17", "16");
+            formData.append("pAppDocumentInfo[16].CHAR01",  "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_18", "17");
+            formData.append("pAppDocumentInfo[17].CHAR01",  "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_19", "18");
+            formData.append("pAppDocumentInfo[18].CHAR01",  "");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_20", "19");
+            formData.append("pAppDocumentInfo[19].CHAR01",  "");
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function funcGetCheckValueAndText(formData, pID, pItem) {
+        try {
+            var Isuse = 0, Note = "";
+            //Các tài liệu có trong đơn
+            if ($("#" + pID).prop('checked') == true) {
+                Isuse = 1;
+            }
+            formData.append("pAppDocumentInfo[" + pItem + "].keyFileUpload", pID);
+            formData.append("pAppDocumentInfo[" + pItem + "].Document_Id", $("#" + pID).val());
+            formData.append("pAppDocumentInfo[" + pItem + "].Isuse", Isuse);
+            return true;
+        } catch (e) {
+            return false;
+        }
+
+    }
+
+   
     $(document).on('dblclick', '.classDaiDienChuDon', function () {
         if (this.checked) {
             $(this).prop('checked', false);
