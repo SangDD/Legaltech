@@ -43,7 +43,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" maxlength="100" placeholder="@WebApps.Resources.Resource.SoDon" id="txt_App_No" value="@_AppHeaderInfo.App_No"/>
+                <input type="text" maxlength="100" placeholder="@WebApps.Resources.Resource.SoDon" id="txt_App_No" value="@_AppHeaderInfo.App_No" />
             </div>
         </div>
     </div>
@@ -54,7 +54,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" id="txt_filing_date" maxlength="100" class="datepicker"/>
+                <input type="text" value="@_AppHeaderInfo.Filing_Date.ToString("dd/MM/yyyy")" style="width: 200px" id="txt_filing_date" maxlength="100" class="datepicker" />
             </div>
         </div>
 
@@ -75,6 +75,17 @@
         <div class="div-search-content">
             <div>
                 <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert('@_AppHeaderInfo.Case_Code')"> Yes </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.TimeSheet</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert_TimeSheet('@_AppHeaderInfo.Case_Code')"> Yes </a>
             </div>
         </div>
     </div>
@@ -180,6 +191,16 @@
 
     function ClosePopUpBilling() {
         CloseDivPopUp('divWrapperPopUpBilling');
+    }
+
+    
+    function getView2Insert_TimeSheet(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var url = "/quan-ly-timesheet/danh-sach-timesheet/show-insert/" + _case_code;
+        window.open(url);
     }
 
     function getView2Insert(_case_code) {

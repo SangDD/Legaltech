@@ -1,0 +1,54 @@
+﻿@using Common.CommonData
+@using Common.Extensions
+@using ObjectInfos;
+@{
+    List<Template_Email_Info> _list_data = new List<Template_Email_Info>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30">STT</th>
+                <th class="class150" style="width:12%"> @WebApps.Resources.Resource.Ten</th>
+                <th class="class150 m20">@WebApps.Resources.Resource.Loai</th>
+                <th class="class30">@WebApps.Resources.Resource.ChucNang</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        <td class="tdcenteralign">@item.STT</td>
+                        <td class="tdleftalign">@item.Name</td>
+                        <td class="tdleftalign">@item.Type_Name</td>
+                         
+                        <td class="tdcenteralign">
+                            <a href="javascript:;" onclick="getView_Tem(@item.Id)" class="icon icon-info" data-title="Xem chi tiết"></a>
+                            <a href="javascript:;" onclick="getEdit_Tem(@item.Id)" class="icon icon-edit" data-title="Sửa"></a>
+                            <a href="javascript:;" onclick="doDelete_Tem(@item.Id)" class="icon icon-delete" data-title="Xóa"></a>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">@WebApps.Resources.Resource.KhongCoDuLieu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>

@@ -8,6 +8,13 @@
 
     App_Lawer_BL _App_Lawer_BL = new App_Lawer_BL();
     List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Id, WebApps.Session.SessionData.CurrentUser.Type, WebApps.CommonFunction.AppsCommon.GetCurrentLang());
+
+    string _case_code = "";
+    if (ViewBag.Case_Code != null)
+    {
+        _case_code = (string)ViewBag.Case_Code;
+        Model.App_Case_Code = _case_code;
+    }
 }
 <script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
 <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
@@ -184,6 +191,9 @@
                         CreateRollingWaitingIcon(false);
                         if (data.success == "-1") {
                             jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        } else if (data.success == "-2") {
+                            jError("Case code không đúng");
                             return false;
                         }
                         else {

@@ -1,0 +1,104 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Xem mẫu gửi Email";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+    Template_Email_Info _Template_Email_Info = new Template_Email_Info();
+    if (ViewBag.Template_Email_Info != null)
+    {
+        _Template_Email_Info = (Template_Email_Info)ViewBag.Template_Email_Info;
+    }
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+
+    .none_style a {
+        padding: 0;
+        /* height: 27px; */
+        border: none;
+        /* border-left: none; */
+        text-decoration: underline;
+        color: #02961E;
+    }
+</style>
+
+<script>
+    var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+</script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <span class="red">></span>
+        <a href="#">@WebApps.Resources.Resource.QuanLy</a>
+        <span class="red">></span>
+        <a href="/quan-ly-email/danh-sach-email">@WebApps.Resources.Resource.QuanLyTemEmail</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinTemEmail.ToUpper() </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.Ten</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtName" value="@_Template_Email_Info.Name" disabled />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.Loai</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="cboType" value="@_Template_Email_Info.Type_Name" disabled style="width:200px"/>
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.GhiChu</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNote" value="@_Template_Email_Info.Note" disabled />
+            </div>
+        </div>
+    </div>
+
+     
+
+    <div class="div-search-ad">
+        <div class="div-search-title" style="height:400px">
+            <div>Nội dung<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <div class="none_style" style="width:100%; height:400px; border:1px solid #aaa; border-left: none; padding: 0 10px; overflow: auto">@Html.Raw(_Email_Info.Content)</div>
+                @*<textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody" disabled>@Html.Raw(_Email_Info.Content)</textarea>*@
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+
+</script>

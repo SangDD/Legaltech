@@ -22,6 +22,22 @@ namespace ObjectInfos
 
     }
 
+    public class Template_Email_Info
+    {
+        public decimal STT { get; set; }
+        public decimal Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public string Type_Name { get; set; }
+        public Byte Content { get; set; }
+        public decimal Deleted { get; set; }
+        public string Created_By { get; set; }
+        public DateTime Created_Date { get; set; }
+        public string Modify_By { get; set; }
+        public DateTime Modify_Date { get; set; }
+        public string Note { get; set; }
+    }
+
     public class Email_Info
     {
         public string EmailFrom { get; set; }

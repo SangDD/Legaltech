@@ -149,9 +149,17 @@ namespace WebApps.Areas.Manager.Controllers
 
         // Insert 
         [HttpGet]
-        [Route("danh-sach-timesheet/show-insert")]
-        public ActionResult GetView2Insert()
+        [Route("danh-sach-timesheet/show-insert/{case_code?}")]
+        public ActionResult GetView2Insert(string case_code = "")
         {
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
+
+            if (case_code != "")
+            {
+                ViewBag.Case_Code = case_code;
+            }
+
             return View("~/Areas/Manager/Views/TimeSheet/_PartialInsertTimeSheet.cshtml", new Timesheet_Info());
         }
 

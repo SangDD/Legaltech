@@ -136,6 +136,17 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.TimeSheet</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <a style="height: 20px !important;" href="javascript:;" onclick="getView2Insert_TimeSheet('@_AppHeaderInfo.Case_Code')"> Yes </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
             <div>@WebApps.Resources.Resource.GhiChu <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
@@ -175,6 +186,15 @@
     $(document).ready(function () {
 
     });
+
+    function getView2Insert_TimeSheet(_case_code) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var url = "/quan-ly-timesheet/danh-sach-timesheet/show-insert/" + _case_code;
+        window.open(url);
+    }
 
     function getView2Insert(_case_code) {
         if (CheckSessionTimeOut() == false) {

@@ -1,0 +1,171 @@
+﻿@using Common.CommonData
+@using ObjectInfos;
+@{
+    ViewBag.Title = "Thêm mẫu Email";
+    Layout = "~/ViewsShared/_Layout.cshtml";
+
+    List<AllCodeInfo> _lstType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("EMAIL", "TEMPLATE");
+    var lstType = _lstType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
+}
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 150px;
+    }
+</style>
+
+<script>
+    var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+</script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
+
+<div class="divCover">
+    <div class="d-nav">
+        <img src="~/Content/icons/Body-icon-home.png" /> I
+        <a href="/home">Home</a>
+        <span class="red">></span>
+        <a href="#">@WebApps.Resources.Resource.QuanLy</a>
+        <span class="red">></span>
+        <a href="/quan-ly-email/danh-sach-email">@WebApps.Resources.Resource.QuanLyTemEmail</a>
+    </div>
+</div>
+<div class="divCover">
+    <div class="classLine">
+    </div>
+</div>
+
+<div class="d-main">
+    <div class="divCover">
+        <div class="classTitle">
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThemTemplate.ToUpper() </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.Ten<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtName" maxlength="200" />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.Loai<i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @Html.DropDownList("cboType", lstType, new { @id = "cboType" })
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.GhiChu</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="txtNote" maxlength="500" />
+            </div>
+        </div>
+    </div>
+
+    <div>Nội dung<i class="redspan">(*)</i></div>
+    <textarea type="text" id="txtBody" name="txtBody" maxlength="2000"></textarea>
+</div>
+
+<div class="class_save">
+    <div class="classGuiDon">
+        <input type="button" value="Send" id="btnGuiDon" class="btn" onclick="return do_SendEmail()" />
+    </div>
+</div>
+
+<script>
+    var txtNoiDung = CKEDITOR.replace("txtBody",
+       {
+           height: 500
+       });
+
+    function do_SendEmail() {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn tạo mẫu email này hay không? ", function () {
+
+                var formdata = new FormData();
+                formdata.append("pInfo.Name", $('#txtName').val());
+                formdata.append("pInfo.Type", $('#cboType').val());
+                formdata.append("pInfo.Note", $('#txtNote').val());
+                formdata.append("pInfo.Content", CKEDITOR.instances['txtBody'].getData());
+
+                $.ajax({
+                    url: '/quan-ly-template/do-insert',
+                    type: 'POST',
+                    data: formdata,
+                    //dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: true, cache: false, traditional: true, contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                        else {
+                            jAlert("Tạo mẫu email thành công", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                window.location.href = "/home";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateAction() {
+        try {
+            var txtName = $("#txtName").val();
+            if (txtName == null || txtName == "") {
+                jError("Tên mẫu không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtName").focus();
+                });
+                return false;
+            }
+
+            var _Type = $("#cboType").val();
+            if (_Type == null || _Type == "") {
+                jError("Loại không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#cboType").focus();
+                });
+                return false;
+            }
+
+            var _Body = CKEDITOR.instances['txtBody'].getData()
+            if (_Body == null || _Body == "") {
+                jError("Nội dung thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtBody").focus();
+                });
+                return false;
+            }
+
+            return true;
+        } catch (e) {
+            console.log(e);
+            return fa;
+
+        }
+    }
+
+
+</script>

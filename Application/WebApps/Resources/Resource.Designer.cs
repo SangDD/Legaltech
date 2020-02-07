@@ -4219,6 +4219,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Loại.
+        /// </summary>
+        public static string Loai {
+            get {
+                return ResourceManager.GetString("Loai", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Loại đơn.
         /// </summary>
         public static string LoaiDon {
@@ -5290,6 +5299,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Quản lý mẫu email gửi.
+        /// </summary>
+        public static string QuanLyTemEmail {
+            get {
+                return ResourceManager.GetString("QuanLyTemEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Quản lý tìm kiếm.
         /// </summary>
         public static string QuanLyTimKiem {
@@ -5893,6 +5911,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Tên.
+        /// </summary>
+        public static string Ten {
+            get {
+                return ResourceManager.GetString("Ten", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Tên công ty.
         /// </summary>
         public static string TenCongTy {
@@ -6226,6 +6253,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thêm mẫu gửi email.
+        /// </summary>
+        public static string ThemTemplate {
+            get {
+                return ResourceManager.GetString("ThemTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thêm dữ liệu thành công.
         /// </summary>
         public static string ThemThanhCong {
@@ -6469,6 +6505,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Thông tin mẫu email gửi.
+        /// </summary>
+        public static string ThongTinTemEmail {
+            get {
+                return ResourceManager.GetString("ThongTinTemEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Thông tin timesheet.
         /// </summary>
         public static string ThongTinTimeSheet {
@@ -6519,6 +6564,15 @@ namespace WebApps.Resources {
         public static string TieuDe {
             get {
                 return ResourceManager.GetString("TieuDe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to TimeSheet.
+        /// </summary>
+        public static string TimeSheet {
+            get {
+                return ResourceManager.GetString("TimeSheet", resourceCulture);
             }
         }
         
