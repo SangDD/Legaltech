@@ -28,7 +28,7 @@ namespace WebApps.Areas.Manager.Controllers
 
                 decimal _total_record = 0;
                 Email_BL _obj_bl = new Email_BL();
-                string _keySearch = "ALL" + SessionData.CurrentUser.Type;
+                string _keySearch = "ALL|ALL|" + SessionData.CurrentUser.Type;
                 List<Template_Email_Info> _lst = _obj_bl.Template_Email_Search(SessionData.CurrentUser.Username, _keySearch, ref _total_record);
                 string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<Template_Email_Info>((int)_total_record, 1, "mẫu");
 
@@ -97,7 +97,7 @@ namespace WebApps.Areas.Manager.Controllers
             if (SessionData.CurrentUser == null)
                 return Redirect("/");
 
-            return View();
+            return View("~/Areas/Manager/Views/TemplateEmail/_PartialInsert.cshtml");
         }
 
         [ValidateInput(false)]

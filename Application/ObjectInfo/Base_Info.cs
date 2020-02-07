@@ -29,7 +29,7 @@ namespace ObjectInfos
         public string Name { get; set; }
         public string Type { get; set; }
         public string Type_Name { get; set; }
-        public Byte Content { get; set; }
+        public string Content { get; set; }
         public decimal Deleted { get; set; }
         public string Created_By { get; set; }
         public DateTime Created_Date { get; set; }

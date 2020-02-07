@@ -52,6 +52,15 @@
 
         <div class="div-search-ad">
             <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Ten</div>
+            </div>
+            <div>
+                <div>
+                    <input style="width: 150px;" type="text" id="txtName" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.Loai </div>
             </div>
             <div class="div-search-content">
@@ -89,7 +98,7 @@
             }
         });
 
-        Search_Email(1, 1);
+        //Search_Email(1, 1);
     });
 
     function jsPaging(page) {
@@ -105,19 +114,17 @@
             var p_keysearch;
             if (p_type == 1) {
 
-                var _txtTo = $("#txtTo").val();
-                if (_txtTo == "") {
-                    _txtTo = "ALL";
+                var _txtName = $("#txtName").val();
+                if (_txtName == "") {
+                    _txtName = "ALL";
                 }
 
-                var _txtCaseCode = $("#txtCaseCode").val();
-                if (_txtCaseCode == "") {
-                    _txtCaseCode = "ALL";
-                }
+                var cboType = $("#cboType").val();
+                if (cboType == "") {
+                    cboType = "ALL";
+                } 
 
-                var _Status = $("#cboStatus").val();
-
-                p_keysearch = _txtTo + "|" + _txtCaseCode + "|" + _Status;
+                p_keysearch = _txtName + "|" + cboType;
 
                 //Lưu lại keysearch
                 $("#txtKeyValue").val(p_keysearch);
@@ -157,7 +164,7 @@
             return false;
         }
 
-        var url = "/quan-ly-template/them-moi/";
+        var url = "/quan-ly-template/danh-sach/them-moi/";
         window.location.href = url;
     }
 
