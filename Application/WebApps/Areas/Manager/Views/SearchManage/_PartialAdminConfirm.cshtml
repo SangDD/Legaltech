@@ -39,14 +39,14 @@
     @if (QuestionInfo.FILE_URL != null && QuestionInfo.FILE_URL != "")
     {
         string[] _arr = QuestionInfo.FILE_URL.Split('/');
-        string _filename = "File attach";
+        string _filename = WebApps.Resources.Resource.FileDinhKem;
         if (_arr.Length > 0)
         {
             _filename = _arr[_arr.Length - 1];
         }
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>File attach<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.FileDinhKem<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -60,14 +60,14 @@
     @if (QuestionInfo.FILE_URL02 != null && QuestionInfo.FILE_URL02 != "")
     {
         string[] _arr1 = QuestionInfo.FILE_URL02.Split('/');
-        string _filename1 = "File attach";
+        string _filename1 = WebApps.Resources.Resource.FileDinhKem;
         if (_arr1.Length > 0)
         {
             _filename1 = _arr1[_arr1.Length - 1];
         }
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>File attach<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.FileDinhKem<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -80,7 +80,7 @@
     @if (_SearchObject_Header_Info.Url_Billing != null && _SearchObject_Header_Info.Url_Billing != "")
     {
         string[] _arr1 = _SearchObject_Header_Info.Url_Billing.Split('/');
-        string _filename1 = "Billing";
+        string _filename1 = WebApps.Resources.Resource.Billing;
         if (_arr1.Length > 0)
         {
             _filename1 = _arr1[_arr1.Length - 1]; 
@@ -105,7 +105,7 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Kết quả <i class="redspan">(*)</i></div>
+            <div>@WebApps.Resources.Resource.KetQua <i class="redspan">(*)</i></div>
         </div>
         <div class="div-search-content">
             <div>

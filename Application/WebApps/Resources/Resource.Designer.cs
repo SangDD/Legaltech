@@ -4525,6 +4525,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mô tả.
+        /// </summary>
+        public static string Mota {
+            get {
+                return ResourceManager.GetString("Mota", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mô tả công việc.
         /// </summary>
         public static string MoTaCongViec {
@@ -8355,6 +8364,15 @@ namespace WebApps.Resources {
         public static string TrademarkSearch {
             get {
                 return ResourceManager.GetString("TrademarkSearch", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Trả lời.
+        /// </summary>
+        public static string TraLoi {
+            get {
+                return ResourceManager.GetString("TraLoi", resourceCulture);
             }
         }
         

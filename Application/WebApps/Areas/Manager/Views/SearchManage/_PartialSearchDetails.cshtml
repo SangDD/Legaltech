@@ -116,7 +116,7 @@
         if (_HeaderInfo.Url_File != null && _HeaderInfo.Url_File != "")
         {
             string[] _arr1 = _HeaderInfo.Url_File.Split('/');
-            string _filename1 = "File đính kèm";
+            string _filename1 = WebApps.Resources.Resource.FileDinhKem;
             if (_arr1.Length > 0)
             {
                 _filename1 = _arr1[_arr1.Length - 1];
@@ -325,7 +325,7 @@
         }
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>File attach<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.FileDinhKem<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -346,7 +346,7 @@
         }
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>File attach<i class="redspan">(*)</i></div>
+                <div>@WebApps.Resources.Resource.FileDinhKem<i class="redspan">(*)</i></div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -377,7 +377,7 @@
     }
 
     <div style="margin-top:15px">
-        <div>Kết quả</div>
+        <div>@WebApps.Resources.Resource.KetQua</div>
         <textarea disabled type="text" style="height:100px;width:100%;" maxlength="200">@_QuestionInfo.RESULT</textarea>
     </div>
 </div>
