@@ -57,6 +57,7 @@
                     new OracleParameter("p_name", OracleDbType.Varchar2, info.Name, ParameterDirection.Input),
                     new OracleParameter("p_type", OracleDbType.Varchar2, info.Type, ParameterDirection.Input),
                     new OracleParameter("p_content", OracleDbType.Clob, info.Content, ParameterDirection.Input),
+                    new OracleParameter("p_note", OracleDbType.Clob, info.Note, ParameterDirection.Input),
                     new OracleParameter("p_created_by", OracleDbType.Varchar2, info.Created_By, ParameterDirection.Input),
                     paramReturn
                 );
@@ -79,6 +80,7 @@
                     new OracleParameter("p_name", OracleDbType.Varchar2, info.Name, ParameterDirection.Input),
                     new OracleParameter("p_type", OracleDbType.Varchar2, info.Type, ParameterDirection.Input),
                     new OracleParameter("p_content", OracleDbType.Clob, info.Content, ParameterDirection.Input),
+                    new OracleParameter("p_note", OracleDbType.Clob, info.Note, ParameterDirection.Input),
                     new OracleParameter("p_modify_by", OracleDbType.Varchar2, info.Modify_By, ParameterDirection.Input),
                     paramReturn
                 );
