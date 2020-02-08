@@ -75,7 +75,7 @@
         </div>
     </div>
 
-    <div>Nội dung<i class="redspan">(*)</i></div>
+    <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
     <textarea type="text" id="txtBody" name="txtBody" maxlength="2000"></textarea>
 </div>
 
@@ -119,8 +119,8 @@
                             return false;
                         }
                         else {
-                            jAlert("Tạo mẫu email thành công", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                                window.location.href = "/home";
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                window.location.href = "/quan-ly-template/danh-sach";
                             });
                         }
                     },

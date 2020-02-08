@@ -185,11 +185,11 @@
 
     @if (_HeaderInfo.Url_Billing != null && _HeaderInfo.Url_Billing != "")
     {
-        string[] _arr1 = _HeaderInfo.Url_Billing.Split('/');
-        string _filename1 = WebApps.Resources.Resource.Billing;
-        if (_arr1.Length > 0)
+        string[] _arr2 = _HeaderInfo.Url_Billing.Split('/');
+        string _filename2 = WebApps.Resources.Resource.Billing;
+        if (_arr2.Length > 0)
         {
-            _filename1 = _arr1[_arr1.Length - 1];
+            _filename1 = _arr2[_arr2.Length - 1];
         }
         <div class="div-search-ad">
             <div class="div-search-title">
@@ -197,7 +197,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <a style="height: 20px !important;" href="@_HeaderInfo.Url_Billing" download="@_HeaderInfo.Url_Billing"> @_filename1 </a>
+                    <a style="height: 20px !important;" href="@_HeaderInfo.Url_Billing" download="@_HeaderInfo.Url_Billing"> @_filename2 </a>
                 </div>
             </div>
         </div>

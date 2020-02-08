@@ -35,20 +35,27 @@
     </div>
 </div>
 
-<div class="d-main">
+@*Notify*@
+<div class="divCover">
+    @Html.Partial("~/Areas/Home/Views/Shared/_Partial_Quick_Notify.cshtml")
+</div>
+
+<div class="d-main smb_content">
     <div class="divCover">
-        <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
-        <input type="hidden" value="DESC" id="SortType" />
-        <input type="hidden" value="" id="OptionSorting" />
-        <input type="hidden" value="@ViewBag.Status" id="txtStatusFilter" />
-        <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinTrangBia.ToUpper()</div>
+        <div class="classTitle">
+            <input type="hidden" value="MODIFIED_DATE" id="colSorted" />
+            <input type="hidden" value="DESC" id="SortType" />
+            <input type="hidden" value="" id="OptionSorting" />
+            <input type="hidden" value="@ViewBag.Status" id="txtStatusFilter" />
+            <div class="div-title-content"> @WebApps.Resources.Resource.ThongTinTrangBia.ToUpper()</div>
+        </div>
     </div>
 
     <div class="divCover" id="div-search-simple" style="margin-top:10px">
 
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div style="width: 120px">@WebApps.Resources.Resource.lblTieuDe</div>
+                <div>@WebApps.Resources.Resource.lblTieuDe</div>
             </div>
             <div class="div-search-content">
                 <div>

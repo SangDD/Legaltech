@@ -59,7 +59,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txtName" value="@_Template_Email_Info.Name" disabled />
+                <input type="text" id="txtName" value="@_Template_Email_Info.Name" maxlength="200" />
             </div>
         </div>
     </div>
@@ -70,7 +70,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="cboType" value="@_Template_Email_Info.Type_Name" disabled style="width:200px"/>
+                <input type="text" id="cboType" value="@_Template_Email_Info.Type_Name" disabled style="width:200px" />
             </div>
         </div>
 
@@ -79,27 +79,109 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txtNote" value="@_Template_Email_Info.Note" disabled />
+                <input type="text" id="txtNote" value="@_Template_Email_Info.Note" />
             </div>
         </div>
     </div>
 
-     
-
-    <div class="div-search-ad">
-        <div class="div-search-title" style="height:400px">
-            <div>Nội dung<i class="redspan">(*)</i></div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <div class="none_style" style="width:100%; height:400px; border:1px solid #aaa; border-left: none; padding: 0 10px; overflow: auto">@Html.Raw(_Template_Email_Info.Content)</div>
-                @*<textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtBody" disabled>@Html.Raw(_Email_Info.Content)</textarea>*@
-            </div>
+    <div style="margin-top:15px">
+        <div>@WebApps.Resources.Resource.lblNoiDung<i class="redspan">(*)</i></div>
+        <div>
+            <textarea type="text" id="txtBody" name="txtBody">@Html.Raw(_Template_Email_Info.Content)</textarea>
         </div>
     </div>
 
 </div>
 
+
+<div class="class_save">
+    <div class="classGuiDon">
+        <input type="button" value="@WebApps.Resources.Resource.Sua" id="btnGuiDon" class="btn" onclick="return do_SendEmail()" />
+    </div>
+</div>
+
 <script>
+
+    var txtBody = CKEDITOR.replace("txtBody",
+        {
+            height: 500
+        });
+
+    function do_SendEmail() {
+        if (validateAction()) {
+            nvsConfirm(null, "Bạn có chắc chắn sửa mẫu email này hay không? ", function () {
+
+                var formdata = new FormData();
+                formdata.append("pInfo.Id", '@_Template_Email_Info.Id');
+                formdata.append("pInfo.Name", $('#txtName').val());
+                //formdata.append("pInfo.Type", $('#cboType').val());
+                formdata.append("pInfo.Note", $('#txtNote').val());
+                formdata.append("pInfo.Content", CKEDITOR.instances['txtBody'].getData());
+
+                $.ajax({
+                    url: '/quan-ly-template/do-edit',
+                    type: 'POST',
+                    data: formdata,
+                    //dataType: "json",
+                    enctype: 'multipart/form-data',
+                    async: true, cache: false, traditional: true, contentType: false,
+                    processData: false,
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        }
+                        else {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.SuaThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                window.location.href = "/quan-ly-template/danh-sach";
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(true);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function validateAction() {
+        try {
+            var txtName = $("#txtName").val();
+            if (txtName == null || txtName == "") {
+                jError("Tên mẫu không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtName").focus();
+                });
+                return false;
+            }
+
+            @*var _Type = $("#cboType").val();
+            if (_Type == null || _Type == "") {
+                jError("Loại không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#cboType").focus();
+                });
+                return false;
+            }*@
+
+            var _Body = CKEDITOR.instances['txtBody'].getData()
+            if (_Body == null || _Body == "") {
+                jError("Nội dung thư không được để trống", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                    $("#txtBody").focus();
+                });
+                return false;
+            }
+
+            return true;
+        } catch (e) {
+            console.log(e);
+            return fa;
+
+        }
+    }
 
 </script>
