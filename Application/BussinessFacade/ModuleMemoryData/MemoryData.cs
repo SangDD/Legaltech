@@ -43,6 +43,7 @@
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
         public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
         public static List<Sys_Document_Info> c_lstSys_Document = new List<Sys_Document_Info>();
+        public static List<Template_Email_Info> c_lst_temEmail = new List<Template_Email_Info>();
 
         //public static List<SuggestInfo> clstAppClassShortSuggest = new List<SuggestInfo>();
 
@@ -69,6 +70,8 @@
 
                 // DANGTQ load fee cho seach
                 LoadSys_Search_Fee_Fix();
+
+                LoadTemplate();
 
                 AppDocumentBL _AppDocumentBL = new AppDocumentBL();
                 c_lstSys_Document = _AppDocumentBL.Sys_Document_GetAll();
@@ -194,6 +197,20 @@
                 Logger.LogException(ex);
             }
         }
+
+        public static void LoadTemplate()
+        {
+            try
+            {
+                Email_BL _Email_BL = new Email_BL();
+                c_lst_temEmail = _Email_BL.Template_email_GetAll();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
+
 
         public static void LoadSys_App_Fee_Fix()
         {

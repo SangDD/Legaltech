@@ -114,6 +114,11 @@ namespace WebApps.Areas.Manager.Controllers
                 pInfo.Created_By = SessionData.CurrentUser.Username;
                 decimal _re = _obj_bl.Template_Email_Insert(pInfo);
 
+                if (_re > 0)
+                {
+                    BussinessFacade.ModuleMemoryData.MemoryData.LoadTemplate();
+                }
+
                 return Json(new { success = _re });
             }
             catch (Exception ex)
