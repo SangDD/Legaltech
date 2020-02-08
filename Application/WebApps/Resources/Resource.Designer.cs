@@ -1258,6 +1258,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Chọn mẫu.
+        /// </summary>
+        public static string ChonTemplate {
+            get {
+                return ResourceManager.GetString("ChonTemplate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Chưa có kết quả thẩm định nội dung.
         /// </summary>
         public static string ChuaCoKetQuaThamDinh {

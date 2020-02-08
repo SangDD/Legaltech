@@ -1282,5 +1282,24 @@ namespace WebApps.Areas.TradeMark.Controllers
                 return Json(new { success = DateTime.Now.AddMonths(1).ToString("dd/MM/yyyy") });
             }
         }
+
+        [HttpPost]
+        [Route("quan-ly-don/get-template-email")]
+        public ActionResult Get_Template_Email(decimal p_id, string p_id_textbox)
+        {
+            try
+            {
+                Email_BL _BL = new Email_BL();
+                Template_Email_Info _Template_Email_Info = _BL.Template_Email_GetBy_Id(p_id, AppsCommon.GetCurrentLang());
+                ViewBag.Template_Email_Info = _Template_Email_Info;
+                ViewBag.Id = p_id_textbox;
+                return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Comment.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Comment.cshtml");
+            }
+        }
     }
 }

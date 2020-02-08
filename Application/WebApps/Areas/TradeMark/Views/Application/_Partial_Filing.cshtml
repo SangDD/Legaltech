@@ -6,6 +6,8 @@
     {
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
+
+    List<Template_Email_Info> _lstTem = BussinessFacade.ModuleMemoryData.MemoryData.Get_Template();
 }
 
 <style>
@@ -15,19 +17,19 @@
     }
 </style>
 @*<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
-<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
-<script>
-    $.datetimepicker.setLocale('vi');
-    $(document).ready(function () {
-        $('.datepicker').datetimepicker({
-            format: 'd/m/Y',
-            formatDate: 'd/m/Y',
-            timepicker: false,
-            mask: '39/19/9999',
-            validateOnBlur: true,
+    <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+    <script>
+        $.datetimepicker.setLocale('vi');
+        $(document).ready(function () {
+            $('.datepicker').datetimepicker({
+                format: 'd/m/Y',
+                formatDate: 'd/m/Y',
+                timepicker: false,
+                mask: '39/19/9999',
+                validateOnBlur: true,
+            });
         });
-    });
-</script>*@
+    </script>*@
 
 <div>
     <div class="divCover cls_form_title">
@@ -91,15 +93,36 @@
     </div>
 
     <div class="div-search-ad">
-        <div class="div-search-title" style="height:200px">
-            <div>@WebApps.Resources.Resource.NoiDungChinh </div>
+        <div class="div-search-title">
+            <div>@WebApps.Resources.Resource.ChonTemplate</div>
         </div>
         <div class="div-search-content">
             <div>
-                <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtComment_Filling"></textarea>
+                <select id="cboTemplate" onchange="onChangeTemplate()">
+                    <option value="0">None</option>
+                    @foreach (var item in _lstTem)
+                    {
+                        <option value="@item.Id">@item.Name</option>
+                    }
+                </select>
             </div>
         </div>
     </div>
+
+    <div id="divComment" style="margin-top:5px">
+        @Html.Partial("~/Areas/TradeMark/Views/Application/_Partial_Comment.cshtml", "txtComment_Filling")
+    </div>
+
+    @*<div class="div-search-ad">
+            <div class="div-search-title" style="height:200px">
+                <div>@WebApps.Resources.Resource.NoiDungChinh </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <textarea maxlength="4000" rows="10" style="height:202px; width:100%" id="txtComment_Filling"></textarea>
+                </div>
+            </div>
+        </div>*@
 
     <div class="div-search-ad">
         <div class="div-search-title">
@@ -193,7 +216,34 @@
         CloseDivPopUp('divWrapperPopUpBilling');
     }
 
-    
+    function onChangeTemplate() {
+        try {
+            var _id = $('#cboTemplate').val();
+
+
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark-mana/quan-ly-don/get-template-email/',
+                data: {
+                    p_id: _id,
+                    p_id_textbox: "txtComment_Filling"
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divComment").html(data);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
     function getView2Insert_TimeSheet(_case_code) {
         if (CheckSessionTimeOut() == false) {
             return false;
@@ -273,7 +323,7 @@
                         if (data.success == "-1") {
                             jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
                             return false;
-                        } 
+                        }
                         else if (data.success == "-2") {
                             jError("@Html.Raw(WebApps.Resources.Resource.KhongCoThongTinBilling)");
                             return false;
@@ -432,7 +482,7 @@
 
             var _file = pfile[0].files[0];
             var _size = _file.size / 1024 / 1024;
-             
+
             if (_CheckFile == false) {
                 return false;
             }
@@ -458,7 +508,7 @@
 
             var _file = pfile_Dich[0].files[0];
             var _size = _file.size / 1024 / 1024;
-             
+
             if (_CheckFile == false) {
                 return false;
             }

@@ -43,7 +43,7 @@
         public static List<AppClassInfo> clstAppClass = new List<AppClassInfo>();
         public static List<CustomerSuggestInfo> clstAppClassSuggest = new List<CustomerSuggestInfo>();
         public static List<Sys_Document_Info> c_lstSys_Document = new List<Sys_Document_Info>();
-        public static List<Template_Email_Info> c_lst_temEmail = new List<Template_Email_Info>();
+        static List<Template_Email_Info> c_lst_temEmail = new List<Template_Email_Info>();
 
         //public static List<SuggestInfo> clstAppClassShortSuggest = new List<SuggestInfo>();
 
@@ -160,6 +160,11 @@
             {
                 Logger.LogException(ex);
             }
+        }
+
+        public static List<Template_Email_Info> Get_Template()
+        {
+            return c_lst_temEmail;
         }
 
         public static void Load_Sys_page()
@@ -425,7 +430,7 @@
                     CustomerSuggestInfo pInfo = new CustomerSuggestInfo();
                     pInfo.label = item.Name_Vi + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.MaNguoiDaiDien;
                     pInfo.value = item.Name_Vi + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.MaNguoiDaiDien;
-                    pInfo.name = item.Name_Vi + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email  + item.Country;
+                    pInfo.name = item.Name_Vi + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + item.Country;
                     lstChuDDSHCN.Add(pInfo);
 
                     lstCache_Represent.Add(pInfo);

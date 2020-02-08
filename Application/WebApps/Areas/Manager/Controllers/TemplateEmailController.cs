@@ -127,5 +127,80 @@ namespace WebApps.Areas.Manager.Controllers
                 return Json(new { success = "-1" });
             }
         }
+
+        [HttpGet]
+        [Route("danh-sach/show-edit")]
+        public ActionResult Show_Edit(decimal id)
+        {
+            if (SessionData.CurrentUser == null)
+                return Redirect("/");
+
+            try
+            {
+                Email_BL _obj_bl = new Email_BL();
+                Template_Email_Info _Template_Email_Info = _obj_bl.Template_Email_GetBy_Id(id, AppsCommon.GetCurrentLang());
+                ViewBag.Template_Email_Info = _Template_Email_Info;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+            return View("~/Areas/Manager/Views/TemplateEmail/_PartialEdit.cshtml");
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        [Route("do-edit")]
+        public ActionResult do_Edit(Template_Email_Info pInfo)
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                Email_BL _obj_bl = new Email_BL();
+                pInfo.Modify_By = SessionData.CurrentUser.Username;
+                decimal _re = _obj_bl.Template_Email_Update(pInfo);
+
+                if (_re > 0)
+                {
+                    BussinessFacade.ModuleMemoryData.MemoryData.LoadTemplate();
+                }
+
+                return Json(new { success = _re });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [ValidateInput(false)]
+        [HttpPost]
+        [Route("do-delete")]
+        public ActionResult do_delete(decimal p_id)
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
+                Email_BL _obj_bl = new Email_BL();
+                decimal _re = _obj_bl.Template_Email_Delete(p_id);
+
+                if (_re > 0)
+                {
+                    BussinessFacade.ModuleMemoryData.MemoryData.LoadTemplate();
+                }
+
+                return Json(new { success = _re });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
     }
 }

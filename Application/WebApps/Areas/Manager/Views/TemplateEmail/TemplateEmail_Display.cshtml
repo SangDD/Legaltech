@@ -90,8 +90,8 @@
 
 <script>
     $(document).ready(function () {
-        $('#cboType').focus();
-        $("#cboType").keypress(function (evt) {
+        $('#txtName').focus();
+        $("#cboType,#txtName").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {
                 Search_Email(1, 1);
@@ -190,6 +190,40 @@
         } catch (e) {
             console.log(e.toString())
         }
+    }
+
+    function doDelete_Tem(_id) {
+
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
+            $.ajax({
+                url: "/quan-ly-template/do-delete",
+                type: "POST",
+                data: {
+                    p_id: _id
+                },
+                headers: { "cache-control": "no-cache" },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                        return false;
+                    }
+                    else {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.XoaThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            Search_TimeSheet(1,1);
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
     }
 
 </script>
