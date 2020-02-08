@@ -16,7 +16,10 @@
         width: 250px;
     }
 </style>
-
+<script>
+    var _isSimpleEditorToolBar = 0;// set cho ckfinder có cấu hình xoạn thảo đơn giản
+</script>
+<script src="~/Content/ckeditor/ckeditor.js"></script>
 @*<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
     <link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
     <script>
@@ -296,7 +299,7 @@
                 //var pfile_t = $("#file_attach_Dich");//lay du lieu file
                 //var _file_t = pfile_t[0].files[0];
 
-                var _txtComment_Filling = CKEDITOR.instances['txtBody'].getData()
+                //var _txtComment_Filling = CKEDITOR.instances['txtBody'].getData()
                 
             
 
@@ -304,7 +307,7 @@
                 formdata.append("pInfo.Case_Code", _case_code);
                 formdata.append("pInfo.Id", @_AppHeaderInfo.Id);
                 formdata.append("pInfo.Note", $('#txtNotes').val());
-                formdata.append("pInfo.Comment_Filling", _txtComment_Filling);
+                formdata.append("pInfo.Comment_Filling", CKEDITOR.instances['txtBody'].getData());
                 formdata.append("pInfo.App_No", $('#txt_App_No').val());
                 formdata.append("pInfo.Created_By", '@_AppHeaderInfo.Created_By');
 

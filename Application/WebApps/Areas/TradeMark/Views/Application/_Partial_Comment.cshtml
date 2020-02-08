@@ -44,19 +44,12 @@
     </div>
 </div>*@
 <div>@WebApps.Resources.Resource.NoiDungChinh </div>
-<textarea name="txtBody" maxlength="4000" id="@_id">@Html.Raw(_Template_Email_Info.Content)</textarea>
-<div class="form-group">
-    <div class="form-group-bottom">
-        <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.LuatSuXacNhan" onclick="return do_Filing1()" />
-    </div>
-</div>
+<textarea id="txtBody" name="txtBody" maxlength="4000" >@Html.Raw(_Template_Email_Info.Content)</textarea>
+
 <script>
     var txtNoiDung = CKEDITOR.replace("txtBody",
       {
           height: 500
       });
-    function do_Filing1() {
-        var _Body = CKEDITOR.instances['txtBody'].getData()
-        alert(_Body);
-    }
+   
 </script>
