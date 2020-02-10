@@ -1915,6 +1915,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Danh sách email.
+        /// </summary>
+        public static string DanhSachEmail {
+            get {
+                return ResourceManager.GetString("DanhSachEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Đặt lại mật khẩu.
         /// </summary>
         public static string DatLaiMatKhau {
@@ -2226,6 +2235,15 @@ namespace WebApps.Resources {
         public static string EmailQuenMK {
             get {
                 return ResourceManager.GetString("EmailQuenMK", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thông tin phí tìm kiếm.
+        /// </summary>
+        public static string FeeSeaching_Title {
+            get {
+                return ResourceManager.GetString("FeeSeaching_Title", resourceCulture);
             }
         }
         
@@ -5376,6 +5394,15 @@ namespace WebApps.Resources {
         public static string QuanLyTemEmail {
             get {
                 return ResourceManager.GetString("QuanLyTemEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quản lý TimeSheet.
+        /// </summary>
+        public static string QuanLyTimeSheet {
+            get {
+                return ResourceManager.GetString("QuanLyTimeSheet", resourceCulture);
             }
         }
         
