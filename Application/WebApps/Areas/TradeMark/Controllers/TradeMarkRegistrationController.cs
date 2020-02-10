@@ -312,6 +312,142 @@
         }
 
         [HttpPost]
+        [Route("dang_ky_nhan_hieu_nn")]
+        public ActionResult AppDonDangKyNNInsert(ApplicationHeaderInfo pInfo, App_Detail_F04_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+            List<AppDocumentOthersInfo> pAppDocOtherInfo)
+        {
+            try
+            {
+                Application_Header_BL objBL = new Application_Header_BL();
+               
+                App_Detail_F04_BL objDetail = new App_Detail_F04_BL();
+            
+                AppDocumentBL objDoc = new AppDocumentBL();
+                if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
+                string language = AppsCommon.GetCurrentLang();
+                var CreatedBy = SessionData.CurrentUser.Username;
+                var CreatedDate = SessionData.CurrentUser.CurrentDate;
+                decimal pReturn = ErrorCode.Success;
+                int pAppHeaderID = 0;
+                string p_case_code = "";
+
+               
+
+                using (var scope = new TransactionScope())
+                {
+                    //
+                    pInfo.Languague_Code = language;
+                    if (pInfo.Created_By == null || pInfo.Created_By == "0" || pInfo.Created_By == "")
+                    {
+                        pInfo.Created_By = CreatedBy;
+                    }
+                    pInfo.Created_Date = CreatedDate;
+                    pInfo.Send_Date = CreatedDate;
+                    //TRA RA ID CUA BANG KHI INSERT
+                    pAppHeaderID = objBL.AppHeaderInsert(pInfo, ref p_case_code);
+                    if (pAppHeaderID >= 0)
+                    {
+                        pDetail.Appcode = pInfo.Appcode;
+                        pDetail.Language_Code = language;
+                        pDetail.App_Header_Id = pAppHeaderID;
+
+                       
+                            //pDetail.Logochu = 0;
+                            if (pDetail.pfileLogo != null)
+                            {
+                                pDetail.Logourl = AppLoadHelpers.PushFileToServer(pDetail.pfileLogo, AppUpload.Logo);
+                            }
+                       
+
+                        pReturn = objDetail.Insert(pDetail);
+
+                      
+                    }
+                    else
+                    {
+                        pReturn = pAppHeaderID;
+                        goto Commit_Transaction;
+                    }
+
+                  
+
+                    //Tai lieu dinh kem 
+                    if (pReturn >= 0 && pAppDocumentInfo != null && pAppDocumentInfo.Count > 0)
+                    {
+                        foreach (var info in pAppDocumentInfo)
+                        {
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                            {
+                                string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                string[] _arr = _url.Split('/');
+                                string _filename = WebApps.Resources.Resource.FileDinhKem;
+                                if (_arr.Length > 0)
+                                {
+                                    _filename = _arr[_arr.Length - 1];
+                                }
+
+                                info.Filename = _filename;
+                                info.Url_Hardcopy = _url;
+                            }
+                            info.Status = 0;
+                            info.App_Header_Id = pAppHeaderID;
+                            info.Language_Code = language;
+                            info.Document_Filing_Date = CommonFuc.CurrentDate();
+                        }
+                        pReturn = objDoc.AppDocumentInsertBath(pAppDocumentInfo, pAppHeaderID);
+                    }
+
+                    //tai lieu khac 
+                    if (pReturn >= 0 && pAppDocOtherInfo != null && pAppDocOtherInfo.Count > 0)
+                    {
+                        int check = 0;
+                        foreach (var info in pAppDocOtherInfo)
+                        {
+                            //if (SessionData.CurrentUser.chashFileOther.ContainsKey(info.keyFileUpload))
+                            if (SessionData.CurrentUser.chashFile.ContainsKey(info.keyFileUpload))
+                            {
+                                //HttpPostedFileBase pfiles = (HttpPostedFileBase)SessionData.CurrentUser.chashFileOther[info.keyFileUpload];
+                                //info.Filename = pfiles.FileName;
+                                //info.Filename = "/Content/Archive/" + AppUpload.Document + "/" + pfiles.FileName;
+                                //check = 1;
+
+                                string _url = (string)SessionData.CurrentUser.chashFile[info.keyFileUpload];
+                                info.Filename = _url;
+                                check = 1;
+                            }
+                            info.App_Header_Id = pAppHeaderID;
+                            info.Language_Code = language;
+                        }
+                        if (check == 1)
+                        {
+                            pReturn = objDoc.AppDocumentOtherInsertBatch(pAppDocOtherInfo);
+                        }
+                    }
+
+          
+                    Commit_Transaction:
+                    if (pReturn < 0)
+                    {
+                        Transaction.Current.Rollback();
+                        return Json(new { status = pReturn });
+                    }
+                    else
+                    {
+                        MemoryData.Enqueue_ChangeData(Table_Change.APPHEADER);
+                        scope.Complete();
+                    }
+                }
+
+                return Json(new { status = pReturn });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { status = ErrorCode.Error });
+            }
+        }
+
+        [HttpPost]
         [Route("edit-dang-ky-nhan-hieu")]
         public ActionResult AppDonDangKyEdit(ApplicationHeaderInfo pInfo, AppDetail04NHInfo pDetail, List<AppDocumentInfo> pAppDocumentInfo,
            List<AppDocumentOthersInfo> pAppDocOtherInfo, List<AppClassDetailInfo> pAppClassInfo, List<AppFeeFixInfo> pFeeFixInfo, List<UTienInfo> pUTienInfo, string listIDDocRemove)
