@@ -221,10 +221,6 @@
     <div class="class_save" style="margin-left:163px;">
         @if (ViewBag.Status == Common.Status.VietBai || ViewBag.Status == Common.Status.ChoXuly)
         {
-            <div class="classGuiDon">
-                <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
-            </div>
-
             if (_B_Todos_Info != null)
             {
                 <div class="classGuiDon">
@@ -235,6 +231,22 @@
                     <input type="button" value="@WebApps.Resources.Resource.btnXuatban" style="margin-left: 5px" id="btnXuatBan" class="btn" />
                 </div>
             }
+            else
+            {
+                <div class="classGuiDon">
+                    <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuBai" class="btn" />
+                </div>
+            }
+        }
+        else if (ViewBag.Status == Common.Status.Luutam)
+        {
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" id="btnLuuTam" class="btn" />
+            </div>
+
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnGuiBai" id="btnLuuBai" class="btn" />
+            </div>
         }
         else if (ViewBag.Status == Common.Status.XuatBan)
         {
@@ -252,6 +264,15 @@
             </div>
             <div class="classLuuTam">
                 <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuGo" class="btn" />
+            </div>
+        }
+        else if (ViewBag.Status == Common.Status.TuChoi)
+        {
+            <div class="classGuiDon">
+                <input type="button" value="@WebApps.Resources.Resource.btnGuiBai" id="btnLuuBai" class="btn" />
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="@WebApps.Resources.Resource.lblLuuBai" id="btnLuuTuChoi" class="btn" />
             </div>
         }
         else
@@ -313,9 +334,13 @@ catch (Exception)
         SaveArticles(6);
     });
 
-    //$("#btnLuuGo").click(function () {
-    //    SaveArticles(6);
-    //});
+    $("#btnLuuTuChoi").click(function () {
+        SaveArticles(5);
+    });
+
+    $("#btnLuuGo").click(function () {
+        SaveArticles(6);
+    });
 
     $("#btnLuuBaiXB").click(function () {
         SaveArticles(7);
@@ -401,7 +426,7 @@ catch (Exception)
                         }
                         else {
                             nvsAlert("Sửa bài viết thành công!", ThongBao, function () {
-                                location.href = "/quan-ly-tin/danh-sach-tin/";
+                                location.href = "/quan-ly-tin/danh-sach-tin/1";
                             });
                         }
                     } else {

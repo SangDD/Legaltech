@@ -173,6 +173,17 @@ namespace WebApps.Areas.Articles.Controllers
                 ViewBag.lstCategory = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("ARTICLES", "CATEGORIES");
                 string language = AppsCommon.GetCurrentLang();
                 var objNewInfo = objNewsBL.ArticlesGetById(pIDArticles, language);
+
+                if (SessionData.CurrentUser != null && SessionData.CurrentUser.Type != (decimal)CommonEnums.UserType.Customer)
+                {
+                    B_Todos_BL _B_Todos_BL = new B_Todos_BL();
+                    B_Todos_Info _B_Todos_Info = _B_Todos_BL.Todo_GetByCaseCode(objNewInfo.Case_Code, SessionData.CurrentUser.Username);
+                    if (_B_Todos_Info != null)
+                    {
+                        ViewBag.B_Todos_Info = _B_Todos_Info;
+                    }
+                }
+
                 return View("~/Areas/Articles/Views/ArticlesNews/_PartialviewEdit.cshtml", objNewInfo);
             }
             catch (Exception ex)
