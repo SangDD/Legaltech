@@ -1987,6 +1987,31 @@
                 }
 
                 return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieu.cshtml");
+            }else if (pAppCode == TradeMarkAppCode.AppCodeDangKynhanHieuNN)
+            {
+                var objBL = new App_Detail_F04_BL();
+                string language = AppsCommon.GetCurrentLang();
+                ApplicationHeaderInfo _applicationheaderinfo = new ApplicationHeaderInfo();
+                List<AppDocumentInfo> _lst_appdocument = new List<AppDocumentInfo>();
+                List<AppDocumentOthersInfo> _lst_appdocumentothers = new List<AppDocumentOthersInfo>();
+                App_Detail_F04_Info ds04NH = objBL.GetByID(pAppHeaderId, language, ref _applicationheaderinfo, ref _lst_appdocument, ref _lst_appdocumentothers);
+
+                //Luu key duy nhat cua he thong
+                string keyData = "objAppHeaderInfo" + SessionData.CurrentUser.Id.ToString() + DateTime.Now.ToString("DDMMHHmmss");
+                ViewBag.keyData = keyData;
+                SessionData.SetDataSession(keyData, "");
+
+                if (ds04NH != null)
+                {
+                    ViewBag.objAppHeaderInfo = ds04NH;
+                    SessionData.SetDataSession(keyData, ViewBag.objAppHeaderInfo);
+                    ViewBag.lstDocumentInfo = _lst_appdocument;
+                    ViewBag.lstDocOther = _lst_appdocumentothers;
+                 
+                }
+
+                return PartialView("~/Areas/TradeMark/Views/TradeMarkRegistration/Edit_PartialDangKyNhanHieuNN.cshtml");
+
             }
             else if (pAppCode == TradeMarkAppCode.AppCode_TM_3B_PLB_01_SDD)
             {
