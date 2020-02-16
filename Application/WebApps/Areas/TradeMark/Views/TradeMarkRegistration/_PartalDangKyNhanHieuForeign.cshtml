@@ -248,7 +248,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px"></textarea>
+                    <textarea id="2_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px"></textarea>
                 </div>
             </div>
         </div>
@@ -1268,6 +1268,10 @@
 
             var v_MoTa_0 = $("#0_MoTa").val();
             formdata.append("pDetail.Description", v_MoTa_0);
+
+            var v_2_MoTa = $("#2_MoTa").val();
+            formdata.append("pDetail.Business_Line", v_2_MoTa);
+            
 
             var v_MoTa_1 = $("#1_MoTa").val();
             formdata.append("pDetail.Translation_Of_Word", v_MoTa_1);

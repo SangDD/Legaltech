@@ -8,6 +8,7 @@
     ViewBag.Title = "Sửa đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
+
     var objAppHeaderInfo = new App_Detail_F04_Info();
     var lstDocumentInfo = new List<AppDocumentInfo>();
     var lstDocOther = new List<AppDocumentOthersInfo>();
@@ -160,7 +161,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px">@objAppHeaderInfo.Business_Line</textarea>
+                    <textarea id="2_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px">@objAppHeaderInfo.Business_Line</textarea>
                 </div>
             </div>
         </div>
@@ -502,6 +503,7 @@
         } else {
             $("#divContainerDocOther").css('display', 'none');
         }
+        $("#divContainerDocOther").css('display', 'block')
     });
 
 
@@ -983,9 +985,17 @@
                 return false;
             }
 
-            if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
-                return false;
+
+            if (pStatus == 1) {
+                if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
+                    return false;
+                }
+            } else {
+                if (funcThongTinChuDon(formData, "1") != true) {
+                    return false;
+                }
             }
+
             var v_AppCode = $("#txtAppCode").val();
             if (v_AppCode === "") {
                 $('#txtAppCode').focus().val('');
@@ -1001,6 +1011,7 @@
                 showError('File tải lên không đúng định dạng file ảnh');
                 return false;
             }
+          
 
             formData.append("pInfo.Appcode", v_AppCode);
 
@@ -1033,15 +1044,13 @@
             if (reponse == false) {
                 return false;
             }
+           
             //Lấy thông tin file có trong đơn
-            reponse = funGetThongTinFile(formData);
+            reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
             }
-            reponse = funcGetDataClassInfo(formData);
-            if (reponse == false) {
-                return false;
-            }
+          
             //lay tai lieu khac
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
@@ -1053,7 +1062,7 @@
                 return false;
             }
             $.ajax({
-                url: '/trade-mark/edit-dang-ky-nhan-hieu',
+                url: '/trade-mark/edit-dang-ky-nhan-hieu_nn',
                 type: 'POST',
                 data: formData,
                 processData: false, contentType: false, traditional: true, dataType: "json",
@@ -1091,7 +1100,7 @@
 
      function funcGetAppDetail(formdata, pEditOrNew, pPreView) {
         try {
-            if (pEditOrNew == undefined) pEditOrNew = 1;
+             if (pEditOrNew == undefined) pEditOrNew = 1;
             if (pPreView == undefined) pPreView = 0;
 
 
@@ -1114,6 +1123,10 @@
             var v_MoTa_0 = $("#0_MoTa").val();
             formdata.append("pDetail.Description", v_MoTa_0);
 
+            
+            var v_MoTa_2 = $("#2_MoTa").val();
+            formdata.append("pDetail.Business_Line", v_MoTa_2);
+
             var v_MoTa_1 = $("#1_MoTa").val();
             formdata.append("pDetail.Translation_Of_Word", v_MoTa_1);
 
@@ -1126,6 +1139,9 @@
             var v_UT_txtQuocGia = $("#1_UT_txtQuocGia").val();
             formdata.append("pDetail.Nuocnopdon_ut", v_UT_txtQuocGia);
 
+            var logORG = $("#txtLogoOld").val();
+            formdata.append("pDetail.LogourlOrg", logORG);
+
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             if (fileLogo != undefined || fileLogo != null) {
                 formdata.append("pDetail.pfileLogo", fileLogo[0].files[0]);
@@ -1133,7 +1149,7 @@
                 showError("@Html.Raw(WebApps.Resources.Resource.lblMauNhanHieu + Resource.KhongDuocDeTrong)");
                 $("#pfile_6_rdoMauNhanHieu").focus();
             }
-
+            return true;
         } catch (e) {
             showError('Có lỗi xảy ra kiểm tra kết nối internet');
             return false;
@@ -1295,9 +1311,7 @@
         }
     });
 
-    $(document).ready(function () {
-        funcDetailDontach();
-    });
+
 
     function changeFontSize() {
         try {
