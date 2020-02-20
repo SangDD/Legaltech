@@ -85,8 +85,9 @@
     .div-search-title > div {
         width: 120px;
     }
-     #divCheckbox_F04_10, #divCheckbox_F04_15{
-        width:190px !important;
+
+    #divCheckbox_F04_10, #divCheckbox_F04_15 {
+        width: 190px !important;
     }
 </style>
 
@@ -126,7 +127,7 @@
         <legend>@WebApps.Resources.Resource.lblDangKyNhanHieu</legend>
         @* Case name *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
 
         </div>
 
@@ -140,13 +141,11 @@
                 </div>
             </div>
             <div id="div_PartialThongTinChuDon">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
             </div>
         </div>
 
-        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-
+      
         @* end 2 *@
 
         <div class="divCover cls_form_title">
@@ -161,7 +160,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <textarea id="2_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px">@objAppHeaderInfo.Business_Line</textarea>
+                    <textarea id="2_MoTa" maxlength="2000" rows="5" cols="10" style="height:102px" readonly>@objAppHeaderInfo.Business_Line</textarea>
                 </div>
             </div>
         </div>
@@ -187,8 +186,8 @@
                             <img id="imgMauNhanHieuTeplace" src="@urlMauNhanHieu" hidden="hidden">
                         </div>
                         <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
-                            <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
-                            <div class="file-upload btn btn-primary" style="margin-top:95px">
+                            <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px; display:none" />
+                            <div class="file-upload btn btn-primary" style="margin-top:95px; display: none">
                                 <span>@WebApps.Resources.Resource.lblTaiFile</span>
                                 <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                             </div>
@@ -243,7 +242,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <input type="text" value="@objAppHeaderInfo.Codelogo" maxlength="50" id="0_txtTenNhanHieu" />
+                                <input type="text" value="@objAppHeaderInfo.Codelogo" maxlength="50" id="0_txtTenNhanHieu" readonly />
                             </div>
                         </div>
                     </div>
@@ -253,7 +252,7 @@
                             <div>@WebApps.Resources.Resource.lblMauSac:</div>
                         </div>
                         <div class="div-search-content">
-                            <div><input type="text" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" /></div>
+                            <div><input type="text" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" readonly/></div>
                         </div>
                     </div>
 
@@ -263,7 +262,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:128px">@objAppHeaderInfo.Description</textarea>
+                                <textarea id="0_MoTa" maxlength="2000" rows="5" cols="10" style="height:128px" readonly>@objAppHeaderInfo.Description</textarea>
                             </div>
                         </div>
                     </div>
@@ -274,7 +273,7 @@
                         </div>
                         <div class="div-search-content">
                             <div>
-                                <textarea id="1_MoTa" maxlength="2000" rows="5" cols="10" style="height:128px">@objAppHeaderInfo.Translation_Of_Word</textarea>
+                                <textarea id="1_MoTa" maxlength="2000" rows="5" cols="10" style="height:128px" readonly>@objAppHeaderInfo.Translation_Of_Word</textarea>
                             </div>
                         </div>
                     </div>
@@ -283,14 +282,14 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" disabled/>
                         <label>@WebApps.Resources.Resource.NormalTrademark</label>
                     </div>
                 </div>
            
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu id="0_NhanHieuTapThe" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu id="0_NhanHieuTapThe"disabled />
                         <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
                     </div>
                 </div>
@@ -298,15 +297,15 @@
 
             <div class="div-search-ad">
                 <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet id="0_NhanHieuLienKet" />
+                    <div class="div-radio" style="width:482px">
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet id="0_NhanHieuLienKet" disabled/>
                         <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
                     </div>
                 </div>
-          
+           
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN id="0_NhanHieuChungNhan" />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN id="0_NhanHieuChungNhan"disabled />
                         <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
                     </div>
                 </div>
@@ -392,53 +391,30 @@
                 string _model = itemdoc.Doc_Id + "|" + itemdoc.Check_Box_Id + "|" + itemdoc.Doc_Level + "|" + itemdoc.Content_1 + "|" + itemdoc.Content_2 + "|" + itemdoc.Is_Upload.ToString() + "|" + _width + "|" + itemdoc.Content_3;
                 if (itemdoc.Doc_Id == "F04_10" || itemdoc.Doc_Id == "F04_15")
                 {
+
                     _model += "|Submit date";
                 }
                 _model += ";" + _vl_isuse + "|" + _vl_char01 + "|" + _vl_url + "|" + _vl_char02;
-
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model)
+                if (itemdoc.Doc_Id == "F04_10" || itemdoc.Doc_Id == "F04_15")
+                {
+                    string _vl_char03 = dic_appDoc[itemdoc.Doc_Id].CHAR03;
+                    _model += "|"+ _vl_char03;
+                }
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
 
             }
         }
 
         @*TÀI LIỆU KHÁC*@
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
 
         @* Cam kết của hủ đơn *@
         @{
             string _camket = objAppHeaderInfo.Address + "|" + objAppHeaderInfo.DateNo + "|" + objAppHeaderInfo.Months + "|" + objAppHeaderInfo.Years;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
         }
 
 
-
-
-        <div class="class_save">
-            @if (objAppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
-            {
-                <div class="classGuiDon">
-                    <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" style="width:70px" id="btnGuiDon" class="btn class_37" />
-                </div>
-                <div class="classLuuTam">
-                    <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" style="width:70px" id="btnLuuTam" class="btn class_37" />
-                </div>
-            }
-            else
-            {
-                <div class="classGuiDon">
-                    <input type="button" value="@WebApps.Resources.Resource.TM3B_BtnSuaDon" id="btnSuaDon" class="btn class_37" />
-                </div>
-
-
-                if (_todo != null)
-                {
-                    <div class="classGuiDon">
-                        <input type="button" value="@Resource.Send" id="btnSend" class="btn class_37" style="margin-left:5px;height:30px" />
-                    </div>
-                }
-            }
-
-        </div>
     </fieldset>
 </div>
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
@@ -1006,7 +982,7 @@
                 showError('File tải lên không đúng định dạng file ảnh');
                 return false;
             }
-          
+
 
             formData.append("pInfo.Appcode", v_AppCode);
 
@@ -1039,13 +1015,13 @@
             if (reponse == false) {
                 return false;
             }
-           
+
             //Lấy thông tin file có trong đơn
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
             }
-          
+
             //lay tai lieu khac
             reponse = funcGetTenTaiLieuKhac(formData);
             if (reponse == false) {
@@ -1118,7 +1094,7 @@
             var v_MoTa_0 = $("#0_MoTa").val();
             formdata.append("pDetail.Description", v_MoTa_0);
 
-            
+
             var v_MoTa_2 = $("#2_MoTa").val();
             formdata.append("pDetail.Business_Line", v_MoTa_2);
 
