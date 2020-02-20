@@ -163,6 +163,13 @@ namespace WebApps.Areas.Manager.Controllers
             return View("~/Areas/Manager/Views/TimeSheet/_PartialInsertTimeSheet.cshtml", new Timesheet_Info());
         }
 
+        [Route("danh-sach-timesheet/get-view-to-popup-insert")]
+        public ActionResult Get_View_To_Popup_Insert(string p_case_code)
+        {
+            ViewBag.Case_Code = p_case_code;
+            return PartialView("~/Areas/Manager/Views/TimeSheet/_PartialInsertTimeSheet_PopUp.cshtml", new Timesheet_Info());
+        }
+
         [HttpPost]
         [Route("danh-sach-timesheet/do-insert-timeshet")]
         public ActionResult DoInsertTimeSheet(Timesheet_Info p_Timesheet_Info)

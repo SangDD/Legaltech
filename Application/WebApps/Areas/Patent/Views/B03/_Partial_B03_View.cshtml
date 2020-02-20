@@ -124,8 +124,8 @@
             </div>
         </div>
         @*<div id="div_PartialThongTinChuDon">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
-            </div>*@
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+        </div>*@
         <div id="div_PartialThongTinChuDon">
             <div class="div-search-ad">
                 <div class="div-search-title">
@@ -286,6 +286,14 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
         }
 
+        <div class="class_save">
+            <div class="classGuiDon">
+                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                {
+                    <input type="button" value="@Resource.btnGuiDon" onclick="return do_GuiDon('@_AppHeaderInfo.Case_Code')" id="btnGuiDon" class="btn class_37" />
+                }
+            </div>
+        </div>
     </fieldset>
 </div>
 @Html.Partial("~/Areas/Patent/Views/B03/_PartialPreview.cshtml")
@@ -298,3 +306,36 @@
     <div class="divPopup" id="divPopUpFee">
     </div>
 </div>
+<script>
+    function do_GuiDon(_case_code) {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don/do-gui-don',
+                type: 'POST',
+                data: {
+                    p_case_code: _case_code 
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                        return false;
+                    }
+                    else {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            window.location.href = "/home";
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+</script>

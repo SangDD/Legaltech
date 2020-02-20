@@ -1,0 +1,303 @@
+﻿@using ObjectInfos;
+@using BussinessFacade;
+@model Timesheet_Info
+@{
+
+    App_Lawer_BL _App_Lawer_BL = new App_Lawer_BL();
+    List<App_Lawer_Info> _lstAppLawer = _App_Lawer_BL.GetApp_Grant4Lawer(WebApps.Session.SessionData.CurrentUser.Id, WebApps.Session.SessionData.CurrentUser.Type, WebApps.CommonFunction.AppsCommon.GetCurrentLang());
+
+    string _case_code = "";
+    if (ViewBag.Case_Code != null)
+    {
+        _case_code = (string)ViewBag.Case_Code;
+        Model.App_Case_Code = _case_code;
+    }
+}
+
+<script src="~/Content/Datetimepicker_master/jquery.datetimepicker.full.min.js"></script>
+<link href="~/Content/Datetimepicker_master/jquery.datetimepicker.min.css" rel="stylesheet" />
+<script>
+    $.datetimepicker.setLocale('vi');
+    $(document).ready(function () {
+        $('.datepicker').datetimepicker({
+            format: 'd/m/Y',
+            formatDate: 'd/m/Y',
+            timepicker: false,
+            mask: '39/19/9999',
+            validateOnBlur: true,
+        });
+    });
+</script>
+
+<style>
+    /*độ rộng tên cột title từng trang là khác nhau nên khai báo ở trang đó luôn*/
+    .div-search-title > div {
+        width: 120px;
+    }
+</style>
+ 
+<div class="smb_content">
+    
+    <div class="divCover">
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @*<select id="cboAppHeader">
+                            @foreach (var item in _lstAppLawer)
+                            {
+                                <option value="@item.Case_Code">@item.Case_Code - @item.Client_Reference</option>
+                            }
+                        </select>*@
+                    @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "200", @readonly = "readonly" })
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.MoTaCongViec <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Name, new { id = "txtName", @maxlength = "200" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.Ngay <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Time_Date, "{0:dd/MM/yyyy}", new { id = "txtTime_Date", @Value = Model.Time_Date == DateTime.MinValue ? "" : Model.Time_Date.ToString("dd/MM/yyyy"), @placeholder = "dd/mm/yyyy", @class = "datepicker" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.BatDau <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.From_Time, new { id = "txtFrom_Time", @maxlength = "5", @style = "width: 250px", @placeholder = "HH:mm", @onblur = "CallHours()" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.KetThuc  <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.To_Time, new { id = "txtTo_Time", @maxlength = "5", @placeholder = "HH:mm", @onblur = "CallHours()" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.GioThucTe <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours, new { id = "txtHours", @Value = Model.Hours == 0 ? "" : Model.Hours.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this, this.length,2)", @style = "width: 250px" })
+                </div>
+            </div>
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.GioDieuChinh  <i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Hours_Adjust, new { id = "txtHours_Adjust", @Value = Model.Hours_Adjust == 0 ? "" : Model.Hours_Adjust.ToString("#,##0.##"), onkeyup = "jsFormatFloatNumber(this, this.length,2)" })
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>@WebApps.Resources.Resource.YeuCau<i class="redspan">(*)</i></div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    @Html.TextBoxFor(m => m.Notes, new { id = "txtNotes_time", @maxlength = "2000" })
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="divCover">
+        <div class="div-search-btn" style="width:600px;margin-top: 5px;">
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Send" onclick="return doInsertTimeSheet()" />
+        </div>
+    </div>
+</div>
+
+<script>
+
+    $(document).ready(function () {
+    });
+
+    function doInsertTimeSheet() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        if (validateForm()) {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmInsert)", function () {
+                var formData = new FormData();
+                collectData(formData);
+                $.ajax({
+                    url: '/quan-ly-timesheet/danh-sach-timesheet/do-insert-timeshet',
+                    type: 'POST',
+                    data: formData,
+                    async: true, traditional: true, contentType: false, processData: false,
+                    headers: { "cache-control": "no-cache" },
+                    beforeSend: function () {
+                        CreateRollingWaitingIcon(true);
+                    },
+                    success: function (data) {
+                        CreateRollingWaitingIcon(false);
+                        if (data.success == "-1") {
+                            jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                            return false;
+                        } else if (data.success == "-2") {
+                            jError("Case code không đúng");
+                            return false;
+                        }
+                        else {
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                CloseDivPopUp('divWrapperPopUpTimeSheet');
+                            });
+                        }
+                    },
+                    error: function (e) {
+                        CreateRollingWaitingIcon(false);
+                        console.log(e);
+                    }
+                });
+            });
+        }
+    }
+
+    function CallHours() {
+        try {
+            var txtFrom_Time = $("#txtFrom_Time").val();
+            var txtTo_Time = $("#txtTo_Time").val();
+
+            if (txtFrom_Time == "" || txtTo_Time == "") {
+                return false;
+            }
+
+            if (Check_Time_Sheet() == false) {
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/quan-ly-timesheet/danh-sach-timesheet/call-hours',
+                data: {
+                    p_From_Time: txtFrom_Time,
+                    p_To_Time: txtTo_Time,
+                },
+                async: true, cache: false, traditional: true,
+                success: function (data) {
+                    $("#txtHours").val(data.success);
+                }
+            });
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    function validateForm() {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+
+        var _App_Case_Code = $("#txtApp_Case_Code").val();
+        if (_App_Case_Code == null || _App_Case_Code == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.CaseCodeTimeSheetKhongDuocBoTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txtApp_Case_Code").val('');
+                $('#txtApp_Case_Code').focus();
+            });
+            return false;
+        }
+
+        var txtName = $("#txtName").val();
+        if (txtName == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.MoTaKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txtName").val('');
+                $("#txtName").focus();
+            });
+            return false;
+        }
+
+        var txtTime_Date = $("#txtTime_Date").val();
+        if (checkDate("Timesheet date", "#txtTime_Date", txtTime_Date) == false) {
+            return false;
+        }
+
+        if (Check_Time_Sheet() == false) {
+            return false;
+        }
+
+        var txtHours = $("#txtHours").val();
+        if (txtHours == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioTimeSheetTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txtHours").val('');
+                $("#txtHours").focus();
+            });
+            return false;
+        }
+
+        if (txtHours == "0") {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioTimeSheetLonHon0)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txtHours").val('');
+                $("#txtHours").focus();
+            });
+            return false;
+        }
+
+        var txtHours_Adjust = $("#txtHours_Adjust").val();
+        if (txtHours_Adjust == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioDieuChinhTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txtHours_Adjust").val('');
+                $("#txtHours_Adjust").focus();
+            });
+            return false;
+        }
+
+        @*if (txtHours_Adjust == "0") {
+            jError("@Html.Raw(WebApps.Resources.Resource.GioDieuChinhLonHon0)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txtHours_Adjust").val('');
+                $("#txtHours_Adjust").focus();
+            });
+            return false;
+        }*@
+
+        var txtNotes_time = $("#txtNotes_time").val();
+        if (txtNotes_time == null || txtNotes_time == "") {
+            jError("@Html.Raw(WebApps.Resources.Resource.YeuCauKhongDuocDeTrong)", "@Html.Raw(WebApps.Resources.Resource.Loi)", function () {
+                $("#txtNotes_time").val('');
+                $('#txtNotes_time').focus();
+            });
+            return false;
+        }
+
+        return true;
+    }
+
+    function collectData(formData) {
+        formData.append('p_Timesheet_Info.App_Case_Code', $("#txtApp_Case_Code").val());
+        formData.append('p_Timesheet_Info.Name', $("#txtName").val());
+        formData.append('p_Timesheet_Info.Time_Date', $("#txtTime_Date").val());
+        formData.append('p_Timesheet_Info.Hours', parseFloat($("#txtHours").val()));
+        formData.append('p_Timesheet_Info.Hours_Adjust', parseFloat($("#txtHours_Adjust").val()));
+        formData.append('p_Timesheet_Info.From_Time', $("#txtFrom_Time").val());
+        formData.append('p_Timesheet_Info.To_Time', $("#txtTo_Time").val());
+        formData.append('p_Timesheet_Info.Notes', $("#txtNotes_time").val());
+    }
+</script>

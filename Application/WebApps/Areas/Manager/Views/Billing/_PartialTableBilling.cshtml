@@ -78,7 +78,8 @@
                                 <a href="javascript:;" onclick="getView2Approve(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-confirm-circle" data-title="Approve"></a>
                             }
 
-                            @if (item.Pay_Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Pay_Status.Payment))
+
+                            @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin && item.Pay_Status == Convert.ToDecimal(Common.CommonData.CommonEnums.Billing_Pay_Status.Payment))
                             {
                                 <a href="javascript:;" onclick="getView2UpdatePayStatus(@item.Billing_Id, '@item.App_Case_Code')" class="icon icon-confirm-circle" data-title="Thanh toán"></a>
                             }

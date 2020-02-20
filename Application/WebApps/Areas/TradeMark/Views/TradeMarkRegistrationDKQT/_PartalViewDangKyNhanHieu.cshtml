@@ -650,6 +650,11 @@
         <div class="class_save">
             <div class="classGuiDon">
                 <a href="/trade-mark-mana/quan-ly-don"><input type="button" value="Trở lại" id="btnGuiDon" class="btn" /></a>
+
+                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                {
+                    <input type="button" value="@Resource.btnGuiDon" onclick="return do_GuiDon('@_AppHeaderInfo.Case_Code')" id="btnGuiDon" class="btn class_37" />
+                }
             </div>
 
         </div>
@@ -685,4 +690,36 @@
              console.log(e);
          }
      }
+
+     function do_GuiDon(_case_code) {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don/do-gui-don',
+                type: 'POST',
+                data: {
+                    p_case_code: _case_code 
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                        return false;
+                    }
+                    else {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            window.location.href = "/home";
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
  </script>

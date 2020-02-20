@@ -19,11 +19,11 @@
                 <th class="class30">STT</th>
                 <th class="class200 m30" data-sort id="Appcode">@WebApps.Resources.Resource.CaseCode</th>
                 <th class="class250 m40">@WebApps.Resources.Resource.CaseName</th>
-                @*<th class="class150 hidemobile">@WebApps.Resources.Resource.TenDoiTuong</th>*@ 
+                @*<th class="class150 hidemobile">@WebApps.Resources.Resource.TenDoiTuong</th>*@
                 <th class="class250 hidemobile">@WebApps.Resources.Resource.Agent</th>
-                <th class="class250 hidemobile">@WebApps.Resources.Resource.lblChuDon</th> 
+                <th class="class250 hidemobile">@WebApps.Resources.Resource.lblChuDon</th>
                 <th class="class150 hidemobile">@WebApps.Resources.Resource.SoDon</th>
-                <th class="class250 m30">@WebApps.Resources.Resource.TinhTrangDon</th> 
+                <th class="class250 m30">@WebApps.Resources.Resource.TinhTrangDon</th>
                 @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
                     WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
                 {
@@ -39,7 +39,10 @@
                 {
                     <tr>
                         <td class="tdcenteralign">@item.STT</td>
-                        <td class="tdleftalign">@item.Case_Code</td>
+                        <td class="tdleftalign">
+                           
+                            <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0"> @item.Case_Code</a>
+                        </td>
                         <td class="tdleftalign">@item.Case_Name</td>
                         @*<td class="tdleftalign hidemobile">@item.Object_Name</td>*@
                         <td class="tdleftalign hidemobile">@item.Rep_Master_Name</td>
@@ -60,7 +63,9 @@
                         }
 
                         <td class="tdcenteralign">
-                            <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemChiTiet"></a>
+                            @*<a href="/trade-mark-share-data/todo-details/@item.Case_Code/0" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemThongTinCoBan"></a>*@
+                            <a href="javascript:;" class="icon icon-info" data-title="@WebApps.Resources.Resource.XemChiTiet" onclick="return ShowViewApp('@item.Id', '@item.Status', '@item.Appcode')"></a>
+
                             <a href="/trade-mark/request-for-trade-mark-edit/@item.Id/@item.Status.ToString()/@item.Appcode.ToLower()" class="icon icon-edit" data-title="@WebApps.Resources.Resource.Sua"></a>
 
                             @if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
@@ -92,3 +97,19 @@
         @Html.Raw(ViewBag.Paging)
     </ul>
 </div>
+
+<script>
+    function ShowViewApp(_Id, _Status, _Appcode) {
+        if (CheckSessionTimeOut() == false) {
+            return false;
+        }
+        try {
+            var url = "/trade-mark/request-for-trade-mark-view/" + _Id + "/" + _Status + "/" + _Appcode;
+            location.href = url;
+
+            //window.open(url);
+        } catch (e) {
+            console.log(e.toString())
+        }
+    }
+</script>

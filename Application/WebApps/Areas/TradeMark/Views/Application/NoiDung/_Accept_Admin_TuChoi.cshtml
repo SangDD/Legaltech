@@ -180,6 +180,11 @@
         <div class="divPopup" id="divDataBillingDetail">
         </div>
     </div>
+
+    <div id="divWrapperPopUpTimeSheet" class="divWrapperPopup" style="display: none;">
+        <div class="divPopup" id="divDataTimeSheet">
+        </div>
+    </div>
 </div>
 
 <script>
@@ -188,12 +193,41 @@
     });
 
     function getView2Insert_TimeSheet(_case_code) {
+        //if (CheckSessionTimeOut() == false) {
+        //    return false;
+        //}
+
+        //var url = "/quan-ly-timesheet/danh-sach-timesheet/show-insert/" + _case_code;
+        //window.open(url);
+
         if (CheckSessionTimeOut() == false) {
             return false;
         }
 
-        var url = "/quan-ly-timesheet/danh-sach-timesheet/show-insert/" + _case_code;
-        window.open(url);
+        $.ajax({
+            type: "POST",
+            url: "/quan-ly-timesheet/danh-sach-timesheet/get-view-to-popup-insert",
+            data: {
+                p_case_code: _case_code 
+            },
+            headers: { "cache-control": "no-cache" },
+            async: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data.success == "-2") {
+                    jError("@Html.Raw(WebApps.Resources.Resource.TrangThaiDonKhongHopLe)");
+                }
+                else if (data.success == "-1") {
+                }
+                else {
+                    $("#divDataTimeSheet").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpTimeSheet', "@Html.Raw(WebApps.Resources.Resource.ThongTinTimeSheet)", 900, 1200);
+                }
+            }
+        });
     }
 
     function getView2Insert(_case_code) {

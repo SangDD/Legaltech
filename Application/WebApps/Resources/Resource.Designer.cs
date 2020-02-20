@@ -8665,11 +8665,29 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Xem chi tiết đơn.
+        /// </summary>
+        public static string XemDonChiTiet {
+            get {
+                return ResourceManager.GetString("XemDonChiTiet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Xem đơn dịch.
         /// </summary>
         public static string XemDonDich {
             get {
                 return ResourceManager.GetString("XemDonDich", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Xem thông tin cơ bản.
+        /// </summary>
+        public static string XemThongTinCoBan {
+            get {
+                return ResourceManager.GetString("XemThongTinCoBan", resourceCulture);
             }
         }
         

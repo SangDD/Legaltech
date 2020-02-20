@@ -167,6 +167,25 @@ namespace WebApps.Areas.TradeMark.Controllers
         }
 
         [HttpPost]
+        [Route("quan-ly-don/do-gui-don")]
+        [ValidateInput(false)]
+        public ActionResult Do_Send_App(string p_case_code)
+        {
+            try
+            {
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                decimal _status = (decimal)CommonEnums.App_Status.DaGui_ChoPhanLoai_Admin;
+                int _ck = _obj_bl.AppHeader_Update_Status(p_case_code, _status, "", SessionData.CurrentUser.Username, DateTime.Now, AppsCommon.GetCurrentLang());
+                return Json(new { success = _ck });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = "-1" });
+            }
+        }
+
+        [HttpPost]
         [Route("quan-ly-don/show-kh-confirm")]
         public ActionResult GetViewToCustomerConfirm(decimal p_application_header_id)
         {

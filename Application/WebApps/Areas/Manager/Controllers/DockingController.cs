@@ -126,7 +126,7 @@ namespace WebApps.Areas.Manager.Controllers
                 p_Docking_Info.Created_By = SessionData.CurrentUser.Username;
                 p_Docking_Info.Created_Date = DateTime.Now;
                 p_Docking_Info.Language_Code = AppsCommon.GetCurrentLang();
-                p_Docking_Info.Document_Name = p_Docking_Info.Document_Name_Type + p_Docking_Info.Document_Name_Other;
+                p_Docking_Info.Document_Name = p_Docking_Info.Document_Name_Type + "-" + p_Docking_Info.Document_Name_Other;
 
                 if (p_Docking_Info.File_Upload != null)
                 {

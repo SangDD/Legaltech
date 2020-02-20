@@ -284,17 +284,17 @@
 
 
                     @*<div class="class_block_title" style="padding-top:5px; ">
-                        <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
-                        @if (objAppHeaderInfo.Logochu == 1)
-                        {
-                            <input type="checkbox" checked="checked" disabled="disabled" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
-                        }
-                        else
-                        {
-                            <input type="checkbox" name="ckbNhanHieuChu" disabled="disabled" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
-                        }
-                        <input type="number" disabled="disabled" id="txtFontSize" value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
-                    </div>*@
+                            <label>@WebApps.Resources.Resource.lblMauNhanHieu :</label>
+                            @if (objAppHeaderInfo.Logochu == 1)
+                            {
+                                <input type="checkbox" checked="checked" disabled="disabled" name="ckbNhanHieuChu" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
+                            }
+                            else
+                            {
+                                <input type="checkbox" name="ckbNhanHieuChu" disabled="disabled" id="ckbNhanHieuChu" /> <span>là chữ (font-size)</span>
+                            }
+                            <input type="number" disabled="disabled" id="txtFontSize" value="@objAppHeaderInfo.LOGO_FONT_SIZE" style="height: 17px;width: 40px;padding: 3px 0px 1px 0px;" />
+                        </div>*@
 
                     <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                        data-title="@WebApps.Resources.Resource.TooltipNhanHieu"></a>
@@ -459,163 +459,163 @@
 
         @* 3  A14*@
         @*<div class="div_full_100_area">
-            <div class="divCover cls_form_title">
-                <img src="/Content/icons/category.png">
-                <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
-                <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
-                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT @disableView value="SDUT" id="0_ckbCoSuDungDonUuTien" />
-                    <label><a style="color:blue" id="hrefCo">@WebApps.Resources.Resource.lblCo</a></label>
+                <div class="divCover cls_form_title">
+                    <img src="/Content/icons/category.png">
+                    <div class="cls_form_header">@WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()</div>
+                    <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
+                        <input type="checkbox" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT @disableView value="SDUT" id="0_ckbCoSuDungDonUuTien" />
+                        <label><a style="color:blue" id="hrefCo">@WebApps.Resources.Resource.lblCo</a></label>
+                    </div>
+                    <div style="display: inline-block;">
+                        <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" @disableView value="KO" id="KOUT" />
+                        <label><a style="color:blue" id="hrefKhong">@WebApps.Resources.Resource.lblKhong</a></label>
+                    </div>
                 </div>
-                <div style="display: inline-block;">
-                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" @disableView value="KO" id="KOUT" />
-                    <label><a style="color:blue" id="hrefKhong">@WebApps.Resources.Resource.lblKhong</a></label>
+                <div id="divDonUuTienSo1" style="@styleNoneDisplay">
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-checkbox">
+                                <input type="checkbox" disabled="disabled" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" id="0_ckbCoSuDungDonUuTien" />
+                                <label>@WebApps.Resources.Resource.lblCoSuDungDonUT</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblSoDon:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" disabled="disabled" value="@objAppHeaderInfo.Sodon_Ut" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblNgayNopDon:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <input type="text" @disableView value="@objAppHeaderInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-title">
+                            <div>@WebApps.Resources.Resource.lblNuocNopDon:</div>
+                        </div>
+                        <div class="div-search-content">
+                            <div>
+                                <select id="6_txtNuocNopDon" class="classDacTinhUT" disabled="disabled">
+                                    @foreach (var item in MemoryData.c_lst_Country)
+                                    {
+                                        if (item.Country_Id.ToString() == objAppHeaderInfo.Nuocnopdon_Ut)
+                                        {
+                                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@item.Country_Id">@item.Name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="radio" disabled="disabled" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" id="4_ckbNopTaiVietNam" />
+                                <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad">
+                        <div class="div-search-content">
+                            <div class="div-radio">
+                                <input type="radio" name="4_YCHuongQuyen" disabled="disabled" class="classDacTinhUT" @styleCongUocPR value="CUPR" id="4_ckbNopTaiParis" />
+                                <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;">
+                        <div class="div-search-content" style="width:250px">
+                            <div class="div-radio" style="width:245px">
+                                <input type="radio" name="4_YCHuongQuyen" disabled="disabled" class="classDacTinhUT" @styleTTK value="NTVN" id="4_ckbThoaThuanKhac" />
+                                <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="txtThoathuanKhac" disabled="disabled" value="@objAppHeaderInfo.ThoaThuanKhac" maxlength="150" />
+                        </div>
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:422px">
+                                <input type="checkbox" class="classDacTinhUT" maxlength="3" disabled="disabled" @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" />
+                                <label>@WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUuTien</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="6_txtTLCMQUT" disabled="disabled" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" />
+                        </div>
+                        <div class="div-search-title" style="width:412px">
+                            <div>@WebApps.Resources.Resource.lblBan</div>
+                        </div>
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:382px">
+                                <input type="checkbox" maxlength="3" class="classDacTinhUT" disabled="disabled" @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" />
+                                <label>@WebApps.Resources.Resource.lblbanSaoDauTienGom</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="6_txtBSDDT" disabled="disabled" value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" />
+                        </div>
+                        <div class="div-search-title" style="width:412px">
+                            <div>@WebApps.Resources.Resource.lblBan</div>
+                        </div>
+                    </div>
+                    <div style="margin-left:40px">
+
+                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15)
+
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:382px">
+                                <input type="checkbox" class="classDacTinhUT" disabled="disabled" @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" />
+                                <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
+                            </div>
+                        </div>
+                        <div class="div-search-content">
+                            <input type="text" id="6_txtBDTVGom" disabled="disabled" @disableView value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" />
+                        </div>
+                        <div class="div-search-title" style="width:412px">
+                            <div>@WebApps.Resources.Resource.lblBan</div>
+                        </div>
+                    </div>
+                    <div style="margin-left:40px">
+                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16)
+                    </div>
+                    <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
+                        <div class="div-search-content">
+                            <div class="div-checkbox" style="width:382px">
+                                <input type="checkbox" maxlength="3" value="04NH_D_17" disabled="disabled" @ObjInfo04NH_D_17.styleCheck class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" />
+                                <label>@WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT</label>
+                            </div>
+                        </div>
+                    </div> <div style="margin-left:40px">
+                        @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17)
+                    </div>
                 </div>
             </div>
-            <div id="divDonUuTienSo1" style="@styleNoneDisplay">
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-checkbox">
-                            <input type="checkbox" disabled="disabled" name="0_ckbCoSuDungDonUuTien" @styleSuDungDonUT value="SDUT" id="0_ckbCoSuDungDonUuTien" />
-                            <label>@WebApps.Resources.Resource.lblCoSuDungDonUT</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@WebApps.Resources.Resource.lblSoDon:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" disabled="disabled" value="@objAppHeaderInfo.Sodon_Ut" class="classDacTinhUT" maxlength="50" id="6_txtSoDon" />
-                        </div>
-                    </div>
-                </div>
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@WebApps.Resources.Resource.lblNgayNopDon:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" @disableView value="@objAppHeaderInfo.Ngaynopdon_Ut.ToString("dd/MM/yyyy")" class="classDacTinhUT datetimepicker" style="width:200px" maxlength="10" id="6_txtNgayNopDon" />
-                        </div>
-                    </div>
-                </div>
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@WebApps.Resources.Resource.lblNuocNopDon:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <select id="6_txtNuocNopDon" class="classDacTinhUT" disabled="disabled">
-                                @foreach (var item in MemoryData.c_lst_Country)
-                                {
-                                    if (item.Country_Id.ToString() == objAppHeaderInfo.Nuocnopdon_Ut)
-                                    {
-                                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@item.Country_Id">@item.Name</option>
-                                    }
-                                }
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" disabled="disabled" name="4_YCHuongQuyen" class="classDacTinhUT" @styleYCHQUT value="NTVN" id="4_ckbNopTaiVietNam" />
-                            <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="radio" name="4_YCHuongQuyen" disabled="disabled" class="classDacTinhUT" @styleCongUocPR value="CUPR" id="4_ckbNopTaiParis" />
-                            <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="div-search-ad" style="display:inline-flex;">
-                    <div class="div-search-content" style="width:250px">
-                        <div class="div-radio" style="width:245px">
-                            <input type="radio" name="4_YCHuongQuyen" disabled="disabled" class="classDacTinhUT" @styleTTK value="NTVN" id="4_ckbThoaThuanKhac" />
-                            <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
-                        </div>
-                    </div>
-                    <div class="div-search-content">
-                        <input type="text" id="txtThoathuanKhac" disabled="disabled" value="@objAppHeaderInfo.ThoaThuanKhac" maxlength="150" />
-                    </div>
-                </div>
-                <div class="div-search-ad" style="display:inline-flex;">
-                    <div class="div-search-content">
-                        <div class="div-checkbox" style="width:422px">
-                            <input type="checkbox" class="classDacTinhUT" maxlength="3" disabled="disabled" @ObjInfo04NH_D_14.styleCheck value="04NH_D_14" id="6_rdoTLCMQUT" />
-                            <label>@WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUuTien</label>
-                        </div>
-                    </div>
-                    <div class="div-search-content">
-                        <input type="text" id="6_txtTLCMQUT" disabled="disabled" value="@ObjInfo04NH_D_14.CHAR01" maxlength="3" />
-                    </div>
-                    <div class="div-search-title" style="width:412px">
-                        <div>@WebApps.Resources.Resource.lblBan</div>
-                    </div>
-                </div>
-                <div class="div-search-ad" style="display:inline-flex;    margin-left: 40px;">
-                    <div class="div-search-content">
-                        <div class="div-checkbox" style="width:382px">
-                            <input type="checkbox" maxlength="3" class="classDacTinhUT" disabled="disabled" @ObjInfo04NH_D_15.styleCheck value="04NH_D_15" id="6_rdoBSDDT" />
-                            <label>@WebApps.Resources.Resource.lblbanSaoDauTienGom</label>
-                        </div>
-                    </div>
-                    <div class="div-search-content">
-                        <input type="text" id="6_txtBSDDT" disabled="disabled" value="@ObjInfo04NH_D_15.CHAR01" maxlength="3" />
-                    </div>
-                    <div class="div-search-title" style="width:412px">
-                        <div>@WebApps.Resources.Resource.lblBan</div>
-                    </div>
-                </div>
-                <div style="margin-left:40px">
-
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_15)
-
-                </div>
-                <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                    <div class="div-search-content">
-                        <div class="div-checkbox" style="width:382px">
-                            <input type="checkbox" class="classDacTinhUT" disabled="disabled" @ObjInfo04NH_D_16.styleCheck maxlength="3" value="04NH_D_16" id="6_rdoBDTVGom" />
-                            <label>@WebApps.Resources.Resource.lblBanDichTiengVietGom</label>
-                        </div>
-                    </div>
-                    <div class="div-search-content">
-                        <input type="text" id="6_txtBDTVGom" disabled="disabled" @disableView value="@ObjInfo04NH_D_16.CHAR01" maxlength="3" />
-                    </div>
-                    <div class="div-search-title" style="width:412px">
-                        <div>@WebApps.Resources.Resource.lblBan</div>
-                    </div>
-                </div>
-                <div style="margin-left:40px">
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_16)
-                </div>
-                <div class="div-search-ad" style="display:inline-flex;   margin-left: 40px;">
-                    <div class="div-search-content">
-                        <div class="div-checkbox" style="width:382px">
-                            <input type="checkbox" maxlength="3" value="04NH_D_17" disabled="disabled" @ObjInfo04NH_D_17.styleCheck class="classDacTinhUT" id="6_rdoGiayChuyenNhungUT" />
-                            <label>@WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT</label>
-                        </div>
-                    </div>
-                </div> <div style="margin-left:40px">
-                    @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_PartialShowFileAttach.cshtml", ObjInfo04NH_D_17)
-                </div>
-            </div>
-        </div>
-        <div id="divDonUuTienSo2" @styleDonUtSo2>
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHDonUTSo2.cshtml")
-        </div>*@
+            <div id="divDonUuTienSo2" @styleDonUtSo2>
+                @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHDonUTSo2.cshtml")
+            </div>*@
 
         @* Tài liệu có trong đơn *@
         @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/View_Partial04NHTLTrongDon.cshtml")*@
@@ -807,7 +807,10 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                @*<input type="button" value="Quay lại" style="width:70px" id="btnBack" class="btn class_37" />*@
+                @if (objAppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                {
+                    <input type="button" value="@Resource.btnGuiDon" onclick="return do_GuiDon('@objAppHeaderInfo.Case_Code')" id="btnGuiDon" class="btn class_37" />
+                }
             </div> <div class="classLuuTam">
             </div>
         </div>
@@ -905,7 +908,38 @@
         }
     });
 
-   
+    function do_GuiDon(_case_code) {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don/do-gui-don',
+                type: 'POST',
+                data: {
+                    p_case_code: _case_code 
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                        return false;
+                    }
+                    else {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            window.location.href = "/home";
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
+
     function funcUpLoadMauNhanHieu(pFile) {
         try {
             var file = document.getElementsByName(pFile);

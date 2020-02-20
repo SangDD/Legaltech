@@ -121,130 +121,130 @@
             </div>
         </div>
 
-      
-                    @if (_App_Detail.App_Change_Type == 1)
-                    {
-                        <div class="div-search-ad">
-                            <div class="div-search-content">
-                                <div class="div-radio">
-                                    <input disabled checked type="radio" class="" name="type_detail" id="type_detail_1" value="1">
-                                    <label> Bằng độc quyền kiểu dáng công nghiệp </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="div-search-ad">
-                            <div class="div-search-title">
-                                <div class="width_max">Số văn bằng bảo hộ:</div>
-                            </div>
-                            <div class="div-search-content">
-                                <div>
-                                    <input disabled type="text" id="App_No_Change_1" value="@_App_Detail.App_No_Change" />
-                                </div>
-                            </div>
-                        </div>
 
-                        <div class="div-search-ad">
-                            <div class="div-search-title">
-                                <div class="width_max">Các phương án cần gia hạn:</div>
-                            </div>
-                            <div class="div-search-content">
-                                <div>
-                                    <input disabled type="text" id="App_Change_Detail_1" placeholder="Mô tả" maxlength="200" value="@_App_Detail.App_Change_Detail" />
-                                </div>
-                            </div>
-                        </div>
+        @if (_App_Detail.App_Change_Type == 1)
+        {
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input disabled checked type="radio" class="" name="type_detail" id="type_detail_1" value="1">
+                        <label> Bằng độc quyền kiểu dáng công nghiệp </label>
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Số văn bằng bảo hộ:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" id="App_No_Change_1" value="@_App_Detail.App_No_Change" />
+                    </div>
+                </div>
+            </div>
 
-                    }
-                    else if (_App_Detail.App_Change_Type == 2)
-                    {
-                        <div class="div-search-ad">
-                            <div class="div-search-content">
-                                <div class="div-radio">
-                                    <input disabled checked type="radio" class="" name="type_detail" id="type_detail_2" value="2" onchange="return ShowHiden_Type('2')">
-                                    <label> Giấy chứng nhận đăng ký nhãn hiệu </label>
-                                </div>
-                            </div>
-                        </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Các phương án cần gia hạn:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" id="App_Change_Detail_1" placeholder="Mô tả" maxlength="200" value="@_App_Detail.App_Change_Detail" />
+                    </div>
+                </div>
+            </div>
 
-                        <div class="div-search-ad">
-                            <div class="div-search-title">
-                                <div class="width_max">Số văn bằng bảo hộ:</div>
-                            </div>
-                            <div class="div-search-content">
-                                <div>
-                                    <input disabled type="text" id="App_No_Change_2" value="@_App_Detail.App_No_Change" />
-                                </div>
-                            </div>
-                        </div>
+        }
+        else if (_App_Detail.App_Change_Type == 2)
+        {
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input disabled checked type="radio" class="" name="type_detail" id="type_detail_2" value="2" onchange="return ShowHiden_Type('2')">
+                        <label> Giấy chứng nhận đăng ký nhãn hiệu </label>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="div-search-ad">
-                            <div class="div-search-title">
-                                <div class="width_max">Các nhóm hoặc sản phẩm, dịch vụ cần gia hạn:</div>
-                            </div>
-                            <div class="div-search-content">
-                                <div>
-                                    <input disabled type="text" id="App_Change_Detail_2" placeholder="Mô tả" maxlength="200" value="@_App_Detail.App_Change_Detail" />
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else if (_App_Detail.App_Change_Type == 3)
-                    {
-                        <div class="div-search-ad">
-                            <div class="div-search-content">
-                                <div class="div-radio">
-                                    <input disabled checked type="radio" class="classNguonGoc" name="type_detail" id="type_detail_3" value="3" onchange="return ShowHiden_Type('3')">
-                                    <label> Bằng độc quyền sáng chế</label>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="div-search-ad">
-                            <div class="div-search-title">
-                                <div class="width_max">Số bằng độc quyền:</div>
-                            </div>
-                            <div class="div-search-content">
-                                <div>
-                                    <input disabled type="text" id="App_Change_Detail_3" maxlength="50" value="@_App_Detail.App_Change_Detail" />
-                                </div>
-                            </div>
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="div-search-ad">
-                            <div class="div-search-content">
-                                <div class="div-radio">
-                                    <input disabled checked type="radio" class="classNguonGoc" name="type_detail" id="type_detail_4" value="4" onchange="return ShowHiden_Type('4')">
-                                    <label> Bằng độc quyền giải pháp hữu ích</label>
-                                </div>
-                            </div>
-                        </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Số văn bằng bảo hộ:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" id="App_No_Change_2" value="@_App_Detail.App_No_Change" />
+                    </div>
+                </div>
+            </div>
 
-                        <div class="div-search-ad">
-                            <div class="div-search-title">
-                                <div class="width_max">Số điểm yêu cầu bảo hộ độc lập:</div>
-                            </div>
-                            <div class="div-search-content">
-                                <div>
-                                    <input disabled type="text" id="txtPoint" onkeyup="jsFormatNumber(this.value, this.id)" value="@_App_Detail.Number_Point"/>
-                                </div>
-                            </div>
-                        </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Các nhóm hoặc sản phẩm, dịch vụ cần gia hạn:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" id="App_Change_Detail_2" placeholder="Mô tả" maxlength="200" value="@_App_Detail.App_Change_Detail" />
+                    </div>
+                </div>
+            </div>
+        }
+        else if (_App_Detail.App_Change_Type == 3)
+        {
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input disabled checked type="radio" class="classNguonGoc" name="type_detail" id="type_detail_3" value="3" onchange="return ShowHiden_Type('3')">
+                        <label> Bằng độc quyền sáng chế</label>
+                    </div>
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Số bằng độc quyền:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" id="App_Change_Detail_3" maxlength="50" value="@_App_Detail.App_Change_Detail" />
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input disabled checked type="radio" class="classNguonGoc" name="type_detail" id="type_detail_4" value="4" onchange="return ShowHiden_Type('4')">
+                        <label> Bằng độc quyền giải pháp hữu ích</label>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="div-search-ad">
-                            <div class="div-search-title">
-                                <div class="width_max">Năm duy trì hiệu lực:</div>
-                            </div>
-                            <div class="div-search-content">
-                                <div>
-                                    <input disabled type="text" id="txtYear" onkeyup="jsFormatNumber(this.value, this.id)" value="@_App_Detail.Number_Year"/>
-                                </div>
-                            </div>
-                        </div>
-                    }
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Số điểm yêu cầu bảo hộ độc lập:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" id="txtPoint" onkeyup="jsFormatNumber(this.value, this.id)" value="@_App_Detail.Number_Point" />
+                    </div>
+                </div>
+            </div>
 
-               
-            
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div class="width_max">Năm duy trì hiệu lực:</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input disabled type="text" id="txtYear" onkeyup="jsFormatNumber(this.value, this.id)" value="@_App_Detail.Number_Year" />
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -282,6 +282,15 @@
             string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_View.cshtml", _camket)
         }
+
+        <div class="class_save">
+            <div class="classGuiDon">
+                @if (_AppHeaderInfo.Status == (int)Common.CommonData.CommonEnums.App_Status.Luu_tam)
+                {
+                    <input type="button" value="@Resource.btnGuiDon" onclick="return do_GuiDon('@_AppHeaderInfo.Case_Code')" id="btnGuiDon" class="btn class_37" />
+                }
+            </div>
+        </div>
     </fieldset>
 </div>
 
@@ -302,5 +311,35 @@
         $("#0_txtCase_Name").focus();
     });
 
-
+    function do_GuiDon(_case_code) {
+        nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
+            $.ajax({
+                url: '/trade-mark-mana/quan-ly-don/do-gui-don',
+                type: 'POST',
+                data: {
+                    p_case_code: _case_code 
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data.success == "-1") {
+                        jError("@Html.Raw(WebApps.Resources.Resource.LoiCheckLai)");
+                        return false;
+                    }
+                    else {
+                        jAlert("@Html.Raw(WebApps.Resources.Resource.CapNhatDuLieuThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                            window.location.href = "/home";
+                        });
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+        });
+    }
 </script>
