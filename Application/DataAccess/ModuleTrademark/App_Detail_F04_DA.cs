@@ -23,10 +23,13 @@ namespace DataAccess
                     new OracleParameter("p_business_line", OracleDbType.Varchar2, pInfo.Business_Line, ParameterDirection.Input),
                     new OracleParameter("p_description", OracleDbType.Varchar2, pInfo.Description, ParameterDirection.Input),
                     new OracleParameter("p_codelogo", OracleDbType.Varchar2, pInfo.Codelogo, ParameterDirection.Input),
-                    new OracleParameter("p_loainhanhieu", OracleDbType.Decimal, pInfo.Loainhanhieu, ParameterDirection.Input),
+                    new OracleParameter("p_loainhanhieu", OracleDbType.Varchar2, pInfo.Loainhanhieu, ParameterDirection.Input),
                     new OracleParameter("p_sodon_ut", OracleDbType.Varchar2, pInfo.Sodon_ut, ParameterDirection.Input),
                     new OracleParameter("p_ngaynopdon_ut", OracleDbType.Date, pInfo.Ngaynopdon_ut, ParameterDirection.Input),
                     new OracleParameter("p_nuocnopdon_ut", OracleDbType.Decimal, pInfo.Nuocnopdon_ut, ParameterDirection.Input),
+                    new OracleParameter("p_color", OracleDbType.Varchar2, pInfo.Color, ParameterDirection.Input),
+                    new OracleParameter("p_translation_of_word", OracleDbType.Varchar2, pInfo.Translation_Of_Word, ParameterDirection.Input),
+                    new OracleParameter("p_logourl", OracleDbType.Varchar2, pInfo.Logourl, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -56,10 +59,13 @@ namespace DataAccess
                     new OracleParameter("p_business_line", OracleDbType.Varchar2, pInfo.Business_Line, ParameterDirection.Input),
                     new OracleParameter("p_description", OracleDbType.Varchar2, pInfo.Description, ParameterDirection.Input),
                     new OracleParameter("p_codelogo", OracleDbType.Varchar2, pInfo.Codelogo, ParameterDirection.Input),
-                    new OracleParameter("p_loainhanhieu", OracleDbType.Decimal, pInfo.Loainhanhieu, ParameterDirection.Input),
+                    new OracleParameter("p_loainhanhieu", OracleDbType.Varchar2, pInfo.Loainhanhieu, ParameterDirection.Input),
                     new OracleParameter("p_sodon_ut", OracleDbType.Varchar2, pInfo.Sodon_ut, ParameterDirection.Input),
                     new OracleParameter("p_ngaynopdon_ut", OracleDbType.Date, pInfo.Ngaynopdon_ut, ParameterDirection.Input),
                     new OracleParameter("p_nuocnopdon_ut", OracleDbType.Decimal, pInfo.Nuocnopdon_ut, ParameterDirection.Input),
+                    new OracleParameter("p_color", OracleDbType.Varchar2, pInfo.Color, ParameterDirection.Input),
+                    new OracleParameter("p_translation_of_word", OracleDbType.Varchar2, pInfo.Translation_Of_Word, ParameterDirection.Input),
+                    new OracleParameter("p_logourl", OracleDbType.Varchar2, pInfo.Logourl, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;
@@ -96,7 +102,7 @@ namespace DataAccess
         {
             try
             {
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_c01.Proc_GetBy_ID",
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_app_detail_F04.Proc_GetBy_ID",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),

@@ -54,6 +54,13 @@ namespace ObjectInfos
             this.Ngaynopdon_ut = p_app_detail.Ngaynopdon_ut;
             this.Nuocnopdon_ut = p_app_detail.Nuocnopdon_ut;
 
+            this.Translation_Of_Word = p_app_detail.Translation_Of_Word;
+            this.Color = p_app_detail.Color;
+            this.pfileLogo = p_app_detail.pfileLogo;
+
+            this.LogourlOrg = p_app_detail.LogourlOrg;
+            this.Logourl = p_app_detail.Logourl;
+
             this.Number_Pic = p_app_detail.Number_Pic;
             this.Number_Page = p_app_detail.Number_Page;
 
@@ -91,11 +98,16 @@ namespace ObjectInfos
         public decimal Applicant_Type { get; set; }
         public string Business_Line { get; set; }
         public string Description { get; set; }
+        public string Color { get; set; }
+        public string Translation_Of_Word { get; set; }
         public string Codelogo { get; set; }
-        public decimal Loainhanhieu { get; set; }
+        public string Loainhanhieu { get; set; }
         public string Sodon_ut { get; set; }
         public DateTime Ngaynopdon_ut { get; set; }
         public decimal Nuocnopdon_ut { get; set; }
+        public string LogourlOrg { get; set; }
+        public string Logourl { get; set; }
+        public HttpPostedFileBase pfileLogo { get; set; }
 
         public int Number_Pic { get; set; }
         public int Number_Page { get; set; }

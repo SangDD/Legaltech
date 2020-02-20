@@ -44,6 +44,14 @@
     {
         Char02 = arr_value[3];
     }
+    string Lable4 = "";
+    string Id_textbox3 = "txt_" + Id + "_3";
+    string Char03 = "";
+    if ((arr_id[0] == "F04_10" || arr_id[0] == "F04_15") && arr_id.Length >= 9)
+    {
+        Lable4 = arr_id[8];
+        Char03 = arr_value[4];
+    }
 }
 
 <div class="div-search-ad">
@@ -101,6 +109,18 @@
         <div class="div-search-content">
             <div>
                 <input type="text" placeholder="@Lable3" id="@Id_textbox2" value="@Char02" disabled="disabled" />
+            </div>
+        </div>
+    }
+
+    @if (Lable4!= "")
+    {
+        <div class="div-search-title">
+            <div>@Lable4:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" placeholder="@Lable4" id="@Id_textbox3" value="@Char03" disabled="disabled" />
             </div>
         </div>
     }

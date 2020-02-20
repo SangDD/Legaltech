@@ -55,7 +55,12 @@
     {
         _class_cbo = "width_cbo";
     }
-
+    string Lable4 = "";
+    string Id_textbox3 = "txt_" + Id + "_3";
+    if ((arr_id[0] == "F04_10" || arr_id[0] == "F04_15") && arr_id.Length >= 9)
+    {
+        Lable4 = arr_id[8];
+    }
 }
 
 <style>
@@ -192,6 +197,31 @@
             </div>
         </div>
     }
+    @if (Lable4 != "")
+    {
+        <div class="div-search-title">
+            <div>@Lable4:</div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                @if (Lable4.ToUpper() == "NGÔN NGỮ" || Lable4.ToUpper() == "TIẾNG" || Lable4.ToUpper() == "LANGUAGE")
+                {
+                    <select id="@Id_textbox3">
+                        @foreach (var item in _lstLanguage)
+                        {
+                            <option value="@item.CdVal">@item.Content</option>
+                        }
+                    </select>
+                }
+                else
+                {
+                    <input type="text" placeholder="@Lable4" id="@Id_textbox3"  class="datetimepicker" />
+                }
+
+            </div>
+        </div>
+    }
+
 </div>
 
 @if (IsUpload == "1")
@@ -307,6 +337,7 @@
                 if (pLable3 != "") {
                     $("#" + pTxt + "_2").removeAttr("disabled");
                 }
+                
             }
             else {
                 $("#div_up_" + pClass).addClass("clssDisplaynone");
@@ -319,6 +350,7 @@
                 if (pLable3 != "") {
                     $("#" + pTxt + "_2").prop('disabled', true);
                 }
+               
             }
         } catch (e) {
             alert(e);
