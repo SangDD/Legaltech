@@ -69,16 +69,13 @@
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
+                <div>
+                    @WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i>
+                    <button onclick="return OpenChooseApplication()" style="width: 30px;margin-left:25px"><i class="fa fa-search"></i></button>
+                </div>
             </div>
             <div class="div-search-content">
                 <div>
-                    @*<select id="cboAppHeader">
-                            @foreach (var item in _lstAppLawer)
-                            {
-                                <option value="@item.Case_Code">@item.Case_Code - @item.Client_Reference</option>
-                            }
-                        </select>*@
                     @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "200" })
                 </div>
             </div>
@@ -162,6 +159,11 @@
     </div>
 </div>
 
+<div id="divWrapperPopUpApplication" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpApplication">
+    </div>
+</div>
+
 <script>
 
     $(document).ready(function () {
@@ -174,6 +176,29 @@
         //    placeholder: "-- Chọn đơn --"
         //});
     });
+
+    function OpenChooseApplication() {
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/tim-kiem-nhanh-don/",
+            data: {
+                p_id_textbox: 'txtApp_Case_Code',
+                p_type: 2
+            },
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+                    $("#divPopUpApplication").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpApplication', "Tìm kiếm đơn", 1000, 900);
+                }
+                return false;
+            }
+        });
+    }
 
     function doInsertTimeSheet() {
         if (validateForm()) {
@@ -197,20 +222,15 @@
                         } else if (data.success == "-2") {
                             jError("Case code không đúng");
                             return false;
+                        } else if (data.success == "-3") {
+                            jError("Đơn chưa được phân loại. Không thể khai timesheet");
+                            return false;
                         }
                         else {
-                            if (@_case_code != "") {
-                                jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                                    var url = "/quan-ly-timesheet/danh-sach-timesheet/";
-                                    window.close();
-                                });
-                            } else {
-
-                                jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
-                                    var url = "/quan-ly-timesheet/danh-sach-timesheet/";
-                                    window.location.href = url;
-                                });
-                            }
+                            jAlert("@Html.Raw(WebApps.Resources.Resource.ThemThanhCong)", "@Html.Raw(WebApps.Resources.Resource.ThongBao)", function () {
+                                var url = "/quan-ly-timesheet/danh-sach-timesheet/";
+                                window.location.href = url;
+                            });
                         }
                     },
                     error: function (e) {

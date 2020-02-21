@@ -23,7 +23,7 @@
 
     Model.In_Out_Date = DateTime.Now;
 
-    List<AllCodeInfo> _lstDocumentNameType= WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOCKING", "NAME");
+    List<AllCodeInfo> _lstDocumentNameType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("DOCKING", "NAME");
     var lstDocumentNameType = _lstDocumentNameType.Select(x => new SelectListItem { Text = x.Content, Value = x.CdVal });
 
 }
@@ -74,18 +74,22 @@
 <div class="d-main smb_content">
     <div class="divCover">
         <div class="classTitle">
-            <div class="div-title-content"> @(WebApps.Resources.Resource.ThemMoi.ToUpper() +  " DOCKETING")</div>
+            <div class="div-title-content"> @(WebApps.Resources.Resource.ThemMoi.ToUpper() + " DOCKETING")</div>
         </div>
     </div>
 
     <div class="divCover">
         <div class="div-search-ad">
             <div class="div-search-title">
-                <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
+                <div>
+                    @WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i>
+                    <button onclick="return OpenChooseApplication()" style="width: 30px;margin-left:25px"><i class="fa fa-search"></i></button>
+                </div>
             </div>
             <div class="div-search-content">
                 <div>
                     @Html.TextBoxFor(m => m.App_Case_Code, new { id = "txtApp_Case_Code", @maxlength = "50", @style = "width: 200px;" })
+                    @*<input type="button" value="@WebApps.Resources.Resource.TimKiem" class="btn" onclick="return OpenChooseApplication()" style="margin-left:4px;height:29px;" />*@
                 </div>
             </div>
 
@@ -212,12 +216,46 @@
     </div>
 </div>
 
+<div id="divWrapperPopUpApplication" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpApplication">
+    </div>
+</div>
+
 <script>
 
     $(document).ready(function () {
-
+        $("#txtApp_Case_Code").focus();
+        $("#txtApp_Case_Code").keypress(function (evt) {
+            var key = evt.which || evt.charCode || evt.keyCode || 0;
+            if (key == 102) {
+                OpenChooseApplication();
+            }
+        });
 
     });
+
+    function OpenChooseApplication() {
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/tim-kiem-nhanh-don/",
+            data: {
+                p_id_textbox: 'txtApp_Case_Code',
+                p_type: 3
+            },
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+                    $("#divPopUpApplication").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpApplication', "Tìm kiếm đơn", 1000, 900);
+                }
+                return false;
+            }
+        });
+    }
 
     function doInsertDocking() {
         if (validateForm()) {
