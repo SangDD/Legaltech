@@ -563,7 +563,12 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialPreview.cshtml");
+@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialPreview.cshtml")
+
+<div class="btn_botom">
+    <input type="button" class="btn-default" value="Trở về" onclick="goBack();">
+</div>
+
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -588,7 +593,7 @@
 
         ShowHiden_SoHinhSoTrang();
     });
-
+   
     function do_GuiDon(_case_code) {
         nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmGui)", function () {
             $.ajax({

@@ -158,8 +158,11 @@
                 Search_Application(1, 1);
             }
         });
+        
     });
-
+    $(window).load(function () {
+        Search_Application(1, 1);
+    });
     function jsPaging(page) {
         Search_Application(page, 0);
     }
@@ -169,6 +172,7 @@
             if (CheckSessionTimeOut() == false) {
                 return false;
             }
+           
             var p_keysearch;
             if (p_type == 1) {
                 var _Casecode = $("#txtCaseCode").val().trim();
@@ -192,7 +196,7 @@
             }
             var p_column = $("#txtSortColumn").val();
             var p_type_sort = $("#txtSortType").val();
-
+           
             $.ajax({
                 type: 'POST',
                 url: '/trade-mark-mana/quan-ly-don/search/',
