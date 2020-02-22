@@ -45,7 +45,7 @@
             </div>
         </div>
 
-     
+
 
         <div class="divCover" id="div-search-simple">
 
@@ -58,7 +58,7 @@
                         <input style="width: 250px;" type="text" id="txt_listname" data-controlcondition="TRUE" />
                     </div>
                 </div>
-               
+
                 <div class="div-search-title">
                     <div style="width: 120px">Chủ đề cha</div>
                 </div>
@@ -81,7 +81,7 @@
                     </div>
                 </div>
             </div>
-            
+
         </div>
 
         <div class="divCover">
@@ -96,7 +96,7 @@
                 @Html.Partial("_PartialCatalogueData")
             </div>
         </div>
- 
+
         <div id="divWrapperPopUpObject" class="divWrapperPopup" style="display: none;">
             <div class="divPopup" id="divPopUpObject">
             </div>
@@ -106,16 +106,16 @@
 
     <script>
         var _currentKeySearch = '/Areas/Wiki/Views/Catalogue/CatalogueList.cshtml_keysearch';
-        var _currentOptionFilter =  '/Areas/Wiki/Views/Catalogue/CatalogueList.cshtml_finter';
+        var _currentOptionFilter = '/Areas/Wiki/Views/Catalogue/CatalogueList.cshtml_finter';
         var _name = '', _parent_id = '';
 
         $(document).ready(function () {
             initAllSearchingData(_currentKeySearch, _currentOptionFilter, initOrderBySearching, setKeySearch, findObjects);
             $('#txt_listname').focus();
-    //        $('[data-controlcondition="TRUE"]').on('keypress',
-				//function (e) {
-				//    enterKeyPress(e, 'btnfindObjects');
-				//});
+            //        $('[data-controlcondition="TRUE"]').on('keypress',
+            //function (e) {
+            //    enterKeyPress(e, 'btnfindObjects');
+            //});
 
             $("#txt_listname,#CboListWikiCataParent").keypress(function (evt) {
                 var key = evt.which || evt.charCode || evt.keyCode || 0;
@@ -124,6 +124,8 @@
                 }
             });
         });
+
+       
 
         function findObjects(_pageNumber, _isSearching) {
             try {
@@ -141,7 +143,7 @@
                     //{
                     //    $("#CboListWikiCataParent option[value=" + _parent_id + "]").attr("selected", "selected");
                     //}
-                   
+
                 }
 
                 updateSearchingConditions("divNumberRecordOnPageListObjects", setKeySearch);
@@ -216,7 +218,7 @@
             } catch (e) {
                 alert(e.toString());
             }
-           
+
         }
 
         function getViewToEditObject(p_id, p_display_value) {
@@ -240,12 +242,12 @@
             } catch (e) {
                 alert(e.toString());
             }
-           
+
         }
 
         function doDeleteObject(p_id) {
-            try { 
-               
+            try {
+
                     nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmDelete)", function () {
                         $.ajax({
                             url: "/wiki-manage/wiki-doc/do-delete-catalogue",
@@ -299,7 +301,7 @@
             } catch (e) {
                 alert(e.toString());
             }
-            
+
         }
 
         function ClosePopUpObject() {
@@ -324,7 +326,7 @@
                         return false;
                     }
 
-                   
+
                     var formData = new FormData();
                     formData.append('_ObjectInfo.NAME', txtAddName.val());
                     formData.append('_ObjectInfo.NAME_ENG', txtAddNameEng.val());
@@ -423,8 +425,8 @@
             }
         }
 
-  
- 
+
+
 
     </script>
 }

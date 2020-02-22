@@ -437,7 +437,3 @@ function funcShowOrHiddenCD(ptag, ptgShow) {
         }
     }
 }
-
-function goBack() {
-    window.history.back();
-}

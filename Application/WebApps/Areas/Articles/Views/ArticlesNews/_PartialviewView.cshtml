@@ -227,7 +227,7 @@
 
     <div class="class_save" style="margin-left:163px;">
         <div class="classGuiDon">
-            <input type="button" value="@WebApps.Resources.Resource.lblThoat" id="btnThoat" class="btn" />
+            <input type="button" value="@WebApps.Resources.Resource.Back" onclick="return goBack()" id="btnThoat" class="btn" />
         </div>
 
         @*@if (_B_Todos_Info != null)
@@ -257,10 +257,11 @@ catch (Exception)
         {
             height: 500
         });
-    $("#btnThoat").click(function () {
-        var status = $("#txtMenuSelected").val();
-        location.href = "/quan-ly-tin/danh-sach-tin/" + status;
-    });
+
+    //$("#btnThoat").click(function () {
+    //    var status = $("#txtMenuSelected").val();
+    //    location.href = "/quan-ly-tin/danh-sach-tin/" + status;
+    //});
 
     $("#btnXuatBan").click(function () {
         SaveArticles(7);

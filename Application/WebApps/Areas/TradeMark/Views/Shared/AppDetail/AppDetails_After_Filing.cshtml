@@ -430,20 +430,7 @@
     }
 
     <div style="margin-top:20px;float:left;width:100%" class="smb_content">
-        @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update) && _Listtodo.Count > 0)
-        {
-            @Html.Partial(_AppdetailPatch)
-        }
-        else
-        {
-        <div class="divCover cls_form_title">
-            <img src="/Content/icons/link_to.png" />
-            <div class="cls_form_header">
-                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="goBack()">@WebApps.Resources.Resource.Back</a>
-            </div>
-        </div>
-            @Html.Partial(_AppdetailPatch)
-        }
+        @Html.Partial(_AppdetailPatch)
     </div>
 
     <div class="divCover cls_form_title" style="margin-top:20px;float:left;width:100%">

@@ -9,6 +9,10 @@ function CreateRollingWaitingIcon(is_display) {
     }
 }
 
+function goBack() {
+    window.history.back();
+}
+
 //Check định dạng
 function checkDate(p_name, p_id, p_val) {
     try {

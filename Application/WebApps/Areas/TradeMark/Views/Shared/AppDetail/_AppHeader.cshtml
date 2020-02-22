@@ -26,6 +26,13 @@
     }
 </style>
 
+<div class="divCover cls_form_title">
+    <img src="/Content/icons/link_to.png" />
+    <div class="cls_form_header">
+        <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="goBack()">@WebApps.Resources.Resource.Back</a>
+    </div>
+</div>
+
 @* dịch *@
 @*@if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update))*@
 @if (WebApps.Session.SessionData.CurrentUser.Type == (int)CommonEnums.UserType.Admin
