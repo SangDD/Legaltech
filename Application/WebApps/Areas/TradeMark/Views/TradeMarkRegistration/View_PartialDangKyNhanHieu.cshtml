@@ -4,6 +4,8 @@
 @using ObjectInfos
 @using WebApps.Resources;
 @{
+    /**/
+
     ViewBag.Title = "Chi tiết đăng ký nhãn hiệu";
     Layout = "~/ViewsShared/_Layout.cshtml";
 
@@ -811,7 +813,9 @@
                 {
                     <input type="button" value="@Resource.btnGuiDon" onclick="return do_GuiDon('@objAppHeaderInfo.Case_Code')" id="btnGuiDon" class="btn class_37" />
                 }
-            </div> <div class="classLuuTam">
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="@WebApps.Resources.Resource.Back" onclick="return goBack()" style="margin-left:10px" class="btn class_37" />
             </div>
         </div>
     </fieldset>
@@ -914,7 +918,7 @@
                 url: '/trade-mark-mana/quan-ly-don/do-gui-don',
                 type: 'POST',
                 data: {
-                    p_case_code: _case_code 
+                    p_case_code: _case_code
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {

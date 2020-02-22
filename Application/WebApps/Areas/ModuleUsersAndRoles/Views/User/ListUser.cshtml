@@ -156,6 +156,10 @@
             findUsers(page, 0);
         }
 
+        $(window).load(function () {
+            findUsers(1,1);
+        });
+
         function findUsers(_pageNumber, _isSearching) {
             try {
                 type = $("#cboUserType").val();

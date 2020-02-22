@@ -164,11 +164,11 @@
     @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_Partial_Process.cshtml")
 
     @*@if (WebApps.Session.SessionData.CurrentUser.Type != (int)CommonEnums.UserType.Customer)
-    {
-        <div style="width: 100%;float: left;margin-top:20px">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_Partial_Sub_Process.cshtml")
-        </div>
-    }*@
+        {
+            <div style="width: 100%;float: left;margin-top:20px">
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/AppDetail/_Partial_Sub_Process.cshtml")
+            </div>
+        }*@
 
     @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update) && _Listtodo.Count > 0)
     {
@@ -422,9 +422,28 @@
             }
         </div>
     }
+    else
+    {
+        <div class="classLuuTam">
+            <input type="button" value="@WebApps.Resources.Resource.Back" onclick="return goBack()" style="margin-left:10px" class="btn class_37" />
+        </div>
+    }
 
     <div style="margin-top:20px;float:left;width:100%" class="smb_content">
-        @Html.Partial(_AppdetailPatch)
+        @if (c_operator_type == Convert.ToDecimal(Common.CommonData.CommonEnums.Operator_Type.Update) && _Listtodo.Count > 0)
+        {
+            @Html.Partial(_AppdetailPatch)
+        }
+        else
+        {
+        <div class="divCover cls_form_title">
+            <img src="/Content/icons/link_to.png" />
+            <div class="cls_form_header">
+                <a style="text-decoration: underline; font-style: italic; color: blue;" href="javascript:;" onclick="goBack()">@WebApps.Resources.Resource.Back</a>
+            </div>
+        </div>
+            @Html.Partial(_AppdetailPatch)
+        }
     </div>
 
     <div class="divCover cls_form_title" style="margin-top:20px;float:left;width:100%">

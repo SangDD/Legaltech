@@ -116,6 +116,10 @@
         Search_Email(page, 0);
     }
 
+    $(window).load(function () {
+        Search_Email(1, 1);
+    });
+
     function Search_Email(p_NumPage, p_type) {
         try {
             if (CheckSessionTimeOut() == false) {

@@ -135,6 +135,10 @@
             findUsers(1, 1)
         });
 
+        $(window).load(function () {
+            findUsers(1, 1);
+        });
+
         function findUsers(_pageNumber, _isSearching) {
             try {
                 type = '@Convert.ToInt16(Common.CommonData.CommonEnums.UserType.Lawer)';

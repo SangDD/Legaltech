@@ -549,6 +549,8 @@
                 {
                     <input type="button" value="@Resource.btnGuiDon" onclick="return do_GuiDon('@_AppHeaderInfo.Case_Code')" id="btnGuiDon" class="btn class_37" />
                 }
+
+                <input type="button" value="@WebApps.Resources.Resource.Back" onclick="return goBack()" class="btn class_37" />
             </div>
         </div>
 
@@ -565,9 +567,9 @@
 
 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialPreview.cshtml")
 
-<div class="btn_botom">
+@*<div class="btn_botom">
     <input type="button" class="btn-default" value="Trở về" onclick="goBack();">
-</div>
+</div>*@
 
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">

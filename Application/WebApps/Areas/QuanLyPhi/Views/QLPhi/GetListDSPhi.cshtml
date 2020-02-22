@@ -108,6 +108,10 @@
         });
     });
 
+    $(window).load(function () {
+        functionSearchDSPhi();
+    });
+
     function funcGetView2Edit(_id, _appcode) {
         if (CheckSessionTimeOut() == false) {
             return false;

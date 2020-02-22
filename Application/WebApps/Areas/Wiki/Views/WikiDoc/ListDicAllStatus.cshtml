@@ -164,7 +164,11 @@
                     findObjects(1, 1);
                 }
             });
-        });
+    });
+
+    $(window).load(function () {
+        findObjects(1, 1);
+    });
 
         function getView2Insert() {
             var url = "/wiki-manage/wiki-doc/add/0";

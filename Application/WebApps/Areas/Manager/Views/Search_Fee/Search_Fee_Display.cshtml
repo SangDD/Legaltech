@@ -136,6 +136,10 @@
         Search_Fee(page, 0);
     }
 
+    $(window).load(function () {
+        Search_Fee(1, 1);
+    });
+
     function Search_Fee(p_NumPage, p_type) {
         try {
             if (CheckSessionTimeOut() == false) {

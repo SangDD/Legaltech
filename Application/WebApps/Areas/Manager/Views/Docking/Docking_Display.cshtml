@@ -157,6 +157,10 @@
         Search_Docking(page, 0);
     }
 
+    $(window).load(function () {
+        Search_Docking(1, 1);
+    });
+
     function Search_Docking(p_NumPage, p_type) {
         try {
             if (CheckSessionTimeOut() == false) {

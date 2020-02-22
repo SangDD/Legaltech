@@ -152,7 +152,7 @@
 <script>
     $(document).ready(function () {
         $('#txtAppCaseCode').focus();
-        $("#cboStatus").keypress(function (evt) {
+        $("#txtAppCaseCode,#txtRequestBy,#txtReponseBy,#cboStatus").keypress(function (evt) {
             var key = evt.which || evt.charCode || evt.keyCode || 0;
             if (key == 13) {
                 Search_Notify(1, 1);
@@ -172,6 +172,10 @@
     function RemindChangeIConSortWhenSortColumns() {
 
     }
+
+    $(window).load(function () {
+        Search_Notify(1, 1);
+    });
 
     function jsPaging(page) {
         Search_Notify(page, 0);
