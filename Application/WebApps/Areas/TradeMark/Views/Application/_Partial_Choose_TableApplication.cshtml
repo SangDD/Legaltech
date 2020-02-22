@@ -1,0 +1,117 @@
+﻿@using Common.CommonData
+@using WebApps.CommonFunction
+@using ObjectInfos;
+@{
+    List<ApplicationHeaderInfo> _list_data = new List<ApplicationHeaderInfo>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+    decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
+
+    string _case_code = "";
+    if (ViewBag.Case_Code != null)
+    {
+        _case_code = ViewBag.Case_Code;
+    }
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30"></th>
+                <th class="class200 m30" data-sort id="Appcode">@WebApps.Resources.Resource.CaseCode</th>
+                <th class="class250 m40">@WebApps.Resources.Resource.CaseName</th>
+                <th class="class250 hidemobile">@WebApps.Resources.Resource.Agent</th>
+                <th class="class250 hidemobile">@WebApps.Resources.Resource.lblChuDon</th>
+                <th class="class150 hidemobile">@WebApps.Resources.Resource.SoDon</th>
+                <th class="class250 m30">@WebApps.Resources.Resource.TinhTrangDon</th>
+                @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
+                    WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
+                {
+                    <th class="class150 hidemobile">@WebApps.Resources.Resource.LastUpdate</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    <tr>
+                        @*<td class="tdcenteralign">@item.STT</td>*@
+
+                        <td class="tdcenteralign">
+
+                            @if (_case_code == "" || _case_code != "ckb_" + item.Case_Code)
+                            {
+                                <input type="checkbox" onchange="CheckUnCheck('@item.Case_Code')" data-case_code="@item.Case_Code" name="@item.Case_Code" id="@("ckb_" + item.Case_Code)" class="cls_Choose_App" />
+                            }
+                            else
+                            {
+                                <input checked="checked" type="checkbox" onchange="CheckUnCheck('@item.Case_Code')" data-case_code="@item.Case_Code" name="@item.Case_Code" id="@("ckb_" + item.Case_Code)" class="cls_Choose_App" />
+                            }
+                        </td>
+                        <td class="tdleftalign">
+                            <a href="/trade-mark-share-data/todo-details/@item.Case_Code/0"> @item.Case_Code</a>
+                        </td>
+                        <td class="tdleftalign">@item.Case_Name</td>
+                        <td class="tdleftalign hidemobile">@item.Rep_Master_Name</td>
+                        <td class="tdleftalign hidemobile">@item.Master_Name</td>
+                        <td class="tdleftalign hidemobile">@item.App_No</td>
+                        <td class="tdleftalign">@item.Status_Name</td>
+                        @if (WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.Admin ||
+                            WebApps.Session.SessionData.CurrentUser.Type == (decimal)CommonEnums.UserType.SupperAdmin)
+                        {
+                            if (item.Modify_Date.Date != DateTime.MinValue.Date)
+                            {
+                                <td class="tdcenteralign hidemobile">@item.Modify_Date</td>
+                            }
+                            else
+                            {
+                                <td class="tdcenteralign hidemobile">@item.Created_Date</td>
+                            }
+                        }
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="11">@WebApps.Resources.Resource.KhongCoDuLieu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>
+
+<script>
+    function CheckUnCheck(_docId) {
+        try {
+            var _ckbId = "ckb_" + _docId;
+            var _docCheck = $("#" + _ckbId).is(":checked");
+            if (_docCheck == true) {
+
+                $(".cls_Choose_App").each(function (item) {
+                    var _value = $(this).val();
+                    var _id = $(this).attr('id');
+
+                    if (_id != _ckbId) {
+                        $("#" + _id).prop("checked", false);
+                    }
+                });
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    } 
+</script>

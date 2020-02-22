@@ -99,7 +99,10 @@
 
     <div class="div-search-ad">
         <div class="div-search-title">
-            <div>Case code</div>
+            <div>
+                Case code
+                <button onclick="return OpenChooseApplication()" style="width: 30px;margin-left:25px"><i class="fa fa-search"></i></button>
+            </div>
         </div>
         <div class="div-search-content">
             <div>
@@ -214,13 +217,39 @@
     </div>
 </div>
 
+<div id="divWrapperPopUpApplication" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpApplication">
+    </div>
+</div>
+
 <script>
     var txtNoiDung = CKEDITOR.replace("txtBody",
        {
            height: 500
        });
 
-
+    function OpenChooseApplication() {
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/tim-kiem-nhanh-don/",
+            data: {
+                p_id_textbox: 'txt_Out_Ref',
+                p_type: 4
+            },
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+                    $("#divPopUpApplication").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpApplication', "Tìm kiếm đơn", 1000, 900);
+                }
+                return false;
+            }
+        });
+    }
 
     function do_SendEmail() {
         if (validateAction()) {

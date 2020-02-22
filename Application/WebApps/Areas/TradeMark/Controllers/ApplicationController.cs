@@ -26,6 +26,7 @@ namespace WebApps.Areas.TradeMark.Controllers
     public class ApplicationController : Controller
     {
         #region Quản lý đơn lưu tạm
+
         [HttpGet]
         [Route("quan-ly-don")]
         public ActionResult Application_Display()
@@ -1319,6 +1320,64 @@ namespace WebApps.Areas.TradeMark.Controllers
             {
                 Logger.LogException(ex);
                 return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Comment.cshtml");
+            }
+        }
+
+        [HttpPost]
+        [Route("tim-kiem-nhanh-don")]
+        public ActionResult Quick_Search_Application(string p_id_textbox, decimal p_type)
+        {
+            try
+            {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+                string language = AppsCommon.GetCurrentLang();
+                decimal _total_record = 0;
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                string _status = "ALL";
+                ViewBag.Status = _status;
+                string _keySearch = "ALL|" + _status + "|ALL|ALL|" + language;
+                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, _keySearch, ref _total_record, "1", "5");
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, 1, "Đơn");
+                ViewBag.Obj = _lst;
+                ViewBag.Paging = htmlPaging;
+                ViewBag.SumRecord = _total_record;
+                ViewBag.Id_Textbox = p_id_textbox;
+
+                ViewBag.Type = p_type;
+                return PartialView("~/Areas/TradeMark/Views/Application/_Partial_TimKiemDon.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/Application/_Partial_TimKiemDon.cshtml");
+            }
+        }
+
+        [HttpPost]
+        [Route("quan-ly-don/quick-search")]
+        public ActionResult Tim_KiemNhanh_Don(string p_keysearch, int p_CurrentPage, string p_column, string p_type_sort)
+        {
+            try
+            {
+                decimal _total_record = 0;
+
+                string p_to = "";
+                string p_from = CommonFuc.Get_From_To_Page(p_CurrentPage, ref p_to, 5);
+                string language = AppsCommon.GetCurrentLang();
+                Application_Header_BL _obj_bl = new Application_Header_BL();
+                List<ApplicationHeaderInfo> _lst = _obj_bl.ApplicationHeader_Search(SessionData.CurrentUser.Username, p_keysearch + "|" + language, ref _total_record, p_from, p_to);
+                string htmlPaging = WebApps.CommonFunction.AppsCommon.Get_HtmlPaging<ApplicationHeaderInfo>((int)_total_record, p_CurrentPage, "Đơn");
+
+                ViewBag.Paging = htmlPaging;
+                ViewBag.Obj = _lst;
+                ViewBag.SumRecord = _total_record;
+                return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Choose_TableApplication.cshtml");
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return PartialView("~/Areas/TradeMark/Views/Application/_Partial_Choose_TableApplication.cshtml");
             }
         }
     }

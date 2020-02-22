@@ -111,8 +111,11 @@
 
             <div class="div-search-title">
                 <div>@WebApps.Resources.Resource.CaseCode<i class="redspan">(*)</i></div>
+                <button onclick="return OpenChooseApplication()" style="width: 30px;margin-left:25px"><i class="fa fa-search"></i></button>
+
                 <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
                    data-title="@WebApps.Resources.Resource.NhapCaseCodeBilling"></a>
+
             </div>
             <div class="div-search-content">
                 <div>
@@ -251,6 +254,11 @@
 
 </div>
 
+<div id="divWrapperPopUpApplication" class="divWrapperPopup" style="display: none;">
+    <div class="divPopup" id="divPopUpApplication">
+    </div>
+</div>
+
 <script>
 
     $(document).ready(function () {
@@ -260,6 +268,29 @@
             onChangeApp_Case_Code();
         }
     });
+
+    function OpenChooseApplication() {
+        $.ajax({
+            type: "POST",
+            url: "/trade-mark-mana/tim-kiem-nhanh-don/",
+            data: {
+                p_id_textbox: 'txtApp_Case_Code',
+                p_type: 1
+            },
+            async: true, cache: false, traditional: true,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+                    $("#divPopUpApplication").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpApplication', "Tìm kiếm đơn", 1000, 900);
+                }
+                return false;
+            }
+        });
+    }
 
     function onChangeApp_Case_Code() {
         try {
