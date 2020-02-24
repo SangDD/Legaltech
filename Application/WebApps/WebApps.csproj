@@ -287,6 +287,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Report\F04.cs">
+      <DependentUpon>F04.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\C04_EN.cs">
       <DependentUpon>C04_EN.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1552,6 +1558,10 @@
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C02_EN.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Report\F04.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>F04.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Report\C04_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C04_EN.cs</LastGenOutput>
@@ -2101,6 +2111,8 @@
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialInsertTimeSheet_PopUp.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_TimKiemDon.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Choose_TableApplication.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartialPreviewNN.cshtml" />
+    <Content Include="Areas\TradeMark\Views\TradeMarkRegistration\_PartialPreview_IUNN.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />

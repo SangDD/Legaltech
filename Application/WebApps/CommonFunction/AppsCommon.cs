@@ -2841,6 +2841,136 @@ namespace WebApps.CommonFunction
             }
         }
 
+        public static void Prepare_Data_Export_F04(ref App_Detail_F04_Info pDetail, ApplicationHeaderInfo pInfo,
+          List<AppDocumentInfo> pAppDocumentInfo)
+        {
+            try
+            {
+
+                // copy Header
+                App_Detail_F04_Info.CopyAppHeaderInfo(ref pDetail, pInfo);
+
+                #region Tài liệu có trong đơn
+
+                if (pAppDocumentInfo.Count > 0)
+                {
+                    foreach (AppDocumentInfo item in pAppDocumentInfo)
+                    {
+                        if (item.Document_Id == "F04_01")
+                        {
+                            pDetail.Doc_Id_1 = item.CHAR01;
+                            pDetail.Doc_Id_1_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_02")
+                        {
+                            pDetail.Doc_Id_2 = item.CHAR01;
+                            pDetail.Doc_Id_2_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_03")
+                        {
+                            pDetail.Doc_Id_3_Check = item.Isuse;
+                            pDetail.Doc_Id_3 = item.CHAR01;
+                        }
+                        else if (item.Document_Id == "F04_04")
+                        {
+                            pDetail.Doc_Id_4 = item.CHAR01;
+                            pDetail.Doc_Id_4_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_05")
+                        {
+                            pDetail.Doc_Id_5_Check = item.Isuse;
+                            pDetail.Doc_Id_5 = item.CHAR01;
+                        }
+
+                        else if (item.Document_Id == "F04_06")
+                        {
+                            pDetail.Doc_Id_6 = item.CHAR01;
+                            pDetail.Doc_Id_6_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_07")
+                        {
+                            pDetail.Doc_Id_7 = item.CHAR01;
+                            pDetail.Doc_Id_7_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_08")
+                        {
+                            pDetail.Doc_Id_8 = item.CHAR01;
+                            pDetail.Doc_Id_8_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "F04_09")
+                        {
+                            pDetail.Doc_Id_9 = item.CHAR01;
+                            pDetail.Doc_Id_9_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_10")
+                        {
+                            pDetail.Doc_Id_10_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_11")
+                        {
+                            pDetail.Doc_Id_11 = item.CHAR01;
+                            pDetail.Doc_Id_11_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "F04_12")
+                        {
+                            pDetail.Doc_Id_12 = item.CHAR01;
+                            pDetail.Doc_Id_12_Check = item.Isuse;
+                        }
+
+                        else if (item.Document_Id == "F04_13")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_14")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_15")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_16")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_17")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_18")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_19")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                        else if (item.Document_Id == "F04_20")
+                        {
+                            pDetail.Doc_Id_13 = item.CHAR01;
+                            pDetail.Doc_Id_13_Check = item.Isuse;
+                        }
+                    }
+                }
+
+                #endregion
+
+               
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+        }
 
         public static void Prepare_Data_Export_C04(ref App_Detail_C04_Info pDetail, ApplicationHeaderInfo pInfo,
            List<AppDocumentInfo> pAppDocumentInfo)
