@@ -1,0 +1,218 @@
+﻿@using ObjectInfos;
+@{
+    ApplicationHeaderInfo _AppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+}
+@using WebApps.Resources;
+
+<div id="toolbox">
+    <ul>
+        <li class="toTop" style=""><a href="#top" title="Lên đầu trang"><i style=" font-size: 27px; color: green;" class="fa fa-home"></i></a></li>
+        <li class="email"><a href="javascript:;" title="Phí"><i class="fas fa-dollar-sign" size="9x" target="_blank" onclick="return funcPreViewFee();" style="font-size: 27px;margin-left: 8px;color: green;"></i></a></li>
+
+        <li class="email">
+            <a href="javascript:;" onclick="return funcPreViewApplication();" title="Xem trước VN">
+                <img src="/Content/icons/icon_vn.png" style="margin-left: 3px;width: 25px;height: 30px;" />
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+<style>
+    #toolbox {
+        display: block;
+    }
+
+    #toolbox {
+        position: fixed;
+        right: 10px;
+        bottom: 45%;
+        margin-left: -550px;
+    }
+</style>
+
+
+<script>
+
+    function funGetData_Preview_UI_A01(url) {
+        try {
+
+            var formData = new FormData();
+            formData.append("pInfo.Appcode", $("#txtAppCode").val());
+            formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+            formData.append("pInfo.View_Translate", 0);
+
+            //Thông tin chủ đơn
+            if (funcThongTinChuDon_Exp(formData, "1") != true) {
+                return false;
+            }
+
+            if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
+                formData.append("pInfo.Master_Type", "TGDT");
+            } else if ($("#rdChuDonKhac").is(':checked')) {
+                formData.append("pInfo.Master_Type", "CDK");
+            }
+
+            // đại diện chủ đơn
+            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
+                return false;
+            }
+
+            if (funcChuDonKhac(formData) != true) {
+                return false;
+            }
+
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetImagePublic(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Lấy thông tin detail
+            reponse = funcGetAppDetail(formData, 1);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            $.ajax({
+                url: '/lg-patent/ket_xuat_file_IU',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                traditional: true,
+                dataType: "json",
+                enctype: 'multipart/form-data',
+                async: true,
+                headers: { "cache-control": "no-cache" },
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    if (data != null && data.status >= 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                },
+                error: function (e) {
+                    CreateRollingWaitingIcon(false);
+                    console.log(e);
+                }
+            });
+
+            return true;
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+        }
+    }
+
+    function funcPreViewApplication() {
+        var preturn = funGetData_Preview_UI_A01("/lg-patent/ket_xuat_file_IU");
+        if (preturn == true || preturn == undefined) {
+            OpenPreview("/lg-patent/Pre-View");
+        }
+    }
+
+    function funcPreViewFee() {
+
+        var formData = new FormData();
+        formData.append("pInfo.Appcode", $("#txtAppCode").val());
+        formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+
+        if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
+            formData.append("pInfo.Master_Type", "TGDT");
+        } else if ($("#rdChuDonKhac").is(':checked')) {
+            formData.append("pInfo.Master_Type", "CDK");
+        }
+
+        var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+        formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+        //Lấy thông tin tài liệu có trong đơn
+        reponse = funGetDocumentFile(formData);
+        if (reponse == false) {
+            return false;
+        }
+
+        //Tài liệu khác trong đơn
+        reponse = funcGetTenTaiLieuKhac(formData);
+        if (reponse == false) {
+            return false;
+        }
+
+        reponse = funcGetImagePublic(formData);
+        if (reponse == false) {
+            return false;
+        }
+
+        //Lấy thông tin detail
+        reponse = funcGetAppDetail(formData, 1);
+        if (reponse == false) {
+            return false;
+        }
+
+        $.ajax({
+            url: "/lg-patent/getFee",
+            type: 'POST',
+            data: formData,
+            dataType: "json",
+            async: true,
+            cache: false,
+            traditional: true,
+            contentType: false,
+            processData: false,
+            beforeSend: function () {
+                CreateRollingWaitingIcon(true);
+            },
+            success: function (data) {
+                CreateRollingWaitingIcon(false);
+                if (data != null) {
+
+                    $("#divPopUpFee").html(data.PartialTableListFees);
+
+
+                    //$("#divPopUpFee").html(data);
+                    ShowPopupDialog_Ipace('divWrapperPopUpFee', '@Html.Raw(WebApps.Resources.Resource.ThongTinFee)', 800, 1200);
+                }
+                return false;
+            }
+        });
+    }
+
+    function OpenPreview(url) {
+        try {
+            w = 1100; //độ rộng form popup
+            h = 600;//chiều cao
+            var left = (screen.width - w) / 2;
+            var top = (screen.height - h) / 4;  // for 25% - devide by 4  |  for 33% - devide by 3
+            var targetWin = window.open(url, '@Resource.TM3B_XemThongTinDon', 'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width=' + w + ', height=' + h + ', top=' + top + ', left=' + left);
+
+        } catch (e) {
+        }
+    }
+</script>

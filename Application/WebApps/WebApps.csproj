@@ -220,6 +220,7 @@
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\LawerController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\Controllers\UserController.cs" />
     <Compile Include="Areas\ModuleUsersAndRoles\ModuleUsersAndRolesAreaRegistration.cs" />
+    <Compile Include="Areas\Patent\Controllers\Lao_PT_Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\A01Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\B03Controller.cs" />
     <Compile Include="Areas\Patent\Controllers\C03Controller.cs" />
@@ -2101,6 +2102,13 @@
     <Content Include="Areas\Manager\Views\TimeSheet\_PartialInsertTimeSheet_PopUp.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_TimKiemDon.cshtml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Choose_TableApplication.cshtml" />
+    <Content Include="Areas\Patent\Views\Lao_PT\_Partial_Lao_PT_Insert.cshtml" />
+    <Content Include="Areas\Patent\Views\Lao_PT\_Partial_Lao_PT_Edit.cshtml" />
+    <Content Include="Areas\Patent\Views\Lao_PT\_Partial_Lao_PT_View.cshtml" />
+    <Content Include="Areas\Patent\Views\Lao_PT\_PartialPreview.cshtml" />
+    <Content Include="Areas\Patent\Views\Lao_PT\_PartialPreview_IU.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDon_Lao.cshtml" />
+    <Content Include="Areas\TradeMark\Views\Shared\_PartialThongTinChuDon_Lao_View.cshtml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <Content Include="Areas\TradeMark\Views\Application\_Partial_Filing.cshtml" />
     <None Include="Properties\PublishProfiles\HungTDLap.pubxml" />
@@ -2453,6 +2461,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="ViewsShared\_PartialSigninSignup.cshtml" />
     <Content Include="ViewsShared\_PartialSinginSignupDestop.cshtml" />
+    <Content Include="ViewsShared\_PartialQuocGia_Lao.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Areas\Account\Models\" />

@@ -34,6 +34,14 @@ namespace ObjectInfos
         public string Master_Fax { get; set; }
         public string Master_Email { get; set; }
 
+        public decimal Master_Country_Nationality { get; set; }
+        public decimal Master_Country_Residence { get; set; }
+        public decimal Master_Country_Incorporation { get; set; }
+
+        public string Master_Country_Nationality_Name { get; set; }
+        public string Master_Country_Residence_Name { get; set; }
+        public string Master_Country_Incorporation_Name { get; set; }
+
         public string Rep_Master_Type { get; set; }
         public string Rep_Master_Name { get; set; }
         public string Rep_Master_Address { get; set; }
