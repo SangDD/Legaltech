@@ -2983,5 +2983,121 @@
             }
         }
 
+
+        [HttpPost]
+        [Route("ket_xuat_fileNN")]
+        public ActionResult ExportData_ViewNN(decimal pAppHeaderId, string p_appCode, decimal p_View_Translate)
+        {
+            try
+            {
+
+                string language = AppsCommon.GetCurrentLang();
+
+                App_Detail_F04_BL objBL = new App_Detail_F04_BL();
+                ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
+                App_Detail_F04_Info app_Detail = new App_Detail_F04_Info();
+                List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
+                List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
+                List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
+
+                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _LstDocumentOthersInfo);
+
+                AppsCommon.Prepare_Data_Export_F04(ref app_Detail, applicationHeaderInfo, appDocumentInfos);
+
+
+                if (_LstDocumentOthersInfo != null)
+                {
+                    foreach (var item in _LstDocumentOthersInfo)
+                    {
+                        app_Detail.Note += item.Documentname + " ; ";
+                    }
+
+                    if (_LstDocumentOthersInfo.Count > 0)
+                    {
+                        app_Detail.Note = app_Detail.Note.Substring(0, app_Detail.Note.Length - 2);
+                    }
+                }
+
+                List<App_Detail_F04_Info> _lst = new List<App_Detail_F04_Info>();
+                _lst.Add(app_Detail);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_F04_Info>(_lst, false);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string _tempfile = "F04.rpt";
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
+                if (p_View_Translate == 1)
+                {
+                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        _tempfile = "F04_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf";
+                    }
+                }
+                else
+                {
+                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    {
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf";
+                    }
+                    else
+                    {
+                        _tempfile = "C03_EN.rpt"; // tiếng anh
+                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf");
+                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf";
+                    }
+                }
+
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table";
+                    _ds_all.WriteXml(@"D:\F04.xml", XmlWriteMode.WriteSchema);
+
+                    // đè các bản dịch lên
+                    if (p_View_Translate == 1)
+                    {
+                        // nếu là bản xem của thằng dịch
+                        App_Translate_BL _App_Translate_BL = new App_Translate_BL();
+                        List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
+
+                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
+                    }
+
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq 
+
+
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+
+
+
     }
 }

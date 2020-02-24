@@ -6,10 +6,10 @@ namespace ObjectInfos
 
     public class App_Detail_F04_Info : ApplicationHeaderInfo
     {
-        public static void CopyAppHeaderInfo(ref App_Detail_C01_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
+        public static void CopyAppHeaderInfo(ref App_Detail_F04_Info p_appDetail, ApplicationHeaderInfo pAppInfo)
         {
             p_appDetail.STT = pAppInfo.STT;
-            p_appDetail.Detail_Id = pAppInfo.Id;
+            p_appDetail.Id = pAppInfo.Id;
             p_appDetail.Appcode = pAppInfo.Appcode;
             p_appDetail.Master_Name = pAppInfo.Master_Name;
             p_appDetail.Master_Address = pAppInfo.Master_Address;
