@@ -52,8 +52,9 @@ namespace ObjectInfos
             this.Loainhanhieu = p_app_detail.Loainhanhieu;
             this.Sodon_ut = p_app_detail.Sodon_ut;
             this.Ngaynopdon_ut = p_app_detail.Ngaynopdon_ut;
+            this.Ngaynopdon_ut_text = p_app_detail.Ngaynopdon_ut.ToString("dd/MM/yyyy");
             this.Nuocnopdon_ut = p_app_detail.Nuocnopdon_ut;
-
+            this.Nuocnopdon_ut_text = p_app_detail.Nuocnopdon_ut_text;
             this.Translation_Of_Word = p_app_detail.Translation_Of_Word;
             this.Color = p_app_detail.Color;
             this.pfileLogo = p_app_detail.pfileLogo;
@@ -103,10 +104,13 @@ namespace ObjectInfos
         public string Codelogo { get; set; }
         public string Loainhanhieu { get; set; }
         public string Sodon_ut { get; set; }
+        public string Ngaynopdon_ut_text { get; set; }
         public DateTime Ngaynopdon_ut { get; set; }
         public decimal Nuocnopdon_ut { get; set; }
+        public string Nuocnopdon_ut_text { get; set; }
         public string LogourlOrg { get; set; }
         public string Logourl { get; set; }
+        public string ClassNo { get; set; }
         public HttpPostedFileBase pfileLogo { get; set; }
 
         public int Number_Pic { get; set; }
@@ -140,6 +144,11 @@ namespace ObjectInfos
 
         public string Doc_Id_9 { get; set; }
         public decimal Doc_Id_9_Check { get; set; }
+
+        
+        public string Doc_Id_101 { get; set; }
+        public string Doc_Id_102 { get; set; }
+        public string Doc_Id_103 { get; set; }
         public decimal Doc_Id_10_Check { get; set; }
 
         public string Doc_Id_11 { get; set; }
@@ -155,7 +164,10 @@ namespace ObjectInfos
         public string Doc_Id_14 { get; set; }
         public decimal Doc_Id_14_Check { get; set; }
 
-        public string Doc_Id_15 { get; set; }
+        public string Doc_Id_151 { get; set; }
+        public string Doc_Id_152 { get; set; }
+        public string Doc_Id_153 { get; set; }
+       
         public decimal Doc_Id_15_Check { get; set; }
 
         public string Doc_Id_16 { get; set; }

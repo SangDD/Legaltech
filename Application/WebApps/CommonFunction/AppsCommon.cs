@@ -2905,6 +2905,13 @@ namespace WebApps.CommonFunction
                         }
                         else if (item.Document_Id == "F04_10")
                         {
+                            pDetail.Doc_Id_101 = item.CHAR01;
+                            pDetail.Doc_Id_102 = item.CHAR02;
+                            if (item.CHAR03 == null || item.CHAR03 == "" || item.CHAR03 == "__/__/____")
+                            {
+                                item.CHAR03 = "";
+                            }
+                            pDetail.Doc_Id_103 = item.CHAR03;
                             pDetail.Doc_Id_10_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "F04_11")
@@ -2926,38 +2933,45 @@ namespace WebApps.CommonFunction
                         }
                         else if (item.Document_Id == "F04_14")
                         {
-                            pDetail.Doc_Id_13 = item.CHAR01;
-                            pDetail.Doc_Id_13_Check = item.Isuse;
+                            pDetail.Doc_Id_14 = item.CHAR01;
+                            pDetail.Doc_Id_14_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "F04_15")
                         {
-                            pDetail.Doc_Id_13 = item.CHAR01;
-                            pDetail.Doc_Id_13_Check = item.Isuse;
+                            pDetail.Doc_Id_151 = item.CHAR01;
+                            pDetail.Doc_Id_152 = item.CHAR02;
+                           
+                            if (item.CHAR03 == null || item.CHAR03 == "" || item.CHAR03 == "__/__/____")
+                            {
+                                item.CHAR03 = "";
+                            }
+                            pDetail.Doc_Id_153 = item.CHAR03;
+                            pDetail.Doc_Id_15_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "F04_16")
                         {
-                            pDetail.Doc_Id_13 = item.CHAR01;
-                            pDetail.Doc_Id_13_Check = item.Isuse;
+                            pDetail.Doc_Id_16 = item.CHAR01;
+                            pDetail.Doc_Id_16_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "F04_17")
                         {
-                            pDetail.Doc_Id_13 = item.CHAR01;
-                            pDetail.Doc_Id_13_Check = item.Isuse;
+                            pDetail.Doc_Id_17 = item.CHAR01;
+                            pDetail.Doc_Id_17_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "F04_18")
                         {
-                            pDetail.Doc_Id_13 = item.CHAR01;
-                            pDetail.Doc_Id_13_Check = item.Isuse;
+                            pDetail.Doc_Id_18 = item.CHAR01;
+                            pDetail.Doc_Id_18_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "F04_19")
                         {
-                            pDetail.Doc_Id_13 = item.CHAR01;
-                            pDetail.Doc_Id_13_Check = item.Isuse;
+                            pDetail.Doc_Id_19 = item.CHAR01;
+                            pDetail.Doc_Id_19_Check = item.Isuse;
                         }
                         else if (item.Document_Id == "F04_20")
                         {
-                            pDetail.Doc_Id_13 = item.CHAR01;
-                            pDetail.Doc_Id_13_Check = item.Isuse;
+                            pDetail.Doc_Id_20 = item.CHAR01;
+                            pDetail.Doc_Id_20_Check = item.Isuse;
                         }
                     }
                 }
