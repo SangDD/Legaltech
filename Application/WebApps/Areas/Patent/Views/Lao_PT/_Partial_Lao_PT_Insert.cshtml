@@ -169,7 +169,7 @@
             </div>
         </div>
         <div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_Lao.cshtml", "1")
+            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_2.cshtml", "1")
         </div>
 
         <div class="div-search-ad">
@@ -187,7 +187,7 @@
 
         <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
             <input type="hidden" id="txt_id_ChuDon" value="1" />
-            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemChuDonKhac</a>
+            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">More Applicant</a>
         </div>
         @* end 2 *@
 
@@ -200,7 +200,7 @@
         </div>
 
         <div id="div_PartialThongTinTacGia">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia.cshtml", "1")
+            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_3.cshtml", "1")
         </div>
 
         <div id="divMoreInventors">
@@ -221,16 +221,17 @@
 
             <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
                 <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
-                <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
+                <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">Yes</a></label>
             </div>
             <div style="display: inline-block;">
                 <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
-                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
+                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">No</a></label>
             </div>
+            <input type="hidden" id="txt_id_Don_UT" value="1" />
         </div>
 
         <div id="div_ThongTinDonUuTien" class="clssDisplaynone">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "1")
+            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_PartialThongTinQuyenUuTien.cshtml", "1")
         </div>
 
         <div class="divCover cls_form_title">
@@ -243,11 +244,11 @@
         <div id="div_CheckList_Pattent_Petty" class="clssDisplaynone">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div> Request_Pattent </div>
+                    <div> Request </div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="" maxlength="50" id="txt_Request_Pattent" style="width: 250px;" placeholder="@WebApps.Resources.Resource.TM2B_SoTrang" />
+                        <input type="text" value="" maxlength="50" id="txt_Request_Pattent" style="width: 250px;" placeholder="Pages" />
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -291,7 +292,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="" maxlength="50" id="txt_Request_Industrial" placeholder="@WebApps.Resources.Resource.TM2B_SoTrang" />
+                        <input type="text" value="" maxlength="50" id="txt_Request_Industrial" placeholder="Pages" />
                     </div>
                 </div>
             </div>
@@ -307,7 +308,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div style="width:150px"> Number of sheet of presentation: </div>
+                    <div style="width:175px"> Number of sheet of presentation: </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -345,16 +346,6 @@
                     </div>
                 </div>
             </div>
-
-
-            @*<div class="div-search-ad">
-                <div class="div-search-content">
-                    <div class="div-radio">
-                        <input type="checkbox" name="4_rd_Application_For" id="4_rdComposition" value="3">
-                        <label>Composition</label>
-                    </div>
-                </div>
-            </div>*@
         </div>
 
         <div class="divCover cls_form_title">
@@ -364,27 +355,44 @@
             </div>
         </div>
 
-        <div class="div-search-ad clssDisplaynone" id="div_Class_Pattent">
-            <div class="div-search-title">
-                <div> Class </div>
+        <div class="clssDisplaynone" id="div_Class_Pattent">
+
+            <div class="divCover cls_form_title">
+                <div class="cls_form_header">
+                    The International Patent Classification (IPC) for the Invention is
+                </div>
             </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" value="" maxlength="500" id="txt_Class_Pattent" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> Class </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="" maxlength="500" id="txt_Class_Pattent" />
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="div-search-ad clssDisplaynone" id="div_Class_Industrial">
-            <div class="div-search-title">
-                <div> Class </div>
+        <div class="clssDisplaynone" id="div_Class_Industrial">
+            <div class="divCover cls_form_title">
+                <div class="cls_form_header">
+                    The International Design Classification (IPC) for the Industrial Design(s) is/are
+                </div>
             </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" value="" maxlength="500" id="txt_Class_Industrial" />
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> Class </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="" maxlength="500" id="txt_Class_Industrial" />
+                    </div>
                 </div>
             </div>
         </div>
+
+
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -402,6 +410,70 @@
 
         @*TÀI LIỆU KHÁC*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Box No. VIII. FEE CALCULATOR (FOR OFFICIAL USE ONLY)
+            </div>
+        </div>
+
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Filling fee </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="500" id="txt_Filling_Fee" style="width:150px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Basic Fee</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="15" id="txt_Basic_Fee" style="width:150px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Others Fees </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="15" id="txt_Others_Fee" />
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Box No. XI. SIGNATURE
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Name of print </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="LE HONG TUYEN" maxlength="200" id="txt_Name_Of_Print" style="width:150px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Date Signed </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="15" id="txt_Date_Signed" class="datetimepicker" />
+                </div>
+            </div>
+        </div>
 
         @* Cam kết của chủ đơn *@
         @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon.cshtml")
@@ -474,7 +546,7 @@
             console.log(e);
         }
     });
- 
+
 
     $("#btnLuuTam").click(function () {
         try {
@@ -487,31 +559,50 @@
         }
     });
 
+    function funcOther_BoxNo3(formData) {
+        try {
+            // bắt đầu từ 1 vì thằng 0 là bên chính
+            var _index = 1;
+            $(".clsInventor_No3").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse_Inventor_No3").val() == "1") {
+
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Type", 0);
+                    formData.append("pInventor_Info[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Lao_No3_Other").val());
+
+                    formData.append("pInventor_Info[" + _index + "].Master_Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Master_Country_Residence", $("#" + _id + "_txtCountry_Residence_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Master_Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No3_Other").val());
+
+                    _index = _index + 1;
+                }
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     function funcChuDonKhac(formData) {
         try {
             var _index = 0;
             $(".clsChuDonKhac").each(function (item) {
                 var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+                if ($("#" + _id + "_txtUse_ChuDonKhac_No2").val() == "1") {
 
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
-                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Lao_No2_Other").val());
 
-                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
-                    }
-
-                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
-                    }
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Country_Residence", $("#" + _id + "_txtCountry_Residence_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No2_Other").val());
 
                     _index = _index + 1;
                 }
@@ -526,6 +617,15 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
+
+            formData.append("pInfo.Search_Code", '@_Search_Code');
+            formData.append("pInfo.Status", ptype);
+            var v_AppCode = $("#txtAppCode").val();
+            if (v_AppCode === "") {
+                $('#txtAppCode').focus().val('');
+                showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
+                return false;
+            }
 
             var reponse = getNation_Represent(formData);
             if (reponse == false) {
@@ -542,6 +642,7 @@
                 return false;
             }
 
+            // box 2
             if (ptype == 1) {
                 if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
                     return false;
@@ -552,26 +653,29 @@
                 }
             }
 
-            if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
-                formData.append("pInfo.Master_Type", "TGDT");
-            } else if ($("#rdChuDonKhac").is(':checked')) {
-                formData.append("pInfo.Master_Type", "CDK");
-            }
-
             if (funcChuDonKhac(formData) != true) {
                 return false;
             }
 
-            formData.append("pInfo.Search_Code", '@_Search_Code');
+            /// box 3
+            if (ptype == 1) {
+                if (funcThongTin_No3_SaveTem(formData, "1") != true) {
+                    return false;
+                }
+            } else {
+                if (funcThongTin_No3(formData, "1") != true) {
+                    return false;
+                }
+            }
 
-            var v_AppCode = $("#txtAppCode").val();
-            if (v_AppCode === "") {
-                $('#txtAppCode').focus().val('');
-                showError('@Html.Raw(Resource.TM3B_ChonLoaiDonDK)');
+            if (funcOther_BoxNo3(formData) != true) {
                 return false;
             }
 
-            // đại diện chủ đơn
+            // end box 3
+
+
+            // Box 4 đại diện chủ đơn
             formData.append("pInfo.Appcode", v_AppCode);
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
@@ -589,7 +693,9 @@
             }
 
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            formData.append("pInfo.Status", ptype);
+
+            // end box 4
+
 
             //Lấy thông tin tài liệu có trong đơn
             if ($("#ck_TaiLieu_Khac").is(':checked')) {
@@ -625,7 +731,7 @@
             }
 
             $.ajax({
-                url: '/lg-patent/register',
+                url: '/lg-patent-lao/register',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -694,7 +800,7 @@
 
             $("#div_CheckList_Industrial").addClass("clssDisplaynone");
             $("#div_Class_Industrial").addClass("clssDisplaynone");
-        } else if ($("#1_rdo_Pattent_Type").is(':checked')) {
+        } else if ($("#1_rdPetty_Pattent").is(':checked')) {
             $("#div_CheckList_Pattent_Petty").removeClass("clssDisplaynone");
             $("#div_Class_Pattent").removeClass("clssDisplaynone");
 
@@ -784,12 +890,12 @@
 
     function ThemDonUuTien() {
         try {
-
+            var _id = parseInt($("#txt_id_Don_UT").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/don-uu-tien/them-don/',
+                url: '/lg-patent-lao/don-uu-tien/them-don/',
                 data: {
-                    p_id: "2"
+                    p_id: _id
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {
@@ -798,6 +904,7 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#div_ThongTinDonUuTien").append(data);
+                    $("#txt_id_Don_UT").val(_id);
                 }
             });
         } catch (e) {
@@ -816,197 +923,213 @@
     function funcGetAppDetail(formData, pType) {
         try {
 
-            var _txtMADDSHCN = $("#txtMADDSHCN").val();
-            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-
-            // nếu là gửi đơn
+            var txt_Title = $("#txt_Title").val();
             if (pType == 2) {
-                if (v_RepMasterType = "DDPL") {
-                    if (_txtMADDSHCN == "") {
-                        jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                            $("#txtMADDSHCN").focus()
+                if (txt_Title == "") {
+                    jError("Title can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Title").focus()
+                    });
+                    return false;
+                }
+            }
+            formData.append("pDetail.Title", txt_Title);
+
+
+            if ($("#1_rdPattent").is(':checked') || $("#1_rdPetty_Pattent").is(':checked')) {
+                var txt_Request = $("#txt_Request_Pattent").val();
+                if (pType == 2) {
+                    if (txt_Request == "") {
+                        jError("Request can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Request_Pattent").focus()
                         });
                         return false;
                     }
                 }
+                formData.append("pDetail.Request", txt_Request);
+
+                var txt_Claims = $("#txt_Claims").val();
+                if (pType == 2) {
+                    if (txt_Claims == "") {
+                        jError("Claims can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Claims").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Claims", txt_Claims);
+
+                var txt_Abstract = $("#txt_Abstract").val();
+                if (pType == 2) {
+                    if (txt_Abstract == "") {
+                        jError("Abstract can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Abstract").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Abstract", txt_Abstract);
+
+                var txt_Description = $("#txt_Description").val();
+                if (pType == 2) {
+                    if (txt_Description == "") {
+                        jError("Abstract can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Description").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Description", txt_Description);
+
+            } else if ($("#1_rdIndustrial").is(':checked')) {
+                var txt_Request = $("#txt_Request_Industrial").val();
+                if (pType == 2) {
+                    if (txt_Request == "") {
+                        jError("Request can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Request_Industrial").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Request", txt_Request);
+
+                var txt_Number_Industrial = $("#txt_Number_Industrial").val();
+                if (pType == 2) {
+                    if (txt_Number_Industrial == "") {
+                        jError("Number of industrial design can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Number_Industrial").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Number_Industrial", txt_Number_Industrial);
+
+                var txt_Number_Sheet = $("#txt_Number_Sheet").val();
+                if (pType == 2) {
+                    if (txt_Number_Sheet == "") {
+                        jError("Number of sheet of presentation can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Number_Sheet").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Number_Sheet", txt_Number_Sheet);
+
+
+                if ($("#4_rdMultiple").is(':checked')) {
+                    formData.append("pDetail.Multiple", "T");
+                } else {
+                    formData.append("pDetail.Multiple", "F");
+                }
+
+                if ($("#4_rdSetOfArticle").is(':checked')) {
+                    formData.append("pDetail.SetOfArticle", "T");
+                } else {
+                    formData.append("pDetail.SetOfArticle", "F");
+                }
+
+                if ($("#4_rdComposition").is(':checked')) {
+                    formData.append("pDetail.Composition", "T");
+                } else {
+                    formData.append("pDetail.Composition", "F");
+                }
             }
 
-            formData.append("pInfo.Customer_Code", _txtMADDSHCN);
+            if ($("#1_rdPattent").is(':checked') || $("#1_rdPetty_Pattent").is(':checked')) {
+                var txt_Class_Pattent = $("#txt_Class_Pattent").val();
+                if (pType == 2) {
+                    if (txt_Class_Pattent == "") {
+                        jError("Number of sheet of presentation can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Class_Pattent").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Class", txt_Class_Pattent);
 
-            var _txt_Patent_Name = $("#txt_Patent_Name").val();
+            } else if ($("#1_rdIndustrial").is(':checked')) {
+                var txt_Class_Industrial = $("#txt_Class_Industrial").val();
+                if (pType == 2) {
+                    if (txt_Class_Industrial == "") {
+                        jError("Number of sheet of presentation can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Class_Industrial").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Class", txt_Class_Industrial);
+            }
+
+            // Box V đơn ưu tiên
+            reponse = fun_Get_Don_UT(formData, pType);
+            if (reponse == false) {
+                return false;
+            }
+
+            // box VIII fee
+            var txt_Filling_Fee = $("#txt_Filling_Fee").val();
             if (pType == 2) {
-                if (_txt_Patent_Name == "") {
-                    jError("@Html.Raw(WebApps.Resources.Resource.TenSangChe + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                        $("#txt_Patent_Name").focus()
+                if (txt_Filling_Fee == "") {
+                    jError("Filling Fee can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Filling_Fee").focus()
                     });
                     return false;
                 }
             }
+            formData.append("pDetail.Filling_Fee", txt_Filling_Fee);
 
-            formData.append("pDetail.Patent_Name", _txt_Patent_Name);
-            formData.append("pDetail.Patent_Type", "DQSC");
-
-
-            if ($("#ckbCucPhanLoai").is(':checked')) {
-                formData.append("pDetail.Class_Type", "CUC");
-                formData.append("pDetail.Class_Content", "");
-            } else {
-                formData.append("pDetail.Class_Type", "MY");
-                formData.append("pDetail.Class_Content", $("#txtClass").val());
-            }
-
-            var _txtPoint = $("#txtPoint").val();
+            var txt_Basic_Fee = $("#txt_Basic_Fee").val();
             if (pType == 2) {
-                if (_txtPoint == "") {
-                    jError("@Html.Raw(WebApps.Resources.Resource.SoDiemYeuCauBaoHoDocLap + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                        $("#txtPoint").focus()
+                if (txt_Basic_Fee == "") {
+                    jError("Basic Fee can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Basic_Fee").focus()
                     });
                     return false;
                 }
             }
+            formData.append("pDetail.Basic_Fee", txt_Basic_Fee);
 
-            formData.append("pDetail.Point", _txtPoint);
-
-
-            if ($("#ckbThamDinhNoiDung").is(':checked')) {
-                formData.append("pDetail.ThamDinhNoiDung", "TDND");
-            } else {
-                formData.append("pDetail.ThamDinhNoiDung", "");
+            var txt_Others_Fee = $("#txt_Others_Fee").val();
+            if (pType == 2) {
+                if (txt_Others_Fee == "") {
+                    jError("Others Fee can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Others_Fee").focus()
+                    });
+                    return false;
+                }
             }
+            formData.append("pDetail.Others_Fee", txt_Others_Fee);
 
-            if ($("#ckbChuyenDoiDon").is(':checked')) {
-                formData.append("pDetail.ChuyenDoiDon", "CDD");
-            } else {
-                formData.append("pDetail.ChuyenDoiDon", "");
+            // bõ IX sign
+            var txt_Name_Of_Print = $("#txt_Name_Of_Print").val();
+            if (pType == 2) {
+                if (txt_Name_Of_Print == "") {
+                    jError("Name of print can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Name_Of_Print").focus()
+                    });
+                    return false;
+                }
             }
+            formData.append("pDetail.txt_Name_Of_Print", Name_Of_Print);
 
-            // nguồn gốc đơn
-            if ($("#2_rdPCT").is(':checked')) {
-                formData.append("pDetail.Source_PCT", "Y");
-                formData.append("pDetail.PCT_Number", $("#txt_PCT_SoDon").val());
-                formData.append("pDetail.PCT_Filling_Date_Qt", $("#txt_PCT_NgayNopQT").val());
-                formData.append("pDetail.PCT_Number_Qt", $("#txt_PCT_CongBoQT").val());
-                formData.append("pDetail.PCT_Date", $("#txt_PCT_Date").val());
-                formData.append("pDetail.PCT_VN_Date", $("#txt_PCT_VN_Date").val());
-
-                if ($("#2_rdo_PCT_SuaDoi").is(':checked')) {
-                    formData.append("pDetail.PCT_SuaDoi", 1);
-
-                    var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
-                    if (pType == 2) {
-                        if (_Request_To_Type === "" || _Request_To_Type == undefined) {
-                            jError("@Html.Raw(Resource.TM3B_ChonNoiDungYCSuaDoi)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                                $("#4_rdTenChuDon").focus()
-                            });
-                            return false;
-                        }
-                    }
-
-                    if ($("#4_rdTenChuDon").is(':checked')) {
-                        formData.append("pDetail.PCT_SuaDoi_Name", "Y");
-                    } else {
-                        formData.append("pDetail.PCT_SuaDoi_Name", "N");
-                    }
-
-                    if ($("#4_rdDiaChiChuDon").is(':checked')) {
-                        formData.append("pDetail.PCT_SuaDoi_Address", "Y");
-                    } else {
-                        formData.append("pDetail.PCT_SuaDoi_Address", "N");
-                    }
-
-                    if ($("#4_rdnoiDungKhac").is(':checked')) {
-                        formData.append("pDetail.PCT_SuaDoi_Others", "Y");
-                    } else {
-                        formData.append("pDetail.PCT_SuaDoi_Others", "N");
-                    }
-
-                    formData.append("pDetail.PCT_SuaDoi_Content", $("#4_DeNghiSuaThanh").val());
-
-                } else {
-                    formData.append("pDetail.PCT_SuaDoi", 0);
-                    formData.append("pDetail.PCT_SuaDoi_Type", "");
-                    formData.append("pDetail.PCT_SuaDoi_Content", "");
+            var txt_Date_Signed = $("#txt_Date_Signed").val();
+            if (pType == 2) {
+                if (txt_Date_Signed == "") {
+                    jError("Date signed can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Date_Signed").focus()
+                    });
+                    return false;
                 }
-            } else {
-                formData.append("pDetail.Source_PCT", "N");
-                formData.append("pDetail.PCT_Number", "");
-                formData.append("pDetail.PCT_Filling_Date_Qt", "");
-                formData.append("pDetail.PCT_Number_Qt", "");
-                formData.append("pDetail.PCT_Date", "");
-                formData.append("pDetail.PCT_VN_Date", "");
-
-                formData.append("pDetail.PCT_SuaDoi", 0);
-                formData.append("pDetail.PCT_SuaDoi_Type", "");
-                formData.append("pDetail.PCT_SuaDoi_Content", "");
             }
+            formData.append("pDetail.Date_Signed", txt_Date_Signed);
+        } catch (e) {
+            console.log(e);
+            showError('@Resource.TM3B_InternetError');
+            return false;
+        }
+    }
 
-            if ($("#2_rdDQSC").is(':checked')) {
-                formData.append("pDetail.Source_DQSC", "Y");
-                formData.append("pDetail.DQSC_Origin_App_No", $("#txt_DQSC_SoDon").val());
-                formData.append("pDetail.DQSC_Filling_Date", $("#txt_DQSC_NgayNop").val());
-
-                if ($("#DQSC_TruocHopLe").is(':checked')) {
-                    formData.append("pDetail.DQSC_Valid_Before", 1);
-                } else {
-                    formData.append("pDetail.DQSC_Valid_Before", 0);
-                }
-
-                if ($("#DQSC_SauHopLe").is(':checked')) {
-                    formData.append("pDetail.DQSC_Valid_After", 1);
-                } else {
-                    formData.append("pDetail.DQSC_Valid_After", 0);
-                }
-            } else {
-                formData.append("pDetail.Source_DQSC", "N");
-                formData.append("pDetail.DQSC_Origin_App_No", "");
-                formData.append("pDetail.DQSC_Filling_Date", "");
-                formData.append("pDetail.DQSC_Valid_Before", 0);
-                formData.append("pDetail.DQSC_Valid_After", 0);
-            }
-
-            if ($("#2_rdGPHI").is(':checked')) {
-                formData.append("pDetail.Source_GPHI", "Y");
-                formData.append("pDetail.GPHI_Origin_App_No", $("#txt_GPHI_SoDon").val());
-                formData.append("pDetail.GPHI_Filling_Date", $("#txt_GPHI_NgayNop").val());
-
-                if ($("#GPHI_TruocHopLe").is(':checked')) {
-                    formData.append("pDetail.GPHI_Valid_Before", 1);
-                } else {
-                    formData.append("pDetail.GPHI_Valid_Before", 0);
-                }
-
-                if ($("#GPHI_SauHopLe").is(':checked')) {
-                    formData.append("pDetail.GPHI_Valid_After", 1);
-                } else {
-                    formData.append("pDetail.GPHI_Valid_After", 0);
-                }
-            } else {
-                formData.append("pDetail.Source_GPHI", "N");
-                formData.append("pDetail.GPHI_Origin_App_No", "");
-                formData.append("pDetail.GPHI_Filling_Date", "");
-                formData.append("pDetail.GPHI_Valid_Before", 0);
-                formData.append("pDetail.GPHI_Valid_After", 0);
-            }
-
-            var _index = 0;
-            $(".clsTacGia").each(function (item) {
-                var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse").val() == "1") {
-
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Name", $("#" + _id +  "_TG_TenDayDu").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Address", $("#" + _id + "_TG_DiaChi").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Phone", $("#" + _id +  "_TG_DienThoai").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Fax", $("#" + _id + "_TG_Fax").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Email", $("#" + _id + "_TG_Email").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
-
-                    var cbo_country_tg = document.getElementById(_id + "_TG_QuocTich");
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country_Display", cbo_country_tg.options[cbo_country_tg.selectedIndex].text);
-
-                    _index = _index + 1;
-                }
-            });
-
+    function fun_Get_Don_UT(formData, pType) {
+        try {
             // đơn ưu tiên
             var v_CoSDQuyenUT = 0;
             if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
@@ -1049,51 +1172,12 @@
 
                         var cbo_country = document.getElementById(_id + "_UT_txtQuocGia");
                         formData.append("pUTienInfo[" + _index + "].UT_QuocGia_Display", cbo_country.options[cbo_country.selectedIndex].text);
-
-                        var _nameYC = _id + "_rdo_YCHuongQuyen";
-                        var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
-                        if (pType == 2) {
-                            if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
-                                showError("@Html.Raw(WebApps.Resources.Resource.YeuCauChonQuyenUuTien)");
-                                return false;
-                            }
-                        }
-                        formData.append("pUTienInfo[" + _index + "].UT_Type", v_QuyenUuTien);
-                        formData.append("pUTienInfo[" + _index + "].UT_ThoaThuanKhac", $("#" + _id + "_txtThoathuanKhac").val());
-                        _index = _index + 1;
-                        _index_document = _index_document + 1;
-                        // 13
-
-                        var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
-                        var _id_textbox = "txt_" + _id + "_TLCMQUT";
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
-
-                        _index_document = _index_document + 1;
-                        _id_checkbox = "ckb_" + _id + "_BanSaoDauTien";
-                        var _id_textbox = "txt_" + _id + "_BanSaoDauTien";
-
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
-
-                        _index_document = _index_document + 1;
-                        _id_checkbox = "ckb_" + _id + "_BanDich";
-                        var _id_textbox = "txt_" + _id + "_BanDich";
-
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
-
-                        _index_document = _index_document + 1;
-                        _id_checkbox = "ckb_" + _id + "_GiayChuyenNhuong";
-                        var _id_textbox = "txt_" + _id + "_GiayChuyenNhuong";
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
                     }
                 });
-
             }
+
+            return true;
         } catch (e) {
-            console.log(e);
-            showError('@Resource.TM3B_InternetError');
             return false;
         }
     }

@@ -1,0 +1,175 @@
+﻿@using BussinessFacade.ModuleMemoryData
+@model string
+@using ObjectInfos;
+@using WebApps.Resources;
+@{
+    string txtSoDon = Model + "_UT_txtSoDon";
+    string txtNgayNopDon = Model + "_UT_txtNgayNopDon";
+    string txtQuocTich = Model + "_UT_txtQuocGia";
+    string rdo_YCHuongQuyen = Model + "_rdo_YCHuongQuyen";
+
+    string ckbNopTaiVietNam = Model + "_ckbNopTaiVietNam";
+    string ckbNopTaiParis = Model + "_ckbNopTaiParis";
+
+    string ckbThoaThuanKhac = Model + "_ckbThoaThuanKhac";
+    string txtThoathuanKhac = Model + "_txtThoathuanKhac";
+    string TLCMQUT = Model + "_TLCMQUT";
+    string BanSaoDauTien = Model + "_BanSaoDauTien";
+    string BanDich = Model + "_BanDich";
+    string GiayChuyenNhuong = Model + "_GiayChuyenNhuong";
+    string divDonUT = Model + "_divDonUT";
+    string txtUse = Model + "_UT_Use";
+
+    string _disable = "";
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
+
+    string _doc_id = TLCMQUT;
+    string _model = _doc_id + "|" + TLCMQUT + "|0|" + @WebApps.Resources.Resource.lblTaiLieuChungMinhQuyenUuTien + "|" + Resource.lblSoBan + "|0";
+
+    string _doc_id2 = BanSaoDauTien;
+    string _model2 = _doc_id2 + "|" + BanSaoDauTien + "|1|" + @WebApps.Resources.Resource.lblbanSaoDauTienGom + "|" + Resource.lblSoBan + "|1";
+
+    string _doc_id3 = BanDich;
+    string _model3 = _doc_id3 + "|" + BanDich + "|1|" + @WebApps.Resources.Resource.TM3B_BanDichTiengVietGom + "|" + Resource.lblSoBan + "|1";
+
+    string _doc_id4 = GiayChuyenNhuong;
+    string _model4 = _doc_id4 + "|" + GiayChuyenNhuong + "|1|" + @WebApps.Resources.Resource.lblGiayChuyenNhuongQuyenUT + "|" + "" + "|1";
+}
+
+<div id="@divDonUT" data-id="@Model" class="clsDivDonUTien">
+
+    <input type="hidden" id="@txtUse" value="1" />
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width: 150px"> @Resource.SoDon <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" maxlength="200" id="@txtSoDon" @_disable style="width:200px" />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> @Resource.NgayNopDon <i class="redspan">(*)</i> </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" id="@txtNgayNopDon" @_disable class="datetimepicker"/>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width: 150px">@WebApps.Resources.Resource.NuocNopQuyenUuTien <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@txtQuocTich">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+    </div>
+
+    @*<div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiVietNam" value="NTVN">
+                <label>@WebApps.Resources.Resource.lblTheoDonNopTaiVN</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-content">
+            <div class="div-radio">
+                <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbNopTaiParis" value="CUPR">
+                <label>@WebApps.Resources.Resource.lblTheoDonNopCongUocPR</label>
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad" style="display:inline-flex;">
+        <div class="div-search-content" style="width:385px">
+            <div class="div-radio" style="width:385px">
+                <input type="radio" name="@rdo_YCHuongQuyen" id="@ckbThoaThuanKhac" value="TTTK">
+                <label>@WebApps.Resources.Resource.lblTheoThoaThuanKhac</label>
+            </div>
+        </div>
+
+        <div class="div-search-content">
+            <input type="text" id="@txtThoathuanKhac" placeholder="@WebApps.Resources.Resource.lblTheoThoaThuanKhac" style="border: 1px solid #afa7a7;" maxlength="150" />
+        </div>
+    </div>*@
+
+
+    @*@Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model2)
+
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model3)
+
+    @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model4)*@
+
+
+    @if (Model == "1")
+    {
+        <div class="div_full_100_area classChuDonKhac">
+            <input type="hidden" id="txt_id_tacgia" value="1" />
+            <a href="javascript:;" onclick="return ThemDonUuTien();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemDonUT</a>
+        </div>
+    }
+    
+    @if (Model != "1")
+    {
+        <div class="div_full_100_area classChuDonKhac">
+            <input type="hidden" id="txt_id_tacgia" value="1" />
+            <a href="javascript:;" onclick="return XoaDonUuTien('@divDonUT', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">@Resource.XoaDonUT</a>
+        </div>
+    }
+</div>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#' + '@txtQuocTich').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+    });
+
+    function XoaDonUuTien(pId, pId2) {
+        try {
+            $("#" + pId).addClass("clssDisplaynone");
+            $("#" + pId2).val("0");
+        } catch (e) {
+            alert(e);
+        }
+    }
+
+
+</script>
+
+
+
+
+

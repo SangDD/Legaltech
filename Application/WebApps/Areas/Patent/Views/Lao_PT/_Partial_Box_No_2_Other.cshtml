@@ -1,0 +1,210 @@
+﻿@model string
+@using ObjectInfos;
+@using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@{
+    string txtTenDayDu = Model + "_txtTenDayDu_Lao_No2_Other";
+    string txtDiaChi = Model + "_txtDiaChi_Lao_No2_Other";
+    string txtDienThoai = Model + "_txtDienThoai_Lao_No2_Other";
+    string txtFax = Model + "_txtFax_Lao_No2_Other";
+    string txtEmail = Model + "_txtEmail_Lao_No2_Other";
+
+    string txtCountry_Nationality = Model + "_txtCountry_Nationality_No2_Other";
+    string txtCountry_Residence = Model + "_txtCountry_Residence_No2_Other";
+    string txt_Country_Incorporation = Model + "_txt_Country_Incorporation_No2_Other";
+
+    string divChuDonKhac = Model + "_divChuDonKhac_No2";
+    string txtUse = Model + "_txtUse_ChuDonKhac_No2";
+
+    var objAppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+    string _disable = "";
+
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
+}
+
+<div id="@divChuDonKhac" class="clsChuDonKhac" data-id="@Model">
+
+    <div class="divCover cls_form_title">
+        <img src="~/Content/icons/category.png" />
+        <div class="cls_form_header">
+            Other Applicant
+        </div>
+    </div>
+
+    <input type="hidden" id="@txtUse" value="1" />
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width:150px"> Name <i class="redspan">(*)</i></div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width:150px"> Address (include postcode)  <i class="redspan">(*)</i> </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width:150px"> Country of nationality </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@txtCountry_Nationality" style="width: 250px;">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (item.Country_Id == objAppHeaderInfo.Master_Country_Nationality)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Country of residence </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@txtCountry_Residence">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (item.Country_Id == objAppHeaderInfo.Master_Country_Residence)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width:150px">Country of incorporation:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <select id="@txt_Country_Incorporation">
+                    @foreach (var item in MemoryData.c_lst_Country)
+                    {
+                        if (item.Country_Id == objAppHeaderInfo.Master_Country_Incorporation)
+                        {
+                            <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@item.Country_Id">@item.Name</option>
+                        }
+                    }
+                </select>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width:150px"> Phone: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@objAppHeaderInfo.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Fax: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Email Address:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@objAppHeaderInfo.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+            </div>
+        </div>
+    </div>
+
+
+    <div class="div_full_100_area classChuDonKhac">
+        <a href="javascript:;" onclick="return XoaChuDonKhac('@divChuDonKhac', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">Remove Applicant</a>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#' + '@txtCountry_Nationality').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+
+        $('#' + '@txtCountry_Residence').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+
+        $('#' + '@txt_Country_Incorporation').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+    });
+
+    function XoaChuDonKhac(pId, pId2) {
+        try {
+            $("#" + pId).addClass("clssDisplaynone");
+
+            $("#" + pId2).val("0");
+        } catch (e) {
+            alert(e);
+        }
+    }
+</script>
+
+
+
+
+

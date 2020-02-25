@@ -28,6 +28,40 @@ namespace ObjectInfos
         public string TacGiaDongThoi { set; get; }
         public string PhoBan { set; get; }
 
+        public decimal Master_Country_Nationality { get; set; }
+        public decimal Master_Country_Residence { get; set; }
+        public decimal Master_Country_Incorporation { get; set; }
+
+        public string Master_Country_Nationality_Name { get; set; }
+        public string Master_Country_Residence_Name { get; set; }
+        public string Master_Country_Incorporation_Name { get; set; }
+    }
+
+    public class Inventor_Info
+    {
+        public decimal Inventor_Type { get; set; }
+
+        public decimal Model_Id { get; set; }
+        public decimal Id { get; set; }
+        public decimal App_Header_Id { set; get; }
+        public string Case_Code { set; get; }
+
+        public string Master_Name { set; get; }
+
+        public string Master_Address { set; get; }
+
+        public string Master_Phone { set; get; }
+
+        public string Master_Fax { set; get; }
+        public string Master_Email { set; get; }
+
+        public decimal Master_Country_Nationality { get; set; }
+        public decimal Master_Country_Residence { get; set; }
+        public decimal Master_Country_Incorporation { get; set; }
+
+        public string Master_Country_Nationality_Name { get; set; }
+        public string Master_Country_Residence_Name { get; set; }
+        public string Master_Country_Incorporation_Name { get; set; }
     }
 
     public class AuthorsInfo

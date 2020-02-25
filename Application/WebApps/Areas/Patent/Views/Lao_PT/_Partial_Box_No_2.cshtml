@@ -1,0 +1,283 @@
+﻿@model string
+@using ObjectInfos;
+@using WebApps.Resources;
+@using BussinessFacade.ModuleMemoryData
+@{
+    string txtTenDayDu = Model + "_txtTenDayDu_Lao_No2";
+    string txtDiaChi = Model + "_txtDiaChi_Lao_No2";
+    string txtDienThoai = Model + "_txtDienThoai_Lao_No2";
+    string txtFax = Model + "_txtFax_Lao_No2";
+    string txtEmail = Model + "_txtEmail_Lao_No2";
+
+
+    string txtCountry_Nationality = Model + "_txtCountry_Nationality_No2";
+    string txtCountry_Residence = Model + "_txtCountry_Residence_No2";
+    string txt_Country_Incorporation = Model + "_txt_Country_Incorporation_No2";
+
+
+    var objAppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+    string _disable = "";
+
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
+}
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width:150px"> Name <i class="redspan">(*)</i></div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+        </div>
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width:150px"> Address (include postcode) <i class="redspan">(*)</i> </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width:150px"> Country of nationality </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="@txtCountry_Nationality" style="width: 250px;">
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == objAppHeaderInfo.Master_Country_Nationality)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div> Country of residence </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="@txtCountry_Residence">
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == objAppHeaderInfo.Master_Country_Residence)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width:150px">Country of incorporation:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="@txt_Country_Incorporation">
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == objAppHeaderInfo.Master_Country_Incorporation)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
+                }
+            </select>
+
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width:150px"> Phone: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" value="@objAppHeaderInfo.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div> Fax: </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Master_Fax" type="text" maxlength="50" style="width: 250px;" id="@txtFax" @_disable />
+        </div>
+    </div>
+    <div class="div-search-title">
+        <div>Email:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#' + '@txtCountry_Nationality').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+
+        $('#' + '@txtCountry_Residence').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+
+        $('#' + '@txt_Country_Incorporation').multipleSelect({
+            filter: true,
+            noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
+            single: true,
+            isdatastring: false,
+            placeholder: 'Search country'
+        });
+    });
+
+    //Lấy thông tin chủ đơn add vào formData
+    function funcThongTinChuDon(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Lao_No2").val();
+            if (txtTenDayDu === "") {
+                $("#" + PreID + "_txtTenDayDu_Lao_No2").focus().val('');
+                showError('@Resource.TM2B_TenKhongDuocDeTrong');
+                return false;
+            }
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Lao_No2").val();
+            if (txtDiaChi === "") {
+                $("#" + PreID + "_txtDiaChi_Lao_No2").focus().val('');
+                showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
+                return false;
+            }
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Lao_No2").val();
+            var txtFax = $("#" + PreID + "_txtFax_Lao_No2").val();
+            var txtEmail = $("#" + PreID + "_txtEmail_Lao_No2").val();
+            if (txtEmail != "") {
+                if (!IsvalidEmail(txtEmail)) {
+                    $("#" + PreID + "_txtEmail_Lao_No2").focus();
+                    showError('@Resource.lblThongBaoLoiEmail');
+                    return false;
+                }
+            }
+            //Chủ đơn
+            if (PreID == "2") {
+                formData.append("pInfo.Master_Name", txtTenDayDu);
+                formData.append("pInfo.Master_Address", txtDiaChi);
+                formData.append("pInfo.Master_Phone", txtDienThoai);
+                formData.append("pInfo.Master_Fax", txtFax);
+                formData.append("pInfo.Master_Email", txtEmail);
+
+                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality_No2").val());
+                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence_No2").val());
+                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation_No2").val());
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+    //Lấy thông tin chủ đơn add vào formData
+    function funcThongTinChuDon_SaveTem(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Lao_No2").val();
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Lao_No2").val();
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Lao_No2").val();
+            var txtFax = $("#" + PreID + "_txtFax_Lao_No2").val();
+            var txtEmail = $("#" + PreID + "_txtEmail_Lao_No2").val();
+
+            //Chủ đơn
+            if (PreID == "2") {
+                formData.append("pInfo.Master_Name", txtTenDayDu);
+                formData.append("pInfo.Master_Address", txtDiaChi);
+                formData.append("pInfo.Master_Phone", txtDienThoai);
+                formData.append("pInfo.Master_Fax", txtFax);
+                formData.append("pInfo.Master_Email", txtEmail);
+
+                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
+                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
+                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+
+    function funcThongTinChuDon_Exp(formData, PreID) {
+        try {
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Lao_No2").val();
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Lao_No2").val();
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Lao_No2").val();
+            var txtFax = $("#" + PreID + "_txtFax_Lao_No2").val();
+            var txtEmail = $("#" + PreID + "_txtEmail_Lao_No2").val();
+
+            //Chủ đơn
+            if (PreID == "1") {
+                formData.append("pInfo.Master_Name", txtTenDayDu);
+                formData.append("pInfo.Master_Address", txtDiaChi);
+                formData.append("pInfo.Master_Phone", txtDienThoai);
+                formData.append("pInfo.Master_Fax", txtFax);
+                formData.append("pInfo.Master_Email", txtEmail);
+
+                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
+                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
+                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
+            }
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
+
+
+
+
+

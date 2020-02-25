@@ -96,31 +96,14 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("inventor/more")]
         public ActionResult ThemTacGia(decimal p_id)
         {
-            try
-            {
-                ViewBag.Id = p_id;
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Khac.cshtml", p_id.ToString());
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Khac.cshtml", p_id.ToString());
-            }
+            return PartialView("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_3_Other.cshtml", p_id.ToString());
         }
 
         [HttpPost]
         [Route("don-uu-tien/them-don")]
         public ActionResult ThemDonUuTien(string p_id)
         {
-            try
-            {
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", p_id.ToString());
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinQuyenUuTien.cshtml", "2");
-            }
+            return PartialView("~/Areas/Patent/Views/Lao_PT/_PartialThongTinQuyenUuTien.cshtml", p_id.ToString());
         }
 
         [HttpPost]
@@ -134,15 +117,7 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("chu-don/them-chu-don")]
         public ActionResult ThemChuDon(string p_id)
         {
-            try
-            {
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_Lao.cshtml", p_id.ToString());
-            }
-            catch (Exception ex)
-            {
-                Logger.LogException(ex);
-                return PartialView("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_Lao.cshtml", p_id.ToString());
-            }
+            return PartialView("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_2_Other.cshtml", p_id.ToString());
         }
 
         [HttpPost]
@@ -150,6 +125,7 @@ namespace WebApps.Areas.Patent.Controllers
         public ActionResult Register(ApplicationHeaderInfo pInfo, A01_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
             List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
+            List<Inventor_Info> pInventor_Info,
             List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
             List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
@@ -387,6 +363,7 @@ namespace WebApps.Areas.Patent.Controllers
         public ActionResult Edit(ApplicationHeaderInfo pInfo, A01_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
             List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
+            List<Inventor_Info> pInventor_Info,
             List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
             List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {

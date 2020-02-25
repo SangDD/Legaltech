@@ -3,16 +3,16 @@
 @using WebApps.Resources;
 @using BussinessFacade.ModuleMemoryData
 @{
-    string txtTenDayDu = Model + "_txtTenDayDu_Lao";
-    string txtDiaChi = Model + "_txtDiaChi_Lao";
-    string txtDienThoai = Model + "_txtDienThoai_Lao";
-    string txtFax = Model + "_txtFax_Lao";
-    string txtEmail = Model + "_txtEmail_Lao";
+    string txtTenDayDu = Model + "_txtTenDayDu_Lao_No3";
+    string txtDiaChi = Model + "_txtDiaChi_Lao_No3";
+    string txtDienThoai = Model + "_txtDienThoai_Lao_No3";
+    string txtFax = Model + "_txtFax_Lao_No3";
+    string txtEmail = Model + "_txtEmail_Lao_No3";
 
 
-    string txtCountry_Nationality = Model + "_txtCountry_Nationality";
-    string txtCountry_Residence = Model + "_txtCountry_Residence";
-    string txt_Country_Incorporation = Model + "_txt_Country_Incorporation";
+    string txtCountry_Nationality = Model + "_txtCountry_Nationality_No3";
+    string txtCountry_Residence = Model + "_txtCountry_Residence_No3";
+    string txt_Country_Incorporation = Model + "_txt_Country_Incorporation_No3";
 
 
     var objAppHeaderInfo = new ApplicationHeaderInfo();
@@ -31,7 +31,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
+        <div style="width:150px"> Name <i class="redspan">(*)</i></div>
     </div>
     <div class="div-search-content">
         <div>
@@ -43,7 +43,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
+        <div style="width:150px"> Address (include postcode) <i class="redspan">(*)</i> </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -54,7 +54,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> Country of nationality </div>
+        <div style="width:150px"> Country of nationality </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -75,11 +75,11 @@
     </div>
 
     <div class="div-search-title">
-        <div> Country of residence </div>
+        <div style="width:150px"> Country of residence </div>
     </div>
     <div class="div-search-content">
         <div>
-            <select id="@txtCountry_Residence" style="width: 250px;">
+            <select id="@txtCountry_Residence">
                 @foreach (var item in MemoryData.c_lst_Country)
                 {
                     if (item.Country_Id == objAppHeaderInfo.Master_Country_Residence)
@@ -95,8 +95,12 @@
         </div>
     </div>
 
+     
+</div>
+
+<div class="div-search-ad">
     <div class="div-search-title">
-        <div>Country of incorporation:  </div>
+        <div style="width:150px">Country of incorporation:  </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -120,7 +124,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div> @Resource.lblDienThoai: </div>
+        <div style="width:150px"> Phone: </div>
     </div>
     <div class="div-search-content">
         <div>
@@ -176,42 +180,42 @@
     });
 
     //Lấy thông tin chủ đơn add vào formData
-    function funcThongTinChuDon(formData, PreID) {
+    function funcThongTin_No3(formData, PreID) {
         try {
-            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Lao").val();
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Lao_No3").val();
             if (txtTenDayDu === "") {
-                $("#" + PreID + "_txtTenDayDu_Lao").focus().val('');
+                $("#" + PreID + "_txtTenDayDu_Lao_No3").focus().val('');
                 showError('@Resource.TM2B_TenKhongDuocDeTrong');
                 return false;
             }
-            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Lao").val();
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Lao_No3").val();
             if (txtDiaChi === "") {
-                $("#" + PreID + "_txtDiaChi_Lao").focus().val('');
+                $("#" + PreID + "_txtDiaChi_Lao_No3").focus().val('');
                 showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
                 return false;
             }
-            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Lao").val();
-            var txtFax = $("#" + PreID + "_txtFax_Lao").val();
-            var txtEmail = $("#" + PreID + "_txtEmail_Lao").val();
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Lao_No3").val();
+            var txtFax = $("#" + PreID + "_txtFax_Lao_No3").val();
+            var txtEmail = $("#" + PreID + "_txtEmail_Lao_No3").val();
             if (txtEmail != "") {
                 if (!IsvalidEmail(txtEmail)) {
-                    $("#" + PreID + "_txtEmail_Lao").focus();
+                    $("#" + PreID + "_txtEmail_Lao_No3").focus();
                     showError('@Resource.lblThongBaoLoiEmail');
                     return false;
                 }
             }
-            //Chủ đơn
-            if (PreID == "2") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
 
-                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
-                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
-                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
-            }
+            formData.append("pInventor_Info[0].Inventor_Type", 1);
+            formData.append("pInventor_Info[0].Master_Name", $("#" + PreID + "_txtTenDayDu_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Address", $("#" + PreID + "_txtDiaChi_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Phone", $("#" + PreID + "_txtDienThoai_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Fax", $("#" + PreID + "_txtFax_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Email", $("#" + PreID + "_txtEmail_Lao_No3").val());
+
+            formData.append("pInventor_Info[0].Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality_No3").val());
+            formData.append("pInventor_Info[0].Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence_No3").val());
+            formData.append("pInventor_Info[0].Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation_No3").val());
+
             return true;
         } catch (e) {
             return false;
@@ -219,26 +223,19 @@
     }
 
     //Lấy thông tin chủ đơn add vào formData
-    function funcThongTinChuDon_SaveTem(formData, PreID) {
+    function funcThongTin_No3_SaveTem(formData, PreID) {
         try {
-            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Lao").val();
-            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Lao").val();
-            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Lao").val();
-            var txtFax = $("#" + PreID + "_txtFax_Lao").val();
-            var txtEmail = $("#" + PreID + "_txtEmail_Lao").val();
+            formData.append("pInventor_Info[0].Inventor_Type", 1);
+            formData.append("pInventor_Info[0].Master_Name", $("#" + PreID + "_txtTenDayDu_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Address", $("#" + PreID + "_txtDiaChi_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Phone", $("#" + PreID + "_txtDienThoai_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Fax", $("#" + PreID + "_txtFax_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Email", $("#" + PreID + "_txtEmail_Lao_No3").val());
 
-            //Chủ đơn
-            if (PreID == "2") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
+            formData.append("pInventor_Info[0].Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality_No3").val());
+            formData.append("pInventor_Info[0].Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence_No3").val());
+            formData.append("pInventor_Info[0].Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation_No3").val());
 
-                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
-                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
-                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
-            }
             return true;
         } catch (e) {
             return false;
@@ -248,24 +245,16 @@
 
     function funcThongTinChuDon_Exp(formData, PreID) {
         try {
-            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
-            var txtFax = $("#" + PreID + "_txtFax").val();
-            var txtEmail = $("#" + PreID + "_txtEmail").val();
+            formData.append("pInventor_Info[0].Inventor_Type", 1);
+            formData.append("pInventor_Info[0].Master_Name", $("#" + PreID + "_txtTenDayDu_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Address", $("#" + PreID + "_txtDiaChi_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Phone", $("#" + PreID + "_txtDienThoai_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Fax", $("#" + PreID + "_txtFax_Lao_No3").val());
+            formData.append("pInventor_Info[0].Master_Email", $("#" + PreID + "_txtEmail_Lao_No3").val());
 
-            //Chủ đơn
-            if (PreID == "1") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
-
-                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
-                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
-                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
-            }
+            formData.append("pInventor_Info[0].Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality_No3").val());
+            formData.append("pInventor_Info[0].Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence_No3").val());
+            formData.append("pInventor_Info[0].Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation_No3").val());
             return true;
         } catch (e) {
             return false;
