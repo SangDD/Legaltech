@@ -3098,7 +3098,81 @@
             }
         }
 
+        [HttpPost]
+        [Route("ket_xuat_fileUINN")]
+        public ActionResult ExportDataUINN(ApplicationHeaderInfo pInfo, App_Detail_F04_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo,
+         List<AppDocumentOthersInfo> pAppDocOtherInfo)
+        {
+            try
+            {
+                string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
+                string language = AppsCommon.GetCurrentLang();
+                List<App_Detail_F04_Info> _lst = new List<App_Detail_F04_Info>();
 
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
+                if (language == Language.LangVI)
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf";
+                }
+                else
+                {
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf";
+                }
 
-    }
+                AppsCommon.Prepare_Data_Export_F04(ref pDetail, pInfo, pAppDocumentInfo);
+                if (pAppDocOtherInfo != null)
+                {
+                    foreach (var item in pAppDocOtherInfo)
+                    {
+                        pDetail.Note += item.Documentname + " ; ";
+                    }
+
+                    if (pAppDocOtherInfo.Count > 0)
+                    {
+                        pDetail.Note = pDetail.Note.Substring(0, pDetail.Note.Length - 2);
+                    }
+                }
+                _lst.Add(pDetail);
+
+                DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_F04_Info>(_lst, false);
+                //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
+                CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+
+                string _tempfile = "F04.rpt";
+                if (language == Language.LangEN)
+                {
+                    _tempfile = "F04_EN.rpt";
+                }
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (_ds_all != null)
+                {
+                    _ds_all.Tables[0].TableName = "Table";
+                    oRpt.SetDataSource(_ds_all);
+                }
+                oRpt.Refresh();
+
+                Response.Buffer = false;
+                Response.ClearContent();
+                Response.ClearHeaders();
+
+                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
+
+                System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
+                byte[] byteArray = new byte[oStream.Length];
+                oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq 
+
+                return Json(new { success = 0 });
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return Json(new { success = 0 });
+            }
+        }
+        
+        }
 }

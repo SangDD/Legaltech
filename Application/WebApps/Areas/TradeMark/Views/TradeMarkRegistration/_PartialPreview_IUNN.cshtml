@@ -44,12 +44,12 @@
             formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
 
             //Thông tin chủ đơn
-            if (funcThongTinChuDon_Exp(formData, "1") != true) {
+            if (funcThongTinChuDonNguoiDaiDien(formData, "1") != true) {
                 return false;
             }
 
             // đại diện chủ đơn
-            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
+            if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
 
@@ -67,7 +67,11 @@
             if (reponse == false) {
                 return false;
             } 
-
+            //lay tai lieu khac
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
             //
             reponse = funcGetCamKetChuDon(formData);
             if (reponse == false) {
@@ -106,9 +110,9 @@
 
   
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_C01("/patent-F04/ket_xuat_file_IU");
+        var preturn = funGetData_Preview_F04("/trade-mark/ket_xuat_fileUINN");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/patent-F04/Pre-View");
+            OpenPreview("/trade-mark/Pre-View");
         }
     }
 
