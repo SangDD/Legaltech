@@ -429,7 +429,8 @@
                 {
                     CustomerSuggestInfo pInfo = new CustomerSuggestInfo();
                     pInfo.label = item.Name_Vi + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + " Mã đại diện: " + item.MaNguoiDaiDien;
-                    pInfo.value = item.Name_Vi + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.MaNguoiDaiDien;
+                    pInfo.value = item.Name_Vi + "|" + item.Address_Vi + "|" + item.Phone + "|" + item.Fax + "|" + item.Email + "|" + item.MaNguoiDaiDien
+                        + "|" + item.Country_Nationality.ToString() + "|" + item.Country_Residence.ToString() + "|" + item.Country_Incorporation.ToString();
                     pInfo.name = item.Name_Vi + " Phone: " + item.Phone + " Fax: " + item.Fax + " Email: " + item.Email + item.Country;
                     lstChuDDSHCN.Add(pInfo);
 

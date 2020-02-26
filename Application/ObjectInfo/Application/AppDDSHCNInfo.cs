@@ -25,5 +25,14 @@ namespace ObjectInfos
         public string NguoiDDSH { get; set; }
         public string MaNguoiDaiDien { get; set; }
         public string Country { get; set; }
+
+        public decimal Country_Nationality { get; set; }
+        public decimal Country_Residence { get; set; }
+        public decimal Country_Incorporation { get; set; }
+
+        public string Country_Nationality_Name { get; set; }
+        public string Country_Residence_Name { get; set; }
+        public string Country_Incorporation_Name { get; set; }
+
     }
 }
