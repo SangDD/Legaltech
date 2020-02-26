@@ -164,4 +164,137 @@ namespace DataAccess
         }
 
     }
+
+    public class Pattent_Lao_DA
+    {
+        public decimal Insert(Pattent_Lao_Info pInfo)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_pattent_lao.Proc_Insert",
+                    new OracleParameter("p_id", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
+                     new OracleParameter("p_case_code", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
+                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
+                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
+                     new OracleParameter("p_appno", OracleDbType.Varchar2, pInfo.App_No, ParameterDirection.Input),
+                     new OracleParameter("p_patent_type", OracleDbType.Varchar2, pInfo.Patent_Type, ParameterDirection.Input),
+                     new OracleParameter("p_title", OracleDbType.Varchar2, pInfo.Title, ParameterDirection.Input),
+                     new OracleParameter("p_request", OracleDbType.Varchar2, pInfo.Request, ParameterDirection.Input),
+                     new OracleParameter("p_claims", OracleDbType.Varchar2, pInfo.Claims, ParameterDirection.Input),
+                     new OracleParameter("p_abstract", OracleDbType.Varchar2, pInfo.Abstract, ParameterDirection.Input),
+                     new OracleParameter("p_description", OracleDbType.Varchar2, pInfo.Description, ParameterDirection.Input),
+                     new OracleParameter("p_drawing", OracleDbType.Decimal, pInfo.Drawing, ParameterDirection.Input),
+                     new OracleParameter("p_number_industrial", OracleDbType.Decimal, pInfo.Number_Industrial, ParameterDirection.Input),
+                     new OracleParameter("p_number_sheet", OracleDbType.Decimal, pInfo.Number_Sheet, ParameterDirection.Input),
+                     new OracleParameter("p_multiple", OracleDbType.Varchar2, pInfo.Multiple, ParameterDirection.Input),
+                     new OracleParameter("p_setofarticle", OracleDbType.Varchar2, pInfo.SetOfArticle, ParameterDirection.Input),
+                     new OracleParameter("p_composition", OracleDbType.Varchar2, pInfo.Composition, ParameterDirection.Input),
+                     new OracleParameter("p_class_content", OracleDbType.Varchar2, pInfo.Class_Content, ParameterDirection.Input),
+                     new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
+                     new OracleParameter("p_filling_fee", OracleDbType.Decimal, pInfo.Filling_Fee, ParameterDirection.Input),
+                     new OracleParameter("p_basic_fee", OracleDbType.Decimal, pInfo.Basic_Fee, ParameterDirection.Input),
+                     new OracleParameter("p_others_fee", OracleDbType.Decimal, pInfo.Others_Fee, ParameterDirection.Input),
+                     new OracleParameter("p_name_of_print", OracleDbType.Varchar2, pInfo.Name_Of_Print, ParameterDirection.Input),
+                     new OracleParameter("p_date_signed", OracleDbType.Date, pInfo.Date_Signed, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToDecimal(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public decimal UpDate(Pattent_Lao_Info pInfo)
+        {
+            try
+            {
+                OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_pattent_lao.proc_update",
+                     new OracleParameter("p_id", OracleDbType.Decimal, pInfo.Id, ParameterDirection.Input),
+                     new OracleParameter("p_case_code", OracleDbType.Varchar2, pInfo.Case_Code, ParameterDirection.Input),
+                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, pInfo.App_Header_Id, ParameterDirection.Input),
+                     new OracleParameter("p_language_code", OracleDbType.Varchar2, pInfo.Language_Code, ParameterDirection.Input),
+                     new OracleParameter("p_appno", OracleDbType.Varchar2, pInfo.App_No, ParameterDirection.Input),
+                     new OracleParameter("p_patent_type", OracleDbType.Varchar2, pInfo.Patent_Type, ParameterDirection.Input),
+                     new OracleParameter("p_title", OracleDbType.Varchar2, pInfo.Title, ParameterDirection.Input),
+                     new OracleParameter("p_request", OracleDbType.Varchar2, pInfo.Request, ParameterDirection.Input),
+                     new OracleParameter("p_claims", OracleDbType.Varchar2, pInfo.Claims, ParameterDirection.Input),
+                     new OracleParameter("p_abstract", OracleDbType.Varchar2, pInfo.Abstract, ParameterDirection.Input),
+                     new OracleParameter("p_description", OracleDbType.Varchar2, pInfo.Description, ParameterDirection.Input),
+                     new OracleParameter("p_drawing", OracleDbType.Decimal, pInfo.Drawing, ParameterDirection.Input),
+                     new OracleParameter("p_number_industrial", OracleDbType.Decimal, pInfo.Number_Industrial, ParameterDirection.Input),
+                     new OracleParameter("p_number_sheet", OracleDbType.Decimal, pInfo.Number_Sheet, ParameterDirection.Input),
+                     new OracleParameter("p_multiple", OracleDbType.Varchar2, pInfo.Multiple, ParameterDirection.Input),
+                     new OracleParameter("p_setofarticle", OracleDbType.Varchar2, pInfo.SetOfArticle, ParameterDirection.Input),
+                     new OracleParameter("p_composition", OracleDbType.Varchar2, pInfo.Composition, ParameterDirection.Input),
+                     new OracleParameter("p_class_content", OracleDbType.Varchar2, pInfo.Class_Content, ParameterDirection.Input),
+                     new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
+                     new OracleParameter("p_filling_fee", OracleDbType.Decimal, pInfo.Filling_Fee, ParameterDirection.Input),
+                     new OracleParameter("p_basic_fee", OracleDbType.Decimal, pInfo.Basic_Fee, ParameterDirection.Input),
+                     new OracleParameter("p_others_fee", OracleDbType.Decimal, pInfo.Others_Fee, ParameterDirection.Input),
+                     new OracleParameter("p_name_of_print", OracleDbType.Varchar2, pInfo.Name_Of_Print, ParameterDirection.Input),
+                     new OracleParameter("p_date_signed", OracleDbType.Date, pInfo.Date_Signed, ParameterDirection.Input),
+                    paramReturn);
+                var result = Convert.ToDecimal(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public int Deleted(decimal p_app_header_id, string pAppCode, string pLanguage)
+        {
+            try
+            {
+                var paramReturn = new OracleParameter("P_RETURN", OracleDbType.Int32, ParameterDirection.Output);
+                OracleHelper.ExecuteNonQuery(Configuration.connectionString, CommandType.StoredProcedure, "pkg_pattent_lao.proc_delete",
+                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_appcode", OracleDbType.Varchar2, pAppCode, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, pLanguage, ParameterDirection.Input),
+                    paramReturn);
+
+                var result = Convert.ToInt32(paramReturn.Value.ToString());
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return ErrorCode.Error;
+            }
+        }
+
+        public DataSet GetByID(decimal p_app_header_id, string p_language_code)
+        {
+            try
+            {
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_a01.Proc_GetBy_ID",
+                    new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
+                    new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursorHeader", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_doc", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_fee", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_other_master", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_author", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_class", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_other_doc", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_uu_tien", OracleDbType.RefCursor, ParameterDirection.Output),
+                    new OracleParameter("p_cursor_image_public", OracleDbType.RefCursor, ParameterDirection.Output));
+                return _ds;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
+    }
 }

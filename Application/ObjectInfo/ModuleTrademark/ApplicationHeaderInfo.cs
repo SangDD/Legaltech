@@ -48,6 +48,14 @@ namespace ObjectInfos
         public string Rep_Master_Phone { get; set; }
         public string Rep_Master_Fax { get; set; }
         public string Rep_Master_Email { get; set; }
+        public decimal Rep_MT_Country_Nationality { get; set; }
+        public decimal Rep_MT_Country_Residence { get; set; }
+        public decimal Rep_MT_Country_Incorporation { get; set; }
+
+        public string Rep_MT_Country_Nationality_Name { get; set; }
+        public string Rep_MT_Country_Residence_Name { get; set; }
+        public string Rep_MT_Country_Incorporation_Name { get; set; }
+
         public string Relationship { get; set; }
         public DateTime Send_Date { get; set; }
         public decimal Status { get; set; }

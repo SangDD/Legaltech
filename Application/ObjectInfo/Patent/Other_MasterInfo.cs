@@ -28,13 +28,13 @@ namespace ObjectInfos
         public string TacGiaDongThoi { set; get; }
         public string PhoBan { set; get; }
 
-        public decimal Master_Country_Nationality { get; set; }
-        public decimal Master_Country_Residence { get; set; }
-        public decimal Master_Country_Incorporation { get; set; }
+        public decimal Country_Nationality { get; set; }
+        public decimal Country_Residence { get; set; }
+        public decimal Country_Incorporation { get; set; }
 
-        public string Master_Country_Nationality_Name { get; set; }
-        public string Master_Country_Residence_Name { get; set; }
-        public string Master_Country_Incorporation_Name { get; set; }
+        public string Country_Nationality_Name { get; set; }
+        public string Country_Residence_Name { get; set; }
+        public string Country_Incorporation_Name { get; set; }
     }
 
     public class Inventor_Info
@@ -46,22 +46,24 @@ namespace ObjectInfos
         public decimal App_Header_Id { set; get; }
         public string Case_Code { set; get; }
 
-        public string Master_Name { set; get; }
+        public string Inventor_Name { set; get; }
 
-        public string Master_Address { set; get; }
+        public string Inventor_Address { set; get; }
 
-        public string Master_Phone { set; get; }
+        public string Inventor_Phone { set; get; }
 
-        public string Master_Fax { set; get; }
-        public string Master_Email { set; get; }
+        public string Inventor_Fax { set; get; }
+        public string Inventor_Email { set; get; }
 
-        public decimal Master_Country_Nationality { get; set; }
-        public decimal Master_Country_Residence { get; set; }
-        public decimal Master_Country_Incorporation { get; set; }
+        public decimal Country_Nationality { get; set; }
+        public decimal Country_Residence { get; set; }
+        public decimal Country_Incorporation { get; set; }
 
-        public string Master_Country_Nationality_Name { get; set; }
-        public string Master_Country_Residence_Name { get; set; }
-        public string Master_Country_Incorporation_Name { get; set; }
+        public string Country_Nationality_Name { get; set; }
+        public string Country_Residence_Name { get; set; }
+        public string Country_Incorporation_Name { get; set; }
+
+        public string Inventor_Others { get; set; }
     }
 
     public class AuthorsInfo

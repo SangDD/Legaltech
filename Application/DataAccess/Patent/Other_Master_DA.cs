@@ -27,6 +27,10 @@ namespace DataAccess
                      new OracleParameter("p_master_email", OracleDbType.Varchar2, pInfo.Select(o => o.Master_Email).ToArray(), ParameterDirection.Input),
                      new OracleParameter("p_tacgiadongthoi", OracleDbType.Varchar2, pInfo.Select(o => o.TacGiaDongThoi).ToArray(), ParameterDirection.Input),
                      new OracleParameter("p_phoban", OracleDbType.Varchar2, pInfo.Select(o => o.PhoBan).ToArray(), ParameterDirection.Input),
+
+                     new OracleParameter("p_country_nationality", OracleDbType.Decimal, pInfo.Select(o => o.Country_Nationality).ToArray(), ParameterDirection.Input),
+                     new OracleParameter("p_country_residence", OracleDbType.Decimal, pInfo.Select(o => o.Country_Residence).ToArray(), ParameterDirection.Input),
+                     new OracleParameter("p_country_incorporation", OracleDbType.Decimal, pInfo.Select(o => o.Country_Incorporation).ToArray(), ParameterDirection.Input),
                     paramReturn);
                 Oracle.DataAccess.Types.OracleDecimal[] totalReturn = (Oracle.DataAccess.Types.OracleDecimal[])paramReturn.Value;
                 foreach (Oracle.DataAccess.Types.OracleDecimal _item in totalReturn)
@@ -62,6 +66,9 @@ namespace DataAccess
                      new OracleParameter("p_master_email", OracleDbType.Varchar2, pInfo.Master_Email, ParameterDirection.Input),
                      new OracleParameter("p_tacgiadongthoi", OracleDbType.Varchar2, pInfo.TacGiaDongThoi, ParameterDirection.Input),
                      new OracleParameter("p_phoban", OracleDbType.Varchar2, pInfo.PhoBan, ParameterDirection.Input),
+                     new OracleParameter("p_country_nationality", OracleDbType.Decimal, pInfo.Country_Nationality, ParameterDirection.Input),
+                     new OracleParameter("p_country_residence", OracleDbType.Decimal, pInfo.Country_Residence, ParameterDirection.Input),
+                     new OracleParameter("p_country_incorporation", OracleDbType.Decimal, pInfo.Country_Incorporation, ParameterDirection.Input),
 
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());

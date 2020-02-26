@@ -568,15 +568,15 @@
                 if ($("#" + _id + "_txtUse_Inventor_No3").val() == "1") {
 
                     formData.append("pInventor_Info[" + _index + "].Inventor_Type", 0);
-                    formData.append("pInventor_Info[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Lao_No3_Other").val());
-                    formData.append("pInventor_Info[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Lao_No3_Other").val());
-                    formData.append("pInventor_Info[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Lao_No3_Other").val());
-                    formData.append("pInventor_Info[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Lao_No3_Other").val());
-                    formData.append("pInventor_Info[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Name", $("#" + _id + "_txtTenDayDu_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Address", $("#" + _id + "_txtDiaChi_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Phone", $("#" + _id + "_txtDienThoai_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Fax", $("#" + _id + "_txtFax_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Email", $("#" + _id + "_txtEmail_Lao_No3_Other").val());
 
-                    formData.append("pInventor_Info[" + _index + "].Master_Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No3_Other").val());
-                    formData.append("pInventor_Info[" + _index + "].Master_Country_Residence", $("#" + _id + "_txtCountry_Residence_No3_Other").val());
-                    formData.append("pInventor_Info[" + _index + "].Master_Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Country_Residence", $("#" + _id + "_txtCountry_Residence_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No3_Other").val());
 
                     _index = _index + 1;
                 }
@@ -600,9 +600,9 @@
                     formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Lao_No2_Other").val());
                     formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Lao_No2_Other").val());
 
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No2_Other").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Country_Residence", $("#" + _id + "_txtCountry_Residence_No2_Other").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Country_Residence", $("#" + _id + "_txtCountry_Residence_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No2_Other").val());
 
                     _index = _index + 1;
                 }
@@ -644,11 +644,11 @@
 
             // box 2
             if (ptype == 1) {
-                if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
+                if (funcThongTin_No2_SaveTem(formData, "1") != true) {
                     return false;
                 }
             } else {
-                if (funcThongTinChuDon(formData, "1") != true) {
+                if (funcThongTin_No2(formData, "1") != true) {
                     return false;
                 }
             }
@@ -934,6 +934,13 @@
             }
             formData.append("pDetail.Title", txt_Title);
 
+            if ($("#1_rdPattent").is(':checked')) {
+                formData.append("pDetail.Patent_Type", "PT");
+            } else if ($("#1_rdPetty_Pattent").is(':checked')) {
+                formData.append("pDetail.Request", "PPT");
+            } else if ($("#1_rdIndustrial").is(':checked')) {
+                formData.append("pDetail.Request", "ID");
+            }
 
             if ($("#1_rdPattent").is(':checked') || $("#1_rdPetty_Pattent").is(':checked')) {
                 var txt_Request = $("#txt_Request_Pattent").val();
@@ -1044,7 +1051,7 @@
                         return false;
                     }
                 }
-                formData.append("pDetail.Class", txt_Class_Pattent);
+                formData.append("pDetail.Class_Content", txt_Class_Pattent);
 
             } else if ($("#1_rdIndustrial").is(':checked')) {
                 var txt_Class_Industrial = $("#txt_Class_Industrial").val();
@@ -1056,7 +1063,7 @@
                         return false;
                     }
                 }
-                formData.append("pDetail.Class", txt_Class_Industrial);
+                formData.append("pDetail.Class_Content", txt_Class_Industrial);
             }
 
             // Box V đơn ưu tiên
@@ -1109,7 +1116,7 @@
                     return false;
                 }
             }
-            formData.append("pDetail.txt_Name_Of_Print", Name_Of_Print);
+            formData.append("pDetail.Name_Of_Print", Name_Of_Print);
 
             var txt_Date_Signed = $("#txt_Date_Signed").val();
             if (pType == 2) {

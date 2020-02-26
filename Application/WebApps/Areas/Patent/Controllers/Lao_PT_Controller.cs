@@ -122,9 +122,9 @@ namespace WebApps.Areas.Patent.Controllers
 
         [HttpPost]
         [Route("register")]
-        public ActionResult Register(ApplicationHeaderInfo pInfo, A01_Info pDetail,
+        public ActionResult Register(ApplicationHeaderInfo pInfo, Pattent_Lao_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
-            List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
+            List<Other_MasterInfo> pOther_MasterInfo,
             List<Inventor_Info> pInventor_Info,
             List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
             List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
@@ -133,10 +133,10 @@ namespace WebApps.Areas.Patent.Controllers
             {
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                A01_BL objDetail = new A01_BL();
+                Pattent_Lao_BL objDetail = new Pattent_Lao_BL();
                 AppDocumentBL objDoc = new AppDocumentBL();
                 Other_Master_BL _Other_Master_BL = new Other_Master_BL();
-                Author_BL _Author_BL = new Author_BL();
+                Inventor_BL _Inventor_BL = new Inventor_BL();
 
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
@@ -173,48 +173,9 @@ namespace WebApps.Areas.Patent.Controllers
                         pDetail.App_Header_Id = pAppHeaderID;
                         pDetail.Case_Code = p_case_code;
 
-                        if (pDetail.Source_PCT == "Y")
-                        {
-                            pDetail.DQSC_Filling_Date = DateTime.MinValue;
-                            pDetail.GPHI_Filling_Date = DateTime.MinValue;
-                        }
-                        else if (pDetail.Source_DQSC == "Y")
-                        {
-                            pDetail.GPHI_Filling_Date = DateTime.MinValue;
-                            pDetail.PCT_Date = DateTime.MinValue;
-                            pDetail.PCT_Filling_Date_Qt = DateTime.MinValue;
-                            pDetail.PCT_VN_Date = DateTime.MinValue;
-                        }
-                        else if (pDetail.Source_GPHI == "Y")
-                        {
-                            pDetail.DQSC_Filling_Date = DateTime.MinValue;
-                            pDetail.PCT_Date = DateTime.MinValue;
-                            pDetail.PCT_Filling_Date_Qt = DateTime.MinValue;
-                            pDetail.PCT_VN_Date = DateTime.MinValue;
-                        }
-
                         pReturn = objDetail.Insert(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
-                    }
-
-                    if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
-                    {
-                        foreach (var item in pAppAuthorsInfo)
-                        {
-                            item.Case_Code = p_case_code;
-                            item.App_Header_Id = pAppHeaderID;
-                        }
-                        decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
-                        if (_re <= 0)
-                            goto Commit_Transaction;
-
-                        ////Thêm thông tin class
-                        //if (pAppClassInfo != null)
-                        //{
-                        //    AppClassDetailBL objClassDetail = new AppClassDetailBL();
-                        //    pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
-                        //}
                     }
 
                     if (pOther_MasterInfo != null && pOther_MasterInfo.Count > 0)
@@ -226,6 +187,18 @@ namespace WebApps.Areas.Patent.Controllers
                         }
 
                         decimal _re = _Other_Master_BL.Insert(pOther_MasterInfo);
+                        if (_re <= 0)
+                            goto Commit_Transaction;
+                    }
+
+                    if (pInventor_Info != null && pInventor_Info.Count > 0)
+                    {
+                        foreach (var item in pInventor_Info)
+                        {
+                            item.Case_Code = p_case_code;
+                            item.App_Header_Id = pAppHeaderID;
+                        }
+                        decimal _re = _Inventor_BL.Insert(pInventor_Info);
                         if (_re <= 0)
                             goto Commit_Transaction;
                     }
@@ -296,7 +269,7 @@ namespace WebApps.Areas.Patent.Controllers
                     }
 
                     #region Phí cố định
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_PT_Lao(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
