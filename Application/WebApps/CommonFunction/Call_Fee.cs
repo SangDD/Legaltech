@@ -3546,7 +3546,7 @@ namespace WebApps.CommonFunction
             {
                 List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
                 AppFeeFixInfo _AppFeeFixInfo = new AppFeeFixInfo();
-
+                pDetail.Appcode = "LPT";
                 if (pDetail.Patent_Type == "PT")
                 {
                     #region 1. Filing patent application for invention  

@@ -1,25 +1,26 @@
-﻿@model string
+﻿@model Inventor_Info
 @using ObjectInfos;
 @using WebApps.Resources;
 @using BussinessFacade.ModuleMemoryData
 @{
-    string txtTenDayDu = Model + "_txtTenDayDu_Lao_No3";
-    string txtDiaChi = Model + "_txtDiaChi_Lao_No3";
-    string txtDienThoai = Model + "_txtDienThoai_Lao_No3";
-    string txtFax = Model + "_txtFax_Lao_No3";
-    string txtEmail = Model + "_txtEmail_Lao_No3";
+    string _id = Model.Model_Id.ToString();
+    string txtTenDayDu = _id + "_txtTenDayDu_Lao_No3";
+    string txtDiaChi = _id + "_txtDiaChi_Lao_No3";
+    string txtDienThoai = _id + "_txtDienThoai_Lao_No3";
+    string txtFax = _id + "_txtFax_Lao_No3";
+    string txtEmail = _id + "_txtEmail_Lao_No3";
 
 
-    string txtCountry_Nationality = Model + "_txtCountry_Nationality_No3";
-    string txtCountry_Residence = Model + "_txtCountry_Residence_No3";
-    string txt_Country_Incorporation = Model + "_txt_Country_Incorporation_No3";
+    string txtCountry_Nationality = _id + "_txtCountry_Nationality_No3";
+    string txtCountry_Residence = _id + "_txtCountry_Residence_No3";
+    string txt_Country_Incorporation = _id + "_txt_Country_Incorporation_No3";
 
 
-    var objAppHeaderInfo = new ApplicationHeaderInfo();
-    if (ViewBag.objAppHeaderInfo != null)
-    {
-        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
-    }
+    //var objAppHeaderInfo = new ApplicationHeaderInfo();
+    //if (ViewBag.objAppHeaderInfo != null)
+    //{
+    //    objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    //}
     string _disable = "";
 
     if (ViewBag.Isdisable == 1)
@@ -35,7 +36,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+            <input value="@Model.Inventor_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
         </div>
     </div>
 </div>
@@ -47,77 +48,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
-        </div>
-    </div>
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div style="width:150px"> Country of nationality </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <select id="@txtCountry_Nationality" style="width: 250px;">
-                @foreach (var item in MemoryData.c_lst_Country)
-                {
-                    if (item.Country_Id == objAppHeaderInfo.Master_Country_Nationality)
-                    {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@item.Country_Id">@item.Name</option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
-
-    <div class="div-search-title">
-        <div style="width:150px"> Country of residence </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <select id="@txtCountry_Residence">
-                @foreach (var item in MemoryData.c_lst_Country)
-                {
-                    if (item.Country_Id == objAppHeaderInfo.Master_Country_Residence)
-                    {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@item.Country_Id">@item.Name</option>
-                    }
-                }
-            </select>
-        </div>
-    </div>
-
-     
-</div>
-
-<div class="div-search-ad">
-    <div class="div-search-title">
-        <div style="width:150px">Country of incorporation:  </div>
-    </div>
-    <div class="div-search-content">
-        <div>
-            <select id="@txt_Country_Incorporation">
-                @foreach (var item in MemoryData.c_lst_Country)
-                {
-                    if (item.Country_Id == objAppHeaderInfo.Master_Country_Incorporation)
-                    {
-                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
-                    }
-                    else
-                    {
-                        <option value="@item.Country_Id">@item.Name</option>
-                    }
-                }
-            </select>
-
+            <input value="@Model.Inventor_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
         </div>
     </div>
 </div>
@@ -128,7 +59,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input type="text" value="@objAppHeaderInfo.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+            <input type="text" value="@Model.Inventor_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
         </div>
     </div>
 
@@ -137,7 +68,7 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Fax" type="text" maxlength="50" style="width: 250px;" id="@txtFax" @_disable />
+            <input value="@Model.Inventor_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
         </div>
     </div>
     <div class="div-search-title">
@@ -145,10 +76,82 @@
     </div>
     <div class="div-search-content">
         <div>
-            <input value="@objAppHeaderInfo.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
+            <input value="@Model.Inventor_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
         </div>
     </div>
 </div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width:150px"> Country of nationality </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="@txtCountry_Nationality" style="width: 250px;" disabled>
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == Model.Country_Nationality)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div> Country of residence </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="@txtCountry_Residence" disabled>
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == Model.Country_Residence)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
+                }
+            </select>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width:150px">Country of incorporation:  </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <select id="@txt_Country_Incorporation" disabled>
+                @foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == Model.Country_Incorporation)
+                    {
+                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                    }
+                    else
+                    {
+                        <option value="@item.Country_Id">@item.Name</option>
+                    }
+                }
+            </select>
+
+        </div>
+    </div>
+</div>
+
+
 
 
 

@@ -274,7 +274,7 @@ namespace DataAccess
         {
             try
             {
-                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_a01.Proc_GetBy_ID",
+                DataSet _ds = OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "pkg_pattent_lao.Proc_GetBy_ID",
                     new OracleParameter("p_app_header_id", OracleDbType.Decimal, p_app_header_id, ParameterDirection.Input),
                     new OracleParameter("p_language_code", OracleDbType.Varchar2, p_language_code, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output),

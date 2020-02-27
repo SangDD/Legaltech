@@ -67,7 +67,7 @@
         Lst_UTienInfo = (List<UTienInfo>)ViewBag.Lst_UTienInfo;
     }
 
-    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("LTP");
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("LPT");
 }
 
 <style>
@@ -143,7 +143,7 @@
             <div class="div-search-content">
                 <div class="div-radio">
 
-                    @if (_App_Detail.Patent_Type == "PT")
+                    @if (_App_Detail.Patent_Type == "PPT")
                     {
                         <input type="radio" name="1_rdo_Pattent_Type" id="1_rdPetty_Pattent" value="2" onchange="onChange_Type()" disabled checked>
                     }
@@ -159,7 +159,7 @@
             <div class="div-search-content">
                 <div class="div-radio">
 
-                    @if (_App_Detail.Patent_Type == "PT")
+                    @if (_App_Detail.Patent_Type == "ID")
                     {
                         <input type="radio" name="1_rdo_Pattent_Type" id="1_rdIndustrial" value="3" onchange="onChange_Type()" disabled checked>
                     }
@@ -234,7 +234,10 @@
         </div>
 
         <div id="div_PartialThongTinTacGia">
-            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_3_View.cshtml", Lst_Other_Master[0])
+            @{
+                Lst_Inventor_Info[0].Model_Id = 1;
+            }
+            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_3_View.cshtml", Lst_Inventor_Info[0])
         </div>
 
         <div id="divMoreInventors">
@@ -250,14 +253,23 @@
                         </div>
                     </div>
 
-                    Lst_Inventor_Info[i].Model_Id = i;
+                    Lst_Inventor_Info[i].Model_Id = (i + 1);
                     @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_3_Other_View.cshtml", Lst_Other_Master[i])
                 }
             }
         </div>
 
+
+
         @if (Lst_UTienInfo.Count > 0)
         {
+            <div class="divCover cls_form_title">
+                <img src="~/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    Box No. V. PRIORITY CLAIMS (IF ANY)
+                </div>
+            </div>
+
             <div id="div_ThongTinDonUuTien">
                 @for (int i = 0; i < Lst_UTienInfo.Count; i++)
                 {
@@ -314,7 +326,7 @@
             </div>
 
             @* Hình công bố *@
-            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_View.cshtml")
+            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_View_Lao.cshtml")
 
         </div>
 
@@ -477,7 +489,7 @@
         }
 
         @*TÀI LIỆU KHÁC*@
-        @if (_LstDocumentOthersInfo.Count > 0)
+        @if (Lst_DocumentOthers.Count > 0)
         {
             @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_View.cshtml")
         }
@@ -495,7 +507,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="500" id="txt_Filling_Fee" value="@_App_Detail.Filling_Fee" style="width:150px" disabled />
+                    <input type="text" maxlength="500" id="txt_Filling_Fee" value="@_App_Detail.Filling_Fee.ToString("#,##0.#")" style="width:150px" disabled />
                 </div>
             </div>
 
@@ -504,7 +516,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="15" id="txt_Basic_Fee" value="@_App_Detail.Basic_Fee" style="width:150px" disabled />
+                    <input type="text" maxlength="15" id="txt_Basic_Fee" value="@_App_Detail.Basic_Fee.ToString("#,##0.#")" style="width:150px" disabled />
                 </div>
             </div>
 
@@ -513,7 +525,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="15" id="txt_Others_Fee" value="@_App_Detail.Others_Fee" disabled />
+                    <input type="text" maxlength="15" id="txt_Others_Fee" value="@_App_Detail.Others_Fee.ToString("#,##0.#")" disabled />
                 </div>
             </div>
         </div>
@@ -541,7 +553,7 @@
             <div class="div-search-content">
                 <div>
                     <input type="text" maxlength="15" id="txt_Date_Signed" class="datetimepicker" disabled
-                           value="@(_App_Detail.Date_Signed == DateTime.MinValue ? "" : _App_Detail.Date_Signed.ToString("dd/MM/yyyy"))"/>
+                           value="@(_App_Detail.Date_Signed == DateTime.MinValue ? "" : _App_Detail.Date_Signed.ToString("dd/MM/yyyy"))" />
                 </div>
             </div>
         </div>
@@ -640,5 +652,5 @@
             });
         });
     }
- 
+
 </script>

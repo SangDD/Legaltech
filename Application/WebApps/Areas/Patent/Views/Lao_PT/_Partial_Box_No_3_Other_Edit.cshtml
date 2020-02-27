@@ -3,7 +3,7 @@
 @using WebApps.Resources;
 @using BussinessFacade.ModuleMemoryData
 @{
-    string _id = Model.Model_Id;
+    string _id = Model.Model_Id.ToString();
     string txtTenDayDu = _id + "_txtTenDayDu_Lao_No3";
     string txtDiaChi = _id + "_txtDiaChi_Lao_No3";
     string txtDienThoai = _id + "_txtDienThoai_Lao_No3";
@@ -48,7 +48,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Master_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
+                <input value="@Model.Inventor_Name" type="text" maxlength="200" id="@txtTenDayDu" @_disable />
             </div>
         </div>
     </div>
@@ -60,7 +60,35 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@Model.Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+                <input value="@Model.Inventor_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div style="width:150px"> Phone: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@Model.Inventor_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+            </div>
+        </div>
+
+        <div class="div-search-title">
+            <div> Fax: </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@Model.Inventor_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
+            </div>
+        </div>
+        <div class="div-search-title">
+            <div>Email Address:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input value="@Model.Inventor_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
             </div>
         </div>
     </div>
@@ -134,33 +162,7 @@
         </div>
     </div>
 
-    <div class="div-search-ad">
-        <div class="div-search-title">
-            <div style="width:150px"> Phone: </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input type="text" value="@Model.Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
-            </div>
-        </div>
 
-        <div class="div-search-title">
-            <div> Fax: </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input value="@Model.Master_Fax" type="text" maxlength="50" id="@txtFax" @_disable />
-            </div>
-        </div>
-        <div class="div-search-title">
-            <div>Email Address:  </div>
-        </div>
-        <div class="div-search-content">
-            <div>
-                <input value="@Model.Master_Email" type="text" maxlength="50" id="@txtEmail" @_disable />
-            </div>
-        </div>
-    </div>
 
 
     <div class="div_full_100_area classChuDonKhac">

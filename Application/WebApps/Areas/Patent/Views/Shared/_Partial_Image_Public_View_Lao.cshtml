@@ -1,0 +1,41 @@
+﻿@using ObjectInfos.ModuleTrademark
+@using ObjectInfos
+@using WebApps.Resources;
+@{
+    var Lst_ImagePublic = new List<AppDocumentOthersInfo>();
+    if (ViewBag.Lst_ImagePublic != null)
+    {
+        Lst_ImagePublic = (List<AppDocumentOthersInfo>)ViewBag.Lst_ImagePublic;
+    }
+
+    decimal _max_Model_Id = Lst_ImagePublic.Count + 1;
+}
+<style>
+    .classDocOtherE {
+        text-align: left;
+        padding: 3px;
+        color: blue;
+    }
+</style>
+
+<div class="div_full_100_area" id="divContainerDocOther_Img" style="margin-top: 5px">
+    <div class="divCover cls_form_title">
+        <div class="cls_form_header" style="margin: 0 !important;">
+            DRAWING
+        </div>
+    </div>
+
+    <div id="divDocumentOtherImg">
+        @for (int i = 0; i < Lst_ImagePublic.Count; i++)
+        {
+            Lst_ImagePublic[i].Model_Id = (i + 1);
+            Lst_ImagePublic[i].Is_View = 1;
+            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Child_Edit_Lao.cshtml", Lst_ImagePublic[i])
+        }
+
+    </div>
+</div>
+
+@* danh dau so tt sinh id  *@
+<input type="hidden" id="increNo_Img" value="@_max_Model_Id" />
+ 

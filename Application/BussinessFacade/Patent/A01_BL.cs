@@ -161,7 +161,7 @@ namespace BussinessFacade
         {
             try
             {
-                A01_DA _obj_da = new A01_DA();
+                Pattent_Lao_DA _obj_da = new Pattent_Lao_DA();
                 return _obj_da.Deleted(p_app_header_id, pAppCode, pLanguage);
             }
             catch (Exception ex)
@@ -180,7 +180,7 @@ namespace BussinessFacade
         {
             try
             {
-                A01_DA _obj_da = new A01_DA();
+                Pattent_Lao_DA _obj_da = new Pattent_Lao_DA();
                 DataSet dataSet = _obj_da.GetByID(p_app_header_id, p_language_code);
                 Pattent_Lao_Info _A01_Info = CBO<Pattent_Lao_Info>.FillObjectFromDataSet(dataSet);
                 if (dataSet != null && dataSet.Tables.Count == 10)

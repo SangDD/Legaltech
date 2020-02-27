@@ -279,7 +279,7 @@
             </div>
 
             @* Hinh cong bo *@
-            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public.cshtml")
+            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Lao.cshtml")
 
         </div>
 
@@ -423,7 +423,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="500" id="txt_Filling_Fee" style="width:150px" />
+                    <input type="text" maxlength="500" id="txt_Filling_Fee" style="width:150px" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
                 </div>
             </div>
 
@@ -432,7 +432,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="15" id="txt_Basic_Fee" style="width:150px" />
+                    <input type="text" maxlength="15" id="txt_Basic_Fee" style="width:150px" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
                 </div>
             </div>
 
@@ -441,7 +441,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="15" id="txt_Others_Fee" />
+                    <input type="text" maxlength="15" id="txt_Others_Fee" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
                 </div>
             </div>
         </div>
@@ -1189,13 +1189,13 @@
 
     function funGetDocumentFile(formData) {
         try {
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_01", "0");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_02", "1");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_03", "2");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_04", "3");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "4");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_01", "0");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_02", "1");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_03", "2");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_04", "3");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_05", "4");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_06", "5");
+            reponse = funcGetCheckValueAndText(formData, "ckb_DOC_07", "6");
 
         } catch (e) {
             console.log(e);
