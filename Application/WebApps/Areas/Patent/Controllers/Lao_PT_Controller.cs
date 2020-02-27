@@ -269,7 +269,7 @@ namespace WebApps.Areas.Patent.Controllers
                     }
 
                     #region Phí cố định
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_PT_Lao(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_PT_Lao(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic, pAppDocOtherInfo);
                     if (_lstFeeFix.Count > 0)
                     {
                         AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
@@ -333,7 +333,7 @@ namespace WebApps.Areas.Patent.Controllers
 
         [HttpPost]
         [Route("edit")]
-        public ActionResult Edit(ApplicationHeaderInfo pInfo, A01_Info pDetail,
+        public ActionResult Edit(ApplicationHeaderInfo pInfo, Pattent_Lao_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
             List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
             List<Inventor_Info> pInventor_Info,
@@ -344,7 +344,7 @@ namespace WebApps.Areas.Patent.Controllers
             {
                 Application_Header_BL objBL = new Application_Header_BL();
                 AppFeeFixBL objFeeFixBL = new AppFeeFixBL();
-                A01_BL objDetail = new A01_BL();
+                Pattent_Lao_BL objDetail = new Pattent_Lao_BL();
                 if (pInfo == null || pDetail == null) return Json(new { status = ErrorCode.Error });
                 string language = AppsCommon.GetCurrentLang();
 
@@ -369,42 +369,22 @@ namespace WebApps.Areas.Patent.Controllers
                     // detail
                     if (pReturn >= 0)
                     {
-                        if (pDetail.Source_PCT == "Y")
-                        {
-                            pDetail.DQSC_Filling_Date = DateTime.MinValue;
-                            pDetail.GPHI_Filling_Date = DateTime.MinValue;
-                        }
-                        else if (pDetail.Source_DQSC == "Y")
-                        {
-                            pDetail.GPHI_Filling_Date = DateTime.MinValue;
-                            pDetail.PCT_Date = DateTime.MinValue;
-                            pDetail.PCT_Filling_Date_Qt = DateTime.MinValue;
-                            pDetail.PCT_VN_Date = DateTime.MinValue;
-                        }
-                        else if (pDetail.Source_GPHI == "Y")
-                        {
-                            pDetail.DQSC_Filling_Date = DateTime.MinValue;
-                            pDetail.PCT_Date = DateTime.MinValue;
-                            pDetail.PCT_Filling_Date_Qt = DateTime.MinValue;
-                            pDetail.PCT_VN_Date = DateTime.MinValue;
-                        }
-
                         pDetail.App_Header_Id = pInfo.Id;
                         pReturn = objDetail.UpDate(pDetail);
                         if (pReturn <= 0)
                             goto Commit_Transaction;
                     }
 
-                    Author_BL _Author_BL = new Author_BL();
-                    _Author_BL.Deleted(pInfo.Case_Code, language);
-                    if (pAppAuthorsInfo != null && pAppAuthorsInfo.Count > 0)
+                    Inventor_BL _Inventor_BL = new Inventor_BL();
+                    _Inventor_BL.Deleted(pInfo.Case_Code, language);
+                    if (pInventor_Info != null && pInventor_Info.Count > 0)
                     {
-                        foreach (var item in pAppAuthorsInfo)
+                        foreach (var item in pInventor_Info)
                         {
                             item.Case_Code = pInfo.Case_Code;
                             item.App_Header_Id = pInfo.Id;
                         }
-                        decimal _re = _Author_BL.Insert(pAppAuthorsInfo);
+                        decimal _re = _Inventor_BL.Insert(pInventor_Info);
                         if (_re <= 0)
                             goto Commit_Transaction;
                     }
@@ -530,7 +510,7 @@ namespace WebApps.Areas.Patent.Controllers
                     AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
                     _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
 
-                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_PT_Lao(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic, pAppDocOtherInfo);
                     if (_lstFeeFix.Count > 0)
                     {
                         pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);

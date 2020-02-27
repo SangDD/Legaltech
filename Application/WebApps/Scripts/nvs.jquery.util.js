@@ -350,6 +350,30 @@ function jsFormatFloatNumber_SoAm(nStr, txtControlId) {
     setCaretPosition(ctrl, key_index + (parseInt(after_length) - parseInt(before_length))); // set vị trí con trỏ
 }
 
+function FomartNumberCurency(nStr, txtControlId) {
+    var _Vondieule = nStr;
+    var _tempvondieule = "";
+    var _newtemp = "";
+    var _Regex = new RegExp('^[0-9]+$');
+    //var _RegexChar = new RegExp('[|,}{+&-=!?;/#\"$%^*()<>`~[]\\]+$');     
+    for (var i = 0; i < _Vondieule.length; i++) {// cat het nhung ky tu khong phai la so
+        _newtemp += _Vondieule[i];
+        if (_Regex.test(_newtemp)) {
+            _tempvondieule = _newtemp;
+        }
+    }
+    if (_Regex.test(_Vondieule))//neu la so thi lay
+    {
+        _Vondieule = nStr;
+
+    }
+    else {
+        _Vondieule = _tempvondieule;
+    }
+    $("input[id=" + txtControlId + "]").val(_tempvondieule);
+    return true;
+}
+
 
 function jsFormatNumber(nStr, txtControlId) {
     if (nStr.indexOf('.') != -1)//neu nhap vao dang 1.000.000.000 thi doi thanh 1,000,000,000

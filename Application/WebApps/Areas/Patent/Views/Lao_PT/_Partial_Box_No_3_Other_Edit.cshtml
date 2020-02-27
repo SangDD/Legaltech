@@ -1,22 +1,22 @@
-﻿@using ObjectInfos;
+﻿@model Inventor_Info
+@using ObjectInfos;
 @using WebApps.Resources;
-@model Other_MasterInfo
 @using BussinessFacade.ModuleMemoryData
 @{
     string _id = Model.Model_Id;
+    string txtTenDayDu = _id + "_txtTenDayDu_Lao_No3";
+    string txtDiaChi = _id + "_txtDiaChi_Lao_No3";
+    string txtDienThoai = _id + "_txtDienThoai_Lao_No3";
+    string txtFax = _id + "_txtFax_Lao_No3";
+    string txtEmail = _id + "_txtEmail_Lao_No3";
 
-    string txtTenDayDu = _id + "_txtTenDayDu_Lao_No2_Other";
-    string txtDiaChi = _id + "_txtDiaChi_Lao_No2_Other";
-    string txtDienThoai = _id + "_txtDienThoai_Lao_No2_Other";
-    string txtFax = _id + "_txtFax_Lao_No2_Other";
-    string txtEmail = _id + "_txtEmail_Lao_No2_Other";
 
-    string txtCountry_Nationality = _id + "_txtCountry_Nationality_No2_Other";
-    string txtCountry_Residence = _id + "_txtCountry_Residence_No2_Other";
-    string txt_Country_Incorporation = _id + "_txt_Country_Incorporation_No2_Other";
+    string txtCountry_Nationality = _id + "_txtCountry_Nationality_No3";
+    string txtCountry_Residence = _id + "_txtCountry_Residence_No3";
+    string txt_Country_Incorporation = _id + "_txt_Country_Incorporation_No3";
 
-    string divChuDonKhac = _id + "_divChuDonKhac_No2";
-    string txtUse = _id + "_txtUse_ChuDonKhac_No2";
+    string divChuDonKhac = Model + "_divInventor_No3_Other";
+    string txtUse = Model + "_txtUse_Inventor_No3";
 
     //var objAppHeaderInfo = new ApplicationHeaderInfo();
     //if (ViewBag.objAppHeaderInfo != null)
@@ -24,14 +24,19 @@
     //    objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     //}
     string _disable = "";
+
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
 }
 
-<div id="@divChuDonKhac" class="clsChuDonKhac" data-id="@_id">
+<div id="@divChuDonKhac" class="clsInventor_No3" data-id="@_id">
 
     <div class="divCover cls_form_title">
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
-            Other Applicant
+            Other Inventor
         </div>
     </div>
 
@@ -69,7 +74,7 @@
                 <select id="@txtCountry_Nationality" style="width: 250px;">
                     @foreach (var item in MemoryData.c_lst_Country)
                     {
-                        if (item.Country_Id == Model.Master_Country_Nationality)
+                        if (item.Country_Id == Model.Country_Nationality)
                         {
                             <option selected="selected" value="@item.Country_Id">@item.Name</option>
                         }
@@ -90,7 +95,7 @@
                 <select id="@txtCountry_Residence">
                     @foreach (var item in MemoryData.c_lst_Country)
                     {
-                        if (item.Country_Id == Model.Master_Country_Residence)
+                        if (item.Country_Id == Model.Country_Residence)
                         {
                             <option selected="selected" value="@item.Country_Id">@item.Name</option>
                         }
@@ -114,7 +119,7 @@
                 <select id="@txt_Country_Incorporation">
                     @foreach (var item in MemoryData.c_lst_Country)
                     {
-                        if (item.Country_Id == Model.Master_Country_Incorporation)
+                        if (item.Country_Id == Model.Country_Incorporation)
                         {
                             <option selected="selected" value="@item.Country_Id">@item.Name</option>
                         }
@@ -157,8 +162,9 @@
         </div>
     </div>
 
+
     <div class="div_full_100_area classChuDonKhac">
-        <a href="javascript:;" onclick="return XoaChuDonKhac('@divChuDonKhac', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">Remove Applicant</a>
+        <a href="javascript:;" onclick="return XoaChuDonKhac('@divChuDonKhac', '@txtUse');" style="text-decoration:underline; color: blue;float: right;">Remove Inventor </a>
     </div>
 </div>
 
@@ -188,6 +194,7 @@
             placeholder: 'Search country'
         });
     });
+
 
     function XoaChuDonKhac(pId, pId2) {
         try {

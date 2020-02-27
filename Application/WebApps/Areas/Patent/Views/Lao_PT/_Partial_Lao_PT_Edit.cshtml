@@ -13,10 +13,10 @@
         _AppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
     }
 
-    A01_Info _App_Detail = new A01_Info();
+    Pattent_Lao_Info _App_Detail = new Pattent_Lao_Info();
     if (ViewBag.App_Detail != null)
     {
-        _App_Detail = (A01_Info)ViewBag.App_Detail;
+        _App_Detail = (Pattent_Lao_Info)ViewBag.App_Detail;
     }
 
     List<AppDocumentInfo> Lst_AppDoc = new List<AppDocumentInfo>();
@@ -31,10 +31,10 @@
         Lst_AppFee = (List<AppFeeFixInfo>)ViewBag.Lst_AppFee;
     }
 
-    List<AuthorsInfo> Lst_AuthorsInfo = new List<AuthorsInfo>();
-    if (ViewBag.Lst_AuthorsInfo != null)
+    List<Inventor_Info> Lst_Inventor_Info = new List<Inventor_Info>();
+    if (ViewBag.Lst_Inventor_Info != null)
     {
-        Lst_AuthorsInfo = (List<AuthorsInfo>)ViewBag.Lst_AuthorsInfo;
+        Lst_Inventor_Info = (List<Inventor_Info>)ViewBag.Lst_Inventor_Info;
     }
 
     List<Other_MasterInfo> Lst_Other_Master = new List<Other_MasterInfo>();
@@ -67,15 +67,7 @@
         Lst_UTienInfo = (List<UTienInfo>)ViewBag.Lst_UTienInfo;
     }
 
-    string clsDisplayNone_PCT_Suadoi = "clssDisplaynone";
-    if (_App_Detail.PCT_Suadoi == 1)
-    {
-        clsDisplayNone_PCT_Suadoi = "";
-    }
-
-    decimal _max_Model_Id = Lst_Other_Master.Count + 1;
-    decimal _max_Model_Id_author = Lst_AuthorsInfo.Count + 1;
-
+    List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("LTP");
     B_Todos_Info _todo = new B_Todos_Info();
     if (ViewBag.B_Todos_Info != null)
     {
@@ -129,31 +121,62 @@
 
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;margin-top: 15px;">
-        <legend style="font-weight:600"> @Resource.PatentRegister.ToUpper()</legend>
+        <legend style="font-weight:600"> REQUEST FOR THE GRANT PATENT, PETTY PATENT, INDUSTRIAL</legend>
 
         @* Case name *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_Lao.cshtml", "0")
 
         @* 3 - ĐƠN YÊU CẦU SỬA ĐỔI *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.ChuDonDuoiDay:
+                PATENT TYPE
             </div>
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-content">
                 <div class="div-radio" style="width:482px">
-                    <input type="radio" name="1_rdoLoaiSangChe" id="1_rdBangDocQuyen" value="1" checked="checked">
-                    <label>@Resource.BangDocQuyenSangChe</label>
+                    @if (_App_Detail.Patent_Type == "PT")
+                    {
+                        <input type="radio" name="1_rdo_Pattent_Type" id="1_rdPattent" value="1" onchange="onChange_Type()" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdo_Pattent_Type" id="1_rdPattent" value="1" onchange="onChange_Type()">
+                    }
+                    <label>Patent</label>
                 </div>
             </div>
 
             <div class="div-search-content">
                 <div class="div-radio">
-                    <input type="radio" name="1_rdoLoaiSangChe" id="3_rdKieuDangCongNghiep" value="2" disabled>
-                    <label>@Resource.BangDocQuyenGPHI</label>
+
+                    @if (_App_Detail.Patent_Type == "PT")
+                    {
+                        <input type="radio" name="1_rdo_Pattent_Type" id="1_rdPetty_Pattent" value="2" onchange="onChange_Type()" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdo_Pattent_Type" id="1_rdPetty_Pattent" value="2" onchange="onChange_Type()">
+                    }
+                    <label>Petty Patent</label>
+                </div>
+            </div>
+        </div>
+        <div class="div-search-ad">
+            <div class="div-search-content">
+                <div class="div-radio">
+
+                    @if (_App_Detail.Patent_Type == "PT")
+                    {
+                        <input type="radio" name="1_rdo_Pattent_Type" id="1_rdIndustrial" value="3" onchange="onChange_Type()" checked>
+                    }
+                    else
+                    {
+                        <input type="radio" name="1_rdo_Pattent_Type" id="1_rdIndustrial" value="3" onchange="onChange_Type()">
+                    }
+                    <label>Industrial Design</label>
                 </div>
             </div>
         </div>
@@ -161,631 +184,44 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.NguonGocDon.ToUpper()
+                Box No I. TITLE
             </div>
         </div>
 
         <div class="div-search-ad">
+            <div class="div-search-title" style="height: 63px;">
+                <div>Title <i class="redspan">(*)</i></div>
+            </div>
             <div class="div-search-content">
-                <div class="div-radio">
-                    @if (_App_Detail.Source_PCT == "N" && _App_Detail.Source_DQSC == "N" && _App_Detail.Source_GPHI == "N")
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdNew" value="0" onchange="return ShowHiden_NguonGocDon()" checked>
-                    }
-                    else
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdNew" value="0" onchange="return ShowHiden_NguonGocDon()">
-                    }
-                    <label> @Resource.DonMoi</label>
+                <div>
+                    <input type="text" id="txt_Title" style="height:65px" value="@_App_Detail.Title" />
                 </div>
             </div>
         </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    @if (_App_Detail.Source_PCT == "Y")
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" checked="checked" onchange="return ShowHiden_NguonGocDon()">
-                    }
-                    else
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdPCT" onchange="return ShowHiden_NguonGocDon()">
-                    }
-                    <label> @Resource.DonNopTrenPCT</label>
-                </div>
-            </div>
-        </div>
-
-        @if (_App_Detail.Source_PCT == "Y")
-        {
-            <div id="divPCT" style="margin-top: 5px; background:#fbf4f4">
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.So:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_SoDon" style="width:348px" value="@_App_Detail.PCT_Number" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayNopDonQuocTe:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-
-                            <input type="text" id="txt_PCT_NgayNopQT" value="@(_App_Detail.PCT_Filling_Date_Qt == DateTime.MinValue ? "" : _App_Detail.PCT_Filling_Date_Qt.ToString("dd/MM/yyyy"))" class="datetimepicker" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.CongBoQuocTeSo:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_CongBoQT" style="width:348px" value="@_App_Detail.PCT_Number_Qt" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.Ngay:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_Date" value="@(_App_Detail.PCT_Date == DateTime.MinValue ? "" : _App_Detail.PCT_Date.ToString("dd/MM/yyyy"))" class="datetimepicker" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayChonVietNam:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-
-                            <input type="text" id="txt_PCT_VN_Date" value="@(_App_Detail.PCT_VN_Date == DateTime.MinValue ? "" : _App_Detail.PCT_VN_Date.ToString("dd/MM/yyyy"))" class="datetimepicker" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="margin-left: 0px">
-                            @if (_App_Detail.PCT_Suadoi == 1)
-                            {
-                                <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()" checked="checked">
-                            }
-                            else
-                            {
-                                <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
-                            }
-                            <label> @Resource.CoSuaDoi</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="@clsDisplayNone_PCT_Suadoi" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;background:#fbf4f4">
-                    <div class="divCover cls_form_title">
-                        <div class="cls_form_header">
-                            @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio" style="width:382px">
-                                @if (_App_Detail.PCT_Suadoi_Name == "Y")
-                                {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1" checked>
-                                }
-                                else
-                                {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
-                                }
-
-                                <label>@Resource.TM3B_TenChuDon</label>
-                            </div>
-                        </div>
-
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                @if (_App_Detail.PCT_Suadoi_Address == "Y")
-                                {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2" checked>
-                                }
-                                else
-                                {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
-                                }
-
-                                <label>@Resource.TM3B_DiaChiChuDon</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio" style="width:382px">
-                                @if (_App_Detail.PCT_Suadoi_Others == "Y")
-                                {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3" checked>
-                                }
-                                else
-                                {
-                                    <input type="radio" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
-                                }
-
-                                <label>@Resource.TM3B_NoiDungKhac</label>
-                            </div>
-                        </div>
-
-                        <div class="div-search-title" style="margin-left: 0px !important;">
-                            <div>@Resource.TM3B_DeNghiSuaThanh:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" value="@_App_Detail.PCT_Suadoi_Content" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="clssDisplaynone" id="divPCT" style="margin-top: 5px; background:#fbf4f4">
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.So</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_SoDon" style="width:348px" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayNopDonQuocTe:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_NgayNopQT" class="datetimepicker" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.CongBoQuocTeSo:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_CongBoQT" style="width:348px" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.Ngay:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_Date" class="datetimepicker" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayChonVietNam:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_PCT_VN_Date" class="datetimepicker" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="margin-left: 0px">
-                            <input type="checkbox" name="2_rdo_PCT_SuaDoi" id="2_rdo_PCT_SuaDoi" onchange="return ShowHiden_PCT_SuaDoi()">
-                            <label> @Resource.CoSuaDoi</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="clssDisplaynone" id="divPCT_SuaDoi" style="margin-top: 5px;margin-left: 15px;background:#fbf4f4">
-                    <div class="divCover cls_form_title">
-                        <div class="cls_form_header">
-                            @Resource.TM3B_NoiDungYCSuaDoi.ToUpper() <i class="redspan">(*)</i>
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio" style="width:382px">
-                                <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdTenChuDon" value="1">
-                                <label>@Resource.TM3B_TenChuDon</label>
-                            </div>
-                        </div>
-
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdDiaChiChuDon" value="2">
-                                <label>@Resource.TM3B_DiaChiChuDon</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="div-search-ad">
-                        <div class="div-search-content">
-                            <div class="div-radio" style="width:382px">
-                                <input type="checkbox" name="4_rdoNoiDungYeuCauSuaDoi" id="4_rdnoiDungKhac" value="3">
-                                <label>@Resource.TM3B_NoiDungKhac</label>
-                            </div>
-                        </div>
-
-                        <div class="div-search-title" style="margin-left: 0px !important;">
-                            <div>@Resource.TM3B_DeNghiSuaThanh:</div>
-                        </div>
-                        <div class="div-search-content">
-                            <div>
-                                <input type="text" placeholder="@Resource.TM3B_DeNghiSuaThanh" id="4_DeNghiSuaThanh" />
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        }
-
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    @if (_App_Detail.Source_DQSC == "Y")
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" checked="checked" onchange="return ShowHiden_NguonGocDon()">
-                    }
-                    else
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdDQSC" onchange="return ShowHiden_NguonGocDon()">
-                    }
-                    <label> @Resource.DonTachDQSC</label>
-                </div>
-            </div>
-        </div>
-
-        @if (_App_Detail.Source_DQSC == "Y")
-        {
-            <div id="divDQSC" style="margin-top: 5px;background:#fbf4f4">
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.DonGoc:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_DQSC_SoDon" style="width:348px" value="@_App_Detail.DQSC_Origin_App_No" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayNopDon:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_DQSC_NgayNop" value="@(_App_Detail.DQSC_Filling_Date == DateTime.MinValue ? "" : _App_Detail.DQSC_Filling_Date.ToString("dd/MM/yyyy"))" class="datetimepicker" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:464px">
-                            @if (_App_Detail.DQSC_Valid_After == 1)
-                            {
-                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_TruocHopLe" checked="checked">
-                            }
-                            else
-                            {
-                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_TruocHopLe">
-                            }
-                            <label>@Resource.TruocHopLe </label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            @if (_App_Detail.DQSC_Valid_Before == 1)
-                            {
-                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_SauHopLe" checked="checked">
-                            }
-                            else
-                            {
-                                <input type="radio" name="DQSC_TruocSauHopLe" id="DQSC_SauHopLe">
-                            }
-                            <label>@Resource.SauHopLe </label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="clssDisplaynone" id="divDQSC" style="margin-top: 5px;background:#fbf4f4">
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.DonGoc:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_DQSC_SoDon" style="width:348px" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayNopDon:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_DQSC_NgayNop" class="datetimepicker" />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:464px">
-                            <input type="checkbox" name="DQSC_TruocHopLe" id="DQSC_TruocHopLe" value="1">
-                            <label>@Resource.TruocHopLe</label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="checkbox" name="DQSC_SauHopLe" id="DQSC_SauHopLe" value="1">
-                            <label>@Resource.SauHopLe</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    @if (_App_Detail.Source_DQSC == "Y")
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" checked="checked" onchange="return ShowHiden_NguonGocDon()">
-                    }
-                    else
-                    {
-                        <input type="radio" class="classNguonGoc" name="2_rdoNguonGocDon" id="2_rdGPHI" value="3" onchange="return ShowHiden_NguonGocDon()">
-                    }
-                    <label> @Resource.DonTachGPHI</label>
-                </div>
-            </div>
-        </div>
-
-        @if (_App_Detail.Source_GPHI == "Y")
-        {
-            <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px; background:#fbf4f4">
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.DonGoc:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_GPHI_SoDon" style="width:348px" value="@_App_Detail.GPHI_Origin_App_No" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayNopDon:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_GPHI_NgayNop" class="datetimepicker" value="@(_App_Detail.GPHI_Filling_Date == DateTime.MinValue ? "" : _App_Detail.GPHI_Filling_Date.ToString("dd/MM/yyyy"))" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:464px">
-                            @if (_App_Detail.GPHI_Valid_Before == 1)
-                            {
-                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" checked="checked" />
-                            }
-                            else
-                            {
-                                <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" />
-                            }
-                            <label>@Resource.TruocHopLe</label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            @if (_App_Detail.GPHI_Valid_After == 1)
-                            {
-                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" checked="checked" />
-                            }
-                            else
-                            {
-                                <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" />
-                            }
-                            <label>@Resource.SauHopLe</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
-        else
-        {
-            <div class="clssDisplaynone" id="divGPHI" style="margin-top: 5px; background:#fbf4f4">
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div>@Resource.DonGoc:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_GPHI_SoDon" style="width:348px" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div>@Resource.NgayNopDon:</div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" id="txt_GPHI_NgayNop" class="datetimepicker" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad" style="margin-top: 5px;margin-left: 15px;">
-                    <div class="div-search-content">
-                        <div class="div-radio" style="width:464px">
-                            <input type="checkbox" name="GPHI_TruocHopLe" id="GPHI_TruocHopLe" value="1">
-                            <label>@Resource.TruocHopLe</label>
-                        </div>
-                    </div>
-
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            <input type="checkbox" name="GPHI_SauHopLe" id="GPHI_SauHopLe" value="1">
-                            <label>@Resource.SauHopLe</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        }
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.TenSangChe.ToUpper()
-            </div>
-        </div>
-
-        <div style="width: 100%;height: 100px;">
-            <div class="div-search-ad" style="width:50%;float:left">
-                <div class="div-search-title" style="height: 63px;">
-                    <div>@Resource.TenSangChe <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="txt_Patent_Name" style="height:65px" value="@_App_Detail.Patent_Name" />
-                    </div>
-                </div>
-            </div>
-
-            <div style="width:49%;float:left;margin-left: 10px;">
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            @if (_App_Detail.Class_Type == "CUC")
-                            {
-                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked">
-                            }
-                            else
-                            {
-                                <input type="radio" name="TuPhanLoai" id="ckbCucPhanLoai" onchange="onChangeTuPhanLoai()">
-                            }
-                            <label>@Resource.YeuCauCucPhanLoai</label>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-content">
-                        <div class="div-radio">
-                            @if (_App_Detail.Class_Type == "MY")
-                            {
-                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()" checked="checked">
-                            }
-                            else
-                            {
-                                <input type="radio" name="TuPhanLoai" id="ckbTuPhanLoai" onchange="onChangeTuPhanLoai()">
-                            }
-                            <label>@Resource.TuPhanLoai</label>
-                        </div>
-                    </div>
-                </div>
-
-                @if (_App_Detail.Class_Type == "MY")
-                {
-
-                    <div class="div-search-ad" id="divTuNhapPhanLoai">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <input type="text" id="txtClass" value="@_App_Detail.Class_Content">
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="div-search-ad clssDisplaynone" id="divTuNhapPhanLoai">
-                        <div class="div-search-content">
-                            <div class="div-radio">
-                                <input type="text" id="txtClass" value="@_App_Detail.Class_Content">
-                            </div>
-                        </div>
-                    </div>
-                }
-            </div>
-        </div>
-
-        @* Class *@
-        @*@Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTMAddAppClassView.cshtml")*@
-        @* End Class *@
-
-        @* 1 - CHỦ ĐƠN*@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.TM2B_ChuDon
+                Box No II. APPLICANT
             </div>
         </div>
         <div id="div_PartialThongTinChuDon">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon.cshtml", "1")
+            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_2.cshtml")
         </div>
 
         <div class="div-search-ad">
             <div class="div-search-content">
-                <div class="div-radio" style="width:385px">
-                    @if (_App_Detail.Master_Type != "")
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi" checked="checked">
-                    }
-                    else
-                    {
-                        <input type="radio" name="1_rdoChuDon" value="TGDT" id="1_ckbTacGiaDongThoi">
-                    }
-                    <label>@Resource.ChuDonDongThoiLaTacGia</label>
-                </div>
-            </div>
-
-            <div class="div-search-content">
-                <div class="div-radio">
+                <div class="div-checkbox">
                     @if (Lst_Other_Master.Count > 0)
                     {
-                        <input type="radio" name="1_rdoChuDon" checked="checked" value="2" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="checkbox" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()" checked>
                     }
                     else
                     {
-                        <input type="radio" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
+                        <input type="checkbox" name="1_rdoChuDon" value="CDK" id="rdChuDonKhac" onchange="onChangeChuDonKhac()">
                     }
-                    <label>@Resource.NgoaiChuDon</label>
+
+                    <label>If there are more than one applicants Continute in the "Supplemental Box"</label>
                 </div>
             </div>
         </div>
@@ -793,88 +229,53 @@
         <div id="divChuDonKhac">
             @for (int i = 0; i < Lst_Other_Master.Count; i++)
             {
-                Lst_Other_Master[i].Model_Id = (i + 1);
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDonKhac_Edit.cshtml", Lst_Other_Master[i])
+                Lst_Other_Master[i].Model_Id = i;
+                @Html.Partial("~/Areas/TradeMark/Views/Shared/_Partial_Box_No_2_Other_Edit.cshtml", Lst_Other_Master[i])
             }
         </div>
 
         <div class="div_full_100_area classChuDonKhac clssDisplaynone" id="divChungDonKhac001">
-            <input type="hidden" id="txt_id_ChuDon" value="@_max_Model_Id" />
-            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemChuDonKhac</a>
+            <input type="hidden" id="txt_id_ChuDon" value="@(Lst_Other_Master.Count + 1)" />
+            <a href="javascript:;" onclick="return ThemChuDon();" style="text-decoration:underline; color: blue;float: left;">More Applicant</a>
         </div>
 
-        @* 2 - ĐẠI DIỆN CỦA CHỦ ĐƠN *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
-        @* end 2 *@
 
-        @* Tác giả *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.TacGia
+                Box: No. III. INVENTOR OR DESIGNER
             </div>
         </div>
 
         <div id="div_PartialThongTinTacGia">
-            @if (Lst_AuthorsInfo.Count > 0)
-            {
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Edit.cshtml", Lst_AuthorsInfo[0])
+            @{
+                Lst_Inventor_Info[0].Model_Id = 1;
             }
+            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_3_Edit.cshtml", Lst_Inventor_Info[0])
         </div>
 
-        <div id="divTacGiaKhac">
-            @if (Lst_AuthorsInfo.Count > 1)
+        <div id="divMoreInventors">
+            @if (Lst_Inventor_Info.Count > 1)
             {
-                for (int i = 1; i < Lst_AuthorsInfo.Count; i++)
+                for (int i = 1; i < Lst_Inventor_Info.Count; i++)
                 {
 
                     <div class="divCover cls_form_title">
                         <img src="~/Content/icons/category.png" />
                         <div class="cls_form_header">
-                            @Resource.TacGiaKhac
+                            More Inventor
                         </div>
                     </div>
 
-                    Lst_AuthorsInfo[i].Model_Id = (i + 1);
-                    @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinTacGia_Edit.cshtml", Lst_AuthorsInfo[i])
+                    Lst_Inventor_Info[i].Model_Id = (i + 1);
+                    @Html.Partial("~/Areas/Patent/Views/Lao_PT/_Partial_Box_No_3_Other_Edit.cshtml", Lst_Inventor_Info[i])
                 }
             }
         </div>
 
-        <div class="div_full_100_area classChuDonKhac clssDisplaynone">
-            <input type="hidden" id="txt_id_tacgia" value="@_max_Model_Id_author" />
-            <a href="javascript:;" onclick="return ThemTacGia();" style="text-decoration:underline; color: blue;float: left;">@Resource.ThemTacGia</a>
-        </div>
-
-        @* Tác giả *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @WebApps.Resources.Resource.lblYeuCauHuongQuyenUT.ToUpper()
-            </div>
-
-            <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
-                @if (_App_Detail.Used_Special == 1)
-                {
-                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" checked="checked" />
-                }
-                else
-                {
-                    <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
-                }
-                <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">@WebApps.Resources.Resource.lblYes</a></label>
-            </div>
-            <div style="display: inline-block;">
-                @if (_App_Detail.Used_Special == 0)
-                {
-                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" checked="checked" />
-                }
-                else
-                {
-                    <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
-                }
-                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">@WebApps.Resources.Resource.lblNo</a></label>
-            </div>
+        <div class="div_full_100_area classChuDonKhac">
+            <input type="hidden" id="txt_id_inventor" value="@(Lst_Inventor_Info.Count + 1)" />
+            <a href="javascript:;" onclick="return More_Inventors();" style="text-decoration:underline; color: blue;float: left;">More inventors</a>
         </div>
 
         @if (Lst_UTienInfo.Count > 0)
@@ -905,233 +306,279 @@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.SoDiemYeuCauBaoHoDocLap.ToUpper()
+                Box No. VI. CHECKLIST
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-title">
-                <div>@Resource.SoDiemYeuCau</div>
+        <div id="div_CheckList_Pattent_Petty" class="clssDisplaynone">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> Request </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@_App_Detail.Request" maxlength="50" id="txt_Request_Pattent" style="width: 250px;" placeholder="Pages" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div>Claims:  </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@_App_Detail.Claims" type="text" maxlength="50" id="txt_Claims" placeholder="Point" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                    </div>
+                </div>
+                <div class="div-search-title">
+                    <div> Abstract: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@_App_Detail.Abstract" type="text" maxlength="50" id="txt_Abstract" />
+                    </div>
+                </div>
             </div>
-            <div class="div-search-content">
-                <div>
-                    <input type="text" id="txtPoint" value="@_App_Detail.Point" />
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> Description: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@_App_Detail.Description" type="text" maxlength="500" id="txt_Description" placeholder="Pages" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                    </div>
+                </div>
+            </div>
+
+            @* Hình công bố *@
+            @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Edit.cshtml")
+
+        </div>
+
+        <div id="div_CheckList_Industrial" class="clssDisplaynone">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width:150px"> Request </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@_App_Detail.Request" maxlength="50" id="txt_Request_Industrial" placeholder="Pages" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width:150px">Number of industrial design:  </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@_App_Detail.Number_Industrial" type="text" maxlength="50" id="txt_Number_Industrial" style="width: 250px;" />
+                    </div>
+                </div>
+
+                <div class="div-search-title">
+                    <div style="width:175px"> Number of sheet of presentation: </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input value="@_App_Detail.Number_Sheet" type="text" maxlength="50" id="txt_Number_Sheet" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="divCover cls_form_title">
+                @*<img src="~/Content/icons/category.png" />*@
+                <div class="cls_form_header">
+                    Application is for
+                </div>
+            </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio" style="width:382px">
+                        @if (_App_Detail.Multiple == "T")
+                        {
+                            <input type="checkbox" name="4_rd_Application_For" id="4_rdMultiple" value="1" checked>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="4_rd_Application_For" id="4_rdMultiple" value="1">
+                        }
+
+                        <label>Multiple</label>
+                    </div>
+                </div>
+
+                <div class="div-search-content">
+                    <div class="div-radio" style="width:382px">
+
+                        @if (_App_Detail.SetOfArticle == "T")
+                        {
+                            <input type="checkbox" name="4_rd_Application_For" id="4_rdSetOfArticle" value="2" checked>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="4_rd_Application_For" id="4_rdSetOfArticle" value="2">
+                        }
+                        <label>Set Of Article</label>
+                    </div>
+                </div>
+
+                <div class="div-search-content">
+                    <div class="div-radio">
+
+                        @if (_App_Detail.Composition == "T")
+                        {
+                            <input type="checkbox" name="4_rd_Application_For" id="4_rdComposition" value="3" checked>
+                        }
+                        else
+                        {
+                            <input type="checkbox" name="4_rd_Application_For" id="4_rdComposition" value="3">
+                        }
+                        <label>Composition</label>
+                    </div>
                 </div>
             </div>
         </div>
 
-        @* Yêu cầu thẩm định nội dung *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.YeuCauThamDinhNoiDung
+                Box No. VII. INTERNATIONAL CLASSIFICATION
             </div>
         </div>
 
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    @if (_App_Detail.ThamDinhNoiDung != "")
-                    {
-                        <input type="checkbox" id="ckbThamDinhNoiDung" checked="checked">
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="ckbThamDinhNoiDung">
-                    }
-                    <label> @Resource.YeuCauThamDinhNoiDung</label>
+        <div class="clssDisplaynone" id="div_Class_Pattent">
+
+            <div class="divCover cls_form_title">
+                <div class="cls_form_header">
+                    The International Patent Classification (IPC) for the Invention is
+                </div>
+            </div>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> Class </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@_App_Detail.Class_Content" maxlength="500" id="txt_Class_Pattent" />
+                    </div>
                 </div>
             </div>
         </div>
 
-        @* Yêu cầu thẩm định nội dung *@
-        <div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                @Resource.ChuyenDoiDon
+        <div class="clssDisplaynone" id="div_Class_Industrial">
+            <div class="divCover cls_form_title">
+                <div class="cls_form_header">
+                    The International Design Classification (IPC) for the Industrial Design(s) is/are
+                </div>
             </div>
-        </div>
-
-        <div class="div-search-ad">
-            <div class="div-search-content">
-                <div class="div-radio">
-                    @if (_App_Detail.ChuyenDoiDon != "")
-                    {
-                        <input type="checkbox" id="ckbChuyenDoiDon" checked="checked">
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="ckbChuyenDoiDon">
-                    }
-                    <label> @Resource.DeNghiChuyenDoiDon</label>
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div> Class </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" value="@_App_Detail.Class_Content" maxlength="500" id="txt_Class_Industrial" />
+                    </div>
                 </div>
             </div>
         </div>
 
-        @* Hình công bố *@
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Image_Public_Edit.cshtml")
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.TM2B_TaiLieuCoTrongDon
+                Box No. VIII. ANNEXES
             </div>
         </div>
 
-        @* id doc | id của check box | level | lable | lable 2 | is upload *@
-        @* 1 Tờ khai *@
-        @{
-            string _doc_id1 = "A01_01";
-            string _id1 = _doc_id1 + "|Doc_01|0|" + Resource.TM2B_ToKhaiGom + "|" + Resource.TM2B_SoTrang + "|0||" + Resource.lblSoBan;
-            string _value1 = dic_appDoc[_doc_id1].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id1].CHAR01 + "|" + dic_appDoc[_doc_id1].Url_Hardcopy + "|" + dic_appDoc[_doc_id1].CHAR02;
-            string _model1 = _id1 + ";" + _value1;
+        @foreach (var itemdoc in _lst_doc)
+        {
+            if (dic_appDoc.ContainsKey(itemdoc.Doc_Id))
+            {
+                string _width = "";
+                string _vl_isuse = dic_appDoc[itemdoc.Doc_Id].Isuse.ToString();
+                string _vl_char01 = dic_appDoc[itemdoc.Doc_Id].CHAR01;
+                string _vl_url = dic_appDoc[itemdoc.Doc_Id].Url_Hardcopy;
+                string _vl_char02 = dic_appDoc[itemdoc.Doc_Id].CHAR02;
 
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model1)
-        }
+                string _model = itemdoc.Doc_Id + "|" + itemdoc.Check_Box_Id + "|" + itemdoc.Doc_Level + "|" + itemdoc.Content_1 + "|" + itemdoc.Content_2 + "|" + itemdoc.Is_Upload.ToString() + "|" + _width + "|" + itemdoc.Content_3;
+                _model += ";" + _vl_isuse + "|" + _vl_char01 + "|" + _vl_url + "|" + _vl_char02;
 
-        @* 2. Bản mô tả, bằng tiếng *@
-        @{
-            string _doc_id2 = "A01_02";
-            string _id2 = _doc_id2 + "|Doc_02|0|" + Resource.BanMoTaBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-            string _value2 = dic_appDoc[_doc_id2].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id2].CHAR01 + "|" + dic_appDoc[_doc_id2].Url_Hardcopy + "|" + dic_appDoc[_doc_id2].CHAR02;
-            string _model2 = _id2 + ";" + _value2;
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model)
 
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model2)
-        }
-
-        @* 3. Bản sao *@
-        @{
-            string _doc_id3 = "A01_03";
-            string _id3 = _doc_id3 + "|Doc_03|0|" + Resource.BanSaoChungTu + "|" + Resource.TM2B_SoTrang + "|1";
-            string _value3 = dic_appDoc[_doc_id3].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id3].CHAR01 + "|" + dic_appDoc[_doc_id3].Url_Hardcopy;
-            string _model3 = _id3 + ";" + _value3;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model3)
-        }
-
-
-        @{
-            string _doc_id4 = "A01_04";
-            string _id4 = _doc_id4 + "|Doc_04|0|" + Resource.BanTomTatBangTieng + "|" + Resource.TM3B_Tieng + "|1||" + Resource.TM2B_SoTrang;
-            string _value4 = dic_appDoc[_doc_id4].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id4].CHAR01 + "|" + dic_appDoc[_doc_id4].Url_Hardcopy + "|" + dic_appDoc[_doc_id4].CHAR02;
-            string _model4 = _id4 + ";" + _value4;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model4)
-        }
-
-
-        @{
-            string _doc_id5 = "A01_05";
-            string _id5 = _doc_id5 + "|Doc_05|0|" + Resource.lblBanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-            string _value5 = dic_appDoc[_doc_id5].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id5].CHAR01 + "|" + dic_appDoc[_doc_id5].Url_Hardcopy;
-            string _model5 = _id5 + ";" + _value5;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model5)
-        }
-
-        @* 6 Giấy uỷ quyền bằng tiếng *@
-        @{
-            string _doc_id6 = "A01_06";
-            string _id6 = _doc_id6 + "|Doc_06|0|" + Resource.TM3B_GiayUyQuyenBangTieng + "|" + Resource.TM3B_Tieng + "|0";
-            string _value6 = dic_appDoc[_doc_id6].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id6].CHAR01 + "|" + dic_appDoc[_doc_id6].Url_Hardcopy;
-            string _model6 = _id6 + ";" + _value6;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model6)
-        }
-
-        @* 7  Bản dịch tiếng Việt, gồm *@
-        @{
-            string _doc_id7 = "A01_07";
-            string _id7 = _doc_id7 + "|Doc_07|1|" + Resource.TM3B_BanDichTiengVietGom + "|" + Resource.TM2B_SoTrang + "|1";
-            string _value7 = dic_appDoc[_doc_id7].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id7].CHAR01 + "|" + dic_appDoc[_doc_id7].Url_Hardcopy;
-            string _model7 = _id7 + ";" + _value7;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model7)
-        }
-
-        @* 8 Bản gốc *@
-        @{
-            string _doc_id8 = "A01_08";
-            string _id8 = _doc_id8 + "|Doc_08|1|" + Resource.TM2B_BanGoc + "||1";
-            string _value8 = dic_appDoc[_doc_id8].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id8].CHAR01 + "|" + dic_appDoc[_doc_id8].Url_Hardcopy;
-            string _model8 = _id8 + ";" + _value8;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model8)
-        }
-
-        @* 9 Bản sao *@
-        @{
-            string _doc_id9 = "A01_09";
-            string _id9 = _doc_id9 + "|Doc_09|1|" + Resource.TM2B_BanSao + "||0";
-            string _value9 = dic_appDoc[_doc_id9].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id9].CHAR01 + "|" + dic_appDoc[_doc_id9].Url_Hardcopy;
-            string _model9 = _id9 + ";" + _value9;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model9)
-        }
-
-
-        @* 10 Bản sao  > Bản gốc sẽ nộp sau *@
-        @{
-            string _doc_id10 = "A01_10";
-            string _id10 = _doc_id10 + "|Doc_10|2|" + Resource.TM2B_BanGocSeNopSau + "||1";
-            string _value10 = dic_appDoc[_doc_id10].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id10].CHAR01 + "|" + dic_appDoc[_doc_id10].Url_Hardcopy;
-            string _model10 = _id10 + ";" + _value10;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model10)
-        }
-
-        @* 11 Bản sao  > Bản gốc đã nộp theo đơn *@
-        @{
-            string _doc_id11 = "A01_11";
-            string _id11 = _doc_id11 + "|Doc_11|2|" + Resource.TM2B_BanGocDaNopTheo + "|" + Resource.TM2B_SodonNopTheo + "|1";
-            string _value11 = dic_appDoc[_doc_id11].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id11].CHAR01 + "|" + dic_appDoc[_doc_id11].Url_Hardcopy;
-            string _model11 = _id11 + ";" + _value11;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model11)
-        }
-
-        @* 12 Tài liệu chứng minh quyền ưu tiên bỏ đi vì đã có ở phần quyền ưu tiên *@
-        @*@{
-            string _doc_id12 = "A01_12";
-            string _id12 = _doc_id12 + "|Doc_12|0|" + Resource.lblTaiLieuChungMinhQuyenUT + " || 0";
-            string _value12 = dic_appDoc[_doc_id12].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id12].CHAR01 + "|" + dic_appDoc[_doc_id12].Url_Hardcopy;
-            string _model12 = _id12 + ";" + _value12;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model12)
-        }
-
-        @{
-            string _doc_id13 = "A01_13";
-            string _id13 = _doc_id13 + "|Doc_13|1|" + Resource.BanSaoDonDauTien + "|" + Resource.lblBan + "|1";
-            string _value13 = dic_appDoc[_doc_id13].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id13].CHAR01 + "|" + dic_appDoc[_doc_id13].Url_Hardcopy;
-            string _model13 = _id13 + ";" + _value13;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model13)
-        }
-
-        @{
-            string _doc_id14 = "A01_14";
-            string _id14 = _doc_id14 + "|Doc_14|1|" + Resource.GiayChuyenNhuongQuyenUT + "||1";
-            string _value14 = dic_appDoc[_doc_id14].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id14].CHAR01 + "|" + dic_appDoc[_doc_id14].Url_Hardcopy;
-            string _model14 = _id14 + ";" + _value14;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model14)
-        }*@
-        @* end quyền ưu tiên *@
-
-        @{
-            string _doc_id15 = "A01_15";
-            string _id15 = _doc_id15 + "|Doc_15|0|" + Resource.TaiLieuXacNhanQuyenDangKy + "||1";
-            string _value15 = dic_appDoc[_doc_id15].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id15].CHAR01 + "|" + dic_appDoc[_doc_id15].Url_Hardcopy;
-            string _model15 = _id15 + ";" + _value15;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model15)
-        }
-
-        @{
-            string _doc_id16 = "A01_16";
-            string _id16 = _doc_id16 + "|Doc_16|0|" + Resource.CoTaiLieuKhac + "||0";
-            string _value16 = dic_appDoc[_doc_id16].Isuse.ToString().Trim() + "|" + dic_appDoc[_doc_id16].CHAR01 + "|" + dic_appDoc[_doc_id16].Url_Hardcopy;
-            string _model16 = _id16 + ";" + _value16;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_Edit.cshtml", _model16)
+            }
         }
 
         @*TÀI LIỆU KHÁC*@
+        @*@if (_LstDocumentOthersInfo.Count > 0)*@
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Edit.cshtml")
 
-        @* Cam kết của chủ đơn *@
-        @{
-            string _camket = _AppHeaderInfo.Address + "|" + _AppHeaderInfo.DateNo + "|" + _AppHeaderInfo.Months + "|" + _AppHeaderInfo.Years;
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_PartialCamKetChuDon_Edit.cshtml", _camket)
-        }
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Box No. VIII. FEE CALCULATOR (FOR OFFICIAL USE ONLY)
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Filling fee </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="500" id="txt_Filling_Fee" value="@_App_Detail.Filling_Fee" style="width:150px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Basic Fee</div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="15" id="txt_Basic_Fee" value="@_App_Detail.Basic_Fee" style="width:150px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Others Fees </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="15" id="txt_Others_Fee" value="@_App_Detail.Others_Fee" />
+                </div>
+            </div>
+        </div>
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                Box No. XI. SIGNATURE
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Name of print </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" value="@_App_Detail.Name_Of_Print" maxlength="200" id="txt_Name_Of_Print" style="width:150px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Date Signed </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="15" id="txt_Date_Signed" class="datetimepicker"
+                           value="@(_App_Detail.Date_Signed == DateTime.MinValue ? "" : _App_Detail.Date_Signed.ToString("dd/MM/yyyy"))" />
+                </div>
+            </div>
+        </div>
 
         <div class="class_save">
             <div class="classGuiDon">
@@ -1156,7 +603,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/Patent/Views/A01/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/Patent/Views/Lao_PT/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
@@ -1167,19 +614,8 @@
     </div>
 </div>
 
-
 <script>
     $(document).ready(function () {
-        $('.classNguonGoc').click(function () {
-            $('.classNguonGoc').not(this).prop('checked', false);
-        });
-
-        if ($("#ckb_Doc_16").is(":checked") == true) {
-            $("#divContainerDocOther").css('display', 'block')
-        } else {
-            $("#divContainerDocOther").css('display', 'none');
-        }
-
         $.datetimepicker.setLocale('vi');
         $('.datetimepicker').datetimepicker({
             timepicker: false,
@@ -1190,59 +626,43 @@
             scrollInput: false
         });
 
-        //Search suggestion
-        var Name = $("#1_txtTenDayDu").val();
-        $.ajax({
-            url: '/trade-mark/GetNameSuggest/',
-            type: 'POST',
-            data: {
-                pName: Name
-            },
-            sync: true, cache: false, traditional: true,
-            success: function (data) {
-
-                var lts = data.lst;
-                $('#1_txtTenDayDu').autocomplete({
-                    autoFocus: true,
-                    source: function (request, response) {
-                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                        response($.grep(lts, function (item) {
-                            return matcher.test(item.value);
-                        }));
-                    },
-                    select: function (event, ui) {
-                        $("#1_txtTenDayDu").val("");
-                        event.preventDefault();
-                        var arrVal = ui.item.value.split('|');
-                        if (arrVal.length === 5) {
-                            $("#1_txtTenDayDu").val(arrVal[0]);
-                            $("#1_txtDiaChi").val(arrVal[1]);
-                            $("#1_txtDienThoai").val(arrVal[2]);
-                            $("#1_txtFax").val(arrVal[3]);
-                            $("#1_txtEmail").val(arrVal[4]);
-                        }
-
-                    },
-                    focus: function (event, ui) {
-                        var arrResult = $(".ui-menu-item");
-                        for (var i = 0; i < arrResult.length; i++) {
-                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.name) {
-                                $(".clsLiActive").removeClass("clsLiActive")
-                                $(arrResult[i]).addClass("clsLiActive");
-                                break;
-                            }
-                        }
-                        event.preventDefault();
-                    },
-                    open: function (event, ui) {
-                        $("ul").scrollTop(0);
-                        event.preventDefault();
-                    },
-                });
-            }
-        });
+        onChange_Type();
     });
+
+    function onChange_Type() {
+
+        if ($("#1_rdPattent").is(':checked')) {
+            $("#div_CheckList_Pattent_Petty").removeClass("clssDisplaynone");
+            $("#div_Class_Pattent").removeClass("clssDisplaynone");
+
+            $("#div_CheckList_Industrial").addClass("clssDisplaynone");
+            $("#div_Class_Industrial").addClass("clssDisplaynone");
+        } else if ($("#1_rdPetty_Pattent").is(':checked')) {
+            $("#div_CheckList_Pattent_Petty").removeClass("clssDisplaynone");
+            $("#div_Class_Pattent").removeClass("clssDisplaynone");
+
+            $("#div_CheckList_Industrial").addClass("clssDisplaynone");
+            $("#div_Class_Industrial").addClass("clssDisplaynone");
+        } else if ($("#1_rdIndustrial").is(':checked')) {
+            $("#div_CheckList_Pattent_Petty").addClass("clssDisplaynone");
+            $("#div_Class_Pattent").addClass("clssDisplaynone");
+
+            $("#div_CheckList_Industrial").removeClass("clssDisplaynone");
+            $("#div_Class_Industrial").removeClass("clssDisplaynone");
+        }
+    }
+
+    function onChangeTLKhac() {
+        try {
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                $("#divTLKhac").removeClass("clssDisplaynone");
+            } else {
+                $("#divTLKhac").addClass("clssDisplaynone");
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     $("#btnSend").click(function () {
         try {
@@ -1290,31 +710,61 @@
         }
     });
 
+    $("#btnLuuTam").click(function () {
+        try {
+            nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmLuuTam)", function () {
+                funGetData(1);
+            });
+        } catch (e) {
+            CreateRollingWaitingIcon(false);
+            console.log(e);
+        }
+    });
+
+    function funcOther_BoxNo3(formData) {
+        try {
+            // bắt đầu từ 1 vì thằng 0 là bên chính
+            var _index = 1;
+            $(".clsInventor_No3").each(function (item) {
+                var _id = $(this).attr('data-id');
+                if ($("#" + _id + "_txtUse_Inventor_No3").val() == "1") {
+
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Type", 0);
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Name", $("#" + _id + "_txtTenDayDu_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Address", $("#" + _id + "_txtDiaChi_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Phone", $("#" + _id + "_txtDienThoai_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Fax", $("#" + _id + "_txtFax_Lao_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Inventor_Email", $("#" + _id + "_txtEmail_Lao_No3_Other").val());
+
+                    formData.append("pInventor_Info[" + _index + "].Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Country_Residence", $("#" + _id + "_txtCountry_Residence_No3_Other").val());
+                    formData.append("pInventor_Info[" + _index + "].Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No3_Other").val());
+
+                    _index = _index + 1;
+                }
+            });
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
     function funcChuDonKhac(formData) {
         try {
             var _index = 0;
             $(".clsChuDonKhac").each(function (item) {
                 var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse_ChuDonKhac").val() == "1") {
+                if ($("#" + _id + "_txtUse_ChuDonKhac_No2").val() == "1") {
 
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Khac").val());
-                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Khac").val());
-                    //formData.append("pOther_MasterInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Name", $("#" + _id + "_txtTenDayDu_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Address", $("#" + _id + "_txtDiaChi_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Phone", $("#" + _id + "_txtDienThoai_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Fax", $("#" + _id + "_txtFax_Lao_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Master_Email", $("#" + _id + "_txtEmail_Lao_No2_Other").val());
 
-                    if ($("#" + _id + "_ckbTacGiaDongThoi").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "TGDT");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].TacGiaDongThoi", "");
-                    }
-
-                    if ($("#" + _id + "_ckbPhoBan").is(':checked')) {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "PB");
-                    } else {
-                        formData.append("pOther_MasterInfo[" + _index + "].PhoBan", "");
-                    }
+                    formData.append("pOther_MasterInfo[" + _index + "].Country_Nationality", $("#" + _id + "_txtCountry_Nationality_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Country_Residence", $("#" + _id + "_txtCountry_Residence_No2_Other").val());
+                    formData.append("pOther_MasterInfo[" + _index + "].Country_Incorporation", $("#" + _id + "_txt_Country_Incorporation_No2_Other").val());
 
                     _index = _index + 1;
                 }
@@ -1329,45 +779,60 @@
         try {
             //Thông tin chủ đơn
             var formData = new FormData();
-            formData.append("pInfo.Id", @_AppHeaderInfo.Id);
-            formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
 
             if (_UpdateToDo == 1) {
                 formData.append("pInfo.UpdateToDo", 1);
             }
+            formData.append("pInfo.Id", @_AppHeaderInfo.Id);
+            formData.append("pInfo.Case_Code", '@_AppHeaderInfo.Case_Code');
 
             var reponse = funcThongTinCaseName(formData, "0");
             if (reponse == false) {
                 return false;
             }
 
+            // box 2
             if (ptype == 1) {
-                if (funcThongTinChuDon_SaveTem(formData, "1") != true) {
+                if (funcThongTin_No2_SaveTem(formData, "1") != true) {
                     return false;
                 }
             } else {
-                if (funcThongTinChuDon(formData, "1") != true) {
+                if (funcThongTin_No2(formData, "1") != true) {
                     return false;
                 }
-            }
-
-            if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
-                formData.append("pInfo.Master_Type", "TGDT");
-            } else if ($("#rdChuDonKhac").is(':checked')) {
-                formData.append("pInfo.Master_Type", "CDK");
             }
 
             if (funcChuDonKhac(formData) != true) {
                 return false;
             }
 
-            // đại diện chủ đơn
-            formData.append("pInfo.Appcode", 'A01');
+            /// box 3
+            if (ptype == 1) {
+                if (funcThongTin_No3_SaveTem(formData, "1") != true) {
+                    return false;
+                }
+            } else {
+                if (funcThongTin_No3(formData, "1") != true) {
+                    return false;
+                }
+            }
+
+            if (funcOther_BoxNo3(formData) != true) {
+                return false;
+            }
+
+            // end box 3
+
+
+            // Box 4 đại diện chủ đơn
+            formData.append("pInfo.Appcode", v_AppCode);
             if (funcThongTinDaiDienChuDon(formData, "2") != true) {
                 return false;
             }
             var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-            if (ptype == 2) {
+            if (ptype == 1) {
+
+            } else if (ptype == 2) {
                 if (v_RepMasterType === "" || v_RepMasterType == undefined) {
                     jError("@Html.Raw(Resource.TM2B_ChonDaiDienChuDon)", "@Html.Raw(Resource.TM3B_Loi)", function () {
                         $("#_2_rdoNguoiDaiDienPL").focus()
@@ -1377,9 +842,16 @@
             }
 
             formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
-            formData.append("pInfo.Status", ptype);
+
+            // end box 4
+
 
             //Lấy thông tin tài liệu có trong đơn
+            if ($("#ck_TaiLieu_Khac").is(':checked')) {
+                formData.append("pInfo.USE_DOC_OTHERS", 1);
+            } else {
+                formData.append("pInfo.USE_DOC_OTHERS", 0);
+            }
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
@@ -1408,7 +880,7 @@
             }
 
             $.ajax({
-                url: '/lg-patent/edit',
+                url: '/lg-patent-lao/register',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -1449,44 +921,8 @@
         }
     }
 
-    function onChangeAppNo() {
-        try {
-            var _AppNo = $("#3_SoDon").val();
-            if (_AppNo != "") {
-
-                $.ajax({
-                    type: 'POST',
-                    url: '/trade-mark-3b/getMasterByAppNo/',
-                    data: {
-                        p_appNo: _AppNo,
-                    },
-                    async: true, cache: false, traditional: true,
-                    beforeSend: function () {
-                        CreateRollingWaitingIcon(true);
-                    },
-                    success: function (data) {
-                        CreateRollingWaitingIcon(false);
-
-                        $("#div_PartialThongTinChuDon").html(data.PartialThongTinChuDon);
-                        $("#div_PartialThongTinDaiDienChuDon").html(data.PartialThongTinDaiDienChuDon);
-                    }
-                });
-            }
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-
     function funcChoiseDonUT(pID) {
         try {
-            //if ($("#0_ckbCoSuDungDonUuTien").is(':checked')) {
-            //    $("#div_ThongTinDonUuTien").removeClass("clssDisplaynone");
-            //}
-            //else {
-            //    $("#div_ThongTinDonUuTien").addClass("clssDisplaynone");
-            //}
-
             if (pID == "0_ckbCoSuDungDonUuTien") {
                 $('#0_ckbCoSuDungDonUuTien').prop('checked', true);
                 $('#KOUT').prop('checked', false);
@@ -1504,73 +940,27 @@
         }
     }
 
-    function ShowHiden_NguonGocDon() {
-        try {
-            ShowHiden_PCT();
-            ShowHiden_DQSC();
-            ShowHiden_GPHI();
-        } catch (e) {
-            alert(e);
-        }
-    }
 
-    function ShowHiden_PCT() {
-        try {
-            if ($("#2_rdPCT").is(':checked')) {
-                $("#divPCT").removeClass("clssDisplaynone");
-                $("#txt_PCT_SoDon").focus();
-            }
-            else {
-                $("#divPCT").addClass("clssDisplaynone");
-            }
+    function onChange_Type() {
 
+        if ($("#1_rdPattent").is(':checked')) {
+            $("#div_CheckList_Pattent_Petty").removeClass("clssDisplaynone");
+            $("#div_Class_Pattent").removeClass("clssDisplaynone");
 
-        } catch (e) {
-            alert(e);
-        }
-    }
+            $("#div_CheckList_Industrial").addClass("clssDisplaynone");
+            $("#div_Class_Industrial").addClass("clssDisplaynone");
+        } else if ($("#1_rdPetty_Pattent").is(':checked')) {
+            $("#div_CheckList_Pattent_Petty").removeClass("clssDisplaynone");
+            $("#div_Class_Pattent").removeClass("clssDisplaynone");
 
-    function ShowHiden_DQSC() {
-        try {
-            if ($("#2_rdDQSC").is(':checked')) {
-                $("#divDQSC").removeClass("clssDisplaynone");
-                $("#txt_PCT_So").focus();
-            }
-            else {
-                $("#divDQSC").addClass("clssDisplaynone");
-            }
+            $("#div_CheckList_Industrial").addClass("clssDisplaynone");
+            $("#div_Class_Industrial").addClass("clssDisplaynone");
+        } else if ($("#1_rdIndustrial").is(':checked')) {
+            $("#div_CheckList_Pattent_Petty").addClass("clssDisplaynone");
+            $("#div_Class_Pattent").addClass("clssDisplaynone");
 
-
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ShowHiden_GPHI() {
-        try {
-            if ($("#2_rdGPHI").is(':checked')) {
-                $("#divGPHI").removeClass("clssDisplaynone");
-                $("#txt_GPHI_SoDon").focus();
-            }
-            else {
-                $("#divGPHI").addClass("clssDisplaynone");
-            }
-
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ShowHiden_PCT_SuaDoi() {
-        try {
-            if ($("#2_rdo_PCT_SuaDoi").is(':checked') ) {
-                $("#divPCT_SuaDoi").removeClass("clssDisplaynone");
-            }
-            else {
-                $("#divPCT_SuaDoi").addClass("clssDisplaynone");
-            }
-        } catch (e) {
-            alert(e);
+            $("#div_CheckList_Industrial").removeClass("clssDisplaynone");
+            $("#div_Class_Industrial").removeClass("clssDisplaynone");
         }
     }
 
@@ -1587,29 +977,13 @@
         }
     }
 
-    function onChangeTuPhanLoai() {
-        try {
-            if ($("#ckbTuPhanLoai").is(':checked')) {
-                $("#divTuNhapPhanLoai").removeClass("clssDisplaynone");
-                $("#txtClass").focus();
-            }
-            else {
-                $("#divTuNhapPhanLoai").addClass("clssDisplaynone");
-            }
-
-            $("#txtClass").val("");
-        } catch (e) {
-            alert(e);
-        }
-    }
-
-    function ThemTacGia() {
+    function More_Inventors() {
         try {
 
-            var _id = parseInt($("#txt_id_tacgia").val()) + 1;
+            var _id = parseInt($("#txt_id_inventor").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/tac-gia/them-tac-gia/',
+                url: '/lg-patent-lao/inventor/more/',
                 data: {
                     p_id: _id
                 },
@@ -1619,8 +993,8 @@
                 },
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
-                    $("#divTacGiaKhac").append(data);
-                    $("#txt_id_tacgia").val(_id);
+                    $("#divMoreInventors").append(data);
+                    $("#txt_id_inventor").val(_id);
                 }
             });
         } catch (e) {
@@ -1634,7 +1008,7 @@
             var _id = parseInt($("#txt_id_ChuDon").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/chu-don/them-chu-don/',
+                url: '/lg-patent-lao/chu-don/them-chu-don/',
                 data: {
                     p_id: _id
                 },
@@ -1665,12 +1039,12 @@
 
     function ThemDonUuTien() {
         try {
-
+            var _id = parseInt($("#txt_id_Don_UT").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/don-uu-tien/them-don/',
+                url: '/lg-patent-lao/don-uu-tien/them-don/',
                 data: {
-                    p_id: "2"
+                    p_id: _id
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {
@@ -1679,6 +1053,7 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#div_ThongTinDonUuTien").append(data);
+                    $("#txt_id_Don_UT").val(_id);
                 }
             });
         } catch (e) {
@@ -1686,214 +1061,231 @@
         }
     }
 
-    $("#ckb_Doc_16").change(function () {
-        if ($("#ckb_Doc_16").is(":checked") == true) {
+    $("#ckb_DOC_07").change(function () {
+        if ($("#ckb_DOC_07").is(":checked") == true) {
             $("#divContainerDocOther").css('display', 'block')
         } else {
             $("#divContainerDocOther").css('display', 'none');
         }
     });
 
-    //$("#ckb_Doc_17").change(function () {
-    //    if ($("#ckb_Doc_17").is(":checked") == true) {
-    //        $("#divContainerDocOther_Img").css('display', 'block')
-    //    } else {
-    //        $("#divContainerDocOther_Img").css('display', 'none');
-    //    }
-    //});
-
-
     function funcGetAppDetail(formData, pType) {
         try {
 
-            var txtMADDSHCN = $("#txtMADDSHCN").val();
-            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-
-            // nếu là gửi đơn
+            var txt_Title = $("#txt_Title").val();
             if (pType == 2) {
-                if (v_RepMasterType = "DDPL") {
-                    if (txtMADDSHCN == "") {
-                        jError("@Resource.TM3C_MaDaiDienKhongDuocTrong", "@Resource.TM3B_Loi", function () {
-                            $("#txtMADDSHCN").focus()
+                if (txt_Title == "") {
+                    jError("Title can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Title").focus()
+                    });
+                    return false;
+                }
+            }
+            formData.append("pDetail.Title", txt_Title);
+
+            if ($("#1_rdPattent").is(':checked')) {
+                formData.append("pDetail.Patent_Type", "PT");
+            } else if ($("#1_rdPetty_Pattent").is(':checked')) {
+                formData.append("pDetail.Request", "PPT");
+            } else if ($("#1_rdIndustrial").is(':checked')) {
+                formData.append("pDetail.Request", "ID");
+            }
+
+            if ($("#1_rdPattent").is(':checked') || $("#1_rdPetty_Pattent").is(':checked')) {
+                var txt_Request = $("#txt_Request_Pattent").val();
+                if (pType == 2) {
+                    if (txt_Request == "") {
+                        jError("Request can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Request_Pattent").focus()
                         });
                         return false;
                     }
                 }
+                formData.append("pDetail.Request", txt_Request);
+
+                var txt_Claims = $("#txt_Claims").val();
+                if (pType == 2) {
+                    if (txt_Claims == "") {
+                        jError("Claims can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Claims").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Claims", txt_Claims);
+
+                var txt_Abstract = $("#txt_Abstract").val();
+                if (pType == 2) {
+                    if (txt_Abstract == "") {
+                        jError("Abstract can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Abstract").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Abstract", txt_Abstract);
+
+                var txt_Description = $("#txt_Description").val();
+                if (pType == 2) {
+                    if (txt_Description == "") {
+                        jError("Abstract can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Description").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Description", txt_Description);
+
+            } else if ($("#1_rdIndustrial").is(':checked')) {
+                var txt_Request = $("#txt_Request_Industrial").val();
+                if (pType == 2) {
+                    if (txt_Request == "") {
+                        jError("Request can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Request_Industrial").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Request", txt_Request);
+
+                var txt_Number_Industrial = $("#txt_Number_Industrial").val();
+                if (pType == 2) {
+                    if (txt_Number_Industrial == "") {
+                        jError("Number of industrial design can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Number_Industrial").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Number_Industrial", txt_Number_Industrial);
+
+                var txt_Number_Sheet = $("#txt_Number_Sheet").val();
+                if (pType == 2) {
+                    if (txt_Number_Sheet == "") {
+                        jError("Number of sheet of presentation can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Number_Sheet").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Number_Sheet", txt_Number_Sheet);
+
+
+                if ($("#4_rdMultiple").is(':checked')) {
+                    formData.append("pDetail.Multiple", "T");
+                } else {
+                    formData.append("pDetail.Multiple", "F");
+                }
+
+                if ($("#4_rdSetOfArticle").is(':checked')) {
+                    formData.append("pDetail.SetOfArticle", "T");
+                } else {
+                    formData.append("pDetail.SetOfArticle", "F");
+                }
+
+                if ($("#4_rdComposition").is(':checked')) {
+                    formData.append("pDetail.Composition", "T");
+                } else {
+                    formData.append("pDetail.Composition", "F");
+                }
             }
 
-            formData.append("pInfo.Customer_Code", txtMADDSHCN);
+            if ($("#1_rdPattent").is(':checked') || $("#1_rdPetty_Pattent").is(':checked')) {
+                var txt_Class_Pattent = $("#txt_Class_Pattent").val();
+                if (pType == 2) {
+                    if (txt_Class_Pattent == "") {
+                        jError("Number of sheet of presentation can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Class_Pattent").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Class_Content", txt_Class_Pattent);
 
-            var _txt_Patent_Name = $("#txt_Patent_Name").val();
+            } else if ($("#1_rdIndustrial").is(':checked')) {
+                var txt_Class_Industrial = $("#txt_Class_Industrial").val();
+                if (pType == 2) {
+                    if (txt_Class_Industrial == "") {
+                        jError("Number of sheet of presentation can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                            $("#txt_Class_Industrial").focus()
+                        });
+                        return false;
+                    }
+                }
+                formData.append("pDetail.Class_Content", txt_Class_Industrial);
+            }
+
+            // Box V đơn ưu tiên
+            reponse = fun_Get_Don_UT(formData, pType);
+            if (reponse == false) {
+                return false;
+            }
+
+            // box VIII fee
+            var txt_Filling_Fee = $("#txt_Filling_Fee").val();
             if (pType == 2) {
-                if (_txt_Patent_Name == "") {
-                    jError("@Html.Raw(WebApps.Resources.Resource.TenSangChe + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                        $("#txt_Patent_Name").focus()
+                if (txt_Filling_Fee == "") {
+                    jError("Filling Fee can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Filling_Fee").focus()
                     });
                     return false;
                 }
             }
+            formData.append("pDetail.Filling_Fee", txt_Filling_Fee);
 
-            formData.append("pDetail.Patent_Name", _txt_Patent_Name);
-            formData.append("pDetail.Patent_Type", "DQSC");
-
-
-            if ($("#ckbCucPhanLoai").is(':checked')) {
-                formData.append("pDetail.Class_Type", "CUC");
-                formData.append("pDetail.Class_Content", "");
-            } else {
-                formData.append("pDetail.Class_Type", "MY");
-                formData.append("pDetail.Class_Content", $("#txtClass").val());
-            }
-
-            var _txtPoint = $("#txtPoint").val();
+            var txt_Basic_Fee = $("#txt_Basic_Fee").val();
             if (pType == 2) {
-                if (_txtPoint == "") {
-                    jError("@Html.Raw(WebApps.Resources.Resource.SoDiemYeuCauBaoHoDocLap + Resource.KhongDuocDeTrong)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                        $("#txtPoint").focus()
+                if (txt_Basic_Fee == "") {
+                    jError("Basic Fee can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Basic_Fee").focus()
                     });
                     return false;
                 }
             }
+            formData.append("pDetail.Basic_Fee", txt_Basic_Fee);
 
-            formData.append("pDetail.Point", _txtPoint);
-
-
-            if ($("#ckbThamDinhNoiDung").is(':checked')) {
-                formData.append("pDetail.ThamDinhNoiDung", "TDND");
-            } else {
-                formData.append("pDetail.ThamDinhNoiDung", "");
+            var txt_Others_Fee = $("#txt_Others_Fee").val();
+            if (pType == 2) {
+                if (txt_Others_Fee == "") {
+                    jError("Others Fee can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Others_Fee").focus()
+                    });
+                    return false;
+                }
             }
+            formData.append("pDetail.Others_Fee", txt_Others_Fee);
 
-            if ($("#ckbChuyenDoiDon").is(':checked')) {
-                formData.append("pDetail.ChuyenDoiDon", "CDD");
-            } else {
-                formData.append("pDetail.ChuyenDoiDon", "");
+            // bõ IX sign
+            var txt_Name_Of_Print = $("#txt_Name_Of_Print").val();
+            if (pType == 2) {
+                if (txt_Name_Of_Print == "") {
+                    jError("Name of print can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Name_Of_Print").focus()
+                    });
+                    return false;
+                }
             }
+            formData.append("pDetail.Name_Of_Print", txt_Name_Of_Print);
 
-            // nguồn gốc đơn
-            if ($("#2_rdPCT").is(':checked')) {
-                formData.append("pDetail.Source_PCT", "Y");
-                formData.append("pDetail.PCT_Number", $("#txt_PCT_SoDon").val());
-                formData.append("pDetail.PCT_Filling_Date_Qt", $("#txt_PCT_NgayNopQT").val());
-                formData.append("pDetail.PCT_Number_Qt", $("#txt_PCT_CongBoQT").val());
-                formData.append("pDetail.PCT_Date", $("#txt_PCT_Date").val());
-                formData.append("pDetail.PCT_VN_Date", $("#txt_PCT_VN_Date").val());
-
-                if ($("#2_rdo_PCT_SuaDoi").is(':checked')) {
-                    formData.append("pDetail.PCT_SuaDoi", 1);
-
-                    var _Request_To_Type = $("input[name='4_rdoNoiDungYeuCauSuaDoi']:checked").val();
-                    if (pType == 2) {
-                        if (_Request_To_Type === "" || _Request_To_Type == undefined) {
-                            jError("@Html.Raw(Resource.TM3B_ChonNoiDungYCSuaDoi)", "@Html.Raw(Resource.TM3B_Loi)", function () {
-                                $("#4_rdTenChuDon").focus()
-                            });
-                            return false;
-                        }
-                    }
-
-                    if ($("#4_rdTenChuDon").is(':checked')) {
-                        formData.append("pDetail.PCT_SuaDoi_Name", "Y");
-                    } else {
-                        formData.append("pDetail.PCT_SuaDoi_Name", "N");
-                    }
-
-                    if ($("#4_rdDiaChiChuDon").is(':checked')) {
-                        formData.append("pDetail.PCT_SuaDoi_Address", "Y");
-                    } else {
-                        formData.append("pDetail.PCT_SuaDoi_Address", "N");
-                    }
-
-                    if ($("#4_rdnoiDungKhac").is(':checked')) {
-                        formData.append("pDetail.PCT_SuaDoi_Others", "Y");
-                    } else {
-                        formData.append("pDetail.PCT_SuaDoi_Others", "N");
-                    }
-
-                    formData.append("pDetail.PCT_SuaDoi_Content", $("#4_DeNghiSuaThanh").val());
-
-                } else {
-                    formData.append("pDetail.PCT_SuaDoi", 0);
-                    formData.append("pDetail.PCT_SuaDoi_Type", "");
-                    formData.append("pDetail.PCT_SuaDoi_Content", "");
+            var txt_Date_Signed = $("#txt_Date_Signed").val();
+            if (pType == 2) {
+                if (txt_Date_Signed == "") {
+                    jError("Date signed can not be blank", "@Html.Raw(Resource.TM3B_Loi)", function () {
+                        $("#txt_Date_Signed").focus()
+                    });
+                    return false;
                 }
-            } else {
-                formData.append("pDetail.Source_PCT", "N");
-                formData.append("pDetail.PCT_Number", "");
-                formData.append("pDetail.PCT_Filling_Date_Qt", "");
-                formData.append("pDetail.PCT_Number_Qt", "");
-                formData.append("pDetail.PCT_Date", "");
-                formData.append("pDetail.PCT_VN_Date", "");
-
-                formData.append("pDetail.PCT_SuaDoi", 0);
-                formData.append("pDetail.PCT_SuaDoi_Type", "");
-                formData.append("pDetail.PCT_SuaDoi_Content", "");
             }
+            formData.append("pDetail.Date_Signed", txt_Date_Signed);
+        } catch (e) {
+            console.log(e);
+            showError('@Resource.TM3B_InternetError');
+            return false;
+        }
+    }
 
-            if ($("#2_rdDQSC").is(':checked')) {
-                formData.append("pDetail.Source_DQSC", "Y");
-                formData.append("pDetail.DQSC_Origin_App_No", $("#txt_DQSC_SoDon").val());
-                formData.append("pDetail.DQSC_Filling_Date", $("#txt_DQSC_NgayNop").val());
-
-                if ($("#DQSC_TruocHopLe").is(':checked')) {
-                    formData.append("pDetail.DQSC_Valid_Before", 1);
-                } else {
-                    formData.append("pDetail.DQSC_Valid_Before", 0);
-                }
-
-                if ($("#DQSC_SauHopLe").is(':checked')) {
-                    formData.append("pDetail.DQSC_Valid_After", 1);
-                } else {
-                    formData.append("pDetail.DQSC_Valid_After", 0);
-                }
-            } else {
-                formData.append("pDetail.Source_DQSC", "N");
-                formData.append("pDetail.DQSC_Origin_App_No", "");
-                formData.append("pDetail.DQSC_Filling_Date", "");
-                formData.append("pDetail.DQSC_Valid_Before", 0);
-                formData.append("pDetail.DQSC_Valid_After", 0);
-            }
-
-            if ($("#2_rdGPHI").is(':checked')) {
-                formData.append("pDetail.Source_GPHI", "Y");
-                formData.append("pDetail.GPHI_Origin_App_No", $("#txt_GPHI_SoDon").val());
-                formData.append("pDetail.GPHI_Filling_Date", $("#txt_GPHI_NgayNop").val());
-
-                if ($("#GPHI_TruocHopLe").is(':checked')) {
-                    formData.append("pDetail.GPHI_Valid_Before", 1);
-                } else {
-                    formData.append("pDetail.GPHI_Valid_Before", 0);
-                }
-
-                if ($("#GPHI_SauHopLe").is(':checked')) {
-                    formData.append("pDetail.GPHI_Valid_After", 1);
-                } else {
-                    formData.append("pDetail.GPHI_Valid_After", 0);
-                }
-            } else {
-                formData.append("pDetail.Source_GPHI", "N");
-                formData.append("pDetail.GPHI_Origin_App_No", "");
-                formData.append("pDetail.GPHI_Filling_Date", "");
-                formData.append("pDetail.GPHI_Valid_Before", 0);
-                formData.append("pDetail.GPHI_Valid_After", 0);
-            }
-
-            var _index = 0;
-            $(".clsTacGia").each(function (item) {
-                var _id = $(this).attr('data-id');
-                if ($("#" + _id + "_txtUse").val() == "1") {
-
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Name", $("#" + _id +  "_TG_TenDayDu").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Address", $("#" + _id + "_TG_DiaChi").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Phone", $("#" + _id +  "_TG_DienThoai").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Fax", $("#" + _id + "_TG_Fax").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Email", $("#" + _id + "_TG_Email").val());
-                    formData.append("pAppAuthorsInfo[" + _index + "].Author_Country", $("#" + _id + "_TG_QuocTich").val());
-
-                    _index = _index + 1;
-                }
-            });
-
+    function fun_Get_Don_UT(formData, pType) {
+        try {
             // đơn ưu tiên
             var v_CoSDQuyenUT = 0;
             if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
@@ -1934,121 +1326,27 @@
                         formData.append("pUTienInfo[" + _index + "].UT_NgayNopDon", $("#" + _id + "_UT_txtNgayNopDon").val());
                         formData.append("pUTienInfo[" + _index + "].UT_QuocGia", $("#" + _id + "_UT_txtQuocGia").val());
 
-                        var _nameYC = _id + "_rdo_YCHuongQuyen";
-                        var v_QuyenUuTien = $("input[name='" + _nameYC + "']:checked").val();
-                        if (pType == 2) {
-                            if (v_QuyenUuTien == undefined || v_QuyenUuTien == null || v_QuyenUuTien == 0 && (pEditOrNew == 1)) {
-                                showError("@Html.Raw(WebApps.Resources.Resource.YeuCauChonQuyenUuTien)");
-                                return false;
-                            }
-                        }
-                        formData.append("pUTienInfo[" + _index + "].UT_Type", v_QuyenUuTien);
-                        formData.append("pUTienInfo[" + _index + "].UT_ThoaThuanKhac", $("#" + _id + "_txtThoathuanKhac").val());
-                        _index = _index + 1;
-                        _index_document = _index_document + 1;
-                        // 13
-
-                        var _id_checkbox = "ckb_" + _id + "_TLCMQUT";
-                        var _id_textbox = "txt_" + _id + "_TLCMQUT";
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
-
-                        _index_document = _index_document + 1;
-                        _id_checkbox = "ckb_" + _id + "_BanSaoDauTien";
-                        var _id_textbox = "txt_" + _id + "_BanSaoDauTien";
-
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
-
-                        _index_document = _index_document + 1;
-                        _id_checkbox = "ckb_" + _id + "_BanDich";
-                        var _id_textbox = "txt_" + _id + "_BanDich";
-
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
-
-                        _index_document = _index_document + 1;
-                        _id_checkbox = "ckb_" + _id + "_GiayChuyenNhuong";
-                        var _id_textbox = "txt_" + _id + "_GiayChuyenNhuong";
-                        reponse = funcGetCheckValueAndText(formData, _id_checkbox, _index_document);
-                        //formData.append("pAppDocumentInfo[" + _index_document + "].CHAR01", $("#" + _id_textbox).val());
+                        var cbo_country = document.getElementById(_id + "_UT_txtQuocGia");
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia_Display", cbo_country.options[cbo_country.selectedIndex].text);
                     }
                 });
-
             }
+
+            return true;
         } catch (e) {
-            console.log(e);
-            showError('@Resource.TM3B_InternetError');
             return false;
         }
     }
 
     function funGetDocumentFile(formData) {
         try {
-            var Isuse = 0, Note = "", reponse = false;
-
-            // 1
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_01", "0");
-            formData.append("pAppDocumentInfo[0].CHAR01", $("#txt_Doc_01").val());
-            formData.append("pAppDocumentInfo[0].CHAR02", $("#txt_Doc_01_2").val());
-
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_02", "1");
-            formData.append("pAppDocumentInfo[1].CHAR01", $("#txt_Doc_02").val());
-            formData.append("pAppDocumentInfo[1].CHAR02", $("#txt_Doc_02_2").val());
-
-
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_03", "2");
-            formData.append("pAppDocumentInfo[2].CHAR01", $("#txt_Doc_03").val());
-
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_04", "3");
-            formData.append("pAppDocumentInfo[3].CHAR01", $("#txt_Doc_04").val());
-            formData.append("pAppDocumentInfo[3].CHAR02", $("#txt_Doc_04_2").val());
-
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_05", "4");
-            formData.append("pAppDocumentInfo[4].CHAR01", $("#txt_Doc_05").val());
-
-
-            // 6
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_06", "5");
-            formData.append("pAppDocumentInfo[5].CHAR01", $("#txt_Doc_06").val());
-
-            // 7
             reponse = funcGetCheckValueAndText(formData, "ckb_Doc_07", "6");
-            formData.append("pAppDocumentInfo[6].CHAR01", $("#txt_Doc_07").val());
-
-            // 8
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_08", "7");
-            formData.append("pAppDocumentInfo[7].CHAR01", "");
-
-            // 9
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_09", "8");
-            formData.append("pAppDocumentInfo[8].CHAR01", "");
-
-            // 10
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_10", "9");
-            formData.append("pAppDocumentInfo[9].CHAR01", "");
-
-            // 11
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_11", "10");
-            formData.append("pAppDocumentInfo[10].CHAR01", $("#txt_Doc_11").val());
-
-            // quyền ưu tiên
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_12", "11");
-
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_13", "12");
-            //formData.append("pAppDocumentInfo[12].CHAR01", $("#txt_Doc_13").val());
-
-            //reponse = funcGetCheckValueAndText(formData, "ckb_Doc_14", "13");
-            //formData.append("pAppDocumentInfo[13].CHAR01", "");
-
-            // end quyền ưu tiên
-
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_15", "11");
-            formData.append("pAppDocumentInfo[11].CHAR01", "");
-
-            // 16
-            reponse = funcGetCheckValueAndText(formData, "ckb_Doc_16", "12");
-            formData.append("pAppDocumentInfo[12].CHAR01", "");
 
         } catch (e) {
             console.log(e);
@@ -2061,7 +1359,6 @@
             $(".clssListUpload").each(function () {
                 formData.append("pAppDocOtherInfo[" + item + "].keyFileUpload", this.id);
                 formData.append("pAppDocOtherInfo[" + item + "].Documentname", $("#" + this.id).val());
-                formData.append("pAppDocOtherInfo[" + item + "].Id", $(this).attr('data-id'));
                 item++;
             });
             return true;
@@ -2076,7 +1373,6 @@
             $(".clssListUploadImg").each(function () {
                 formData.append("pLstImagePublic[" + item + "].keyFileUpload", this.id);
                 formData.append("pLstImagePublic[" + item + "].Documentname", $("#" + this.id).val());
-                formData.append("pLstImagePublic[" + item + "].Id", $(this).attr('data-id'));
                 item++;
             });
             return true;
@@ -2101,4 +1397,5 @@
         }
 
     }
+
 </script>

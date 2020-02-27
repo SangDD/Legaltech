@@ -246,7 +246,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="" maxlength="50" id="txt_Request_Pattent" style="width: 250px;" placeholder="Pages" />
+                        <input type="text" value="" maxlength="50" id="txt_Request_Pattent" style="width: 250px;" placeholder="Pages" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -254,7 +254,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="" type="text" maxlength="50" id="txt_Claims" />
+                        <input value="" type="text" maxlength="50" id="txt_Claims" placeholder="Point" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -273,7 +273,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="" type="text" maxlength="500" id="txt_Description" />
+                        <input value="" type="text" maxlength="500" id="txt_Description" placeholder="pages" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
                     </div>
                 </div>
             </div>
@@ -490,7 +490,7 @@
     </fieldset>
 </div>
 
-@Html.Partial("~/Areas/Patent/Views/A01/_PartialPreview_IU.cshtml")
+@Html.Partial("~/Areas/Patent/Views/Lao_PT/_PartialPreview_IU.cshtml")
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
