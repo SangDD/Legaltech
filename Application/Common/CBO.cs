@@ -125,9 +125,10 @@
             try
             {
                 var objObject = Activator.CreateInstance(objType);
-
+              
 	            foreach (DictionaryEntry de in arrOrdinals)
                 {
+                   
                     var fieldname = de.Key.ToString();
                     var possition = (int)arrOrdinals[fieldname];
                     var propertyInfo = (PropertyInfo)objProperties[fieldname];

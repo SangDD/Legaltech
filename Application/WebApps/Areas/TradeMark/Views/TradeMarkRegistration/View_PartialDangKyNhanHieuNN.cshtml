@@ -130,7 +130,18 @@
             @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
 
         </div>
-
+        <div class="div_full_100_area">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10"  value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         @* 1 *@
         <div class="div_full_100_area">
@@ -143,6 +154,25 @@
             <div id="div_PartialThongTinChuDon">
                 @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
             </div>
+
+            <div class="div-search-ad">
+                <div class="div-search-content">
+                    <div class="div-radio" style="width:482px">
+
+                        <input type="radio" name="Applicant_Type" class="" value="1" @(objAppHeaderInfo.Applicant_Type == 1 ? "checked" : "") disabled/>
+                        <label>Individual</label>
+                    </div>
+                </div>
+
+                <div class="div-search-content">
+                    <div class="div-radio">
+                        <input type="radio" name="Applicant_Type" class="" value="2" @(objAppHeaderInfo.Applicant_Type ==2 ? "checked" : "") disabled/>
+                        <label>Legal entity or organization</label>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
 
       
@@ -316,6 +346,26 @@
 
         @* 2 *@
         @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+
+        <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                GOODS AND/OR SERVICES COVERED BY THE APPLICATION (NICE CLASSIFICATION)
+            </div>
+        </div>
+
+        <div id="" data-id="" class="clsDivDonUTien">
+            <div class="div-search-ad">
+                <div class="div-search-title">
+                    <div style="width: 150px"> Class No. </div>
+                </div>
+                <div class="div-search-content">
+                    <div>
+                        <input type="text" maxlength="50" id="ClassNo" value="@objAppHeaderInfo.ClassNo" readonly/>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
