@@ -216,6 +216,7 @@
         public static string AppCodeDangKyChuyenDoi = "TM07DKCD";
         public static string AppCodeTraCuuNhanHieu = "TM03YCTCNH";
 
+        public static string AppCode_LPT = "LPT";
         public static string AppCode_A01 = "A01";
         public static string AppCodeDangKynhanHieu = "A04";
         public static string AppCodeDangKynhanHieuNN = "F04";

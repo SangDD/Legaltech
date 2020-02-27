@@ -1,0 +1,111 @@
+﻿@model string
+@using ObjectInfos;
+@using WebApps.Resources;
+@{
+
+
+
+    var objAppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+    string _disable = "";
+    int _Isdisable = 0;
+    if (ViewBag.Isdisable == 1)
+    {
+        _disable = "disabled";
+    }
+    string txtCase_Name = Model + "_txtCase_Name";
+    string txtClient_Reference = Model + "_txtClient_Reference";
+    if (Model == "-1")
+    {
+        _disable = "";
+    }
+
+}
+
+<div class="divCover cls_form_title">
+    <img src="~/Content/icons/category.png" />
+    <div class="cls_form_header">
+        CASE MANAGEMENT
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width: 120px;">
+            Case Name
+        </div>
+        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+           data-title="Case name filled by clients/applicants for easy reference/search"></a>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Case_Name" type="text" style="width: 323px;" placeholder="@WebApps.Resources.Resource.CaseName" maxlength="200" id="@txtCase_Name" @_disable />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div style="width: 120px;">
+            Case Name
+        </div>
+        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+           data-title="@WebApps.Resources.Resource.TooltipClientReference"></a>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Client_Reference" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="@txtClient_Reference" @_disable />
+        </div>
+    </div>
+</div>
+
+
+@*<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width: 200px;">
+            @WebApps.Resources.Resource.ClientReference  
+        </div>
+        <a href="javascript:;" st="" class="icon icon-info" data-placement="right" style="border:none"
+           data-title="@WebApps.Resources.Resource.TooltipClientReference"></a>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Client_Reference" type="text" placeholder="@WebApps.Resources.Resource.ClientReference" maxlength="200" id="@txtClient_Reference" @_disable />
+        </div>
+    </div>
+</div>*@
+
+<script>
+    function funcThongTinCaseName(formData, PreID) {
+        try {
+             
+            var txtCase_Name = $("#" + PreID + "_txtCase_Name").val();
+            @*if (txtCase_Name === "") {
+                $("#" + PreID + "_txtCase_Name").focus().val('');
+                showError('@Resource.CaseNameTrong');
+                return false;
+            }*@
+            var txtClient_Reference = $("#" + PreID + "_txtClient_Reference").val();
+            @*if (txtClient_Reference === "") {
+                $("#" + PreID + "_txtClient_Reference").focus().val('');
+                showError('@Resource.ClientReferenceTrong');
+                return false;
+            }*@
+
+            //Chủ đơn
+            formData.append("pInfo.Case_Name", txtCase_Name);
+            formData.append("pInfo.Client_Reference", txtClient_Reference);
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+</script>
+
+
+
+
+

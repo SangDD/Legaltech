@@ -1,0 +1,69 @@
+﻿@model string
+@using ObjectInfos;
+@{
+    string txtCase_Name = Model + "_txtCase_Name";
+    string txtClient_Reference = Model + "_txtClient_Reference";
+
+
+    var objAppHeaderInfo = new ApplicationHeaderInfo();
+    if (ViewBag.objAppHeaderInfo != null)
+    {
+        objAppHeaderInfo = (ApplicationHeaderInfo)ViewBag.objAppHeaderInfo;
+    }
+
+    string _disable = "disabled";
+}
+
+<div class="divCover cls_form_title">
+    <img src="~/Content/icons/category.png" />
+    <div class="cls_form_header">
+        CASE MANAGEMENT
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width: 120px;">
+            Case name
+        </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Case_Name" type="text" style="width: 323px;" maxlength="200" id="@txtCase_Name" @_disable />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div style="width: 120px;">
+            Client Reference
+        </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Client_Reference" type="text" maxlength="200" id="@txtClient_Reference" @_disable />
+        </div>
+    </div>
+</div>
+
+
+@*<div class="div-search-ad">
+    <div class="div-search-title">
+        <div style="width: 200px;">
+            @WebApps.Resources.Resource.ClientReference
+        </div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input value="@objAppHeaderInfo.Client_Reference" type="text" maxlength="200" id="@txtClient_Reference" @_disable />
+        </div>
+    </div>
+</div>*@
+
+<script>
+
+</script>
+
+
+
+
+
