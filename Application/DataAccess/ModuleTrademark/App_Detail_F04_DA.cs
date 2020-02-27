@@ -30,6 +30,9 @@ namespace DataAccess
                     new OracleParameter("p_color", OracleDbType.Varchar2, pInfo.Color, ParameterDirection.Input),
                     new OracleParameter("p_translation_of_word", OracleDbType.Varchar2, pInfo.Translation_Of_Word, ParameterDirection.Input),
                     new OracleParameter("p_logourl", OracleDbType.Varchar2, pInfo.Logourl, ParameterDirection.Input),
+
+                    new OracleParameter("p_classno", OracleDbType.Varchar2, pInfo.ClassNo, ParameterDirection.Input),
+                    new OracleParameter("p_duadate", OracleDbType.Date, pInfo.Duadate, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -66,6 +69,10 @@ namespace DataAccess
                     new OracleParameter("p_color", OracleDbType.Varchar2, pInfo.Color, ParameterDirection.Input),
                     new OracleParameter("p_translation_of_word", OracleDbType.Varchar2, pInfo.Translation_Of_Word, ParameterDirection.Input),
                     new OracleParameter("p_logourl", OracleDbType.Varchar2, pInfo.Logourl, ParameterDirection.Input),
+
+                    new OracleParameter("p_classno", OracleDbType.Varchar2, pInfo.ClassNo, ParameterDirection.Input),
+                    new OracleParameter("p_duadate", OracleDbType.Date, pInfo.Duadate, ParameterDirection.Input),
+                   
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

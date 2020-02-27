@@ -3081,6 +3081,29 @@
                     }
                 }
 
+                foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id.ToString() == app_Detail.Nuocnopdon_ut.ToString())
+                    {
+                        app_Detail.Nuocnopdon_ut_text = item.Name;
+                        break;
+                    }
+                }
+                app_Detail.DuadateText = "";
+                if (app_Detail.Duadate != DateTime.MinValue)
+                {
+                    app_Detail.DuadateText = app_Detail.Duadate.ToString("dd/MM/yyyy");
+                }
+
+                if (string.IsNullOrEmpty(app_Detail.Logourl))
+                {
+                    app_Detail.Logourl = app_Detail.LogourlOrg;
+                }
+                if (app_Detail.pfileLogo != null)
+                {
+                    app_Detail.Logourl = AppLoadHelpers.PushFileToServer(app_Detail.pfileLogo, AppUpload.Logo);
+                }
+                app_Detail.Logourl = Server.MapPath(app_Detail.Logourl);
                 List<App_Detail_F04_Info> _lst = new List<App_Detail_F04_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_F04_Info>(_lst, false);
@@ -3119,8 +3142,10 @@
                     }
                 }
 
-                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+               
 
+                oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+                
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";

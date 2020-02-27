@@ -63,7 +63,7 @@ namespace BussinessFacade.ModuleTrademark
             {
                 var objData = new App_Detail_F04_DA();
                 DataSet dataSet = objData.GetByID(p_app_header_id, p_language_code);
-                App_Detail_F04_Info app_Detail_F04 = CBO<App_Detail_F04_Info>.FillObjectFromDataSet(dataSet);
+                App_Detail_F04_Info app_Detail_F04 = CBO<App_Detail_F04_Info>.FillObjectFromDataTable(dataSet.Tables[0]);
                 if (dataSet != null && dataSet.Tables.Count == 4)
                 {
                     applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(dataSet.Tables[1]);

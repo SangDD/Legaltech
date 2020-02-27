@@ -61,7 +61,9 @@ namespace ObjectInfos
 
             this.LogourlOrg = p_app_detail.LogourlOrg;
             this.Logourl = p_app_detail.Logourl;
-
+            this.ClassNo = p_app_detail.ClassNo;
+            this.Duadate = p_app_detail.Duadate;
+            this.DuadateText = p_app_detail.DuadateText;
             this.Number_Pic = p_app_detail.Number_Pic;
             this.Number_Page = p_app_detail.Number_Page;
 
@@ -106,6 +108,10 @@ namespace ObjectInfos
         public string Sodon_ut { get; set; }
         public string Ngaynopdon_ut_text { get; set; }
         public DateTime Ngaynopdon_ut { get; set; }
+
+        public DateTime Duadate { get; set; }
+
+        public string DuadateText { get; set; }
         public decimal Nuocnopdon_ut { get; set; }
         public string Nuocnopdon_ut_text { get; set; }
         public string LogourlOrg { get; set; }
