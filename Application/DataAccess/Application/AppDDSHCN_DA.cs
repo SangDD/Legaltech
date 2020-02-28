@@ -125,5 +125,21 @@ namespace DataAccess
                 return new DataSet();
             }
         }
+
+        public DataSet AppDDSHCNGetBy_Country(decimal p_country)
+        {
+            try
+            {
+                return OracleHelper.ExecuteDataset(Configuration.connectionString, CommandType.StoredProcedure, "PKG_APP_DDSHCN.PROC_APPDDSHCN_GETBY_Country",
+                new OracleParameter("p_country", OracleDbType.Decimal, p_country, ParameterDirection.Input),
+                new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new DataSet();
+            }
+        }
+
     }
 }

@@ -2824,6 +2824,15 @@ namespace WebApps.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Lào.
+        /// </summary>
+        public static string Lao {
+            get {
+                return ResourceManager.GetString("Lao", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Họ.
         /// </summary>
         public static string Last_Name {

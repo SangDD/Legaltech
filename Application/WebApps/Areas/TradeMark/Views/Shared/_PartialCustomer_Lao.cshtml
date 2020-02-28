@@ -5,7 +5,7 @@
     BussinessFacade.ModuleUsersAndRoles.UserBL _UserBL = new BussinessFacade.ModuleUsersAndRoles.UserBL();
     List<UserInfo> _lstUsersCustomer = _UserBL.GetUserByType(Convert.ToDecimal(Common.CommonData.CommonEnums.UserType.Customer));
     //var lstUsersCustomer = _lstUsersCustomer.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username });
-    var lstUsersCustomer = new List<SelectListItem> { new SelectListItem { Text = Resource.TM2B_ChonKhachHang, Value = "0" } }.Concat(_lstUsersCustomer.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username }));
+    var lstUsersCustomer = new List<SelectListItem> { new SelectListItem { Text = "Choose Client/Applicant", Value = "0" } }.Concat(_lstUsersCustomer.Select(x => new SelectListItem { Text = x.FullName, Value = x.Username }));
 
     decimal _user_type = 0;
     if (WebApps.Session.SessionData.CurrentUser != null)

@@ -1,12 +1,13 @@
 ﻿@model string
 @using ObjectInfos
 @using WebApps.Resources;
+@using BussinessFacade;
 @{
-    string txtTenDayDu = Model + "_txtTenDayDu";
-    string txtDiaChi = Model + "_txtDiaChi";
-    string txtDienThoai = Model + "_txtDienThoai";
-    string txtFax = Model + "_txtFax";
-    string txtEmail = Model + "_txtEmail";
+    string txtTenDayDu = Model + "_txtTenDayDu_Rep";
+    string txtDiaChi = Model + "_txtDiaChi_Rep";
+    string txtDienThoai = Model + "_txtDienThoai_Rep";
+    string txtFax = Model + "_txtFax_Rep";
+    string txtEmail = Model + "_txtEmail_Rep";
     var objAppHeaderInfo = new ApplicationHeaderInfo();
 
     int _IsInsert = 0;
@@ -21,24 +22,24 @@
         _IsInsert = 1;
     }
 
-    string styleDaiDienChuDon = "", styleDaiDienSH = "", styleDaiDienUQ = "";
-    if (objAppHeaderInfo.Rep_Master_Type == "DDPL")
-    {
-        styleDaiDienChuDon = "checked='checked'";
-    }
-    else if (objAppHeaderInfo.Rep_Master_Type == "DDSH")
-    {
-        styleDaiDienSH = "checked='checked'";
-    }
-    else if (objAppHeaderInfo.Rep_Master_Type == "DDUQ")
-    {
-        styleDaiDienUQ = "checked='checked'";
-    }
     string _disable = "";
     if (ViewBag.Isdisable == 1)
     {
         _disable = "disabled";
     }
+
+    AppDDSHCN_BL _AppDDSHCN_BL = new AppDDSHCN_BL();
+    AppDDSHCNInfo _AppDDSHCNInfo = _AppDDSHCN_BL.AppDDSHCNGetBy_Country(117);
+
+    string _name = _AppDDSHCNInfo.Name_En;
+    string _address = _AppDDSHCNInfo.Address_En;
+    string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
+
+    //if (language != "VI_VN")
+    //{
+    //    _name = _AppDDSHCNInfo.Name_En;
+    //    _address = _AppDDSHCNInfo.Address_En;
+    //}
 }
 
 <div id="div_PartialThongTinDaiDienChuDon">
@@ -52,7 +53,7 @@
     <div class="div-search-ad">
         <div class="div-search-content">
             <div class="div-radio">
-                <input @styleDaiDienChuDon type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" @_disable />
+                <input type="radio" name="_2_DaiDienChuDon" value="DDPL" placeholder="_2_rdoNguoiDaiDienPL" id="_2_rdoNguoiDaiDienPL" @_disable />
                 <label>@Resource.lblLaNguoiDaiDienTheoPL</label>
             </div>
         </div>
@@ -62,7 +63,7 @@
     <div class="div-search-ad">
         <div class="div-search-content">
             <div class="div-radio">
-                <input @styleDaiDienSH type="radio" name="_2_DaiDienChuDon" value="DDSH" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" checked @_disable />
+                <input type="radio" name="_2_DaiDienChuDon" value="DDSH" placeholder="_2_rdoToChucDichVuDL" id="_2_rdoToChucDichVuDL" checked @_disable />
                 <label>@Resource.lblLaToChucDichVuDaiDienSoHuu </label>
             </div>
         </div>
@@ -71,7 +72,7 @@
     <div class="div-search-ad">
         <div class="div-search-content">
             <div class="div-radio">
-                <input @styleDaiDienUQ type="radio" name="_2_DaiDienChuDon" value="DDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" @_disable />
+                <input type="radio" name="_2_DaiDienChuDon" value="DDUQ" placeholder="_2_rdoNguoiDuocUyQuyen" id="_2_rdoNguoiDuocUyQuyen" @_disable />
                 <label>@Resource.lblLaNguoiKhacDuocUyQuyen</label>
             </div>
         </div>
@@ -83,7 +84,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@objAppHeaderInfo.Rep_Master_Name" type="text" maxlength="50" id="@txtTenDayDu" @_disable />
+                <input value="@_name" type="text" maxlength="50" id="@txtTenDayDu" @_disable />
             </div>
         </div>
     </div>
@@ -94,7 +95,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input value="@objAppHeaderInfo.Rep_Master_Address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
+                <input value="@_address" type="text" maxlength="200" id="@txtDiaChi" @_disable />
             </div>
         </div>
     </div>
@@ -105,7 +106,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@objAppHeaderInfo.Rep_Master_Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
+                <input type="text" value="@_AppDDSHCNInfo.Phone" maxlength="50" id="@txtDienThoai" style="width: 250px;" @_disable />
             </div>
         </div>
 
@@ -114,7 +115,7 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@objAppHeaderInfo.Rep_Master_Fax" maxlength="50" id="@txtFax" @_disable />
+                <input type="text" value="@_AppDDSHCNInfo.Fax" maxlength="50" id="@txtFax" @_disable />
             </div>
         </div>
         <div class="div-search-title">
@@ -133,26 +134,26 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" id="txtMADDSHCN" value="@objAppHeaderInfo.Customer_Code" @_disable />
+                <input type="text" id="txtMADDSHCN" value="@_AppDDSHCNInfo.MaNguoiDaiDien" @_disable />
             </div>
         </div>
     </div>
 
-    <input type="text" id="txt_Rep_Country_Nationality" value="@objAppHeaderInfo.Rep_MT_Country_Nationality" @_disable />
-    <input type="text" id="txt_Rep_Country_Residence" value="@objAppHeaderInfo.Rep_MT_Country_Residence" @_disable />
-    <input type="text" id="txt_Rep_Country_Incorporation" value="@objAppHeaderInfo.Rep_MT_Country_Incorporation" @_disable />
+    <input type="text" id="txt_Rep_Country_Nationality" value="@_AppDDSHCNInfo.Country_Nationality" @_disable />
+    <input type="text" id="txt_Rep_Country_Residence" value="@_AppDDSHCNInfo.Country_Residence" @_disable />
+    <input type="text" id="txt_Rep_Country_Incorporation" value="@_AppDDSHCNInfo.Country_Incorporation" @_disable />
 
 </div>
 <script>
     $(document).ready(function () {
 
-        if (@_IsInsert == 1) {
+        @*if (@_IsInsert == 1) {
             var _QuocGia = $("#cboNationRepresent").val();
             if (_QuocGia == "" || _QuocGia == undefined)
                 _QuocGia = 234;
 
             Get_PresentByNation(_QuocGia);
-        }
+        }*@
 
         $("#div_PartialThongTinDaiDienChuDon").addClass("clssDisplaynone");
     });
@@ -171,12 +172,12 @@
                 if (_avaiable_data == "1") {
                     var arrVal = data.CustomerSuggestInfo.value.split('|');
                     if (arrVal.length === 9) {
-                        $("#2_txtTenDayDu").val(arrVal[0]);
-                        $("#2_txtDiaChi").val(arrVal[1]);
-                        $("#2_txtDienThoai").val(arrVal[2]);
-                        $("#2_txtFax").val(arrVal[3]);
-                        $("#2_txtEmail").val(arrVal[4]);
-                        $("#txtMADDSHCN").val(arrVal[5]);
+                        $("#2_txtTenDayDu_Rep").val(arrVal[0]);
+                        $("#2_txtDiaChi_Rep").val(arrVal[1]);
+                        $("#2_txtDienThoai_Rep").val(arrVal[2]);
+                        $("#2_txtFax_Rep").val(arrVal[3]);
+                        $("#2_txtEmail_Rep").val(arrVal[4]);
+                        $("#txtMADDSHCN_Rep").val(arrVal[5]);
 
                         $("#txt_Rep_Country_Nationality").val(arrVal[6]);
                         $("#txt_Rep_Country_Residence").val(arrVal[7]);
@@ -190,24 +191,24 @@
     //Lấy thông tin chủ đơn add vào formData
     function funcThongTinDaiDienChuDon(formData, PreID) {
         try {
-            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Rep").val();
             if (txtTenDayDu === "") {
-                $("#" + PreID + "_txtTenDayDu").focus().val('');
+                $("#" + PreID + "_txtTenDayDu_Rep").focus().val('');
                 showError('@Resource.TM2B_TenKhongDuocDeTrong');
                 return false;
             }
-            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Rep").val();
             if (txtDiaChi === "") {
-                $("#" + PreID + "_txtDiaChi").focus().val('');
+                $("#" + PreID + "_txtDiaChi_Rep").focus().val('');
                 showError('@Resource.TM2B_DiaChiKhongDuocDeTrong');
                 return false;
             }
-            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
-            var txtFax = $("#" + PreID + "_txtFax").val();
-            var txtEmail = $("#" + PreID + "_txtEmail").val();
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Rep").val();
+            var txtFax = $("#" + PreID + "_txtFax_Rep").val();
+            var txtEmail = $("#" + PreID + "_txtEmail_Rep").val();
             if (txtEmail != "") {
                 if (!IsvalidEmail(txtEmail)) {
-                    $("#" + PreID + "_txtEmail").focus();
+                    $("#" + PreID + "_txtEmail_Rep").focus();
                     showError('@Resource.lblThongBaoLoiEmail');
                     return false;
                 }
@@ -245,17 +246,11 @@
 
     function funcThongTinDaiDienChuDon_Exp(formData, PreID) {
         try {
-            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
-            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
-            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
-            var txtFax = $("#" + PreID + "_txtFax").val();
-            var txtEmail = $("#" + PreID + "_txtEmail").val();
-
-            var txt_Country_Nationality = $("#" + PreID + "txt_Country_Nationality").val();
-            var txt_Country_Residence = $("#" + PreID + "txt_Country_Residence").val();
-            var txt_Country_Incorporation = $("#" + PreID + "txt_Country_Incorporation").val();
-
-            
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Rep").val();
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi_Rep").val();
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai_Rep").val();
+            var txtFax = $("#" + PreID + "_txtFax_Rep").val();
+            var txtEmail = $("#" + PreID + "_txtEmail_Rep").val(); 
 
             formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
             formData.append("pInfo.Rep_Master_Address", txtDiaChi);

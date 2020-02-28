@@ -27,6 +27,11 @@
     var groupsFunc = functionInfos.GroupBy(item => item.App_Type);
 
     string _url = "/application/register/" + _Country;
+    string _name = Resource.VietNam;
+    if (_Country.ToUpper() != "VN")
+    {
+        _name = Resource.Lao;
+    }
 
     string language = WebApps.CommonFunction.AppsCommon.GetCurrentLang();
 }
@@ -145,7 +150,7 @@
             <span class="red">></span>
             <a href="#">@Resource.lblNopdon</a>
             <span class="red">></span>
-            <a href="@_url">@Resource.VietNam</a>
+            <a href="@_url">@_name</a>
         </div>
     </div>
     <div class="divCover">

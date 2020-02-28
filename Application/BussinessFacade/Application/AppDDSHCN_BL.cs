@@ -43,6 +43,20 @@ namespace BussinessFacade
             }
         }
 
+        public AppDDSHCNInfo AppDDSHCNGetBy_Country(decimal p_country)
+        {
+            try
+            {
+                AppDDSHCN_DA _da = new AppDDSHCN_DA();
+                DataSet _ds = _da.AppDDSHCNGetBy_Country(p_country);
+                return CBO<AppDDSHCNInfo>.FillObjectFromDataSet(_ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+                return new AppDDSHCNInfo();
+            }
+        }
 
         public decimal AppDDSHCNInsert(AppDDSHCNInfo pInfo)
         {

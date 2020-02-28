@@ -3143,6 +3143,7 @@
                     app_Detail.DuadateText = app_Detail.Duadate.ToString("dd/MM/yyyy");
                 }
 
+                // logo
                 if (string.IsNullOrEmpty(app_Detail.Logourl))
                 {
                     app_Detail.Logourl = app_Detail.LogourlOrg;
@@ -3152,6 +3153,7 @@
                     app_Detail.Logourl = AppLoadHelpers.PushFileToServer(app_Detail.pfileLogo, AppUpload.Logo);
                 }
                 app_Detail.Logourl = Server.MapPath(app_Detail.Logourl);
+
                 List<App_Detail_F04_Info> _lst = new List<App_Detail_F04_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_F04_Info>(_lst, false);
@@ -3189,15 +3191,61 @@
                         SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf";
                     }
                 }
-
-
-
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
+
+                if (app_Detail.Logourl != null && app_Detail.Logourl != "")
+                {
+                    CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
+                    _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
+                    _pic01.Width = 200;
+                    _pic01.Height = 200;
+                    int _marginleft = 350, _margintop = 10363;
+                    try
+                    {
+                        Bitmap img = new Bitmap(app_Detail.Logourl);
+                        try
+                        {
+                            // dangtq sửa
+                            // tính theo đơn vị Twips -> 1 inch = 1440 twips
+                            // 96.00000 tỷ lệ convert 1px ra in (96 px = 1 in)
+                            // _height_pic_rpt, _width_pic_rpt kích thước khung box trong rpt
+                            int _height_pic_rpt = 4665; //-> 4855
+                            int _saixo = 260;
+                            int _twips = 1440;
+                            double _px_to_in = 96.00000;
+
+                            double h_in = img.Height / _px_to_in;
+                            double h1 = (_height_pic_rpt - (h_in * _twips)) / 2;
+                            _pic01.Top = _margintop + (int)h1 + 100;
+
+                            int _width_pic_rpt = 4340; // -> 4410
+                            double w_in = img.Width / _px_to_in;
+                            double w1 = (_width_pic_rpt - (w_in * _twips)) / 2;
+                            _pic01.Left = _marginleft + (int)w1 + _saixo;
+
+                            //_pic01.Left = 1335;
+                            //_pic01.Top = 5640;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogException(ex);
+                        }
+                        finally
+                        {
+                            img.Dispose();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                    //System.IO.FileInfo file = new System.IO.FileInfo(app_Detail.Logourl);
+                }
 
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
-                    //_ds_all.WriteXml(@"D:\F04.xml", XmlWriteMode.WriteSchema);
+                    //_ds_all.WriteXml(@"E:\F04.xml", XmlWriteMode.WriteSchema);
 
                     // đè các bản dịch lên
                     if (p_View_Translate == 1)
@@ -3209,7 +3257,8 @@
                         AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
                     }
 
-                    oRpt.SetDataSource(_ds_all);
+                    oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
+                    //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
 
