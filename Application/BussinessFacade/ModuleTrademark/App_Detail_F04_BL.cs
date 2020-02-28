@@ -56,20 +56,21 @@ namespace BussinessFacade.ModuleTrademark
 
         public App_Detail_F04_Info GetByID(decimal p_app_header_id, string p_language_code,
             ref ApplicationHeaderInfo applicationHeaderInfo,
-            ref List<AppDocumentInfo> appDocumentInfos, 
-            ref List<AppDocumentOthersInfo> _LstDocumentOthersInfo)
+            ref List<AppDocumentInfo> appDocumentInfos,
+            ref List<AppDocumentOthersInfo> _LstDocumentOthersInfo,
+            ref List<UTienInfo> pUTienInfo)
         {
             try
             {
                 var objData = new App_Detail_F04_DA();
                 DataSet dataSet = objData.GetByID(p_app_header_id, p_language_code);
                 App_Detail_F04_Info app_Detail_F04 = CBO<App_Detail_F04_Info>.FillObjectFromDataTable(dataSet.Tables[0]);
-                if (dataSet != null && dataSet.Tables.Count == 4)
+                if (dataSet != null && dataSet.Tables.Count == 5)
                 {
                     applicationHeaderInfo = CBO<ApplicationHeaderInfo>.FillObjectFromDataTable(dataSet.Tables[1]);
                     appDocumentInfos = CBO<AppDocumentInfo>.FillCollectionFromDataTable(dataSet.Tables[2]);
-                   _LstDocumentOthersInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[3]);
-
+                    _LstDocumentOthersInfo = CBO<AppDocumentOthersInfo>.FillCollectionFromDataTable(dataSet.Tables[3]);
+                    pUTienInfo = CBO<UTienInfo>.FillCollectionFromDataTable(dataSet.Tables[4]);
                 }
 
                 return app_Detail_F04;

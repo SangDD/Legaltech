@@ -33,18 +33,24 @@
         lstDocOther = (List<AppDocumentOthersInfo>)ViewBag.lstDocOther;
     }
 
-
+    string _checkGood_mark = "";
+    if (objAppHeaderInfo.Loainhanhieu == "NHNM")
+    {
+        _checkGood_mark = "checked='checked'";
+    }
 
     string styleNhanHieu = "", styleLienKet = "", styleNhanHieuCN = "", styleShowHidenNHCN = "style=display:none";
     if (objAppHeaderInfo.Loainhanhieu == "NHTT")
     {
         styleNhanHieu = "checked='checked'";
     }
-    else if (objAppHeaderInfo.Loainhanhieu == "NHLK")
+
+    if (objAppHeaderInfo.Loainhanhieu == "NHLK")
     {
         styleLienKet = "checked='checked'";
     }
-    else if (objAppHeaderInfo.Loainhanhieu == "NHCN")
+
+    if (objAppHeaderInfo.Loainhanhieu == "NHCN")
     {
         styleNhanHieuCN = "checked='checked'";
         styleShowHidenNHCN = "style =display:block";
@@ -57,14 +63,7 @@
         urlMauNhanHieu = objAppHeaderInfo.Logourl.Replace("~", "");
     }
 
-
-    string styleDisplay = "clssDisplaynone";
-
-
-
     string language = AppsCommon.GetCurrentLang();
-
-
     B_Todos_Info _todo = new B_Todos_Info();
     if (ViewBag.B_Todos_Info != null)
     {
@@ -78,6 +77,11 @@
 
     List<Sys_Document_Info> _lst_doc = WebApps.CommonFunction.AppsCommon.Sys_Document_GetBy_Casecode("F04");
 
+    List<UTienInfo> Lst_UTienInfo = new List<UTienInfo>();
+    if (ViewBag.Lst_UTienInfo != null)
+    {
+        Lst_UTienInfo = (List<UTienInfo>)ViewBag.Lst_UTienInfo;
+    }
 }
 
 <style>
@@ -124,16 +128,16 @@
 <input type="hidden" id="txtStatusEdit" value="@objAppHeaderInfo.Status" />
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
-        <legend>@WebApps.Resources.Resource.lblDangKyNhanHieu</legend>
+        <legend>REGISTRATION OF TRADEMARK</legend>
         @* Case name *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View.cshtml", "0")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_View_Lao.cshtml", "0")
 
         </div>
         <div class="div_full_100_area">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
+                    <div>Filling date</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -152,7 +156,7 @@
                 </div>
             </div>
             <div id="div_PartialThongTinChuDon">
-                @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinChuDon_View.cshtml")
+                @Html.Partial("~/Areas/TradeMark/Views/F04/_PartialThongTinChuDon_View.cshtml")
             </div>
 
             <div class="div-search-ad">
@@ -186,7 +190,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title" style="height: 100px;">
-                <div>@WebApps.Resources.Resource.lblMoTa:</div>
+                <div>Description:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -197,7 +201,7 @@
 
         @* Nhan hieu *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", @WebApps.Resources.Resource.lblNhanHieu.ToUpper())
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialTitle.cshtml", "Specimen of the mark(Place a copy of the mark in the box.The mark should be clear enough to be reproduced and digitized)")
             <div class="class_full_div_input_extent">
 
                 <div class="class_left_40">
@@ -218,7 +222,7 @@
                         <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
                             <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px; display:none" />
                             <div class="file-upload btn btn-primary" style="margin-top:95px; display: none">
-                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                <span>Upload file</span>
                                 <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                             </div>
                         </div>
@@ -268,7 +272,7 @@
                     @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblTenNhanHieu:</div>
+                            <div>Mark name:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -279,7 +283,7 @@
 
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblMauSac:</div>
+                            <div>Color(s) of the Mark:</div>
                         </div>
                         <div class="div-search-content">
                             <div><input type="text" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" readonly/></div>
@@ -288,7 +292,7 @@
 
                     <div class="div-search-ad">
                         <div class="div-search-title" style="height: 126px;">
-                            <div>@WebApps.Resources.Resource.lblMoTa:</div>
+                            <div>Description:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -312,15 +316,15 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" disabled/>
-                        <label>@WebApps.Resources.Resource.NormalTrademark</label>
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" @_checkGood_mark id="0_NhanHieuThongThuong" disabled/>
+                        <label>Goods mark</label>
                     </div>
                 </div>
            
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu id="0_NhanHieuTapThe"disabled />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                        <label>Service mark</label>
                     </div>
                 </div>
             </div>
@@ -329,14 +333,14 @@
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet id="0_NhanHieuLienKet" disabled/>
-                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                        <label>Collective mark</label>
                     </div>
                 </div>
            
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN id="0_NhanHieuChungNhan"disabled />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                        <label>Certificate mark</label>
                     </div>
                 </div>
             </div>
@@ -367,15 +371,33 @@
             </div>
         </div>
 
-        <div class="divCover cls_form_title">
+        @if (Lst_UTienInfo.Count > 0)
+        {
+            <div class="divCover cls_form_title">
+                <img src="~/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    PRIORITY CLAIMS (IF ANY)
+                </div>
+            </div>
+
+            <div id="div_ThongTinDonUuTien">
+                @for (int i = 0; i < Lst_UTienInfo.Count; i++)
+                {
+                    Lst_UTienInfo[i].Model_Id = i;
+                    @Html.Partial("~/Areas/Patent/Views/Lao_PT/_PartialThongTinQuyenUuTien_View.cshtml", Lst_UTienInfo[i])
+                }
+            </div>
+        }
+
+        @*<div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
                 CLAIM FOR PRIORITY
             </div>
-        </div>
+        </div>*@
 
 
-        <div id="" data-id="" class="clsDivDonUTien">
+        @*<div id="" data-id="" class="clsDivDonUTien">
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div style="width: 150px"> @Resource.SoDon <i class="redspan">(*)</i></div>
@@ -418,12 +440,12 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div>*@
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.TM2B_TaiLieuCoTrongDon
+                DOCUMENT ACCOMPANYING THE APPLICATION
             </div>
         </div>
 
@@ -470,7 +492,7 @@
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
 <input type="hidden" id="ActionView" value="N" />
 
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreviewNN.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/F04/_PartialPreviewNN.cshtml")
 
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
@@ -487,7 +509,7 @@
 <div id="myModal" class="modal">
     <div class="modal-content">
         <div class="iconFormConfirm" style="">?</div>
-        <div style="text-align:center">@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)</div>
+        <div style="text-align:center">Uploaded image incorrectly, must be from 4x4cm to 8x8cm</div>
         <div style="overflow: hidden">
             <div onclick="ActionOk()" class="btnRS">OK</div>
             <div onclick="ActionResize()" class="btnRS">Resize</div>

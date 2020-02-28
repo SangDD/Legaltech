@@ -92,7 +92,8 @@ namespace ObjectInfos
             this.Months = p_app_header.Months;
             this.Years = p_app_header.Years;
         }
-       
+        public decimal Used_Special { set; get; }
+
         public decimal Id { get; set; }
         public decimal App_Header_Id { get; set; }
         public string Appno { get; set; }

@@ -1,0 +1,121 @@
+﻿@using ObjectInfos
+@model string
+@{
+    string txtTenDayDu = Model + "_txtTenDayDu";
+    string txtDiaChi = Model + "_txtDiaChi";
+    string txtDienThoai = Model + "_txtDienThoai";
+    string txtFax = Model + "_txtFax";
+    string txtEmail = Model + "_txtEmail";
+    string txtYCCapPho = Model + "_txtYCCapPho";
+    int pUseCusinfo = Common.CommonFuc.ConvertToInt(Model);
+    var objAppHeaderInfo = new AppDetail04NHInfo();
+    string Name = "", Address = "", Phone = "", Fax = "", Email = "", YCCapPho = "" ,DaiDienSHCN ="" ;
+    if (Model == "1")
+    {
+        if (ViewBag.objAppHeaderInfo != null)
+        {
+            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            Name = objAppHeaderInfo.Master_Name;
+            Address = objAppHeaderInfo.Master_Address;
+            Phone = objAppHeaderInfo.Master_Phone;
+            Fax = objAppHeaderInfo.Master_Fax;
+            Email = objAppHeaderInfo.Master_Email;
+        }
+    }
+    //Dùng cho khi view chi tiết đơn  ViewBag.disableView đc truyền từ form view tổng
+    string disableView = "";
+    if (!string.IsNullOrEmpty(ViewBag.disableView))
+    {
+        disableView = ViewBag.disableView;
+    }
+
+    string styleYCCP = "";
+    if (YCCapPho == "Y")
+    {
+        styleYCCP = "checked='checked'";
+    }
+}
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Name:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" @disableView value="@Name" id="@txtTenDayDu" />
+        </div>
+    </div>
+</div>
+
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Address:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" @disableView value="@Address" id="@txtDiaChi" />
+        </div>
+    </div>
+</div>
+
+<div class="div-search-ad">
+    <div class="div-search-title">
+        <div>Phone:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" @disableView value="@Phone" maxlength="50" id="@txtDienThoai" style="width:120px" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Fax:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" @disableView maxlength="50" value="@Fax" id="@txtFax" style="width:120px" />
+        </div>
+    </div>
+
+    <div class="div-search-title">
+        <div>Email:</div>
+    </div>
+    <div class="div-search-content">
+        <div>
+            <input type="text" @disableView value="@Email" maxlength="50" id="@txtEmail" />
+        </div>
+    </div>
+</div>
+ 
+<script>
+    //Lấy thông tin chủ đơn add vào formData
+    //pAction 1:AddNew, 2:Sửa, 3:Xem trước thì ko cần check
+    function funcThongTinChuDon(formData, PreID, pEditOrNew) {
+        try {
+            //Không truyền vào thì mặc định là tạo mới bắt buộc validate
+            //New khai báo ở  nvs.variables.js.cshtml
+            if (pEditOrNew == undefined) pEditOrNew = New;
+            var txtTenDayDu = $("#" + PreID + "_txtTenDayDu").val();
+            var txtDiaChi = $("#" + PreID + "_txtDiaChi").val();
+            var txtDienThoai = $("#" + PreID + "_txtDienThoai").val();
+            var txtFax = $("#" + PreID + "_txtFax").val();
+            var txtEmail = $("#" + PreID + "_txtEmail").val();
+
+            //Chủ đơn
+            if (PreID == "1") {
+                formData.append("pInfo.Master_Name", txtTenDayDu);
+                formData.append("pInfo.Master_Address", txtDiaChi);
+                formData.append("pInfo.Master_Phone", txtDienThoai);
+                formData.append("pInfo.Master_Fax", txtFax);
+                formData.append("pInfo.Master_Email", txtEmail);
+            } 
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
+
+
+
+</script>

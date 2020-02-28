@@ -115,9 +115,9 @@
             <img src="~/Content/icons/Body-icon-home.png" /> I
             <a href="/home">Home</a>
             <span class="red">></span>
-            <a href="/application/register/VN">@Resource.lblNopdon</a>
+            <a href="/application/register/LAO">@Resource.lblNopdon</a>
             <span class="red">></span>
-            <a href="/application/register/VN">@Resource.VietNam</a>
+            <a href="/application/register/VN">Lao</a>
             <span class="red">></span>
             <a href="javascript:;">@Resource.TM2A_Formname</a>
         </div>
@@ -135,19 +135,19 @@
 <div class="div-search ">
     <fieldset style="border: 1px solid #dddddd; padding: 1.25rem;">
 
-        @Html.Partial("~/ViewsShared/_PartialQuocGia.cshtml")
+        @Html.Partial("~/ViewsShared/_PartialQuocGia_Lao.cshtml")
 
         @*thông tin khách hàng mà admin nhập hộ*@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer.cshtml")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCustomer_Lao.cshtml")
 
         @* Case name *@
         <div class="div_full_100_area">
-            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName.cshtml", "0")
+            @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialCaseName_Lao.cshtml", "0")
         </div>
         <div class="div_full_100_area">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div>@WebApps.Resources.Resource.lblNgayNopDon</div>
+                    <div>Filling date</div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -156,6 +156,7 @@
                 </div>
             </div>
         </div>
+
         @* 1 *@
         <div class="div_full_100_area">
             <div class="divCover cls_form_title">
@@ -164,7 +165,7 @@
                     APPLICANT
                 </div>
             </div>
-            @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHChuDonKhacTop.cshtml", "1")
+            @Html.Partial("~/Areas/TradeMark/Views/F04/_PartialChuDon.cshtml", "1")
 
             <div class="div-search-ad">
                 <div class="div-search-content">
@@ -181,72 +182,7 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-
-
-
-
-        @*<div class="divCover cls_form_title">
-                <img src="~/Content/icons/category.png" />
-                <div class="cls_form_header">
-                    REPRESENTATIVE
-                </div>
-            </div>
-
-            <div id="div_PartialThongTinChuDon">
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div> @Resource.lblTenDayDu <i class="redspan">(*)</i></div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input value="" type="text" maxlength="200" id="txtTenDayDu" />
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div> @Resource.lblDiaChi <i class="redspan">(*)</i> </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input value="" type="text" maxlength="200" id="txtDiaChi" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="div-search-ad">
-                    <div class="div-search-title">
-                        <div> @Resource.lblDienThoai: </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input type="text" value="" maxlength="50" id="txtDienThoai" style="width: 250px;" />
-                        </div>
-                    </div>
-
-                    <div class="div-search-title">
-                        <div> Fax: </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input value="" type="text" maxlength="50" id="txtFax" />
-                        </div>
-                    </div>
-                    <div class="div-search-title">
-                        <div>Email:  </div>
-                    </div>
-                    <div class="div-search-content">
-                        <div>
-                            <input value="" type="text" maxlength="50" id="txtEmail" />
-                        </div>
-                    </div>
-                </div>
-            </div>*@
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -256,7 +192,7 @@
         </div>
         <div class="div-search-ad">
             <div class="div-search-title" style="height: 100px;">
-                <div>@WebApps.Resources.Resource.lblMoTa:</div>
+                <div>Description:</div>
             </div>
             <div class="div-search-content">
                 <div>
@@ -264,7 +200,6 @@
                 </div>
             </div>
         </div>
-
 
         @* Nhan hieu *@
         <div class="div_full_100_area">
@@ -296,7 +231,7 @@
                     @* Thêm mục đích sau này Admin đặt tên theo qui tắc phục vụ tìm kiếm *@
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblTenNhanHieu:</div>
+                            <div>Mark name:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -307,7 +242,7 @@
 
                     <div class="div-search-ad">
                         <div class="div-search-title">
-                            <div>@WebApps.Resources.Resource.lblMauSac :</div>
+                            <div>Color(s) of the Mark :</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -317,7 +252,7 @@
                     </div>
                     <div class="div-search-ad">
                         <div class="div-search-title" style="height: 100px;">
-                            <div>@WebApps.Resources.Resource.lblMoTa:</div>
+                            <div>Description:</div>
                         </div>
                         <div class="div-search-content">
                             <div>
@@ -339,22 +274,22 @@
 
                 </div>
             </div>
-            <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(@WebApps.Resources.Resource.lblSizeOfPicture)</i>
+            <i id="tagSuggessIMG" style="color:red;font-weight:bold;margin-left:120px">(Size of images from 4x4 to 8x8, limited to 2M)</i>
             <a href="javascript:;" st="" class="icon icon-info tip" data-placement="right" style="border:none"
-               data-title="@Resource.TooltipSizeofImage"></a>
+               data-title="Image of 4x4cm size having respective resolution of 151x151px, Image of 8x8cm size having respective resolution of 302x302px"></a>
 
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" id="0_NhanHieuThongThuong" />
-                        <label>@WebApps.Resources.Resource.NormalTrademark</label>
+                        <label>Goods mark</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" id="0_NhanHieuTapThe" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuTapThe</label>
+                        <label>Service mark</label>
                     </div>
                 </div>
             </div>
@@ -363,23 +298,21 @@
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
                         <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" id="0_NhanHieuLienKet" />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuLienKet</label>
+                        <label>Collective mark</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
                         <input type="radio" name="0_NhanHieu" value="NHCN" class="classNhanHieu"  id="0_NhanHieuChungNhan"  />
-                        <label>@WebApps.Resources.Resource.lblNhanHieuChungNhan</label>
+                        <label>Certificate mark</label>
                     </div>
                 </div>
             </div>
-
-
         </div>
 
         @* 2 *@
-        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon.cshtml", "2")
+        @Html.Partial("~/Areas/TradeMark/Views/Shared/_PartialThongTinDaiDienChuDon_Lao.cshtml", "2")
 
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -401,19 +334,39 @@
             </div>
         </div>
 
+        @* Đơn ưu tiên *@
         <div class="divCover cls_form_title">
+            <img src="~/Content/icons/category.png" />
+            <div class="cls_form_header">
+                PRIORITY CLAIMS (IF ANY)
+            </div>
+
+            <div style="display: inline-block;  padding-top: 8px; padding-left: 5px;">
+                <input type="checkbox" name="0_ckbCoSuDungDonUuTien" value="SDUT" placeholder="0_ckbCoSuDungDonUuTien" id="0_ckbCoSuDungDonUuTien" onchange="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')" />
+                <label><a style="color:blue ;font-weight:bold" id="hrefCo" onclick="return funcChoiseDonUT('0_ckbCoSuDungDonUuTien')">Yes</a></label>
+            </div>
+            <div style="display: inline-block;">
+                <input type="checkbox" name="KO_ckbCoSuDungDonUuTien" value="KO" id="KOUT" onchange="return funcChoiseDonUT('KOUT')" />
+                <label><a style="color:blue ;font-weight:bold" id="hrefKhong" onclick="return funcChoiseDonUT('KOUT')">No</a></label>
+            </div>
+            <input type="hidden" id="txt_id_Don_UT" value="1" />
+        </div>
+
+        <div id="div_ThongTinDonUuTien" class="clssDisplaynone">
+            @Html.Partial("~/Areas/Patent/Views/Lao_PT/_PartialThongTinQuyenUuTien.cshtml", "1")
+        </div>
+
+        @*<div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
                 CLAIM FOR PRIORITY
             </div>
         </div>
 
-
-
         <div id="" data-id="" class="clsDivDonUTien">
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 150px"> @Resource.SoDon <i class="redspan">(*)</i></div>
+                    <div style="width: 150px"> Application No <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -422,7 +375,7 @@
                 </div>
 
                 <div class="div-search-title">
-                    <div> @Resource.NgayNopDon <i class="redspan">(*)</i> </div>
+                    <div> Filling date <i class="redspan">(*)</i> </div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -433,7 +386,7 @@
 
             <div class="div-search-ad">
                 <div class="div-search-title">
-                    <div style="width: 150px">@WebApps.Resources.Resource.NuocNopQuyenUuTien <i class="redspan">(*)</i></div>
+                    <div style="width: 150px">Country <i class="redspan">(*)</i></div>
                 </div>
                 <div class="div-search-content">
                     <div>
@@ -453,24 +406,16 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        @* Tài liệu có trong đơn *@
-        @*@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_Partial04NHTLTrongDon.cshtml")*@
+        </div>*@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
             <div class="cls_form_header">
-                @Resource.TM2B_TaiLieuCoTrongDon
+                DOCUMENT ACCOMPANYING THE APPLICATION
             </div>
         </div>
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
-
-        <div class="divCover cls_form_title">
-            <b>@Resource.TaiLieuToiThieu.ToUpper()</b>
-        </div>
-
         @foreach (Sys_Document_Info item in _lst_doc)
         {
             string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
@@ -487,34 +432,37 @@
 
         <div class="class_save">
             <div class="classGuiDon">
-                <input type="button" value="@WebApps.Resources.Resource.btnGuiDon" id="btnGuiDon" class="btn class_37" />
+                <input type="button" value="Send" id="btnGuiDon" class="btn class_37" />
             </div>
             <div class="classLuuTam">
-                <input type="button" value="@WebApps.Resources.Resource.btnLuuTam" id="btnLuuTam" class="btn class_37" />
+                <input type="button" value="Temporary save" id="btnLuuTam" class="btn class_37" />
+            </div>
+            <div class="classLuuTam">
+                <input type="button" value="Back" onclick="return goBack()" style="margin-left:10px" class="btn class_37" />
             </div>
         </div>
     </fieldset>
 </div>
+
 <input type="hidden" id="txtDateTime" value="@DateTime.Now.ToString("dd/MM/yyyy")" />
 <input type="hidden" id="ActionView" value="N" />
-@Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialPreview_IUNN.cshtml")
+@Html.Partial("~/Areas/TradeMark/Views/F04/_PartialPreview_IUNN.cshtml")
+
 <div id="divWrapperPreview" class="divWrapperPreview" style="display:none">
     <div class="dpop-preview" id="dpop-preview">
     </div>
 </div>
-
 
 <div id="divWrapperPopUpFee" class="divWrapperPopup" style="display: none;">
     <div class="divPopup" id="divPopUpFee">
     </div>
 </div>
 
-
 <!-- The Modal -->
 <div id="myModal" class="modal">
     <div class="modal-content">
         <div class="iconFormConfirm" style="">?</div>
-        <div style="text-align:center">@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)</div>
+        <div style="text-align:center">Uploaded image incorrectly, must be from 4x4cm to 8x8cm</div>
         <div style="overflow: hidden">
             <div onclick="ActionOk()" class="btnRS">OK</div>
             <div onclick="ActionResize()" class="btnRS">Resize</div>
@@ -534,60 +482,7 @@
     }
 </style>
 <script>
-    $(document).ready(function () {
-        //Search suggestion
-        var Name = $("#txtTenDayDu").val();
-        $.ajax({
-            url: '/trade-mark/GetNameSuggest/',
-            type: 'POST',
-            data: {
-                pName: Name
-            },
-            sync: true, cache: false, traditional: true,
-            success: function (data) {
-
-                var lts = data.lst;
-                $('#txtTenDayDu').autocomplete({
-                    autoFocus: true,
-                    source: function (request, response) {
-                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                        response($.grep(lts, function (item) {
-                            return matcher.test(item.value);
-                        }));
-                    },
-                    select: function (event, ui) {
-                        $("#txtTenDayDu").val("");
-                        event.preventDefault();
-                        var arrVal = ui.item.value.split('|');
-                        if (arrVal.length === 5) {
-                            $("#txtTenDayDu").val(arrVal[0]);
-                            $("#txtDiaChi").val(arrVal[1]);
-                            $("#txtDienThoai").val(arrVal[2]);
-                            $("#txtFax").val(arrVal[3]);
-                            $("#txtEmail").val(arrVal[4]);
-                        }
-
-                    },
-                    focus: function (event, ui) {
-                        var arrResult = $(".ui-menu-item");
-                        for (var i = 0; i < arrResult.length; i++) {
-                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.name) {
-                                $(".clsLiActive").removeClass("clsLiActive")
-                                $(arrResult[i]).addClass("clsLiActive");
-                                break;
-                            }
-                        }
-                        event.preventDefault();
-                    },
-                    open: function (event, ui) {
-                        $("ul").scrollTop(0);
-                        event.preventDefault();
-                    },
-                });
-            }
-        });
-    });
+ 
     //nếu dùng checkbox
     $(document).ready(function () {
         //$('.classNhanHieu').click(function () {
@@ -596,8 +491,6 @@
 
         //var _divCheckbox = document.getElementById('divCheckbox_04NH_D_10');
         //_divCheckbox.style.width = '650px';
-
-
     });
 
     $(function ()
@@ -641,138 +534,86 @@
     });
 
 
-    function GetThongTinDaiDien(vChoise) {
-        try {
-            $.ajax({
-                url: '/trade-mark/funcGetTTDHSH/',
-                type: 'POST',
-                data: {
-                    pKeyData: "", pDDSH:vChoise,   pEdit: 0,  pID:0,   pStatus:0
-                },
-                async: false, cache: false, traditional: true,
-                success: function (data) {
-                    if (data != null)
-                    {
-                        if (vChoise == "DDPL") {
-                            $("#divDDPLChoise").html(data);
-                            $("#divDDSHChoise").html("");
-                            $("#divDDUQChoise").html("");
-                        }
-                        else if (vChoise == "DDSH") {
-                            $("#divDDSHChoise").html(data);
-                            $("#divDDPLChoise").html("");
-                            $("#divDDUQChoise").html("");
-                        }
-                        else if (vChoise == "DDUQ") {
-                            $("#divDDUQChoise").html(data);
-                            $("#divDDPLChoise").html("");
-                            $("#divDDSHChoise").html("");
-                        }
-                        //$("#txtDaiDienSHCN").val("");
-                        //$("#txtMADDSHCN").val("");
+    //function GetThongTinDaiDien(vChoise) {
+    //    try {
+    //        $.ajax({
+    //            url: '/trade-mark/funcGetTTDHSH/',
+    //            type: 'POST',
+    //            data: {
+    //                pKeyData: "", pDDSH:vChoise,   pEdit: 0,  pID:0,   pStatus:0
+    //            },
+    //            async: false, cache: false, traditional: true,
+    //            success: function (data) {
+    //                if (data != null)
+    //                {
+    //                    if (vChoise == "DDPL") {
+    //                        $("#divDDPLChoise").html(data);
+    //                        $("#divDDSHChoise").html("");
+    //                        $("#divDDUQChoise").html("");
+    //                    }
+    //                    else if (vChoise == "DDSH") {
+    //                        $("#divDDSHChoise").html(data);
+    //                        $("#divDDPLChoise").html("");
+    //                        $("#divDDUQChoise").html("");
+    //                    }
+    //                    else if (vChoise == "DDUQ") {
+    //                        $("#divDDUQChoise").html(data);
+    //                        $("#divDDPLChoise").html("");
+    //                        $("#divDDSHChoise").html("");
+    //                    }
+    //                    //$("#txtDaiDienSHCN").val("");
+    //                    //$("#txtMADDSHCN").val("");
 
-                        var txtTenDayDu_02 = $("#2_txtTenDayDu").val();
-                        $.ajax({
-                            url: '/trade-mark/GetNameSuggestKhac/',
-                            type: 'POST',
-                            data: {
-                                pName: txtTenDayDu_02,
-                                pNumber: 5
-                            },
-                            sync: true, cache: false, traditional: true,
-                            success: function (data) {
-                                var lts = data.lst;
-                                $('#2_txtTenDayDu').autocomplete({
-                                    autoFocus: true,
-                                    source: function (request, response) {
-                                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                                        response($.grep(lts, function (item) {
-                                            return matcher.test(item.value);
-                                        }));
-                                    },
-                                    select: function (event, ui) {
-                                        $("#2_txtTenDayDu").val("");
-                                        event.preventDefault();
-                                        funcChuDonKhacReuse02(ui.item.value);
-                                    },
-                                    focus: function (event, ui) {
-                                        var arrResult = $(".ui-menu-item");
-                                        for (var i = 0; i < arrResult.length; i++) {
-                                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                                            if (label == ui.item.name) {
-                                                $(".clsLiActive").removeClass("clsLiActive")
-                                                $(arrResult[i]).addClass("clsLiActive");
-                                                break;
-                                            }
-                                        }
-                                        event.preventDefault();
-                                    },
-                                    open: function (event, ui) {
-                                        $("ul").scrollTop(0);
-                                        event.preventDefault();
-                                    },
-                                });
+    //                    var txtTenDayDu_02 = $("#2_txtTenDayDu").val();
+    //                    $.ajax({
+    //                        url: '/trade-mark/GetNameSuggestKhac/',
+    //                        type: 'POST',
+    //                        data: {
+    //                            pName: txtTenDayDu_02,
+    //                            pNumber: 5
+    //                        },
+    //                        sync: true, cache: false, traditional: true,
+    //                        success: function (data) {
+    //                            var lts = data.lst;
+    //                            $('#2_txtTenDayDu').autocomplete({
+    //                                autoFocus: true,
+    //                                source: function (request, response) {
+    //                                    var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
+    //                                    response($.grep(lts, function (item) {
+    //                                        return matcher.test(item.value);
+    //                                    }));
+    //                                },
+    //                                select: function (event, ui) {
+    //                                    $("#2_txtTenDayDu").val("");
+    //                                    event.preventDefault();
+    //                                    funcChuDonKhacReuse02(ui.item.value);
+    //                                },
+    //                                focus: function (event, ui) {
+    //                                    var arrResult = $(".ui-menu-item");
+    //                                    for (var i = 0; i < arrResult.length; i++) {
+    //                                        var label = $.trim($(arrResult[i]).text().split("-")[0]);
+    //                                        if (label == ui.item.name) {
+    //                                            $(".clsLiActive").removeClass("clsLiActive")
+    //                                            $(arrResult[i]).addClass("clsLiActive");
+    //                                            break;
+    //                                        }
+    //                                    }
+    //                                    event.preventDefault();
+    //                                },
+    //                                open: function (event, ui) {
+    //                                    $("ul").scrollTop(0);
+    //                                    event.preventDefault();
+    //                                },
+    //                            });
 
-                            }
-                        });
-                    }
-                }
-            });
-        } catch (e) {
-        }
-    }
-
-    $('#cboKhachHangCu').multipleSelect({
-        filter: true,
-        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
-        single: true,
-        isdatastring: false,
-        width: '100%',
-        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
-    });
-
-    $('#cboDaiDienChuDonCu').multipleSelect({
-        filter: true,
-        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
-        single: true,
-        isdatastring: false,
-        width: '100%',
-        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
-    });
-
-    $('#9_cboDaiDienChuDonCu').multipleSelect({
-        filter: true,
-        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
-        single: true,
-        isdatastring: false,
-        width: '100%',
-        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
-    });
-
-    $('#10_cboDaiDienChuDonCu').multipleSelect({
-        filter: true,
-        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
-        single: true,
-        isdatastring: false,
-        width: '100%',
-        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
-    });
-
-    $('#11_cboDaiDienChuDonCu').multipleSelect({
-        filter: true,
-        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
-        single: true,
-        isdatastring: false, width: '100%',
-        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
-    });
-
-    $('#12_cboDaiDienChuDonCu').multipleSelect({
-        filter: true,
-        noMatchesFound: "@WebApps.Resources.Resource.KhongCoDuLieu",
-        single: true,
-        isdatastring: false, width: '100%',
-        placeholder: '@WebApps.Resources.Resource.TimKiemKhachHang'
-    });
+    //                        }
+    //                    });
+    //                }
+    //            }
+    //        });
+    //    } catch (e) {
+    //    }
+    //}
 
 
     function funcAddRemoveDisabled(pIDControl, ptxtDisable) {
@@ -787,38 +628,27 @@
         }
     }
 
-    $("input[name='0_NhanHieu'").change(function () {
-        var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
-        if (v_NhanHieu == "NHCN") {
-            $("#divNhanHieuChungNhan").css('display', 'block')
-        } else {
-            $('#0_ckbDacTinhHangHoa').prop('checked', false);
-            $('#8_ckbNguonGocDiaLy').prop('checked', false);
-            $('#8_ckbChatLuong').prop('checked', false);
-            $('#8_ckbDacTinhKhac').prop('checked', false);
+    //$("input[name='0_NhanHieu'").change(function () {
+    //    var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
+    //    if (v_NhanHieu == "NHCN") {
+    //        $("#divNhanHieuChungNhan").css('display', 'block')
+    //    } else {
+    //        $('#0_ckbDacTinhHangHoa').prop('checked', false);
+    //        $('#8_ckbNguonGocDiaLy').prop('checked', false);
+    //        $('#8_ckbChatLuong').prop('checked', false);
+    //        $('#8_ckbDacTinhKhac').prop('checked', false);
 
-            $("#8_txtNguonGocDiaLy").val("");
-            $("#8_txtChatLuong").val("");
-            $("#8_txtDacTinhKhac").val("");
-            $("#divNhanHieuChungNhan").css('display', 'none');
-        }
-    });
-
-
-    $('#6_txtNuocNopDon').multipleSelect({
-        filter: true,
-        noMatchesFound: '@WebApps.Resources.Resource.KhongCoDuLieu',
-        single: true,
-        isdatastring: false,
-        placeholder: '@WebApps.Resources.Resource.TM2B_TimKiemQuocGia'
-    });
-
-    $("#6_txtNuocNopDon").multipleSelect("disable");
+    //        $("#8_txtNguonGocDiaLy").val("");
+    //        $("#8_txtChatLuong").val("");
+    //        $("#8_txtDacTinhKhac").val("");
+    //        $("#divNhanHieuChungNhan").css('display', 'none');
+    //    }
+    //});
 
 
-    $("#0_ckbDacTinhHangHoa").change(function () {
-        if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
-    });
+    //$("#0_ckbDacTinhHangHoa").change(function () {
+    //    if (this.checked) { funcEnableDisable('classDacTinhHangHoa', true); } else { funcEnableDisable('classDacTinhHangHoa', false); }
+    //});
 
     function funcEnableDisable(classaction, enable) {
         if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
@@ -847,25 +677,15 @@
                 //2x2 75x75 px , 8x8 302x302
                 if (iheight > 302 || iheight < 75 || iwidth > 302 || iwidth < 75) {
                     _checkanh = 1;
-                    @*nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.KichThuoc2288)", function () {
-                        return true;
-                    }, function () {
-                        //Callback
-                        $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
-                    });*@
-
-
                     showFResize();
 
                 } else {
                     nvsConfirm(null, "@Html.Raw(WebApps.Resources.Resource.ConfirmFile)", function () {
                         return true;
                     }, function () {
-                        //Callback
                         $('#pfile_6_rdoMauNhanHieu').val('');
                         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
                     });
-                    // return true;
                 }
             }
             reader.readAsDataURL(this.files[0]);
@@ -879,16 +699,17 @@
         $("#myModal").css("display","none");
         return true;
     }
+
     function ActionCancel(){
         $("#myModal").css("display","none");
         $('#pfile_6_rdoMauNhanHieu').val('');
         $("#imgMauNhanHieu").attr("src", "/Content/icons/logo.jpg");
     }
+
     function ActionResize(){
         $("#myModal").css("display","none");
         $('#pfile_6_rdoMauNhanHieu').val('');
         window.open("https://picresize.com/", '_blank');
-
     }
 
     function funcUpLoadMauNhanHieu(pFile) {
@@ -913,67 +734,8 @@
             validateOnBlur: false,
             scrollInput: false
         });
-
-        //var v_DDSHCN = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-        //GetThongTinDaiDien(v_DDSHCN);
-
-        //Search suggestion
-        var Name = $("#1_txtTenDayDu").val();
-        $.ajax({
-            url: '/trade-mark/GetNameSuggest/',
-            type: 'POST',
-            data: {
-                pName: Name
-            },
-            sync: true, cache: false, traditional: true,
-            success: function (data) {
-
-                var lts = data.lst;
-                $('#1_txtTenDayDu').autocomplete({
-                    autoFocus: true,
-                    source: function (request, response) {
-                        var matcher = new RegExp("" + $.ui.autocomplete.escapeRegex(request.term.toUpperCase()), "i");
-                        response($.grep(lts, function (item) {
-                            return matcher.test(item.value);
-                        }));
-                    },
-                    select: function (event, ui) {
-                        $("#1_txtTenDayDu").val("");
-                        event.preventDefault();
-                        var arrVal = ui.item.value.split('|');
-                        if (arrVal.length === 5) {
-                            $("#1_txtTenDayDu").val(arrVal[0]);
-                            $("#1_txtDiaChi").val(arrVal[1]);
-                            $("#1_txtDienThoai").val(arrVal[2]);
-                            $("#1_txtFax").val(arrVal[3]);
-                            $("#1_txtEmail").val(arrVal[4]);
-                        }
-
-                    },
-                    focus: function (event, ui) {
-                        var arrResult = $(".ui-menu-item");
-                        for (var i = 0; i < arrResult.length; i++) {
-                            var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                            if (label == ui.item.name) {
-                                $(".clsLiActive").removeClass("clsLiActive")
-                                $(arrResult[i]).addClass("clsLiActive");
-                                break;
-                            }
-                        }
-                        event.preventDefault();
-                    },
-                    open: function (event, ui) {
-                        $("ul").scrollTop(0);
-                        event.preventDefault();
-                    },
-                });
-            }
-        });
-
-     
     });
 
-   
 
     function ShowHidenUpLoad(pID, pClass) {
         try {
@@ -1006,11 +768,8 @@
             //function compareDate_N0(strDate1, strDate2) {
             var timenow = $("#txtDateTime").val();
 
-
-
             var v_NhanHieu = $("input[name='0_NhanHieu']:checked").val();
             formdata.append("pDetail.LoaiNhanHieu", v_NhanHieu);
-
 
             var codeNhanHieu = $("#0_txtTenNhanHieu").val();
             formdata.append("pDetail.CodeLogo", codeNhanHieu);
@@ -1024,18 +783,17 @@
             var v_2_MoTa = $("#2_MoTa").val();
             formdata.append("pDetail.Business_Line", v_2_MoTa);
 
-
             var v_MoTa_1 = $("#1_MoTa").val();
             formdata.append("pDetail.Translation_Of_Word", v_MoTa_1);
 
-            var v_UT_txtSoDon = $("#1_UT_txtSoDon").val();
-            formdata.append("pDetail.Sodon_ut", v_UT_txtSoDon);
+            //var v_UT_txtSoDon = $("#1_UT_txtSoDon").val();
+            //formdata.append("pDetail.Sodon_ut", v_UT_txtSoDon);
 
-            var v_UT_txtNgayNopDon = $("#1_UT_txtNgayNopDon").val();
-            formdata.append("pDetail.Ngaynopdon_ut", v_UT_txtNgayNopDon);
+            //var v_UT_txtNgayNopDon = $("#1_UT_txtNgayNopDon").val();
+            //formdata.append("pDetail.Ngaynopdon_ut", v_UT_txtNgayNopDon);
 
-            var v_UT_txtQuocGia = $("#1_UT_txtQuocGia").val();
-            formdata.append("pDetail.Nuocnopdon_ut", v_UT_txtQuocGia);
+            //var v_UT_txtQuocGia = $("#1_UT_txtQuocGia").val();
+            //formdata.append("pDetail.Nuocnopdon_ut", v_UT_txtQuocGia);
 
             var v_ClassNo = $("#ClassNo").val();
             formdata.append("pDetail.ClassNo", v_ClassNo);
@@ -1043,10 +801,8 @@
             var v_NgayNopDonn_0 = $("#0_txtNgayNopDon").val();
             formdata.append("pDetail.Duadate", v_NgayNopDonn_0);
 
-            var v_Applicant_Type = $('input[name=Applicant_Type]:checked').val(); 
+            var v_Applicant_Type = $('input[name=Applicant_Type]:checked').val();
             formdata.append("pDetail.Applicant_Type", v_Applicant_Type);
-    
-           
 
             var fileLogo = document.getElementsByName("pfile_6_rdoMauNhanHieu");
             if (fileLogo != undefined || fileLogo != null) {
@@ -1069,8 +825,6 @@
             $("#divContainerDocOther").css('display', 'none');
         }
     });
-
-
 
     $("#btnLuuTam").click(function () {
         try {
@@ -1116,7 +870,7 @@
                 return false;
             }
 
-            if (funcThongTinChuDonNguoiDaiDien(formData, "1", New) != true) {
+            if (funcThongTinChuDon(formData, "1", New) != true) {
                 return false;
             }
 
@@ -1136,22 +890,6 @@
             }
             formData.append("pInfo.Appcode", v_AppCode);
             formData.append("pInfo.Search_Code", '@_Search_Code');
-
-            //
-            //if (funcThongTinChuDonNguoiDaiDien(formData, "2", New) != true) {
-            //    return false;
-            //}
-            //var v_RepMasterType = $("input[name='3_rdoDaiDienChuDon']:checked").val();
-            //if ((v_RepMasterType === "" || v_RepMasterType == undefined) && ptype != 1) {
-            //    showError('Phải chọn ít nhất 1 giá trị đại điện cho chủ đơn!');
-            //    return false;
-            //}
-            //var daidienSH = $("#txtDaiDienSHCN").val();
-            //formData.append("pInfo.DDSHCN", daidienSH);
-
-            //07/09/2018
-            //var madhsh = $("#txtMADDSHCN").val();
-            //formData.append("pInfo.MADDSHCN", madhsh);
 
             if (funcThongTinDaiDienChuDon(formData, "1") != true) {
                 return false;
@@ -1174,9 +912,13 @@
                 return false;
             }
 
+            // Box V đơn ưu tiên
+            reponse = fun_Get_Don_UT(formData, ptype);
+            if (reponse == false) {
+                return false;
+            }
+
             //Lấy thông tin file có trong đơn
-
-
             reponse = funGetDocumentFile(formData);
             if (reponse == false) {
                 return false;
@@ -1368,12 +1110,12 @@
 
     function ThemDonUuTien() {
         try {
-
+            var _id = parseInt($("#txt_id_Don_UT").val()) + 1;
             $.ajax({
                 type: 'POST',
-                url: '/lg-patent/don-uu-tien/them-don/',
+                url: '/lg-patent-lao/don-uu-tien/them-don/',
                 data: {
-                    p_id: "2"
+                    p_id: _id
                 },
                 async: true, cache: false, traditional: true,
                 beforeSend: function () {
@@ -1382,6 +1124,7 @@
                 success: function (data) {
                     CreateRollingWaitingIcon(false);
                     $("#div_ThongTinDonUuTien").append(data);
+                    $("#txt_id_Don_UT").val(_id);
                 }
             });
         } catch (e) {
@@ -1389,7 +1132,62 @@
         }
     }
 
+    function fun_Get_Don_UT(formData, pType) {
+        try {
+            // đơn ưu tiên
+            var v_CoSDQuyenUT = 0;
+            if ($("#0_ckbCoSuDungDonUuTien").prop('checked') == true) {
+                v_CoSDQuyenUT = 1;
+            }
+            formData.append("pDetail.Used_Special", v_CoSDQuyenUT);
+
+            if (v_CoSDQuyenUT == 1) {
+
+                _index = 0;
+                var _index_document = 12;
+
+                $(".clsDivDonUTien").each(function (item) {
+                    var _id = $(this).attr('data-id');
+                    if ($("#" + _id + "_UT_Use").val() == "1") {
+
+                        if (pType == 2) {
+                            if ($("#" + _id + "_UT_txtSoDon").val() === "" || $("#" + _id + "_UT_txtSoDon").val() == undefined) {
+                                showError("@Html.Raw(WebApps.Resources.Resource.SoDonUuTien + Resource.KhongDuocDeTrong)");
+                                $("#" + _id + "_UT_txtSoDon").focus();
+                                return false;
+                            }
+
+                            if ($("#" + _id + "_UT_txtNgayNopDon").val() === "" || $("#" + _id + "_UT_txtNgayNopDon").val() == undefined) {
+                                showError("@Html.Raw(WebApps.Resources.Resource.NgayNopDonUuTien + Resource.KhongDuocDeTrong)");
+                                $("#" + _id + "_UT_txtNgayNopDon").focus();
+                                return false;
+                            }
+
+                            if ($("#" + _id + "_UT_txtQuocGia").val() === "" || $("#" + _id + "_UT_txtQuocGia").val() == undefined) {
+                                showError("@Html.Raw(WebApps.Resources.Resource.NuocNopQuyenUuTien + Resource.KhongDuocDeTrong)");
+                                $("#" + _id + "_UT_txtQuocGia").focus();
+                                return false;
+                            }
+                        }
+
+                        formData.append("pUTienInfo[" + _index + "].UT_SoDon", $("#" + _id + "_UT_txtSoDon").val());
+                        formData.append("pUTienInfo[" + _index + "].UT_NgayNopDon", $("#" + _id + "_UT_txtNgayNopDon").val());
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia", $("#" + _id + "_UT_txtQuocGia").val());
+
+                        var cbo_country = document.getElementById(_id + "_UT_txtQuocGia");
+                        formData.append("pUTienInfo[" + _index + "].UT_QuocGia_Display", cbo_country.options[cbo_country.selectedIndex].text);
+                    }
+                });
+            }
+
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+
 </script>
+
 <script>
     // Get the modal
     var modal = document.getElementById("myModal");
