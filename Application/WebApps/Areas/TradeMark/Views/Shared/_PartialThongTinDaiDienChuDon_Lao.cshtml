@@ -8,6 +8,8 @@
     string txtDienThoai = Model + "_txtDienThoai_Rep";
     string txtFax = Model + "_txtFax_Rep";
     string txtEmail = Model + "_txtEmail_Rep";
+    string txtTelephone = Model + "_txtTelephone_Rep";
+
     var objAppHeaderInfo = new ApplicationHeaderInfo();
 
     int _IsInsert = 0;
@@ -123,7 +125,18 @@
         </div>
         <div class="div-search-content">
             <div>
-                <input type="text" value="@objAppHeaderInfo.Rep_Master_Email" maxlength="50" id="@txtEmail" @_disable />
+                <input type="text" value="@_AppDDSHCNInfo.Rep_Master_Email" maxlength="50" id="@txtEmail" @_disable />
+            </div>
+        </div>
+    </div>
+
+    <div class="div-search-ad">
+        <div class="div-search-title">
+            <div>Telephone:  </div>
+        </div>
+        <div class="div-search-content">
+            <div>
+                <input type="text" value="@_AppDDSHCNInfo.Rep_Telephone" maxlength="50" id="@txtTelephone" @_disable />
             </div>
         </div>
     </div>
@@ -221,6 +234,8 @@
                 return false;
             }
 
+            var txtTelephone = $("#" + PreID + "_txtTelephone_Rep").val();
+
             formData.append("pInfo.Rep_Master_Name", txtTenDayDu);
             formData.append("pInfo.Rep_Master_Address", txtDiaChi);
             formData.append("pInfo.Rep_Master_Phone", txtDienThoai);
@@ -228,6 +243,7 @@
             formData.append("pInfo.Rep_Master_Fax", txtFax);
             formData.append("pInfo.Rep_Master_Email", txtEmail);
             formData.append("pInfo.Customer_Code", txtMADDSHCN);
+            formData.append("pInfo.Rep_Telephone", txtTelephone);
 
             var txt_Country_Nationality = $("#txt_Rep_Country_Nationality").val();
             var txt_Country_Residence = $("#txt_Rep_Country_Residence").val();

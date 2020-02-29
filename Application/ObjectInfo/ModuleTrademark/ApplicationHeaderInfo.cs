@@ -33,6 +33,7 @@ namespace ObjectInfos
         public string Master_Phone { get; set; }
         public string Master_Fax { get; set; }
         public string Master_Email { get; set; }
+        public string Telephone { get; set; }
 
         public decimal Master_Country_Nationality { get; set; }
         public decimal Master_Country_Residence { get; set; }
@@ -48,6 +49,8 @@ namespace ObjectInfos
         public string Rep_Master_Phone { get; set; }
         public string Rep_Master_Fax { get; set; }
         public string Rep_Master_Email { get; set; }
+        public string Rep_Telephone { get; set; }
+
         public decimal Rep_MT_Country_Nationality { get; set; }
         public decimal Rep_MT_Country_Residence { get; set; }
         public decimal Rep_MT_Country_Incorporation { get; set; }

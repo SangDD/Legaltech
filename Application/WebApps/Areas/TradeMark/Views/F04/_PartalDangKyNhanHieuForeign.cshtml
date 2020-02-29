@@ -170,14 +170,14 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
-                        <input type="radio" name="Applicant_Type" class="" value="1"  />
+                        <input type="radio" name="Applicant_Type" class="" value="1" />
                         <label>Individual</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="Applicant_Type" class="" value="2"  />
+                        <input type="radio" name="Applicant_Type" class="" value="2" />
                         <label>Legal entity or organization</label>
                     </div>
                 </div>
@@ -339,6 +339,19 @@
             </div>
         </div>
 
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>
+                    Suggestions
+                </div>
+            </div>
+            <div class="div-search-content">
+                <div style="width:100%">
+                    <input type="text" id="txtTenHangHoa" placeholder="Search class/product" style="border-left: 1px solid #ccc;width:100%" />
+                </div>
+            </div>
+        </div>
+
         @* Đơn ưu tiên *@
         <div class="divCover cls_form_title">
             <img src="~/Content/icons/category.png" />
@@ -362,56 +375,56 @@
         </div>
 
         @*<div class="divCover cls_form_title">
-            <img src="~/Content/icons/category.png" />
-            <div class="cls_form_header">
-                CLAIM FOR PRIORITY
-            </div>
-        </div>
-
-        <div id="" data-id="" class="clsDivDonUTien">
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div style="width: 150px"> Application No <i class="redspan">(*)</i></div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" maxlength="200" id="1_UT_txtSoDon" style="width:200px" />
-                    </div>
-                </div>
-
-                <div class="div-search-title">
-                    <div> Filling date <i class="redspan">(*)</i> </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" id="1_UT_txtNgayNopDon" class="datetimepicker" />
-                    </div>
+                <img src="~/Content/icons/category.png" />
+                <div class="cls_form_header">
+                    CLAIM FOR PRIORITY
                 </div>
             </div>
 
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div style="width: 150px">Country <i class="redspan">(*)</i></div>
+            <div id="" data-id="" class="clsDivDonUTien">
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div style="width: 150px"> Application No <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" maxlength="200" id="1_UT_txtSoDon" style="width:200px" />
+                        </div>
+                    </div>
+
+                    <div class="div-search-title">
+                        <div> Filling date <i class="redspan">(*)</i> </div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <input type="text" id="1_UT_txtNgayNopDon" class="datetimepicker" />
+                        </div>
+                    </div>
                 </div>
-                <div class="div-search-content">
-                    <div>
-                        <select id="1_UT_txtQuocGia">
-                            @foreach (var item in MemoryData.c_lst_Country)
-                            {
-                                if (item.Country_Id == Common.Common.Country_VietNam_Id)
+
+                <div class="div-search-ad">
+                    <div class="div-search-title">
+                        <div style="width: 150px">Country <i class="redspan">(*)</i></div>
+                    </div>
+                    <div class="div-search-content">
+                        <div>
+                            <select id="1_UT_txtQuocGia">
+                                @foreach (var item in MemoryData.c_lst_Country)
                                 {
-                                    <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                    if (item.Country_Id == Common.Common.Country_VietNam_Id)
+                                    {
+                                        <option selected="selected" value="@item.Country_Id">@item.Name</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@item.Country_Id">@item.Name</option>
+                                    }
                                 }
-                                else
-                                {
-                                    <option value="@item.Country_Id">@item.Name</option>
-                                }
-                            }
-                        </select>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>*@
+            </div>*@
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
         <div class="divCover cls_form_title">
@@ -422,13 +435,13 @@
         </div>
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @foreach (Sys_Document_Info item in _lst_doc)
-        {
-            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
-            if (item.Doc_Id == "F04_10" || item.Doc_Id == "F04_15")
             {
-                _model += "|Submit date";
-            }
-            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+                string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
+                if (item.Doc_Id == "F04_10" || item.Doc_Id == "F04_15")
+                {
+                    _model += "|Submit date";
+                }
+                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
         }
 
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
@@ -487,7 +500,7 @@
     }
 </style>
 <script>
- 
+
     //nếu dùng checkbox
     $(document).ready(function () {
         //$('.classNhanHieu').click(function () {
@@ -500,46 +513,45 @@
 
     $(function ()
     {
-        try {
-            var availableTags = [];
-            var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
-            for (var i = 0; i < array.length; i++) {
-                availableTags[i] = array[i];
-            }
-            $("#txtTenHangHoa").autocomplete({
-                minLength: 3,
-                source: function (request, response) {
-                    var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
-                    response(results.slice(0, 100));
-                },
-                select: function (event, ui) {
-                    $("#txtClass").val(ui.item.value);
-                    //return false;
-                    var textinput = $("#txtTenHangHoa").val();
-                    event.preventDefault();
-                    funcAddDataRowSuggest(ui.item.label, ui.item.value);
-                    $("#txtTenHangHoa").val("");
-
-                },
-                focus: function (event, ui) {
-                    var arrResult = $(".ui-menu-item");
-                    for (var i = 0; i < arrResult.length; i++) {
-                        var label = $.trim($(arrResult[i]).text().split("-")[0]);
-                        if (label == ui.item.name) {
-                            $(".clsLiActive").removeClass("clsLiActive")
-                            $(arrResult[i]).addClass("clsLiActive");
-                            break;
-                        }
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                $("#txtClass").val(ui.item.value);
+                //return false;
+                var textinput = $("#txtTenHangHoa").val();
+                event.preventDefault();
+                //funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                $("#txtTenHangHoa").val("");
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
                     }
-                    event.preventDefault();
                 }
-            });
+                event.preventDefault();
+            }
+        });
         } catch (e) {
         }
     });
 
 
-    
+
     function funcAddRemoveDisabled(pIDControl, ptxtDisable) {
         try {
             if ($("#" + pIDControl).is(':checked')) {
@@ -551,7 +563,7 @@
 
         }
     }
- 
+
     function funcEnableDisable(classaction, enable) {
         if (enable == true) { $("." + classaction).removeAttr('disabled'); } else { $("." + classaction).attr('disabled', 'disabled'); }
     }
