@@ -3245,7 +3245,7 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
-                    //_ds_all.WriteXml(@"E:\F04.xml", XmlWriteMode.WriteSchema);
+                   // _ds_all.WriteXml(@"D:\F04.xml", XmlWriteMode.WriteSchema);
 
                     // đè các bản dịch lên
                     if (p_View_Translate == 1)

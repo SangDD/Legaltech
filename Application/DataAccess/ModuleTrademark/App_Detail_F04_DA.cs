@@ -33,6 +33,7 @@ namespace DataAccess
 
                     new OracleParameter("p_classno", OracleDbType.Varchar2, pInfo.ClassNo, ParameterDirection.Input),
                     new OracleParameter("p_duadate", OracleDbType.Date, pInfo.Duadate, ParameterDirection.Input),
+                    new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToDecimal(paramReturn.Value.ToString());
                 return result;
@@ -72,7 +73,7 @@ namespace DataAccess
 
                     new OracleParameter("p_classno", OracleDbType.Varchar2, pInfo.ClassNo, ParameterDirection.Input),
                     new OracleParameter("p_duadate", OracleDbType.Date, pInfo.Duadate, ParameterDirection.Input),
-                   
+                    new OracleParameter("p_used_special", OracleDbType.Decimal, pInfo.Used_Special, ParameterDirection.Input),
                     paramReturn);
                 var result = Convert.ToInt32(paramReturn.Value.ToString());
                 return result;

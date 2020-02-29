@@ -15,6 +15,7 @@ namespace ObjectInfos
         public string Name_En { get; set; }
         public string Address_En { get; set; }
         public string Phone { get; set; }
+        public string telephone { get; set; }
         public string Fax { get; set; }
         public string Email { get; set; }
         public DateTime Createddate { get; set; }

@@ -9,13 +9,13 @@
     string txtEmail = Model + "_txtEmail";
     string txtYCCapPho = Model + "_txtYCCapPho";
     int pUseCusinfo = Common.CommonFuc.ConvertToInt(Model);
-    var objAppHeaderInfo = new AppDetail04NHInfo();
+    var objAppHeaderInfo = new App_Detail_F04_Info();
     string Name = "", Address = "", Phone = "", Fax = "", Email = "", YCCapPho = "" ,DaiDienSHCN ="" , Telephone = "";
     if (Model == "1")
     {
         if (ViewBag.objAppHeaderInfo != null)
         {
-            objAppHeaderInfo = (AppDetail04NHInfo)ViewBag.objAppHeaderInfo;
+            objAppHeaderInfo = (App_Detail_F04_Info)ViewBag.objAppHeaderInfo;
             Name = objAppHeaderInfo.Master_Name;
             Address = objAppHeaderInfo.Master_Address;
             Phone = objAppHeaderInfo.Master_Phone;
@@ -62,7 +62,7 @@
 
 <div class="div-search-ad">
     <div class="div-search-title">
-        <div>Phone:</div>
+        <div>Mobile:</div>
     </div>
     <div class="div-search-content">
         <div>
@@ -71,7 +71,7 @@
     </div>
 
     <div class="div-search-title">
-        <div>Email:</div>
+        <div>Telephone:</div>
     </div>
     <div class="div-search-content">
         <div>

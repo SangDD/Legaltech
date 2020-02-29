@@ -16,10 +16,12 @@ namespace ObjectInfos
             p_appDetail.Master_Phone = pAppInfo.Master_Phone;
             p_appDetail.Master_Fax = pAppInfo.Master_Fax;
             p_appDetail.Master_Email = pAppInfo.Master_Email;
+            p_appDetail.Telephone = pAppInfo.Telephone;
             p_appDetail.Rep_Master_Type = pAppInfo.Rep_Master_Type;
             p_appDetail.Rep_Master_Name = pAppInfo.Rep_Master_Name;
             p_appDetail.Rep_Master_Address = pAppInfo.Rep_Master_Address;
             p_appDetail.Rep_Master_Phone = pAppInfo.Rep_Master_Phone;
+            p_appDetail.Rep_Telephone = pAppInfo.Rep_Telephone;
             p_appDetail.Rep_Master_Fax = pAppInfo.Rep_Master_Fax;
             p_appDetail.Rep_Master_Email = pAppInfo.Rep_Master_Email;
             p_appDetail.Relationship = pAppInfo.Relationship;
