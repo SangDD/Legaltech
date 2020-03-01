@@ -289,8 +289,8 @@
                         pReturn = Call_Fee.CaculatorFee_A04(pAppClassInfo, pDetail.Sodon_Ut, p_case_code, ref listfeeCaculator);
                     }
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -508,8 +508,8 @@
                         }
                     }
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
 
@@ -1843,8 +1843,9 @@
                 List<AppDocumentInfo> _lst_appdocument = new List<AppDocumentInfo>();
                 List<AppDocumentOthersInfo> _lst_appdocumentothers = new List<AppDocumentOthersInfo>();
                 List<UTienInfo> pUTienInfo = new List<UTienInfo>();
+                List<AppClassDetailInfo> pAppClassInfo = new List<AppClassDetailInfo>();
 
-                App_Detail_F04_Info ds04NH = objBL.GetByID(pAppHeaderId, language, ref _applicationheaderinfo, ref _lst_appdocument, ref _lst_appdocumentothers, ref pUTienInfo);
+                App_Detail_F04_Info ds04NH = objBL.GetByID(pAppHeaderId, language, ref _applicationheaderinfo, ref _lst_appdocument, ref _lst_appdocumentothers, ref pUTienInfo, ref pAppClassInfo);
 
                 //Luu key duy nhat cua he thong
                 string keyData = "objAppHeaderInfo" + SessionData.CurrentUser.Id.ToString() + DateTime.Now.ToString("DDMMHHmmss");
@@ -1858,6 +1859,10 @@
                     ViewBag.lstDocumentInfo = _lst_appdocument;
                     ViewBag.lstDocOther = _lst_appdocumentothers;
                     ViewBag.Lst_UTienInfo = pUTienInfo;
+                    ViewBag.Obj = pAppClassInfo;
+
+                    string keyData_Class = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
+                    SessionData.SetDataSession(keyData_Class, pAppClassInfo);
                 }
                 return PartialView("~/Areas/TradeMark/Views/F04/View_PartialDangKyNhanHieuNN.cshtml");
             }
@@ -1922,8 +1927,9 @@
                 List<AppDocumentInfo> _lst_appdocument = new List<AppDocumentInfo>();
                 List<AppDocumentOthersInfo> _lst_appdocumentothers = new List<AppDocumentOthersInfo>();
                 List<UTienInfo> pUTienInfo = new List<UTienInfo>();
+                List<AppClassDetailInfo> pAppClassInfo = new List<AppClassDetailInfo>();
 
-                App_Detail_F04_Info ds04NH = objBL.GetByID(pAppHeaderId, language, ref _applicationheaderinfo, ref _lst_appdocument, ref _lst_appdocumentothers, ref pUTienInfo);
+                App_Detail_F04_Info ds04NH = objBL.GetByID(pAppHeaderId, language, ref _applicationheaderinfo, ref _lst_appdocument, ref _lst_appdocumentothers, ref pUTienInfo, ref pAppClassInfo);
 
                 //Luu key duy nhat cua he thong
                 string keyData = "objAppHeaderInfo" + SessionData.CurrentUser.Id.ToString() + DateTime.Now.ToString("DDMMHHmmss");
@@ -1937,6 +1943,11 @@
                     ViewBag.lstDocumentInfo = _lst_appdocument;
                     ViewBag.lstDocOther = _lst_appdocumentothers;
                     ViewBag.Lst_UTienInfo = pUTienInfo;
+
+                    ViewBag.Obj = pAppClassInfo;
+
+                    string keyData_Class = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
+                    SessionData.SetDataSession(keyData_Class, pAppClassInfo);
                 }
 
                 return PartialView("~/Areas/TradeMark/Views/F04/Edit_PartialDangKyNhanHieuNN.cshtml");
@@ -2788,6 +2799,19 @@
                         goto Commit_Transaction;
                     }
 
+                    //Thêm thông tin class
+                    string keyData = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
+                    List<AppClassDetailInfo> pAppClassInfo = (List<AppClassDetailInfo>)SessionData.GetDataSession(keyData);
+                    if (pAppClassInfo != null)
+                    {
+                        pAppClassInfo = new List<AppClassDetailInfo>();
+                    }
+                    if (pReturn >= 0 && pAppClassInfo.Count > 0)
+                    {
+                        AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                        pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                    }
+
                     if (pUTienInfo != null && pUTienInfo.Count > 0)
                     {
                         foreach (var item in pUTienInfo)
@@ -2856,7 +2880,7 @@
                     }
 
 
-                Commit_Transaction:
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -2936,6 +2960,21 @@
                         goto Commit_Transaction;
                     }
 
+
+                    //Thêm thông tin class
+                    AppClassDetailBL objClassDetail = new AppClassDetailBL();
+                    pReturn = objClassDetail.AppClassDetailDeleted(pInfo.Id, language);
+
+                    string keyData = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
+                    List<AppClassDetailInfo> pAppClassInfo = (List<AppClassDetailInfo>)SessionData.GetDataSession(keyData);
+                    if (pAppClassInfo != null)
+                    {
+                        pAppClassInfo = new List<AppClassDetailInfo>();
+                    }
+                    if (pReturn >= 0 && pAppClassInfo.Count > 0)
+                    {
+                        pReturn = objClassDetail.AppClassDetailInsertBatch(pAppClassInfo, pAppHeaderID, language);
+                    }
 
                     // xóa đi trước insert lại sau
                     Uu_Tien_BL _Uu_Tien_BL = new Uu_Tien_BL();
@@ -3040,8 +3079,8 @@
                         }
                     }
 
-                //end
-                Commit_Transaction:
+                    //end
+                    Commit_Transaction:
                     if (pReturn < 0)
                     {
 
@@ -3099,9 +3138,9 @@
                 List<AppFeeFixInfo> appFeeFixInfos = new List<AppFeeFixInfo>();
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
-
+                List<AppClassDetailInfo> pAppClassInfo = new List<AppClassDetailInfo>();
                 List<UTienInfo> pUTienInfo = new List<UTienInfo>();
-                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _LstDocumentOthersInfo, ref pUTienInfo);
+                app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pAppClassInfo);
 
                 // đè thằng ưu tiên lên
                 if (pUTienInfo != null && pUTienInfo.Count > 0)
@@ -3110,6 +3149,8 @@
                     app_Detail.Nuocnopdon_ut = pUTienInfo[0].UT_QuocGia;
                     app_Detail.Ngaynopdon_ut = pUTienInfo[0].UT_NgayNopDon;
                     app_Detail.Nuocnopdon_ut_text = pUTienInfo[0].UT_QuocGia_Display;
+
+                    ViewBag.Obj = pAppClassInfo;
                 }
 
                 AppsCommon.Prepare_Data_Export_F04(ref app_Detail, applicationHeaderInfo, appDocumentInfos);
@@ -3245,7 +3286,7 @@
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table";
-                   // _ds_all.WriteXml(@"D:\F04.xml", XmlWriteMode.WriteSchema);
+                    // _ds_all.WriteXml(@"D:\F04.xml", XmlWriteMode.WriteSchema);
 
                     // đè các bản dịch lên
                     if (p_View_Translate == 1)
@@ -3356,6 +3397,70 @@
                 Logger.LogException(ex);
                 return Json(new { success = 0 });
             }
+        }
+
+        [HttpPost]
+        [Route("class/them")]
+        public ActionResult Them_Nhom(string p_code, string p_description)
+        {
+            try
+            {
+                string keyData = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
+                List<AppClassDetailInfo> pAppClassInfo = (List<AppClassDetailInfo>)SessionData.GetDataSession(keyData);
+                if (pAppClassInfo == null)
+                {
+                    pAppClassInfo = new List<AppClassDetailInfo>();
+                }
+
+                AppClassDetailInfo app = new AppClassDetailInfo
+                {
+                    Code = p_code,
+                    Textinput = p_description
+                };
+                pAppClassInfo.Insert(0, app);
+
+                SessionData.SetDataSession(keyData, pAppClassInfo);
+                ViewBag.Obj = pAppClassInfo;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return PartialView("~/Areas/TradeMark/Views/F04/_PartialTableClass.cshtml");
+
+        }
+
+        [HttpPost]
+        [Route("class/xoa")]
+        public ActionResult Xoa_Nhom(string p_code, string p_description)
+        {
+            try
+            {
+                string keyData = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
+                List<AppClassDetailInfo> pAppClassInfo = (List<AppClassDetailInfo>)SessionData.GetDataSession(keyData);
+                if (pAppClassInfo == null)
+                {
+                    pAppClassInfo = new List<AppClassDetailInfo>();
+                }
+
+                AppClassDetailInfo app = new AppClassDetailInfo
+                {
+                    Code = p_code,
+                    Textinput = p_description
+                };
+                pAppClassInfo.RemoveAll(x => x.Code == p_code && x.Textinput == p_description);
+
+                SessionData.SetDataSession(keyData, pAppClassInfo);
+                ViewBag.Obj = pAppClassInfo;
+            }
+            catch (Exception ex)
+            {
+                Logger.LogException(ex);
+            }
+
+            return PartialView("~/Areas/TradeMark/Views/F04/_PartialTableClass.cshtml");
+
         }
     }
 }

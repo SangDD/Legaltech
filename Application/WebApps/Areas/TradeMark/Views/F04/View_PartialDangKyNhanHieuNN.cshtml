@@ -141,7 +141,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10"  value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" readonly/>
+                        <input class="datetimepicker" type="text" id="0_txtNgayNopDon" maxlength="10" value="@objAppHeaderInfo.Duadate.ToString("dd/MM/yyyy")" readonly />
                     </div>
                 </div>
             </div>
@@ -163,14 +163,14 @@
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
 
-                        <input type="radio" name="Applicant_Type" class="" value="1" @(objAppHeaderInfo.Applicant_Type == 1 ? "checked" : "") disabled/>
+                        <input type="radio" name="Applicant_Type" class="" value="1" @(objAppHeaderInfo.Applicant_Type == 1 ? "checked" : "") disabled />
                         <label>Individual</label>
                     </div>
                 </div>
 
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="Applicant_Type" class="" value="2" @(objAppHeaderInfo.Applicant_Type ==2 ? "checked" : "") disabled/>
+                        <input type="radio" name="Applicant_Type" class="" value="2" @(objAppHeaderInfo.Applicant_Type == 2 ? "checked" : "") disabled />
                         <label>Legal entity or organization</label>
                     </div>
                 </div>
@@ -179,7 +179,7 @@
 
         </div>
 
-      
+
         @* end 2 *@
 
         <div class="divCover cls_form_title">
@@ -286,7 +286,7 @@
                             <div>Color(s) of the Mark:</div>
                         </div>
                         <div class="div-search-content">
-                            <div><input type="text" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" readonly/></div>
+                            <div><input type="text" value="@objAppHeaderInfo.Color" maxlength="50" id="0_MauSac" readonly /></div>
                         </div>
                     </div>
 
@@ -316,14 +316,14 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" @_checkGood_mark id="0_NhanHieuThongThuong" disabled/>
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHNM" @_checkGood_mark id="0_NhanHieuThongThuong" disabled />
                         <label>Goods mark</label>
                     </div>
                 </div>
-           
+
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu id="0_NhanHieuTapThe"disabled />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHTT" @styleNhanHieu id="0_NhanHieuTapThe" disabled />
                         <label>Service mark</label>
                     </div>
                 </div>
@@ -332,14 +332,14 @@
             <div class="div-search-ad">
                 <div class="div-search-content">
                     <div class="div-radio" style="width:482px">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet id="0_NhanHieuLienKet" disabled/>
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHLK" @styleLienKet id="0_NhanHieuLienKet" disabled />
                         <label>Collective mark</label>
                     </div>
                 </div>
-           
+
                 <div class="div-search-content">
                     <div class="div-radio">
-                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN id="0_NhanHieuChungNhan"disabled />
+                        <input type="radio" name="0_NhanHieu" class="classNhanHieu" value="NHCN" @styleNhanHieuCN id="0_NhanHieuChungNhan" disabled />
                         <label>Certificate mark</label>
                     </div>
                 </div>
@@ -358,19 +358,21 @@
             </div>
         </div>
 
-        <div id="" data-id="" class="clsDivDonUTien">
+        @*<div id="" data-id="" class="clsDivDonUTien">
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div style="width: 150px"> Class No. </div>
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" maxlength="50" id="ClassNo" value="@objAppHeaderInfo.ClassNo" readonly/>
+                        <input type="text" maxlength="50" id="ClassNo" value="@objAppHeaderInfo.ClassNo" readonly />
                     </div>
                 </div>
             </div>
+        </div>*@
 
-
+        <div id="divDataClass" style="margin-top: 10px">
+            @Html.Partial("~/Areas/TradeMark/Views/F04/_PartialTableClass.cshtml")
         </div>
 
         @if (Lst_UTienInfo.Count > 0)
@@ -472,7 +474,7 @@
                 if (itemdoc.Doc_Id == "F04_10" || itemdoc.Doc_Id == "F04_15")
                 {
                     string _vl_char03 = dic_appDoc[itemdoc.Doc_Id].CHAR03;
-                    _model += "|"+ _vl_char03;
+                    _model += "|" + _vl_char03;
                 }
                 @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document_View.cshtml", _model)
 

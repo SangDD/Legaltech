@@ -117,7 +117,7 @@
             <span class="red">></span>
             <a href="/application/register/LAO">@Resource.lblNopdon</a>
             <span class="red">></span>
-            <a href="/application/register/VN">Lao</a>
+            <a href="/application/register/LAO">Lao</a>
             <span class="red">></span>
             <a href="javascript:;">@Resource.TM2A_Formname</a>
         </div>
@@ -326,17 +326,26 @@
             </div>
         </div>
 
-        <div id="" data-id="" class="clsDivDonUTien">
-            <div class="div-search-ad">
-                <div class="div-search-title">
-                    <div style="width: 150px"> Class No. </div>
-                </div>
-                <div class="div-search-content">
-                    <div>
-                        <input type="text" maxlength="50" id="ClassNo" />
-                    </div>
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Class No. </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" id="ClassNo" style="width:100px" />
                 </div>
             </div>
+
+            <div class="div-search-title">
+                <div> Class description: </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" maxlength="50" id="txt_Class_Description" style="width:450px"/>
+                </div>
+            </div>
+
+            <input type="button" value="Add" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px;    margin-left: 5px;" />
         </div>
 
         <div class="div-search-ad">
@@ -346,10 +355,14 @@
                 </div>
             </div>
             <div class="div-search-content">
-                <div style="width:100%">
+                <div>
                     <input type="text" id="txtTenHangHoa" placeholder="Search class/product" style="border-left: 1px solid #ccc;width:100%" />
                 </div>
             </div>
+        </div>
+
+        <div id="divDataClass" style="margin-top: 10px">
+            @Html.Partial("~/Areas/TradeMark/Views/F04/_PartialTableClass.cshtml")
         </div>
 
         @* Đơn ưu tiên *@
@@ -435,13 +448,13 @@
         </div>
         @* id doc | id của check box | level | lable | lable 2 | is upload *@
         @foreach (Sys_Document_Info item in _lst_doc)
+        {
+            string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
+            if (item.Doc_Id == "F04_10" || item.Doc_Id == "F04_15")
             {
-                string _model = item.Doc_Id + "|" + item.Check_Box_Id + "|" + item.Doc_Level + "|" + item.Content_1 + "|" + item.Content_2 + "|" + item.Is_Upload + "|" + item.Width + "|" + item.Content_3;
-                if (item.Doc_Id == "F04_10" || item.Doc_Id == "F04_15")
-                {
-                    _model += "|Submit date";
-                }
-                @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
+                _model += "|Submit date";
+            }
+            @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
         }
 
         @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
@@ -1100,6 +1113,45 @@
         }
     }
 
+    function funcAddDataRow() {
+        try {
+
+            var _ClassNo = $("#ClassNo").val();
+            if (_ClassNo == "" || _ClassNo == undefined) {
+                showError('ClassNo can not blank');
+                return false;
+            }
+
+            var _txt_Class_Description = $("#txt_Class_Description").val();
+            if (_txt_Class_Description == "" || _txt_Class_Description == undefined) {
+                showError('Class description can not blank');
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/class/them/',
+                data: {
+                    p_code: _ClassNo,
+                    p_description: _txt_Class_Description
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataClass").html(data);
+
+                    $("#ClassNo").val("");
+                    $("#txt_Class_Description").val("");
+                }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
 </script>
 
 <script>
@@ -1121,7 +1173,7 @@
 
 
     // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
+    window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }

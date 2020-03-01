@@ -353,7 +353,7 @@
             </div>
         </div>
 
-        <div id="" data-id="" class="clsDivDonUTien">
+        @*<div id="" data-id="" class="clsDivDonUTien">
             <div class="div-search-ad">
                 <div class="div-search-title">
                     <div style="width: 150px"> Class No. </div>
@@ -364,6 +364,45 @@
                     </div>
                 </div>
             </div>
+        </div>*@
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div> Class No. </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" maxlength="50" id="ClassNo" style="width:100px" />
+                </div>
+            </div>
+
+            <div class="div-search-title">
+                <div> Class description: </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input value="" type="text" maxlength="50" id="txt_Class_Description" style="width:450px" />
+                </div>
+            </div>
+
+            <input type="button" value="Add" class="btn" onclick="return funcAddDataRow();" style="width:75px;height:30px;    margin-left: 5px;" />
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>
+                    Suggestions
+                </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTenHangHoa" placeholder="Search class/product" style="border-left: 1px solid #ccc;width:100%" />
+                </div>
+            </div>
+        </div>
+
+        <div id="divDataClass" style="margin-top: 10px">
+            @Html.Partial("~/Areas/TradeMark/Views/F04/_PartialTableClass.cshtml")
         </div>
 
         <div class="divCover cls_form_title">
@@ -489,7 +528,7 @@
             </div>
         </div>
 
-      
+
 
     </fieldset>
 </div>
@@ -1221,6 +1260,45 @@
             });
         } catch (e) {
             alert(e);
+        }
+    }
+
+    function funcAddDataRow() {
+        try {
+
+            var _ClassNo = $("#ClassNo").val();
+            if (_ClassNo == "" || _ClassNo == undefined) {
+                showError('ClassNo can not blank');
+                return false;
+            }
+
+            var _txt_Class_Description = $("#txt_Class_Description").val();
+            if (_txt_Class_Description == "" || _txt_Class_Description == undefined) {
+                showError('Class description can not blank');
+                return false;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/trade-mark/class/them/',
+                data: {
+                    p_code: _ClassNo,
+                    p_description: _txt_Class_Description
+                },
+                async: true, cache: false, traditional: true,
+                beforeSend: function () {
+                    CreateRollingWaitingIcon(true);
+                },
+                success: function (data) {
+                    CreateRollingWaitingIcon(false);
+                    $("#divDataClass").html(data);
+
+                    $("#ClassNo").val("");
+                    $("#txt_Class_Description").val("");
+                }
+            });
+        } catch (e) {
+            console.log(e);
         }
     }
 

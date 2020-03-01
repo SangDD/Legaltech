@@ -1,0 +1,56 @@
+﻿@using Common.CommonData
+@using WebApps.CommonFunction
+@using ObjectInfos;
+@{
+    List<AppClassDetailInfo> _list_data = new List<AppClassDetailInfo>();
+    if (ViewBag.Obj != null)
+    {
+        _list_data = ViewBag.Obj;
+    }
+
+    string language = AppsCommon.GetCurrentLang();
+    decimal _UserType = WebApps.Session.SessionData.CurrentUser.Type;
+    int _index = 0;
+}
+
+<div>
+    <table class="table-lst-data" id="tableListGroupUser">
+        <thead>
+            <tr>
+                <th class="class30">STT</th>
+                <th class="class200 m30">Description</th>
+                <th class="class30 m40">Class code</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (_list_data.Count > 0)
+            {
+                foreach (var item in _list_data)
+                {
+                    _index = _index + 1;
+                    <tr>
+                        <td class="tdcenteralign">@_index</td>
+                        <td class="tdleftalign"> @item.Textinput</td>
+                        <td class="tdleftalign">@item.Code</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="4">@WebApps.Resources.Resource.KhongCoDuLieu</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div class="_ClassPage">
+    <ul>
+        @Html.Raw(ViewBag.Paging)
+    </ul>
+</div>
+
+<script>
+    
+</script>
