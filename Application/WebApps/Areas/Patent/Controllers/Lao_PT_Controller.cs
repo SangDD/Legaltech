@@ -736,15 +736,36 @@ namespace WebApps.Areas.Patent.Controllers
                 Pattent_Lao_Info_Export _A01_Info_Export = new Pattent_Lao_Info_Export();
                 Pattent_Lao_Info_Export.CopyA01_Info(ref _A01_Info_Export, pDetail);
 
+                foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == pInfo.Master_Country_Nationality)
+                    {
+                        pInfo.Master_Country_Nationality_Name = item.Name;
+
+                    }
+                    if (item.Country_Id == pInfo.Master_Country_Incorporation)
+                    {
+                        pInfo.Master_Country_Incorporation_Name = item.Name;
+
+                    }
+                    if (item.Country_Id == pInfo.Master_Country_Residence)
+                    {
+                        pInfo.Master_Country_Residence_Name = item.Name;
+
+                    }
+                   
+                }
+
 
                 // Phí cố định
-                //List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
-                //AppsCommon.Prepare_Data_Export_A01(ref _A01_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
-                //       pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_PT_Lao(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic, pAppDocOtherInfo);
+               
+                 Call_Fee.Prepare_Data_Export_PT_Lao(ref _A01_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pInventor_Info, pOther_MasterInfo,
+                       pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
 
                 _lst.Add(_A01_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<Pattent_Lao_Info_Export>(_lst, false);
-               // _ds_all.WriteXml(@"D:\A01.xml", XmlWriteMode.WriteSchema);
+                _ds_all.WriteXml(@"D:\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "L_Patent.rpt";

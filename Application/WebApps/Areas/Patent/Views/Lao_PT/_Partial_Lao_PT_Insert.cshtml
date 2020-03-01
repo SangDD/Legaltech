@@ -931,14 +931,22 @@
                 }
             }
             formData.append("pDetail.Title", txt_Title);
-
+            var Pattent = " ";
+            var Request = " ";
             if ($("#1_rdPattent").is(':checked')) {
-                formData.append("pDetail.Patent_Type", "PT");
+                Pattent = "PT"
+                //formData.append("pDetail.Patent_Type", "PT");
             } else if ($("#1_rdPetty_Pattent").is(':checked')) {
-                formData.append("pDetail.Request", "PPT");
+                Request = "PPT";
+                //formData.append("pDetail.Request", "PPT");
             } else if ($("#1_rdIndustrial").is(':checked')) {
-                formData.append("pDetail.Request", "ID");
+                Request = "ID";
+                //formData.append("pDetail.Request", "ID");
             }
+
+            formData.append("pDetail.Patent_Type", Pattent);
+            formData.append("pDetail.Request", Request);
+
 
             if ($("#1_rdPattent").is(':checked') || $("#1_rdPetty_Pattent").is(':checked')) {
                 var txt_Request = $("#txt_Request_Pattent").val();

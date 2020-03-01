@@ -655,20 +655,40 @@ namespace ObjectInfos
             p_appDetail.Years = pAppInfo.Years;
         }
 
-        public static void CopyUuTienInfo(ref Pattent_Lao_Info_Export p_appDetail, UTienInfo pAppInfo)
+        public static void CopyUuTienInfo(ref Pattent_Lao_Info_Export p_appDetail, UTienInfo pAppInfo, int p_position)
         {
-            if (pAppInfo != null)
-            {
-                p_appDetail.UT_SoDon = pAppInfo.UT_SoDon;
-                p_appDetail.UT_NgayNopDon = pAppInfo.UT_NgayNopDon;
-                p_appDetail.UT_QuocGia_Display = pAppInfo.UT_QuocGia_Display;
+            if (pAppInfo!=null) {
+                if (p_position == 0)
+                {
+                    p_appDetail.UT_SoDon = pAppInfo.UT_SoDon;
+                    p_appDetail.UT_NgayNopDon = pAppInfo.UT_NgayNopDon;
+                    p_appDetail.UT_QuocGia_Display = pAppInfo.UT_QuocGia_Display;
+                } else if (p_position == 1)
+                {
+                    p_appDetail.UT_SoDon_1 = pAppInfo.UT_SoDon;
+                    p_appDetail.UT_NgayNopDon_1 = pAppInfo.UT_NgayNopDon;
+                    p_appDetail.UT_QuocGia_Display_1 = pAppInfo.UT_QuocGia_Display;
+                } else if (p_position == 2)
+                {
+                    p_appDetail.UT_SoDon_2 = pAppInfo.UT_SoDon;
+                    p_appDetail.UT_NgayNopDon_2 = pAppInfo.UT_NgayNopDon;
+                    p_appDetail.UT_QuocGia_Display_2 = pAppInfo.UT_QuocGia_Display;
+                }
+                else if (p_position == 3)
+                {
+                    p_appDetail.UT_SoDon_3 = pAppInfo.UT_SoDon;
+                    p_appDetail.UT_NgayNopDon_3 = pAppInfo.UT_NgayNopDon;
+                    p_appDetail.UT_QuocGia_Display_3 = pAppInfo.UT_QuocGia_Display;
+                }
+                else if (p_position == 4)
+                {
+                    p_appDetail.UT_SoDon_4 = pAppInfo.UT_SoDon;
+                    p_appDetail.UT_NgayNopDon_4 = pAppInfo.UT_NgayNopDon;
+                    p_appDetail.UT_QuocGia_Display_4 = pAppInfo.UT_QuocGia_Display;
+                }
+
             }
-            else
-            {
-                p_appDetail.UT_SoDon = "";
-                p_appDetail.UT_NgayNopDon = DateTime.MinValue;
-                p_appDetail.UT_QuocGia_Display = "";
-            }
+        
         }
 
         public static void Copy_Inventor_Info(ref Pattent_Lao_Info_Export p_appDetail, Inventor_Info pAppInfo, int p_position)
@@ -842,6 +862,27 @@ namespace ObjectInfos
         public DateTime UT_NgayNopDon { set; get; }
         public decimal UT_QuocGia { set; get; }
         public string UT_QuocGia_Display { set; get; }
+
+
+        public string UT_SoDon_1 { set; get; }
+        public DateTime UT_NgayNopDon_1 { set; get; }
+        public decimal UT_QuocGia_1 { set; get; }
+        public string UT_QuocGia_Display_1 { set; get; }
+
+        public string UT_SoDon_2 { set; get; }
+        public DateTime UT_NgayNopDon_2 { set; get; }
+        public decimal UT_QuocGia_2 { set; get; }
+        public string UT_QuocGia_Display_2 { set; get; }
+
+        public string UT_SoDon_3 { set; get; }
+        public DateTime UT_NgayNopDon_3 { set; get; }
+        public decimal UT_QuocGia_3 { set; get; }
+        public string UT_QuocGia_Display_3 { set; get; }
+
+        public string UT_SoDon_4 { set; get; }
+        public DateTime UT_NgayNopDon_4 { set; get; }
+        public decimal UT_QuocGia_4 { set; get; }
+        public string UT_QuocGia_Display_4 { set; get; }
         #endregion
 
         #region Inventor

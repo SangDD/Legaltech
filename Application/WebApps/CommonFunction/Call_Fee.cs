@@ -4324,12 +4324,46 @@ namespace WebApps.CommonFunction
                 // copy đơn ưu tiên
                 if (pUTienInfo != null && pUTienInfo.Count > 0)
                 {
-                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[0]);
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[0],0);
                 }
                 else
                 {
-                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, null);
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, null,0);
                 }
+                if (pUTienInfo != null && pUTienInfo.Count > 1)
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[1], 1);
+                }
+                else
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, null, 0);
+                }
+                if (pUTienInfo != null && pUTienInfo.Count > 2)
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[2],2);
+                }
+                else
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, null, 0);
+                }
+                if (pUTienInfo != null && pUTienInfo.Count >3)
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[3], 3);
+                }
+                else
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, null, 0);
+                }
+                if (pUTienInfo != null && pUTienInfo.Count > 4)
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, pUTienInfo[4], 4);
+                }
+                else
+                {
+                    Pattent_Lao_Info_Export.CopyUuTienInfo(ref app_Detail, null, 0);
+                }
+
+
 
                 #region Tài liệu có trong đơn
 
@@ -4345,63 +4379,63 @@ namespace WebApps.CommonFunction
 
                 foreach (AppDocumentInfo item in appDocumentInfos)
                 {
-                    if (item.Document_Id == "A01_01")
+                    if (item.Document_Id == "LPT_01")
                     {
                         app_Detail.Doc_Id_1 = item.CHAR01;
                         app_Detail.Doc_Id_102 = item.CHAR02;
                         app_Detail.Doc_Id_1_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "A01_02")
+                    else if (item.Document_Id == "LPT_02")
                     {
                         app_Detail.Doc_Id_2 = item.CHAR01;
                         app_Detail.Doc_Id_202 = item.CHAR02;
 
                         app_Detail.Doc_Id_2_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "A01_03")
+                    else if (item.Document_Id == "LPT_03")
                     {
                         app_Detail.Doc_Id_3_Check = item.Isuse;
                         app_Detail.Doc_Id_3 = item.CHAR01;
                     }
-                    else if (item.Document_Id == "A01_04")
+                    else if (item.Document_Id == "LPT_04")
                     {
                         app_Detail.Doc_Id_4 = item.CHAR01;
                         app_Detail.Doc_Id_402 = item.CHAR02;
                         app_Detail.Doc_Id_4_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "A01_05")
+                    else if (item.Document_Id == "LPT_05")
                     {
                         app_Detail.Doc_Id_5_Check = item.Isuse;
                         app_Detail.Doc_Id_5 = item.CHAR01;
                     }
 
-                    else if (item.Document_Id == "A01_06")
+                    else if (item.Document_Id == "LPT_06")
                     {
                         app_Detail.Doc_Id_6_Check = item.Isuse;
                         app_Detail.Doc_Id_6 = item.CHAR01;
                     }
-                    else if (item.Document_Id == "A01_07")
+                    else if (item.Document_Id == "LPT_07")
                     {
                         app_Detail.Doc_Id_7_Check = item.Isuse;
                         app_Detail.Doc_Id_7 = item.CHAR01;
                     }
-                    else if (item.Document_Id == "A01_07")
+                    else if (item.Document_Id == "LPT_07")
                     {
                         app_Detail.Doc_Id_8_Check = item.Isuse;
                         app_Detail.Doc_Id_8 = item.CHAR01;
                     }
 
-                    else if (item.Document_Id == "A01_09")
+                    else if (item.Document_Id == "LPT_09")
                     {
                         app_Detail.Doc_Id_9 = item.CHAR01;
                         app_Detail.Doc_Id_9_Check = item.Isuse;
                     }
-                    else if (item.Document_Id == "A01_10")
+                    else if (item.Document_Id == "LPT_10")
                     {
                         app_Detail.Doc_Id_10_Check = item.Isuse;
                         app_Detail.Doc_Id_10 = item.CHAR01;
                     }
-                    else if (item.Document_Id == "A01_11")
+                    else if (item.Document_Id == "LPT_11")
                     {
                         app_Detail.Doc_Id_11 = item.CHAR01;
                         app_Detail.Doc_Id_11_Check = item.Isuse;
