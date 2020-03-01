@@ -288,6 +288,12 @@
       <SubType>Component</SubType>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Report\L_Patent.cs">
+      <DependentUpon>L_Patent.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Report\F04.cs">
       <DependentUpon>F04.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -1558,6 +1564,10 @@
     <EmbeddedResource Include="Report\C02_EN.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>C02_EN.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Report\L_Patent.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>L_Patent.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Report\F04.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -706,9 +706,10 @@ namespace WebApps.Areas.Patent.Controllers
 
         [HttpPost]
         [Route("ket_xuat_file_IU")]
-        public ActionResult ExportData_View_IU(ApplicationHeaderInfo pInfo, A01_Info pDetail,
+        public ActionResult ExportData_View_IU(ApplicationHeaderInfo pInfo, Pattent_Lao_Info pDetail,
             List<AppDocumentInfo> pAppDocumentInfo, List<AppFeeFixInfo> pFeeFixInfo,
-            List<AuthorsInfo> pAppAuthorsInfo, List<Other_MasterInfo> pOther_MasterInfo,
+            List<Other_MasterInfo> pOther_MasterInfo,
+            List<Inventor_Info> pInventor_Info,
             List<AppClassDetailInfo> pAppClassInfo, List<AppDocumentOthersInfo> pAppDocOtherInfo,
             List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
         {
@@ -716,8 +717,8 @@ namespace WebApps.Areas.Patent.Controllers
             {
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string language = AppsCommon.GetCurrentLang();
-                var objBL = new A01_BL();
-                List<A01_Info_Export> _lst = new List<A01_Info_Export>();
+                //var objBL = new A01_BL();
+                List<Pattent_Lao_Info_Export> _lst = new List<Pattent_Lao_Info_Export>();
 
                 string p_appCode = "A01_Preview";
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf");
@@ -732,18 +733,18 @@ namespace WebApps.Areas.Patent.Controllers
                     SessionData.CurrentUser.FilePreview = "/Content/Export/" + "L_Patent_EN_" + _datetimenow + ".pdf";
                 }
 
-                A01_Info_Export _A01_Info_Export = new A01_Info_Export();
-                A01_Info_Export.CopyA01_Info(ref _A01_Info_Export, pDetail);
+                Pattent_Lao_Info_Export _A01_Info_Export = new Pattent_Lao_Info_Export();
+                Pattent_Lao_Info_Export.CopyA01_Info(ref _A01_Info_Export, pDetail);
 
 
                 // Phí cố định
-                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
-                AppsCommon.Prepare_Data_Export_A01(ref _A01_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
-                       pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
+                //List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                //AppsCommon.Prepare_Data_Export_A01(ref _A01_Info_Export, pInfo, pAppDocumentInfo, _lstFeeFix, pAppAuthorsInfo, pOther_MasterInfo,
+                //       pAppClassInfo, pAppDocOtherInfo, pUTienInfo, pLstImagePublic);
 
                 _lst.Add(_A01_Info_Export);
-                DataSet _ds_all = ConvertData.ConvertToDataSet<A01_Info_Export>(_lst, false);
-                //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<Pattent_Lao_Info_Export>(_lst, false);
+               // _ds_all.WriteXml(@"D:\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "L_Patent.rpt";
@@ -756,7 +757,7 @@ namespace WebApps.Areas.Patent.Controllers
                 if (_ds_all != null)
                 {
                     _ds_all.Tables[0].TableName = "Table1";
-                    oRpt.Database.Tables["Table1"].SetDataSource(_ds_all.Tables[0]);
+                    oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
                     //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();

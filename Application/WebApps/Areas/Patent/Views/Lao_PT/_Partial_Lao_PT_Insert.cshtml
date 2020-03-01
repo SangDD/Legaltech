@@ -1148,6 +1148,7 @@
                 var _index_document = 12;
 
                 $(".clsDivDonUTien").each(function (item) {
+                  
                     var _id = $(this).attr('data-id');
                     if ($("#" + _id + "_UT_Use").val() == "1") {
 
@@ -1171,12 +1172,15 @@
                             }
                         }
 
+                        
+
                         formData.append("pUTienInfo[" + _index + "].UT_SoDon", $("#" + _id + "_UT_txtSoDon").val());
                         formData.append("pUTienInfo[" + _index + "].UT_NgayNopDon", $("#" + _id + "_UT_txtNgayNopDon").val());
                         formData.append("pUTienInfo[" + _index + "].UT_QuocGia", $("#" + _id + "_UT_txtQuocGia").val());
 
                         var cbo_country = document.getElementById(_id + "_UT_txtQuocGia");
                         formData.append("pUTienInfo[" + _index + "].UT_QuocGia_Display", cbo_country.options[cbo_country.selectedIndex].text);
+                        _index = _index + 1;
                     }
                 });
             }

@@ -98,7 +98,7 @@
             }
 
             $.ajax({
-                url: '/lg-patent/ket_xuat_file_IU',
+                url: '/lg-patent-lao/ket_xuat_file_IU',
                 type: 'POST',
                 data: formData,
                 processData: false,
@@ -132,9 +132,9 @@
     }
 
     function funcPreViewApplication() {
-        var preturn = funGetData_Preview_UI_A01("/lg-patent/ket_xuat_file_IU");
+        var preturn = funGetData_Preview_UI_A01("/lg-patent-lao/ket_xuat_file_IU");
         if (preturn == true || preturn == undefined) {
-            OpenPreview("/lg-patent/Pre-View");
+            OpenPreview("/lg-patent-lao/Pre-View");
         }
     }
 
