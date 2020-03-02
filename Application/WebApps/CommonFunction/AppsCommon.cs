@@ -739,7 +739,9 @@ namespace WebApps.CommonFunction
                 _lst.Add(_Billing_Header_Info);
 
                 string _tempfile = "Billing.rpt";
-                if (userInfo.Country != 234)
+                if (userInfo.Country != 234 
+                    || p_case_code.Contains(TradeMarkAppCode.AppCodeDangKynhanHieuNN)
+                    || p_case_code.Contains(TradeMarkAppCode.AppCode_LPT))
                 {
                     _tempfile = "Billing_EN.rpt";
                     foreach (Billing_Detail_Info item in _lst_billing_detail)

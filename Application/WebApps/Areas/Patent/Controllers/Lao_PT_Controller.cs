@@ -117,7 +117,7 @@ namespace WebApps.Areas.Patent.Controllers
         [Route("tai-lieu-khac/them")]
         public ActionResult ThemTaiLieuKhac(string p_id)
         {
-            return PartialView("~/Areas/Patent/Views/Shared/_Partial_Document_Others_Child.cshtml", p_id.ToString());
+            return PartialView("~/Areas/Patent/Views/Shared/_Lao_Partial_Document_Others_Child.cshtml", p_id.ToString());
         }
 
         [HttpPost]

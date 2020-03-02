@@ -289,8 +289,8 @@
                         pReturn = Call_Fee.CaculatorFee_A04(pAppClassInfo, pDetail.Sodon_Ut, p_case_code, ref listfeeCaculator);
                     }
 
-                    //end
-                    Commit_Transaction:
+                //end
+                Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -508,8 +508,8 @@
                         }
                     }
 
-                    //end
-                    Commit_Transaction:
+                //end
+                Commit_Transaction:
                     if (pReturn < 0)
                     {
 
@@ -2879,8 +2879,17 @@
                         }
                     }
 
+                    // Phí cố định
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_F04(pDetail, pUTienInfo, pAppClassInfo);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, p_case_code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
 
-                    Commit_Transaction:
+                Commit_Transaction:
                     if (pReturn < 0)
                     {
                         Transaction.Current.Rollback();
@@ -3079,8 +3088,20 @@
                         }
                     }
 
-                    //end
-                    Commit_Transaction:
+                    // fee cố định
+                    AppFeeFixBL _AppFeeFixBL = new AppFeeFixBL();
+                    _AppFeeFixBL.AppFeeFixDelete(pInfo.Case_Code, language);
+
+                    List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_F04(pDetail, pUTienInfo, pAppClassInfo);
+                    if (_lstFeeFix.Count > 0)
+                    {
+                        pReturn = _AppFeeFixBL.AppFeeFixInsertBath(_lstFeeFix, pInfo.Case_Code);
+                        if (pReturn < 0)
+                            goto Commit_Transaction;
+                    }
+
+                //end
+                Commit_Transaction:
                     if (pReturn < 0)
                     {
 

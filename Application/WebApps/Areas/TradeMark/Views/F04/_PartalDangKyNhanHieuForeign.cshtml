@@ -16,14 +16,14 @@
         {
             if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
             {
-                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
+                pShortInfo = new SuggestInfo(item.name.Replace('/', ' ') + "[" + item.value + "]", item.value);
             }
         }
         else
         {
             if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
             {
-                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
+                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' ') + "[" + item.value + "]", item.value);
             }
         }
         clstAppClassShortSuggest.Add(pShortInfo);
@@ -117,7 +117,7 @@
             <span class="red">></span>
             <a href="/application/register/LAO">@Resource.lblNopdon</a>
             <span class="red">></span>
-            <a href="/application/register/LAO">Lao</a>
+            <a href="/application/register/LAO">@Resource.Lao</a>
             <span class="red">></span>
             <a href="javascript:;">@Resource.TM2A_Formname</a>
         </div>
@@ -457,7 +457,7 @@
             @Html.Partial("~/Areas/TradeMark/Views/PLB01_SDD_3B/_Partial_Document.cshtml", _model)
         }
 
-        @Html.Partial("~/Areas/Patent/Views/Shared/_Partial_Document_Others.cshtml")
+        @Html.Partial("~/Areas/Patent/Views/Shared/_Lao_Partial_Document_Others.cshtml")
         @* CAM KẾT CHỦ ĐƠN  *@
         @Html.Partial("~/Areas/TradeMark/Views/TradeMarkRegistration/_PartialViewNgayThangNam.cshtml")
 
