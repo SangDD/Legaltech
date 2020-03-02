@@ -3216,6 +3216,11 @@
                 }
                 app_Detail.Logourl = Server.MapPath(app_Detail.Logourl);
 
+               
+                // gán vào nhóm
+                //app_Detail.list_app = pAppClassInfo;
+
+
                 List<App_Detail_F04_Info> _lst = new List<App_Detail_F04_Info>();
                 _lst.Add(app_Detail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_F04_Info>(_lst, false);
@@ -3223,36 +3228,8 @@
 
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string _tempfile = "F04.rpt";
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
-                if (p_View_Translate == 1)
-                {
-                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
-                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
-                    {
-                        _tempfile = "F04_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf";
-                    }
-                    else
-                    {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf";
-                    }
-                }
-                else
-                {
-                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
-                    {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_VN_" + _datetimenow + ".pdf";
-                    }
-                    else
-                    {
-                        _tempfile = "C03_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_EN_" + _datetimenow + ".pdf";
-                    }
-                }
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "F04_" + _datetimenow + ".pdf");
+                SessionData.CurrentUser.FilePreview = "/Content/Export/" + "F04_" + _datetimenow + ".pdf";
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (app_Detail.Logourl != null && app_Detail.Logourl != "")
@@ -3304,33 +3281,40 @@
                     //System.IO.FileInfo file = new System.IO.FileInfo(app_Detail.Logourl);
                 }
 
-                if (_ds_all != null)
-                {
-                    _ds_all.Tables[0].TableName = "Table";
-                    // _ds_all.WriteXml(@"D:\F04.xml", XmlWriteMode.WriteSchema);
+                DataTable _dt_header = ConvertData.ConvertToDatatable<App_Detail_F04_Info>(_lst, false);
+                DataTable _dtDetail = ConvertData.ConvertToDatatable<AppClassDetailInfo>(pAppClassInfo, false);
 
-                    // đè các bản dịch lên
-                    if (p_View_Translate == 1)
-                    {
-                        // nếu là bản xem của thằng dịch
-                        App_Translate_BL _App_Translate_BL = new App_Translate_BL();
-                        List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
+                DataSet _ds = new DataSet();
+                _ds.Tables.Add(_dt_header);
+                _ds.Tables[0].TableName = "Table";
 
-                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
-                    }
+                _ds.Tables.Add(_dtDetail);
+                _ds.Tables[1].TableName = "Table1";
 
-                    oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
-                    //oRpt.SetDataSource(_ds_all);
-                }
+                //if (_ds != null)
+                //{
+                //    _ds.WriteXml(@"C:\inetpub\F04.xml", XmlWriteMode.WriteSchema);
+                //}
 
-                // Convert list to Dataset
-                DataSet _ds_class = ConvertData.ConvertToDataSet<AppClassDetailInfo>(pAppClassInfo, false);
-                if (_ds_class != null)
-                {
-                   // _ds_class.WriteXml(@"D:\A05.xml", XmlWriteMode.WriteSchema);
-                    _ds_class.Tables[0].TableName = "Table1";
-                    oRpt.SetDataSource(_ds_class);
-                }
+                //if (_ds_all != null)
+                //{
+                    //_ds_all.Tables[0].TableName = "Table";
+                    //// _ds_all.WriteXml(@"C:\inetpub\F04.xml", XmlWriteMode.WriteSchema);
+                    //// đè các bản dịch lên
+                    //if (p_View_Translate == 1)
+                    //{
+                    //    // nếu là bản xem của thằng dịch
+                    //    App_Translate_BL _App_Translate_BL = new App_Translate_BL();
+                    //    List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
+
+                    //    AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
+                    //}
+                //}
+                
+
+                oRpt.Database.Tables["Table"].SetDataSource(_ds.Tables[0]);
+                oRpt.Database.Tables["Table1"].SetDataSource(_ds.Tables[1]);
+                //oRpt.SetDataSource(_ds_all);
                 oRpt.Refresh();
 
                 Response.Buffer = false;
@@ -3392,7 +3376,7 @@
                 _lst.Add(pDetail);
 
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_F04_Info>(_lst, false);
-                //_ds_all.WriteXml(@"C:\inetpub\A01.xml", XmlWriteMode.WriteSchema);
+                //_ds_all.WriteXml(@"C:\inetpub\F04.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "F04.rpt";

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Web;
 
 namespace ObjectInfos
@@ -94,6 +95,9 @@ namespace ObjectInfos
             this.Months = p_app_header.Months;
             this.Years = p_app_header.Years;
         }
+
+        //public List<AppClassDetailInfo> list_app { set; get; }
+
         public decimal Used_Special { set; get; }
 
         public decimal Id { get; set; }

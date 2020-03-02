@@ -221,7 +221,7 @@
     }
 
     //Lấy thông tin chủ đơn add vào formData
-    function funcThongTin_No3_SaveTem(formData, PreID) {
+    function funcThongTin_No2_SaveTem(formData, PreID) {
         try {
             var txtTenDayDu = $("#" + PreID + "_txtTenDayDu_Lao_No2").val();
             var txtDiaChi = $("#" + PreID + "_txtDiaChi_Lao_No2").val();
@@ -230,17 +230,16 @@
             var txtEmail = $("#" + PreID + "_txtEmail_Lao_No2").val();
 
             //Chủ đơn
-            if (PreID == "2") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
+            formData.append("pInfo.Master_Name", txtTenDayDu);
+            formData.append("pInfo.Master_Address", txtDiaChi);
+            formData.append("pInfo.Master_Phone", txtDienThoai);
+            formData.append("pInfo.Master_Fax", txtFax);
+            formData.append("pInfo.Master_Email", txtEmail);
 
-                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
-                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
-                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
-            }
+            formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
+            formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
+            formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation".val());
+
             return true;
         } catch (e) {
             return false;
@@ -257,17 +256,16 @@
             var txtEmail = $("#" + PreID + "_txtEmail_Lao_No2").val();
 
             //Chủ đơn
-            if (PreID == "1") {
-                formData.append("pInfo.Master_Name", txtTenDayDu);
-                formData.append("pInfo.Master_Address", txtDiaChi);
-                formData.append("pInfo.Master_Phone", txtDienThoai);
-                formData.append("pInfo.Master_Fax", txtFax);
-                formData.append("pInfo.Master_Email", txtEmail);
+            formData.append("pInfo.Master_Name", txtTenDayDu);
+            formData.append("pInfo.Master_Address", txtDiaChi);
+            formData.append("pInfo.Master_Phone", txtDienThoai);
+            formData.append("pInfo.Master_Fax", txtFax);
+            formData.append("pInfo.Master_Email", txtEmail);
 
-                formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
-                formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
-                formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
-            }
+            formData.append("pInfo.Master_Country_Nationality", $("#" + PreID + "_txtCountry_Nationality").val());
+            formData.append("pInfo.Master_Country_Residence", $("#" + PreID + "_txtCountry_Residence").val());
+            formData.append("pInfo.Master_Country_Incorporation", $("#" + PreID + "_txt_Country_Incorporation").val());
+
             return true;
         } catch (e) {
             return false;

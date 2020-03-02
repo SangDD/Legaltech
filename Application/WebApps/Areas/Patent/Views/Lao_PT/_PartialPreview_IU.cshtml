@@ -51,7 +51,7 @@
             //    return false;
             //}
 
-            if (funcThongTin_No2(formData, "1") != true) {
+            if (funcThongTinChuDon_Exp(formData, "1") != true) {
                 return false;
             }
 
@@ -62,19 +62,17 @@
             }
 
             // đại diện chủ đơn
-            //if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
-            //    return false;
-            //}
+            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
+                return false;
+            }
 
-            if (funcThongTin_No3(formData, "1") != true) {
+            if (funcThongTin_No3_SaveTem(formData, "1") != true) {
                 return false;
             }
 
             if (funcOther_BoxNo3(formData) != true) {
                 return false;
             }
-
-
 
             if (funcChuDonKhac(formData) != true) {
                 return false;
