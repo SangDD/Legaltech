@@ -2802,7 +2802,7 @@
                     //Thêm thông tin class
                     string keyData = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
                     List<AppClassDetailInfo> pAppClassInfo = (List<AppClassDetailInfo>)SessionData.GetDataSession(keyData);
-                    if (pAppClassInfo != null)
+                    if (pAppClassInfo == null)
                     {
                         pAppClassInfo = new List<AppClassDetailInfo>();
                     }
@@ -2976,7 +2976,7 @@
 
                     string keyData = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
                     List<AppClassDetailInfo> pAppClassInfo = (List<AppClassDetailInfo>)SessionData.GetDataSession(keyData);
-                    if (pAppClassInfo != null)
+                    if (pAppClassInfo == null)
                     {
                         pAppClassInfo = new List<AppClassDetailInfo>();
                     }
