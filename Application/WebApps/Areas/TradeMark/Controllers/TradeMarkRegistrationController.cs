@@ -3322,6 +3322,15 @@
                     oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
                     //oRpt.SetDataSource(_ds_all);
                 }
+
+                // Convert list to Dataset
+                DataSet _ds_class = ConvertData.ConvertToDataSet<AppClassDetailInfo>(pAppClassInfo, false);
+                if (_ds_class != null)
+                {
+                   // _ds_class.WriteXml(@"D:\A05.xml", XmlWriteMode.WriteSchema);
+                    _ds_class.Tables[0].TableName = "Table1";
+                    oRpt.SetDataSource(_ds_class);
+                }
                 oRpt.Refresh();
 
                 Response.Buffer = false;
