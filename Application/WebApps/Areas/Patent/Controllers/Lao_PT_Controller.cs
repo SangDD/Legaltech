@@ -609,79 +609,75 @@ namespace WebApps.Areas.Patent.Controllers
                 string _datetimenow = DateTime.Now.ToString("ddMMyyyyHHmm");
                 string language = AppsCommon.GetCurrentLang();
 
-                var objBL = new A01_BL();
-                List<A01_Info_Export> _lst = new List<A01_Info_Export>();
+                var objBL = new Pattent_Lao_BL();
+                List<Pattent_Lao_Info_Export> _lst = new List<Pattent_Lao_Info_Export>();
 
                 List<AppDocumentInfo> appDocumentInfos = new List<AppDocumentInfo>();
                 List<AppFeeFixInfo> _lst_appFeeFixInfos = new List<AppFeeFixInfo>();
                 ApplicationHeaderInfo applicationHeaderInfo = new ApplicationHeaderInfo();
-                List<AuthorsInfo> _lst_authorsInfos = new List<AuthorsInfo>();
+                List<Inventor_Info> _Lst_Inventor_Info = new List<Inventor_Info>();
                 List<Other_MasterInfo> _lst_Other_MasterInfo = new List<Other_MasterInfo>();
                 List<AppDocumentOthersInfo> _LstDocumentOthersInfo = new List<AppDocumentOthersInfo>();
                 List<AppClassDetailInfo> _lst_appClassDetailInfos = new List<AppClassDetailInfo>();
                 List<UTienInfo> pUTienInfo = new List<UTienInfo>();
                 List<AppDocumentOthersInfo> pLstImagePublic = new List<AppDocumentOthersInfo>();
-                A01_Info_Export app_Detail = objBL.GetByID_Exp(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
-                    ref _lst_authorsInfos, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstImagePublic);
+                Pattent_Lao_Info app_Detail = objBL.GetByID(pAppHeaderId, language, ref applicationHeaderInfo, ref appDocumentInfos, ref _lst_appFeeFixInfos,
+                    ref _Lst_Inventor_Info, ref _lst_Other_MasterInfo, ref _lst_appClassDetailInfos, ref _LstDocumentOthersInfo, ref pUTienInfo, ref pLstImagePublic);
 
-                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "A01_VN_" + _datetimenow + ".pdf");
-
-                // tiếng việt, bị lộn nên ko muốn đổi
-                string _tempfile = "A01.rpt";
-                if (p_View_Translate == 1)
+                string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf");
+                if (language == Language.LangVI)
                 {
-                    // nếu là tiếng việt thì xem bản tiếng anh và ngược lại
-                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
-                    {
-                        _tempfile = "A01_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "L_Patent_EN_" + _datetimenow + ".pdf";
-                    }
-                    else
-                    {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf";
-                    }
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf";
                 }
                 else
                 {
-                    if (applicationHeaderInfo.Languague_Code == Language.LangVI)
+                    fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_EN_" + _datetimenow + ".pdf");
+                    SessionData.CurrentUser.FilePreview = "/Content/Export/" + "L_Patent_EN_" + _datetimenow + ".pdf";
+                }
+
+                Pattent_Lao_Info_Export _Info_Export = new Pattent_Lao_Info_Export();
+                Pattent_Lao_Info_Export.CopyA01_Info(ref _Info_Export, app_Detail);
+
+                foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id == applicationHeaderInfo.Master_Country_Nationality)
                     {
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf";
+                        applicationHeaderInfo.Master_Country_Nationality_Name = item.Name;
                     }
-                    else
+                    if (item.Country_Id == applicationHeaderInfo.Master_Country_Incorporation)
                     {
-                        _tempfile = "A01_EN.rpt"; // tiếng anh
-                        fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_EN_" + _datetimenow + ".pdf");
-                        SessionData.CurrentUser.FilePreview = "/Content/Export/" + "L_Patent_EN_" + _datetimenow + ".pdf";
+                        applicationHeaderInfo.Master_Country_Incorporation_Name = item.Name;
+                    }
+                    if (item.Country_Id == applicationHeaderInfo.Master_Country_Residence)
+                    {
+                        applicationHeaderInfo.Master_Country_Residence_Name = item.Name;
                     }
                 }
 
-                AppsCommon.Prepare_Data_Export_A01(ref app_Detail, applicationHeaderInfo, appDocumentInfos, _lst_appFeeFixInfos, _lst_authorsInfos, _lst_Other_MasterInfo,
-                       _lst_appClassDetailInfos, _LstDocumentOthersInfo, pUTienInfo, pLstImagePublic);
 
-                _lst.Add(app_Detail);
-                DataSet _ds_all = ConvertData.ConvertToDataSet<A01_Info_Export>(_lst, false);
+                // Phí cố định
+                List<AppFeeFixInfo> _lstFeeFix = new List<AppFeeFixInfo>();
+
+                Call_Fee.Prepare_Data_Export_PT_Lao(ref _Info_Export, applicationHeaderInfo, appDocumentInfos, _lstFeeFix, _Lst_Inventor_Info, _lst_Other_MasterInfo,
+                                      _lst_appClassDetailInfos, _LstDocumentOthersInfo, pUTienInfo, pLstImagePublic);
+
+                _lst.Add(_Info_Export);
+                DataSet _ds_all = ConvertData.ConvertToDataSet<Pattent_Lao_Info_Export>(_lst, false);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
+                //_ds_all.WriteXml(@"E:\LPT.xml", XmlWriteMode.WriteSchema);
 
-
+                string _tempfile = "L_Patent.rpt";
+                //if (language == Language.LangEN)
+                //{
+                //    _tempfile = "L_Patent_EN.rpt";
+                //}
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (_ds_all != null)
                 {
-                    _ds_all.Tables[0].TableName = "Table1";
-                    // đè các bản dịch lên
-                    if (p_View_Translate == 1)
-                    {
-                        // nếu là bản xem của thằng dịch
-                        App_Translate_BL _App_Translate_BL = new App_Translate_BL();
-                        List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
-
-                        AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
-                    }
-
-                    oRpt.Database.Tables["Table1"].SetDataSource(_ds_all.Tables[0]);
+                    _ds_all.Tables[0].TableName = "Table";
+                    oRpt.Database.Tables["Table"].SetDataSource(_ds_all.Tables[0]);
                     //oRpt.SetDataSource(_ds_all);
                 }
                 oRpt.Refresh();
@@ -690,10 +686,12 @@ namespace WebApps.Areas.Patent.Controllers
                 Response.ClearContent();
                 Response.ClearHeaders();
 
+                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
+
                 System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
                 byte[] byteArray = new byte[oStream.Length];
                 oStream.Read(byteArray, 0, Convert.ToInt32(oStream.Length - 1));
-                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq
+                System.IO.File.WriteAllBytes(fileName_pdf, byteArray.ToArray()); // Requires System.Linq 
 
                 return Json(new { success = 0 });
             }
@@ -720,7 +718,6 @@ namespace WebApps.Areas.Patent.Controllers
                 //var objBL = new A01_BL();
                 List<Pattent_Lao_Info_Export> _lst = new List<Pattent_Lao_Info_Export>();
 
-                string p_appCode = "A01_Preview";
                 string fileName_pdf = System.Web.HttpContext.Current.Server.MapPath("/Content/Export/" + "L_Patent_VN_" + _datetimenow + ".pdf");
                 if (language == Language.LangVI)
                 {
@@ -753,7 +750,6 @@ namespace WebApps.Areas.Patent.Controllers
                         pInfo.Master_Country_Residence_Name = item.Name;
 
                     }
-                   
                 }
 
 
@@ -765,14 +761,14 @@ namespace WebApps.Areas.Patent.Controllers
 
                 _lst.Add(_A01_Info_Export);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<Pattent_Lao_Info_Export>(_lst, false);
-                _ds_all.WriteXml(@"D:\A01.xml", XmlWriteMode.WriteSchema);
+                //_ds_all.WriteXml(@"D:\A01.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
 
                 string _tempfile = "L_Patent.rpt";
-                if (language == Language.LangEN)
-                {
-                    _tempfile = "L_Patent_EN.rpt";
-                }
+                //if (language == Language.LangEN)
+                //{
+                //    _tempfile = "L_Patent_EN.rpt";
+                //}
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
                 if (_ds_all != null)

@@ -4276,7 +4276,37 @@ namespace WebApps.CommonFunction
             {
                 // copy Header
                 Pattent_Lao_Info_Export.CopyAppHeaderInfo(ref app_Detail, applicationHeaderInfo);
+                app_Detail.Drawing = pLstImagePublic.Count;
 
+                if (app_Detail.Multiple == null)
+                {
+                    app_Detail.Multiple = "F";
+                }
+
+                if (app_Detail.SetOfArticle == null)
+                {
+                    app_Detail.SetOfArticle = "F";
+                }
+
+                if (app_Detail.Composition == null)
+                {
+                    app_Detail.Composition = "F";
+                }
+
+                if (app_Detail.Claims == null)
+                {
+                    app_Detail.Claims = "";
+                }
+
+                if (app_Detail.Description == null)
+                {
+                    app_Detail.Description = "";
+                }
+
+                if (app_Detail.Abstract == null)
+                {
+                    app_Detail.Abstract = "";
+                }
 
                 // copy tác giả
                 if (pInventor_Info != null && pInventor_Info.Count > 0)
@@ -4367,7 +4397,7 @@ namespace WebApps.CommonFunction
 
                 #region Tài liệu có trong đơn
 
-                if (_LstDocumentOthersInfo != null)
+                if (_LstDocumentOthersInfo != null && _LstDocumentOthersInfo.Count > 0)
                 {
                     foreach (var item in _LstDocumentOthersInfo)
                     {
@@ -4375,6 +4405,10 @@ namespace WebApps.CommonFunction
                     }
 
                     app_Detail.strDanhSachFileDinhKem = app_Detail.strDanhSachFileDinhKem.Substring(0, app_Detail.strDanhSachFileDinhKem.Length - 2);
+                }
+                else
+                {
+                    app_Detail.strDanhSachFileDinhKem = "";
                 }
 
                 foreach (AppDocumentInfo item in appDocumentInfos)
