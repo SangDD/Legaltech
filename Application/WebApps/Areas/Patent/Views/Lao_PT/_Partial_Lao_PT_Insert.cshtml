@@ -21,21 +21,11 @@
     {
         var pShortInfo = new SuggestInfo("", "");
 
-        if (language == Language.LangVI)
+        if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
         {
-            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
-            {
-                pShortInfo = new SuggestInfo(item.name.Replace('/', ' '), item.value);
-            }
+            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' ') + "[" + item.value + "]", item.value);
+            clstAppClassShortSuggest.Add(pShortInfo);
         }
-        else
-        {
-            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
-            {
-                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' '), item.value);
-            }
-        }
-        clstAppClassShortSuggest.Add(pShortInfo);
     }
 
     string _Search_Code = "";
@@ -246,7 +236,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="" maxlength="50" id="txt_Request_Pattent" style="width: 250px;" placeholder="Pages" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                        <input type="text" value="" maxlength="50" id="txt_Request_Pattent" style="width: 250px;" placeholder="Pages" onkeyup="FomartNumberCurency(this.value, this.id)" />
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -254,7 +244,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="" type="text" maxlength="50" id="txt_Claims" placeholder="Point" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                        <input value="" type="text" maxlength="50" id="txt_Claims" placeholder="Point" onkeyup="FomartNumberCurency(this.value, this.id)" />
                     </div>
                 </div>
                 <div class="div-search-title">
@@ -273,7 +263,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input value="" type="text" maxlength="500" id="txt_Description" placeholder="pages" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                        <input value="" type="text" maxlength="500" id="txt_Description" placeholder="pages" onkeyup="FomartNumberCurency(this.value, this.id)" />
                     </div>
                 </div>
             </div>
@@ -384,8 +374,21 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="" maxlength="500" id="txt_Class_Industrial" />
+                        <input type="text" value="" maxlength="500" id="txt_Class_Industrial" placeholder="Class no separated by ;"/>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>
+                    Suggestions
+                </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTenHangHoa" placeholder="Search class/product" style="border-left: 1px solid #ccc;width:100%" />
                 </div>
             </div>
         </div>
@@ -423,7 +426,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="500" id="txt_Filling_Fee" style="width:150px" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                    <input type="text" maxlength="500" id="txt_Filling_Fee" style="width:150px" onkeyup="FomartNumberCurency(this.value, this.id)" />
                 </div>
             </div>
 
@@ -432,7 +435,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="15" id="txt_Basic_Fee" style="width:150px" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                    <input type="text" maxlength="15" id="txt_Basic_Fee" style="width:150px" onkeyup="FomartNumberCurency(this.value, this.id)" />
                 </div>
             </div>
 
@@ -441,7 +444,7 @@
             </div>
             <div class="div-search-content">
                 <div>
-                    <input type="text" maxlength="15" id="txt_Others_Fee" onkeyup = "FomartNumberCurency(this.value, this.id)"/>
+                    <input type="text" maxlength="15" id="txt_Others_Fee" onkeyup="FomartNumberCurency(this.value, this.id)" />
                 </div>
             </div>
         </div>
@@ -519,6 +522,68 @@
         });
 
         onChange_Type();
+    });
+
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                //$("#txtClass").val(ui.item.value);
+                //return false;
+                //var textinput = $("#txtTenHangHoa").val();
+                //event.preventDefault();
+                //funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                console.log(ui.item.label);
+
+                var _Class_Industrial = "";
+                if ($("#1_rdIndustrial").is(':checked')) {
+                    _Class_Industrial = $("#txt_Class_Industrial").val();
+                } else {
+                    _Class_Industrial = $("#txt_Class_Pattent").val();
+                }
+                
+                if (_Class_Industrial != "") {
+                    _Class_Industrial = _Class_Industrial + ";" + ui.item.value;
+                } else {
+                    _Class_Industrial =  ui.item.value;
+                }
+
+                console.log(_Class_Industrial);
+
+                if ($("#1_rdIndustrial").is(':checked')) {
+                    $("#txt_Class_Industrial").val(_Class_Industrial);
+                } else {
+                    $("#txt_Class_Pattent").val(_Class_Industrial);
+                }
+                
+                $("#txtTenHangHoa").val(ui.item.label);
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
     });
 
 

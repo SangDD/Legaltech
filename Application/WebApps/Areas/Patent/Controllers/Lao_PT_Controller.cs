@@ -817,11 +817,12 @@ namespace WebApps.Areas.Patent.Controllers
 
         [HttpPost]
         [Route("getFee")]
-        public ActionResult GetFee(A01_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo, List<AppDocumentOthersInfo> pLstImagePublic)
+        public ActionResult GetFee(Pattent_Lao_Info pDetail, List<AppDocumentInfo> pAppDocumentInfo, List<UTienInfo> pUTienInfo,
+            List<AppDocumentOthersInfo> pLstImagePublic, List<AppDocumentOthersInfo> pAppDocOtherInfo)
         {
             try
             {
-                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_A01(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic);
+                List<AppFeeFixInfo> _lstFeeFix = Call_Fee.CallFee_PT_Lao(pDetail, pAppDocumentInfo, pUTienInfo, pLstImagePublic, pAppDocOtherInfo);
                 ViewBag.LstFeeFix = _lstFeeFix;
             }
             catch (Exception ex)

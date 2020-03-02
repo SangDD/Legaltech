@@ -154,43 +154,76 @@
     function funcPreViewFee() {
 
         var formData = new FormData();
-        formData.append("pInfo.Appcode", $("#txtAppCode").val());
-        formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+            formData.append("pInfo.Appcode", $("#txtAppCode").val());
+            formData.append("pInfo.Languague_Code", '@WebApps.CommonFunction.AppsCommon.GetCurrentLang()');
+            formData.append("pInfo.View_Translate", 0);
 
-        if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
-            formData.append("pInfo.Master_Type", "TGDT");
-        } else if ($("#rdChuDonKhac").is(':checked')) {
-            formData.append("pInfo.Master_Type", "CDK");
-        }
+            //Thông tin chủ đơn
+            //if (funcThongTinChuDon_Exp(formData, "1") != true) {
+            //    return false;
+            //}
 
-        var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
-        formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+            if (funcThongTinChuDon_Exp(formData, "1") != true) {
+                return false;
+            }
 
-        //Lấy thông tin tài liệu có trong đơn
-        reponse = funGetDocumentFile(formData);
-        if (reponse == false) {
-            return false;
-        }
+            if ($("#1_ckbTacGiaDongThoi").is(':checked')) {
+                formData.append("pInfo.Master_Type", "TGDT");
+            } else if ($("#rdChuDonKhac").is(':checked')) {
+                formData.append("pInfo.Master_Type", "CDK");
+            }
 
-        //Tài liệu khác trong đơn
-        reponse = funcGetTenTaiLieuKhac(formData);
-        if (reponse == false) {
-            return false;
-        }
+            // đại diện chủ đơn
+            if (funcThongTinDaiDienChuDon_Exp(formData, "2") != true) {
+                return false;
+            }
 
-        reponse = funcGetImagePublic(formData);
-        if (reponse == false) {
-            return false;
-        }
+            if (funcThongTin_No3_SaveTem(formData, "1") != true) {
+                return false;
+            }
 
-        //Lấy thông tin detail
-        reponse = funcGetAppDetail(formData, 1);
-        if (reponse == false) {
-            return false;
-        }
+            if (funcOther_BoxNo3(formData) != true) {
+                return false;
+            }
+
+            if (funcChuDonKhac(formData) != true) {
+                return false;
+            }
+
+            var v_RepMasterType = $("input[name='_2_DaiDienChuDon']:checked").val();
+            formData.append("pInfo.Rep_Master_Type", v_RepMasterType);
+
+            //Lấy thông tin tài liệu có trong đơn
+            reponse = funGetDocumentFile(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            //Tài liệu khác trong đơn
+            reponse = funcGetTenTaiLieuKhac(formData);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetImagePublic(formData);
+            if (reponse == false) {
+
+                return false;
+            }
+
+            //Lấy thông tin detail
+            reponse = funcGetAppDetail(formData, 1);
+            if (reponse == false) {
+                return false;
+            }
+
+            reponse = funcGetCamKetChuDon(formData);
+            if (reponse == false) {
+                return false;
+            }
 
         $.ajax({
-            url: "/lg-patent/getFee",
+            url: "/lg-patent-lao/getFee",
             type: 'POST',
             data: formData,
             dataType: "json",

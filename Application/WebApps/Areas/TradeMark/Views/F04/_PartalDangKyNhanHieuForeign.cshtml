@@ -12,21 +12,11 @@
     {
         var pShortInfo = new SuggestInfo("", "");
 
-        if (language == Language.LangVI)
+        if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
         {
-            if (!string.IsNullOrEmpty(item.name) && !string.IsNullOrEmpty(item.value))
-            {
-                pShortInfo = new SuggestInfo(item.name.Replace('/', ' ') + "[" + item.value + "]", item.value);
-            }
+            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' ') + "[" + item.value + "]", item.value);
+            clstAppClassShortSuggest.Add(pShortInfo);
         }
-        else
-        {
-            if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
-            {
-                pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' ') + "[" + item.value + "]", item.value);
-            }
-        }
-        clstAppClassShortSuggest.Add(pShortInfo);
     }
     List<AllCodeInfo> _lstLogoType = WebApps.CommonFunction.AppsCommon.AllCode_GetBy_CdTypeCdName("NOTICE_APP", "LOGOTYPE");
 
@@ -539,10 +529,10 @@
                 response(results.slice(0, 100));
             },
             select: function (event, ui) {
-                $("#txtClass").val(ui.item.value);
+                //$("#txtClass").val(ui.item.value);
                 //return false;
-                var textinput = $("#txtTenHangHoa").val();
-                event.preventDefault();
+                //var textinput = $("#txtTenHangHoa").val();
+                //event.preventDefault();
                 //funcAddDataRowSuggest(ui.item.label, ui.item.value);
                 $("#txtTenHangHoa").val("");
             },

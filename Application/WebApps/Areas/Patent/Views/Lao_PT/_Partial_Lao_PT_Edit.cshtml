@@ -77,6 +77,18 @@
     {
         _todo = null;
     }
+
+    var clstAppClassShortSuggest = new List<SuggestInfo>();
+    foreach (var item in MemoryData.clstAppClassSuggest)
+    {
+        var pShortInfo = new SuggestInfo("", "");
+
+        if (!string.IsNullOrEmpty(item.name_en) && !string.IsNullOrEmpty(item.value))
+        {
+            pShortInfo = new SuggestInfo(item.name_en.Replace('/', ' ') + "[" + item.value + "]", item.value);
+            clstAppClassShortSuggest.Add(pShortInfo);
+        }
+    }
 }
 
 <style>
@@ -665,6 +677,68 @@
         });
 
         onChange_Type();
+    });
+
+    $(function ()
+    {
+      try {
+        var availableTags = [];
+        var array = @Html.Raw(Json.Encode(clstAppClassShortSuggest));
+        for (var i = 0; i < array.length; i++) {
+            availableTags[i] = array[i];
+        }
+        $("#txtTenHangHoa").autocomplete({
+            minLength: 3,
+            source: function (request, response) {
+                var results = $.ui.autocomplete.filter(availableTags, request.term.toUpperCase());
+                response(results.slice(0, 100));
+            },
+            select: function (event, ui) {
+                //$("#txtClass").val(ui.item.value);
+                //return false;
+                //var textinput = $("#txtTenHangHoa").val();
+                //event.preventDefault();
+                //funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                console.log(ui.item.label);
+
+                var _Class_Industrial = "";
+                if ($("#1_rdIndustrial").is(':checked')) {
+                    _Class_Industrial = $("#txt_Class_Industrial").val();
+                } else {
+                    _Class_Industrial = $("#txt_Class_Pattent").val();
+                }
+                
+                if (_Class_Industrial != "") {
+                    _Class_Industrial = _Class_Industrial + ";" + ui.item.value;
+                } else {
+                    _Class_Industrial =  ui.item.value;
+                }
+
+                console.log(_Class_Industrial);
+
+                if ($("#1_rdIndustrial").is(':checked')) {
+                    $("#txt_Class_Industrial").val(_Class_Industrial);
+                } else {
+                    $("#txt_Class_Pattent").val(_Class_Industrial);
+                }
+                
+                $("#txtTenHangHoa").val(ui.item.label);
+            },
+            focus: function (event, ui) {
+                var arrResult = $(".ui-menu-item");
+                for (var i = 0; i < arrResult.length; i++) {
+                    var label = $.trim($(arrResult[i]).text().split("-")[0]);
+                    if (label == ui.item.name) {
+                        $(".clsLiActive").removeClass("clsLiActive")
+                        $(arrResult[i]).addClass("clsLiActive");
+                        break;
+                    }
+                }
+                event.preventDefault();
+            }
+        });
+        } catch (e) {
+        }
     });
 
     function onChange_Type() {
