@@ -3362,10 +3362,22 @@ namespace WebApps.CommonFunction
                 foreach (T item in data)
                 {
                     SoThuTu++;
-                    for (int i = 0; i < values.Length - 1; i++)
+
+                    if (p_isAdd_STT == true)
                     {
-                        values[i] = props[i].GetValue(item);
+                        for (int i = 0; i < values.Length - 1; i++)
+                        {
+                            values[i] = props[i].GetValue(item);
+                        }
                     }
+                    else
+                    {
+                        for (int i = 0; i < values.Length; i++)
+                        {
+                            values[i] = props[i].GetValue(item);
+                        }
+                    }
+                    
 
                     if (p_isAdd_STT == true)
                     {

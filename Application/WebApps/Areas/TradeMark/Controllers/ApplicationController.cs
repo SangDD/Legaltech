@@ -728,6 +728,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.HinhThuc;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
 
@@ -963,6 +966,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
                 decimal _status = (decimal)CommonEnums.Notice_Reject_Status.Admin_Duyet_Dich;
                 if (p_status != 1)
@@ -989,6 +995,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 App_Notice_Info_BL _obj_bl = new App_Notice_Info_BL();
                 decimal _status = (decimal)CommonEnums.Notice_Reject_Status.LuatSu_Update_Deadline;
 
@@ -1048,6 +1057,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.CongBo_Don;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
 
@@ -1089,6 +1101,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.NoiDung;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
 
@@ -1131,6 +1146,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.ThongBao_Cap_Bang;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
                 decimal _status_app = (decimal)CommonEnums.App_Status.ThongBaoCapBang;
@@ -1172,6 +1190,9 @@ namespace WebApps.Areas.TradeMark.Controllers
         {
             try
             {
+                if (SessionData.CurrentUser == null)
+                    return Redirect("/");
+
                 pInfo.Notice_Type = (decimal)CommonEnums.Notice_Type.CongBo_Bang;
                 pInfo.Status = (decimal)CommonEnums.Notice_Accept_Status.LuatSu_GuiChoAdminDuyet;
                 decimal _status_app = (decimal)CommonEnums.App_Status.ThongBaoCapBang;
@@ -1295,7 +1316,7 @@ namespace WebApps.Areas.TradeMark.Controllers
             try
             {
                 DateTime _dt = ConvertData.ConvertString2Date(p_date);
-                return Json(new { success = _dt.ToString("dd/MM/yyyy") });
+                return Json(new { success = _dt.AddYears(5).ToString("dd/MM/yyyy") });
             }
             catch (Exception ex)
             {

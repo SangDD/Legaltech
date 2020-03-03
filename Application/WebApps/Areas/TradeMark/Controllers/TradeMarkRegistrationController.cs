@@ -3174,6 +3174,20 @@
                     ViewBag.Obj = pAppClassInfo;
                 }
 
+                int i = 0;
+                foreach (AppClassDetailInfo item in pAppClassInfo)
+                {
+                    if (i == 0)
+                    {
+                        item.TextinputVI = "Class No.";
+                    }
+                    else
+                    {
+                        item.TextinputVI = "";
+                    }
+                    i++;
+                }
+
                 AppsCommon.Prepare_Data_Export_F04(ref app_Detail, applicationHeaderInfo, appDocumentInfos);
 
                 app_Detail.Ngaynopdon_ut_text = app_Detail.Ngaynopdon_ut.ToString("dd/MM/yyyy");
@@ -3214,11 +3228,7 @@
                 {
                     app_Detail.Logourl = AppLoadHelpers.PushFileToServer(app_Detail.pfileLogo, AppUpload.Logo);
                 }
-                app_Detail.Logourl = Server.MapPath(app_Detail.Logourl);
-
-               
-                // gán vào nhóm
-                //app_Detail.list_app = pAppClassInfo;
+                app_Detail.Logourl = Server.MapPath(app_Detail.Logourl); 
 
 
                 List<App_Detail_F04_Info> _lst = new List<App_Detail_F04_Info>();
@@ -3293,24 +3303,8 @@
 
                 //if (_ds != null)
                 //{
-                //    _ds.WriteXml(@"C:\inetpub\F04.xml", XmlWriteMode.WriteSchema);
+                //    _ds.WriteXml(@"D:\F04.xml", XmlWriteMode.WriteSchema);
                 //}
-
-                //if (_ds_all != null)
-                //{
-                    //_ds_all.Tables[0].TableName = "Table";
-                    //// _ds_all.WriteXml(@"C:\inetpub\F04.xml", XmlWriteMode.WriteSchema);
-                    //// đè các bản dịch lên
-                    //if (p_View_Translate == 1)
-                    //{
-                    //    // nếu là bản xem của thằng dịch
-                    //    App_Translate_BL _App_Translate_BL = new App_Translate_BL();
-                    //    List<App_Translate_Info> _lst_translate = _App_Translate_BL.App_Translate_GetBy_AppId(pAppHeaderId);
-
-                    //    AppsCommon.Overwrite_DataSouce_Export(ref _ds_all, _lst_translate);
-                    //}
-                //}
-                
 
                 oRpt.Database.Tables["Table"].SetDataSource(_ds.Tables[0]);
                 oRpt.Database.Tables["Table1"].SetDataSource(_ds.Tables[1]);
@@ -3361,6 +3355,8 @@
                 }
 
                 AppsCommon.Prepare_Data_Export_F04(ref pDetail, pInfo, pAppDocumentInfo);
+                pDetail.Ngaynopdon_ut_text = pDetail.Ngaynopdon_ut.ToString("dd/MM/yyyy");
+
                 if (pAppDocOtherInfo != null)
                 {
                     foreach (var item in pAppDocOtherInfo)
@@ -3373,8 +3369,28 @@
                         pDetail.Note = pDetail.Note.Substring(0, pDetail.Note.Length - 2);
                     }
                 }
-                _lst.Add(pDetail);
 
+                foreach (var item in MemoryData.c_lst_Country)
+                {
+                    if (item.Country_Id.ToString() == pDetail.Nuocnopdon_ut.ToString())
+                    {
+                        pDetail.Nuocnopdon_ut_text = item.Name;
+                        break;
+                    }
+                }
+                pDetail.DuadateText = "";
+                if (pDetail.Duadate != DateTime.MinValue)
+                {
+                    pDetail.DuadateText = pDetail.Duadate.ToString("dd/MM/yyyy");
+                }
+                
+                // logo
+                if (pDetail.Logourl != null && pDetail.Logourl != "")
+                {
+                    pDetail.Logourl = Server.MapPath(pDetail.Logourl);
+                }
+
+                _lst.Add(pDetail);
                 DataSet _ds_all = ConvertData.ConvertToDataSet<App_Detail_F04_Info>(_lst, false);
                 //_ds_all.WriteXml(@"C:\inetpub\F04.xml", XmlWriteMode.WriteSchema);
                 CrystalDecisions.CrystalReports.Engine.ReportDocument oRpt = new CrystalDecisions.CrystalReports.Engine.ReportDocument();
@@ -3386,18 +3402,80 @@
                 }
                 oRpt.Load(Path.Combine(Server.MapPath("~/Report/"), _tempfile));
 
-                if (_ds_all != null)
+                if (pDetail.Logourl != null && pDetail.Logourl != "")
                 {
-                    _ds_all.Tables[0].TableName = "Table";
-                    oRpt.SetDataSource(_ds_all);
+                    CrystalDecisions.CrystalReports.Engine.PictureObject _pic01;
+                    _pic01 = (CrystalDecisions.CrystalReports.Engine.PictureObject)oRpt.ReportDefinition.Sections[0].ReportObjects["Picture1"];
+                    _pic01.Width = 200;
+                    _pic01.Height = 200;
+                    int _marginleft = 350, _margintop = 10363;
+                    try
+                    {
+                        Bitmap img = new Bitmap(pDetail.Logourl);
+                        try
+                        {
+                            // dangtq sửa
+                            // tính theo đơn vị Twips -> 1 inch = 1440 twips
+                            // 96.00000 tỷ lệ convert 1px ra in (96 px = 1 in)
+                            // _height_pic_rpt, _width_pic_rpt kích thước khung box trong rpt
+                            int _height_pic_rpt = 4665; //-> 4855
+                            int _saixo = 260;
+                            int _twips = 1440;
+                            double _px_to_in = 96.00000;
+
+                            double h_in = img.Height / _px_to_in;
+                            double h1 = (_height_pic_rpt - (h_in * _twips)) / 2;
+                            _pic01.Top = _margintop + (int)h1 + 100;
+
+                            int _width_pic_rpt = 4340; // -> 4410
+                            double w_in = img.Width / _px_to_in;
+                            double w1 = (_width_pic_rpt - (w_in * _twips)) / 2;
+                            _pic01.Left = _marginleft + (int)w1 + _saixo;
+
+                            //_pic01.Left = 1335;
+                            //_pic01.Top = 5640;
+                        }
+                        catch (Exception ex)
+                        {
+                            Logger.LogException(ex);
+                        }
+                        finally
+                        {
+                            img.Dispose();
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }
+
+                    //System.IO.FileInfo file = new System.IO.FileInfo(app_Detail.Logourl);
                 }
+
+                string keyData = "Class_F04_" + SessionData.CurrentUser.Id.ToString();
+                List<AppClassDetailInfo> pAppClassInfo = (List<AppClassDetailInfo>)SessionData.GetDataSession(keyData);
+                if (pAppClassInfo == null)
+                {
+                    pAppClassInfo = new List<AppClassDetailInfo>();
+                }
+
+                DataTable _dt_header = ConvertData.ConvertToDatatable<App_Detail_F04_Info>(_lst, false);
+                DataTable _dtDetail = ConvertData.ConvertToDatatable<AppClassDetailInfo>(pAppClassInfo, false);
+
+                DataSet _ds = new DataSet();
+                _ds.Tables.Add(_dt_header);
+                _ds.Tables[0].TableName = "Table";
+
+                _ds.Tables.Add(_dtDetail);
+                _ds.Tables[1].TableName = "Table1";
+
+                oRpt.Database.Tables["Table"].SetDataSource(_ds.Tables[0]);
+                oRpt.Database.Tables["Table1"].SetDataSource(_ds.Tables[1]);
+                //oRpt.SetDataSource(_ds_all);
                 oRpt.Refresh();
 
                 Response.Buffer = false;
                 Response.ClearContent();
                 Response.ClearHeaders();
-
-                //oRpt.ExportToDisk(ExportFormatType.PortableDocFormat, fileName_pdf);
 
                 System.IO.Stream oStream = oRpt.ExportToStream(ExportFormatType.PortableDocFormat);
                 byte[] byteArray = new byte[oStream.Length];

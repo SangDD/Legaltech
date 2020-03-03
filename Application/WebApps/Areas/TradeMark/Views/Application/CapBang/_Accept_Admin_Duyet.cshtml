@@ -54,7 +54,7 @@
         <img src="~/Content/icons/category.png" />
         <div class="cls_form_header">
             @*Admin review grant public*@
-            @(WebApps.Resources.Resource.Review + " " + WebApps.Resources.Resource.ThongBaoCapBang)
+            @(WebApps.Resources.Resource.Review + " " + WebApps.Resources.Resource.ThongBaoCapBang.ToLower())
         </div>
     </div>
 
@@ -183,7 +183,7 @@
     <div class="form-group">
         <div class="form-group-bottom">
             <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Submit" onclick="return do_Submit('@_AppHeaderInfo.Case_Code')" />
-            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" />
+            <input type="submit" class="btn-default" value="@WebApps.Resources.Resource.Transfer" onclick="return onTransfer('@_AppHeaderInfo.Case_Code')" style="display:none"/>
             @*<input type="button" value="@WebApps.Resources.Resource.Back" onclick="return goBack()" style="margin-left:10px" class="btn-default" />*@
         </div>
     </div>
