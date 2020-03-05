@@ -356,7 +356,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="" maxlength="500" id="txt_Class_Pattent" />
+                        <input type="text" value="" maxlength="500" id="txt_Class_Pattent" placeholder="Class no separated by ;"/>
                     </div>
                 </div>
             </div>
@@ -544,30 +544,33 @@
                 //var textinput = $("#txtTenHangHoa").val();
                 //event.preventDefault();
                 //funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                
+                event.preventDefault();
+                SetClass(ui.item.value,ui.item.label);
                 console.log(ui.item.label);
+                $("#txtTenHangHoa").val("");
 
-                var _Class_Industrial = "";
-                if ($("#1_rdIndustrial").is(':checked')) {
-                    _Class_Industrial = $("#txt_Class_Industrial").val();
-                } else {
-                    _Class_Industrial = $("#txt_Class_Pattent").val();
-                }
+                //var _Class_Industrial = "";
+                //if ($("#1_rdIndustrial").is(':checked')) {
+                //    _Class_Industrial = $("#txt_Class_Industrial").val();
+                //} else {
+                //    _Class_Industrial = $("#txt_Class_Pattent").val();
+                //}
                 
-                if (_Class_Industrial != "") {
-                    _Class_Industrial = _Class_Industrial + ";" + ui.item.value;
-                } else {
-                    _Class_Industrial =  ui.item.value;
-                }
+                //if (_Class_Industrial != "") {
+                //    _Class_Industrial = _Class_Industrial + ";" + ui.item.value;
+                //} else {
+                //    _Class_Industrial =  ui.item.value;
+                //}
 
-                console.log(_Class_Industrial);
+                //console.log(_Class_Industrial);
 
-                if ($("#1_rdIndustrial").is(':checked')) {
-                    $("#txt_Class_Industrial").val(_Class_Industrial);
-                } else {
-                    $("#txt_Class_Pattent").val(_Class_Industrial);
-                }
+                //if ($("#1_rdIndustrial").is(':checked')) {
+                //    $("#txt_Class_Industrial").val(_Class_Industrial);
+                //} else {
+                //    $("#txt_Class_Pattent").val(_Class_Industrial);
+                //}
                 
-                $("#txtTenHangHoa").val(ui.item.label);
             },
             focus: function (event, ui) {
                 var arrResult = $(".ui-menu-item");
@@ -585,6 +588,35 @@
         } catch (e) {
         }
     });
+
+    function SetClass(_value, _content) {
+        try {
+            var _Class_Industrial = "";
+            if ($("#1_rdIndustrial").is(':checked')) {
+                _Class_Industrial = $("#txt_Class_Industrial").val();
+            } else {
+                _Class_Industrial = $("#txt_Class_Pattent").val();
+            }
+                
+            if (_Class_Industrial != "") {
+                _Class_Industrial = _Class_Industrial + ";" + _value;
+            } else {
+                _Class_Industrial =  _value;
+            }
+
+            console.log(_Class_Industrial);
+
+            if ($("#1_rdIndustrial").is(':checked')) {
+                $("#txt_Class_Industrial").val(_Class_Industrial);
+            } else {
+                $("#txt_Class_Pattent").val(_Class_Industrial);
+            }
+                
+            $("#txtTenHangHoa").val("");
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 
     function onChangeTLKhac() {

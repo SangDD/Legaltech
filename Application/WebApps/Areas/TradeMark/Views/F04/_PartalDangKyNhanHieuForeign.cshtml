@@ -205,7 +205,7 @@
                         </div>
                         <div class="container" id="divckbNhanHieuAnh" style="flex-grow:1;padding-top:50px">
                             <div class="file-upload btn btn-primary" style="margin-top:95px">
-                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                <span>Upload file</span>
                                 <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                             </div>
                         </div>
@@ -529,11 +529,8 @@
                 response(results.slice(0, 100));
             },
             select: function (event, ui) {
-                //$("#txtClass").val(ui.item.value);
-                //return false;
-                //var textinput = $("#txtTenHangHoa").val();
-                //event.preventDefault();
-                //funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                event.preventDefault();
+                SetClass(ui.item.value, ui.item.label);
                 $("#txtTenHangHoa").val("");
             },
             focus: function (event, ui) {
@@ -553,6 +550,16 @@
         }
     });
 
+    function SetClass(_value, _content) {
+        try {
+             
+            $("#ClassNo").val(_value);
+            $("#txt_Class_Description").val(_content);
+            $("#txtTenHangHoa").val("");
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 
     function funcAddRemoveDisabled(pIDControl, ptxtDisable) {

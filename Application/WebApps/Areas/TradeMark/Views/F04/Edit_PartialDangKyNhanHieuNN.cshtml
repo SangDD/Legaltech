@@ -241,7 +241,7 @@
                         <div class="container divLogoAnh" id="iddivLogoAnh" style="flex-grow:1;padding-top:50px">
                             <img onclick="funcRemoveTradeMarkImg('imgMauNhanHieu')" src="~/Content/icons/delete_file.png" style="margin: 0px 21px -44px 4px;" />
                             <div class="file-upload btn btn-primary" style="margin-top:95px">
-                                <span>@WebApps.Resources.Resource.lblTaiFile</span>
+                                <span>Upload file</span>
                                 <input type="file" name="pfile_6_rdoMauNhanHieu" id="pfile_6_rdoMauNhanHieu" class="upload fileuploadurl" />
                             </div>
                         </div>
@@ -546,7 +546,7 @@
                 }
             }
             <div class="classLuuTam">
-                <input type="button" value="@WebApps.Resources.Resource.Back" onclick="return goBack()" style="margin-left:10px" class="btn class_37" />
+                <input type="button" value="Back" onclick="return goBack()" style="margin-left:10px" class="btn class_37" />
             </div>
         </div>
 
@@ -622,11 +622,8 @@
                 response(results.slice(0, 100));
             },
             select: function (event, ui) {
-                $("#txtClass").val(ui.item.value);
-                //return false;
-                var textinput = $("#txtTenHangHoa").val();
                 event.preventDefault();
-                //funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                SetClass(ui.item.value, ui.item.label);
                 $("#txtTenHangHoa").val("");
             },
             focus: function (event, ui) {
@@ -645,6 +642,17 @@
         } catch (e) {
         }
     });
+
+    function SetClass(_value, _content) {
+        try {
+             
+            $("#ClassNo").val(_value);
+            $("#txt_Class_Description").val(_content);
+            $("#txtTenHangHoa").val("");
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     //disable enable
     $("input[id='6_rdoTLCMQUT'").change(function () {

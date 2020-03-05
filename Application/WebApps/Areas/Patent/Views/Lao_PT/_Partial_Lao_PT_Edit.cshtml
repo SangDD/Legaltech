@@ -505,7 +505,7 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="@_App_Detail.Class_Content" maxlength="500" id="txt_Class_Pattent" />
+                        <input type="text" value="@_App_Detail.Class_Content" maxlength="500" id="txt_Class_Pattent" placeholder="Class no separated by ;"/>
                     </div>
                 </div>
             </div>
@@ -523,11 +523,25 @@
                 </div>
                 <div class="div-search-content">
                     <div>
-                        <input type="text" value="@_App_Detail.Class_Content" maxlength="500" id="txt_Class_Industrial" />
+                        <input type="text" value="@_App_Detail.Class_Content" maxlength="500" id="txt_Class_Industrial" placeholder="Class no separated by ;"/>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="div-search-ad">
+            <div class="div-search-title">
+                <div>
+                    Suggestions
+                </div>
+            </div>
+            <div class="div-search-content">
+                <div>
+                    <input type="text" id="txtTenHangHoa" placeholder="Search class/product" style="border-left: 1px solid #ccc;width:100%" />
+                </div>
+            </div>
+        </div>
+
 
 
         @* CÁC TÀI LIỆU CÓ TRONG ĐƠN *@
@@ -647,7 +661,7 @@
                 }
             </div>
             <div class="classLuuTam">
-                <input type="button" value="@WebApps.Resources.Resource.Back" onclick="return goBack()" style="margin-left:10px" class="btn class_37" />
+                <input type="button" value="Back" onclick="return goBack()" style="margin-left:10px" class="btn class_37" />
             </div>
         </div>
     </fieldset>
@@ -694,35 +708,10 @@
                 response(results.slice(0, 100));
             },
             select: function (event, ui) {
-                //$("#txtClass").val(ui.item.value);
-                //return false;
-                //var textinput = $("#txtTenHangHoa").val();
-                //event.preventDefault();
-                //funcAddDataRowSuggest(ui.item.label, ui.item.value);
+                event.preventDefault();
+                SetClass(ui.item.value,ui.item.label);
                 console.log(ui.item.label);
-
-                var _Class_Industrial = "";
-                if ($("#1_rdIndustrial").is(':checked')) {
-                    _Class_Industrial = $("#txt_Class_Industrial").val();
-                } else {
-                    _Class_Industrial = $("#txt_Class_Pattent").val();
-                }
-                
-                if (_Class_Industrial != "") {
-                    _Class_Industrial = _Class_Industrial + ";" + ui.item.value;
-                } else {
-                    _Class_Industrial =  ui.item.value;
-                }
-
-                console.log(_Class_Industrial);
-
-                if ($("#1_rdIndustrial").is(':checked')) {
-                    $("#txt_Class_Industrial").val(_Class_Industrial);
-                } else {
-                    $("#txt_Class_Pattent").val(_Class_Industrial);
-                }
-                
-                $("#txtTenHangHoa").val(ui.item.label);
+                $("#txtTenHangHoa").val("");
             },
             focus: function (event, ui) {
                 var arrResult = $(".ui-menu-item");
@@ -740,6 +729,35 @@
         } catch (e) {
         }
     });
+
+    function SetClass(_value, _content) {
+        try {
+            var _Class_Industrial = "";
+            if ($("#1_rdIndustrial").is(':checked')) {
+                _Class_Industrial = $("#txt_Class_Industrial").val();
+            } else {
+                _Class_Industrial = $("#txt_Class_Pattent").val();
+            }
+                
+            if (_Class_Industrial != "") {
+                _Class_Industrial = _Class_Industrial + ";" + _value;
+            } else {
+                _Class_Industrial =  _value;
+            }
+
+            console.log(_Class_Industrial);
+
+            if ($("#1_rdIndustrial").is(':checked')) {
+                $("#txt_Class_Industrial").val(_Class_Industrial);
+            } else {
+                $("#txt_Class_Pattent").val(_Class_Industrial);
+            }
+                
+            $("#txtTenHangHoa").val("");
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     function onChange_Type() {
 
